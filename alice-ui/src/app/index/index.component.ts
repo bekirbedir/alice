@@ -1,0 +1,34 @@
+import { Component, ViewChild, OnInit } from '@angular/core';
+import {TabMenuModule} from 'primeng/tabmenu';
+import {MenuItem} from 'primeng/api'
+
+@Component({
+  selector: 'app-index',
+  templateUrl: './index.component.html',
+  styleUrls: ['./index.component.scss']
+})
+export class IndexComponent implements OnInit {
+
+
+  closeItem(event, index) {
+    this.items = this.items.filter((item, i) => i !== index);
+    event.preventDefault();
+}
+    
+  items: MenuItem[];
+    
+  activeItem: MenuItem;
+
+  ngOnInit() {
+      this.items = [
+          {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},
+          {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
+          {label: 'Edit', icon: 'pi pi-fw pi-pencil'},
+          {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file'},
+          {label: 'Giriş Yap', icon: 'pi pi-sign-in'},
+          {label: 'Kayıt Ol', icon: 'pi pi-user-plus'}
+      ];
+
+      this.activeItem = this.items[0];
+  }
+}
