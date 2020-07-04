@@ -30,36 +30,30 @@ export class ActivitiesComponent implements OnInit {
   ngOnInit() {
     this.images=[
       {
-          "previewImageSrc": "assets/activites/1.jpg",
-          "thumbnailImageSrc": "assets/activites/1.jpg",
+          "previewImageSrc": "assets/activites/1.jpeg",
+          "thumbnailImageSrc": "assets/activites/1.jpeg",
           "alt": "Description for Image 1",
           "title": "Title 1"
       },
  
       {
-          "previewImageSrc":"assets/activites/2.jpg",
-          "thumbnailImageSrc":"assets/activites/2.jpg",
+          "previewImageSrc":"assets/activites/2.jpeg",
+          "thumbnailImageSrc":"assets/activites/2.jpeg",
           "alt": "Description for Image 2",
           "title": "Title 2"
       },
       {
-          "previewImageSrc": "assets/activites/3.jpg",
-          "thumbnailImageSrc":"assets/activites/3.jpg",
+          "previewImageSrc": "assets/activites/3.jpeg",
+          "thumbnailImageSrc":"assets/activites/3.jpeg",
           "alt": "Description for Image 3",
           "title": "Title 3"
       },
       {
-          "previewImageSrc": "assets/activites/4.jpg",
-          "thumbnailImageSrc": "assets/activites/4.jpg",
-          "alt": "Description for Image 4",
-          "title": "Title 4"
-      },
-      {
-          "previewImageSrc": "assets/activites/5.jpg",
-          "thumbnailImageSrc":"assets/activites/5.jpg",
-          "alt": "Description for Image 5",
-          "title": "Title 5"
-      }]
+        "previewImageSrc": "assets/activites/6.jpeg",
+        "thumbnailImageSrc":"assets/activites/6.jpeg",
+        "alt": "Description for Image 6",
+        "title": "Title 6"
+    }]
   }
 }
  

@@ -28,9 +28,12 @@
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "node_modules/primeflex/primeflex.css",
+              "src/styles.scss",
+              "node_modules/quill/dist/quill.core.css", 
+              "node_modules/quill/dist/quill.snow.css"
             ],
-            "scripts": []
+            "scripts": ["node_modules/quill/dist/quill.js" ]  
           },
           "configurations": {
             "production": {

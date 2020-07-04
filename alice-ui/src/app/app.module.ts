@@ -23,7 +23,7 @@ import {GMapModule} from 'primeng/gmap';
   declarations: [
     AppComponent,
     IndexComponent
-  ],
+  ], 
   imports: [
     BrowserModule,
     NgxsModule.forRoot(),

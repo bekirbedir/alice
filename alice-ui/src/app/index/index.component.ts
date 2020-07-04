@@ -18,12 +18,12 @@ export class IndexComponent implements OnInit {
   items: MenuItem[];
     
   activeItem: MenuItem;
-
+  
   ngOnInit() {
       this.items = [
           {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},
           {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
-          {label: 'Edit', icon: 'pi pi-fw pi-pencil'},
+          {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
           {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file'},
           {label: 'Giriş Yap', icon: 'pi pi-sign-in'},
           {label: 'Kayıt Ol', icon: 'pi pi-user-plus'}

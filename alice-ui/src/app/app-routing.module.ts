@@ -4,10 +4,7 @@ import { IndexComponent } from './index/index.component';
 
 
 const routes: Routes = [
-  {
-    path: '',
-    component: IndexComponent
-  },
+
   {
     path: 'users',
     loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
@@ -15,6 +12,10 @@ const routes: Routes = [
   {
     path: 'activities',
     loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule)
+  },
+  {
+    path: 'communication',
+    loadChildren: () => import('./communication/communication.module').then(m => m.CommunicationModule)
   }
 ];
 
