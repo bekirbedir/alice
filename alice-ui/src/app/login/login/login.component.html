@@ -1,0 +1,47 @@
+<div class="login-panel">
+
+    <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+  
+      <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
+        <p-card  >
+          <div class="p-col-12">
+
+          </div>
+          <div class="p-grid p-align-center">
+            <div class="p-col">
+              <img src="assets/logo22.svg" class="login-logo">
+            </div>
+            <div class="p-col-12">
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input id="input-username" type="text" size="30" class="p-col " pInputText [(ngModel)]="userName"
+                  placeholder="Kullanıcı adı veya email">
+              </div>
+            </div>
+            <div class="p-col-12">
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
+                <input id="input-password" type="password" size="30" class="p-col" pInputText [(ngModel)]="password"
+                  placeholder="Parola">
+              </div>
+            </div>
+            <div class="p-col-12 text-center">
+              <a>Şifremi unuttum?</a>
+            </div>
+          </div>
+          <div class="p-grid" >
+           
+            <div class="p-col-6">
+              <button pButton type="button" label="Giriş Yap" class="ui-button-raised  p-col-12 login-btn"
+                (click)="onClickLogin()"></button>
+              </div>
+              <div class="p-col-6">
+              <button pButton type="button" label="Kayıt Ol »" class="ui-button-raised p-col-12"
+                [routerLink]="['/register']"></button>
+              </div>
+          </div>
+        </p-card>
+        
+      </div>
+    </div>
+  </div>

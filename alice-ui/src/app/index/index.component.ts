@@ -21,11 +21,11 @@ export class IndexComponent implements OnInit {
   
   ngOnInit() {
       this.items = [
-          {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},
+          {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
           {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
           {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
           {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file'},
-          {label: 'Giriş Yap', icon: 'pi pi-sign-in'},
+          {label: 'Giriş Yap', icon: 'pi pi-sign-in', routerLink:'login' },
           {label: 'Kayıt Ol', icon: 'pi pi-user-plus'}
       ];
 
