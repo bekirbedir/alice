@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ActivitiesComponent } from './activities/activities.component';
 import {GalleriaModule} from 'primeng/galleria';
 import { RouterModule, Routes } from '@angular/router';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 
 const routes: Routes = [
   {
@@ -14,9 +16,11 @@ const routes: Routes = [
 @NgModule({
   declarations: [ActivitiesComponent],
   imports: [
+    CardModule,
     CommonModule,      
     RouterModule.forChild(routes),
-    GalleriaModule
+    GalleriaModule,
+    ButtonModule
   ]
 })
 export class ActivitiesModule { }

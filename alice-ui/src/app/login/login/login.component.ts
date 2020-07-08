@@ -11,15 +11,11 @@ export class LoginComponent implements OnInit {
 
   userName: "";
   password: "";
-
   locale: "";
-
   version: string;
-
-  msgs: any[];
+  msgs: any[];  
 
   constructor(
-   
   ) { }
 
   ngOnInit() {

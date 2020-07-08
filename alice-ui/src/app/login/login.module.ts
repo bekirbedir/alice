@@ -37,7 +37,7 @@ const routes: Routes = [
         PanelModule,
         ToastModule,
         MegaMenuModule,
-              MessageModule,
+         MessageModule,
         CardModule,
         ProgressSpinnerModule,
         OverlayPanelModule,

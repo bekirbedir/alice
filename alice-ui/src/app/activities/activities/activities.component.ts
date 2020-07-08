@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import {CardModule} from 'primeng/card';
 
 @Component({
   selector: 'app-activities',
@@ -6,8 +8,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./activities.component.css']
 })
 export class ActivitiesComponent implements OnInit {
-
-
 
   images: any[];
         
