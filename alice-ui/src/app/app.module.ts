@@ -17,6 +17,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MessageModule } from 'primeng/message';
 import { TabMenuModule } from 'primeng/tabmenu';
 import {GMapModule} from 'primeng/gmap';
+import {MenubarModule} from 'primeng/menubar';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+
 
 
 
@@ -40,7 +44,10 @@ import {GMapModule} from 'primeng/gmap';
     MatIconModule,
     MessageModule,
     TabMenuModule,
-    GMapModule
+    GMapModule,
+    MenubarModule,
+    InputTextModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

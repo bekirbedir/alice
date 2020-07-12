@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {CardModule} from 'primeng/card';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-activities',
@@ -27,7 +28,19 @@ export class ActivitiesComponent implements OnInit {
           numVisible: 1
       }
   ];
+  modules: MenuItem[];
+    
+  activeItem1: MenuItem;
+
   ngOnInit() {
+    
+  this.modules = [
+      {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
+      {label: 'Turnuva', icon: 'pi pi-fw pi-calendar',routerLink:'challenges'}
+    ];
+
+  this.activeItem1 = this.modules[0];
+
     this.images=[
       {
           "previewImageSrc": "assets/activites/1.jpeg",

@@ -5,6 +5,9 @@ import {GalleriaModule} from 'primeng/galleria';
 import { RouterModule, Routes } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { MenuItem } from 'primeng/api';
+import {TabMenuModule} from 'primeng/tabmenu';
+
 
 const routes: Routes = [
   {
@@ -20,7 +23,8 @@ const routes: Routes = [
     CommonModule,      
     RouterModule.forChild(routes),
     GalleriaModule,
-    ButtonModule
+    ButtonModule,
+    TabMenuModule
   ]
 })
 export class ActivitiesModule { }
