@@ -19,6 +19,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessagesModule } from 'primeng/messages';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginService } from '../auth/login.service';
 
 const routes: Routes = [
   {
@@ -26,7 +28,7 @@ const routes: Routes = [
     component: LoginComponent
   }
 ];
-
+ 
 @NgModule({
   declarations: [LoginComponent],
   imports: [
@@ -39,6 +41,7 @@ const routes: Routes = [
         MegaMenuModule,
          MessageModule,
         CardModule,
+    
         ProgressSpinnerModule,
         OverlayPanelModule,
         BreadcrumbModule,
@@ -48,6 +51,7 @@ const routes: Routes = [
         InputTextareaModule,
         MessagesModule,
         RouterModule.forChild(routes),
-  ]
+  ],
+  providers:[]
 })
 export class LoginModule { }

@@ -11,5 +11,5 @@
 </p-tabMenu> -->
 <p-menubar [model]="items">
     <input type="text" pInputText placeholder="Ara">
-    <button pButton label=" Çıkış yap" icon="pi pi-power-off"></button>
+    <button (click)="LogOut()" style="margin-left: 5px !important;" pButton label=" Çıkış yap" icon="pi pi-power-off"></button>
 </p-menubar>

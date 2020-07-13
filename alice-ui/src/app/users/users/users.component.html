@@ -1,1 +1,8 @@
-users çalıştı
+<p-listbox [options]="users" [(ngModel)]="users" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="userName">
+    <p-header>
+      Users
+    </p-header>
+  </p-listbox>
+  <p>Selected users: <span *ngFor="let c of users" style="margin-right: 10px">{{c.userName}}</span></p>
+
+

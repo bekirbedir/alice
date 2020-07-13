@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {CardModule} from 'primeng/card';
+import { LoginService } from 'src/app/auth/login.service';
 
 @Component({
   selector: 'app-login',
@@ -15,27 +16,27 @@ export class LoginComponent implements OnInit {
   version: string;
   msgs: any[];  
 
-  constructor(
-  ) { }
+  constructor(private loginservice:LoginService
+  ) { 
+
+  }
 
   ngOnInit() {
-    this.userName = "";
-    this.password = "";
-  //  this.locale = this.sessionService.getItem("ng-prime-language");
-  //  this.version = environment.version;
- //   this.msgs = [{ severity: 'info', detail: 'UserName: admin' }, { severity: 'info', detail: 'Password: password' }];
+  
+  this.userName=""
+  this.password=""
+
   }
 
   onClickLogin() {
-    console.log(this.userName+ this.password);
- /*  let user: User = this.userService.getUserByUserNameAndPassword(this.userName, this.password);
-    if (user) {
-      this.userContextService.setUser(user);
-      this.routeStateService.add("Dashboard", '/main/dashboard', null, true);
-      return;
-    }
-    this.toastService.addSingle('error', '', 'Invalid user.');*/
-    return; 
+    console.log(this.userName, this.password);
+    
+    this.loginservice.login(this.userName,this.password).subscribe(x=>{
+      console.log(x)
+    })
+
+
+   
   }
 
 

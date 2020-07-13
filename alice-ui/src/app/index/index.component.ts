@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {MenuItem} from 'primeng/api'
 import {MenubarModule} from 'primeng/menubar';
+import { LoginService } from '../auth/login.service';
 
 
 
@@ -12,6 +13,9 @@ import {MenubarModule} from 'primeng/menubar';
 })
 export class IndexComponent implements OnInit {
 
+  constructor(private loginservice:LoginService){
+
+  }
 
   closeItem(event, index) {
     this.items = this.items.filter((item, i) => i !== index);
@@ -35,5 +39,8 @@ export class IndexComponent implements OnInit {
       ];
 
       this.activeItem = this.items[0];
+  }
+  LogOut(){
+   this.loginservice.logout()
   }
 }

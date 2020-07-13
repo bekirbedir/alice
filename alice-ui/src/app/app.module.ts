@@ -20,7 +20,12 @@ import {GMapModule} from 'primeng/gmap';
 import {MenubarModule} from 'primeng/menubar';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { JwtInterceptor } from './auth/jwt.interceptor';
+import { ErrorInterceptor } from './auth/error.interceptor';
+import { LoginService } from './auth/login.service';
+import { FriendState } from './store/states/friend.state';
+import { AuthGuard } from './auth/auth.guard';
 
 
 
@@ -31,8 +36,9 @@ import { ButtonModule } from 'primeng/button';
   ], 
   imports: [
     BrowserModule,
-    NgxsModule.forRoot(),
+    NgxsModule.forRoot([FriendState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -41,6 +47,7 @@ import { ButtonModule } from 'primeng/button';
     MatMenuModule,
     MatButtonModule,
     FlexLayoutModule,
+    HttpClientModule,
     MatIconModule,
     MessageModule,
     TabMenuModule,
@@ -49,7 +56,8 @@ import { ButtonModule } from 'primeng/button';
     InputTextModule,
     ButtonModule
   ],
-  providers: [],
+  providers: [  AuthGuard,LoginService,{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+              { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

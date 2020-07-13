@@ -1,16 +1,19 @@
 const db = require("./db")();
 const express = require("express");
+var cors = require('cors')
+
 const app = express();
 var path = require('path');
 var bodyParser = require('body-parser')
 var auhtguard=require('./Controllers/user.authguard')
 app.use(bodyParser.json());
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 const usersRouter = require("./Controllers/user.controller");
 var router = express.Router(); 
-app.use('/users/',auhtguard, usersRouter);
-
+// app.use('/users/',auhtguard, usersRouter);
+app.use('/users/', usersRouter);
 
 
 
@@ -19,7 +22,7 @@ app.listen(port, () => {
   console.log(`localhost:${port} -> api working !!! `);
 });
 
-module.exports = app;
+module.exports = app;  
 
 
 
