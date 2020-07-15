@@ -14,7 +14,6 @@ export class ActivityService {
   
   constructor(private _httpClient:HttpClient) { }
   getActivityList(): Observable<Activity[]> {
-    console.log("act-bura");
     return this._httpClient
       .get<Activity[]>(this.valuesUrl)
       .pipe(
