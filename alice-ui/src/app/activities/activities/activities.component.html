@@ -13,6 +13,76 @@
 </p-galleria> 
 -->
 
+<!--   <p>Selected users: <span *ngFor="let c of users" style="margin-right: 10px">{{c.userName}}</span></p> -->
+<!--Repeat area-->
+
+
+<div  *ngFor="let act of activities" class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+    <div class="p-xl-6 p-lg-6 p-md-6 p-sm-6">
+    <p-card>
+    
+        <div class="p-grid">
+        <div class="p-col-1">
+          <img class="act-header-photo" src="assets/gokcenur.jpg" >
+        </div>
+        <div class="p-col-11 act-content">
+            <p class="act-header-user-name">{{act.username}}</p>
+           <p class="act-header-name">{{act.header}}</p>
+           <div class="h-10"></div>
+           <div class="act-content-text">
+            {{act.context}}
+           </div>
+
+           <div class="h-10"></div>
+           <div class="act-content-tags">
+             {{act.tagList}}
+           </div>
+           <div class="h-5"></div>
+           <div >
+            <img class="act-photo" src="assets/kamp.jpg" >
+          </div>
+          <div class="h-5"></div>
+          <div class="act-content-footer">
+            <div class="p-grid">
+                <div class="p-col"><i class="pi pi-heart"></i> {{act.like}}</div>
+                <div class="p-col"><i class="pi pi-users"></i> {{act.participation}}</div>
+              <div class="p-col"><i class="pi pi-clock"></i> 22/07/2020</div>
+            </div>
+            <hr>
+            <div class="p-grid">
+                
+                <div class="p-col-6 act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
+            <div class="p-col-6 act-content-btn-signin"><i class="pi pi-sign-in"></i>&nbsp; Katıl</div>
+            </div>
+
+            
+          </div>
+           
+        </div>
+        <!--<div class="act-header">
+           <span><img class="act-header-photo" src="assets/gokcenur.jpg" ></span>
+        <span class="act-header-name">Gökçenur GÖKYÜREK</span>
+           
+        </div>
+        <p>
+            #7 Günlük Kamp
+        </p>
+       
+        SONNN 1 KİŞİLİKKK YERİMİZ KALDI!!!! Ankara da kamp grubu oluşturup 6-7 günde hem tarihi yerleri gezip hemde sahil deniz kampları yapalım. Temmuzun 10-17 si Muğla Datça dayız farklı şehirlerden kampçılara da açık.Tatil yapıp hem de kamp yapmak istiyorsan ne duruyorsun daha....Ankara dışından gelen kampçıları da beklerim.
+not : 1 kız arkadaşı kendi çadırımda misafir edebilirim onun dışında kendi ekipmanlarımızı getirmeliyiz.
+
+        <div >
+            <img class="act-photo" src="assets/kamp.jpg" >
+        </div>
+        <p-footer>
+            Footer content here
+        </p-footer> -->
+    </div>
+    </p-card>
+</div>
+</div>
+
+<!--Repeat area-->
 
 
 <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">

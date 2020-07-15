@@ -35,7 +35,6 @@ export class LoginService {
 
     let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
-
     const object = JSON.stringify(transferObject);
     const self = this;  
   
@@ -47,9 +46,6 @@ export class LoginService {
           console.log("gelen token",data.token)
           const user= helper.decodeToken(data.token);
           console.log("decode edilmiş",user);
-            
- 
-
        
           // login successful if there's a jwt token in the response
           if (data.token) {

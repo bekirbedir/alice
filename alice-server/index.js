@@ -15,8 +15,9 @@ const activityRouter = require("./Controllers/activity.controller");
 var router = express.Router(); 
 // app.use('/users/',auhtguard, usersRouter);
 app.use('/users/', usersRouter);
-app.use('/activity/',auhtguard,activityRouter);
 
+//app.use('/activity/',auhtguard,activityRouter); //auth controlu yapiliyor
+app.use('/activity/',activityRouter);
 
 const port= process.env.PORT || 3000;
 app.listen(port, () => {

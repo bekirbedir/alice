@@ -1,0 +1,15 @@
+export class Activity {
+    __v: number;
+    _Id:string;
+    username?: String  | null;
+    createdDate?: String  | null;
+    profilUrl?: String  | null;
+    activityUrl?: String  | null;
+    isActive?: Boolean  | null;
+    header?: String  | null;
+    context?: String  | null;
+    tagList:[String];
+    like?:Number|0;
+    participation?:Number | 0;
+  }
+  

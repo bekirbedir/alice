@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {CardModule} from 'primeng/card';
 import { MenuItem } from 'primeng/api';
+import { Activity } from 'src/app/models/activity';
+
+import { Store, Select } from '@ngxs/store';
+import { GetActivities } from 'src/app/store/actions/activity.action';
+import { ActivityState } from 'src/app/store/states/activity.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-activities',
@@ -11,8 +17,14 @@ import { MenuItem } from 'primeng/api';
 export class ActivitiesComponent implements OnInit {
 
   images: any[];
-        
-  constructor() { }
+  activities:Activity[]
+
+
+  @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
+  constructor(private store:Store) { 
+    this.store.dispatch(new GetActivities())
+    
+  }
 
   responsiveOptions:any[] = [
       {
@@ -33,6 +45,12 @@ export class ActivitiesComponent implements OnInit {
   activeItem1: MenuItem;
 
   ngOnInit() {
+
+    this.Activities.subscribe(x=>{
+      console.log("burdaaa",x)
+      this.activities=x;
+    })
+    
     
   this.modules = [
       {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  

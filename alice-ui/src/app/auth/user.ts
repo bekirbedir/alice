@@ -8,5 +8,8 @@ export class User {
     nbf: number;
     exp: number;
     iat: number;
+    tagList:[String];
+    phone: String;
+    biography: String;
   }
   

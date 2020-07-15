@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-  
-  this.userName=""
-  this.password=""
+
+    this.userName=""
+    this.password=""
 
   }
 

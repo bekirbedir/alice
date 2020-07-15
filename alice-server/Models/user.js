@@ -6,6 +6,10 @@ const UserSchema = new Schema({
   createdDate: String,
   password:String,
   isActive:Boolean,
-  role:String
+  role:String,
+  tagList:[String],
+  email:String,
+  phone: String,
+  biography: String
 });
 module.exports = mongoose.model("User", UserSchema);

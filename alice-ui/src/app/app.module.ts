@@ -25,6 +25,7 @@ import { JwtInterceptor } from './auth/jwt.interceptor';
 import { ErrorInterceptor } from './auth/error.interceptor';
 import { LoginService } from './auth/login.service';
 import { FriendState } from './store/states/friend.state';
+import { ActivityState } from './store/states/activity.state';
 import { AuthGuard } from './auth/auth.guard';
 
 
@@ -36,7 +37,7 @@ import { AuthGuard } from './auth/auth.guard';
   ], 
   imports: [
     BrowserModule,
-    NgxsModule.forRoot([FriendState]),
+    NgxsModule.forRoot([ActivityState,FriendState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
