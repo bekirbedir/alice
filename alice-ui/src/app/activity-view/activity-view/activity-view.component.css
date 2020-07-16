@@ -1,0 +1,40 @@
+.act-photo{
+    max-width: 100% !important;
+}
+.act-header{
+    height: 100px;
+    padding: 5px;
+}
+.act-header-name{
+    font-size: 1.5em;
+    font-weight: 800;
+    color:darkturquoise;
+}
+.act-header-user-name{
+    font-weight: 700;
+}
+.act-header-photo{
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.h-10{
+    height:10px;
+}
+.h-5{
+    height:5px;
+}
+.act-content{
+    padding-left: 20px !important;
+    padding-right: 77px !important;
+}
+.act-content-btn-signin{
+    border-radius: 5px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #007ad9;
+}
+.act-content-btn-comment{
+    border-radius: 2px;
+}

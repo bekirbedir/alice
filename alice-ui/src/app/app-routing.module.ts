@@ -26,7 +26,12 @@ const routes: Routes = [
   {
     path: 'communication',
     loadChildren: () => import('./communication/communication.module').then(m => m.CommunicationModule)
+  },
+  {
+    path: 'activity-view',
+    loadChildren: () => import('./activity-view/activity-view.module').then(m => m.ActivityViewModule)
   }
+  
 ];
 
 @NgModule({
