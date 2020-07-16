@@ -3,6 +3,13 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 $fa-font-path: "../node_modules/font-awesome/fonts";
 @import "../node_modules/font-awesome/scss/font-awesome.scss";
+
+body{
+    background-image: url("/assets/bg.png");
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
 .h-10{
     height:10px;
 }
@@ -17,4 +24,31 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
     border: 1px solid #ccc;
     background-color: whitesmoke;
     font-family: monospace;
+}
+body .ui-menubar {
+    padding: 0;
+    background-color: #ffffff;
+    border-bottom: 1px solid #c8c8c8;
+    height: 100px; 
+    position: relative;
+}
+
+.ui-menubar .ui-menubar-root-list {
+    position: absolute;
+  //  top: 16%;
+    font-size: 1.3em;
+    height: 100%;
+    background-color: green($color: #000000);
+}
+body .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link {
+    padding: 1.714em 0.857em;
+    height: 100%;
+}
+.ui-menubar .ui-menubar-root-list>.ui-menuitem {
+    display: inline-block;
+    position: relative;
+    height: 100%;
+}
+.ui-menubar .ui-menubar-root-list>.ui-menuitem:hover {
+    height: 100%;
 }
