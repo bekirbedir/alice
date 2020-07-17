@@ -18,6 +18,7 @@ const routes: Routes = [
     CardModule,
     CommonModule,      
     RouterModule.forChild(routes),
+    
   ]
 })
 export class ActivityViewModule { }

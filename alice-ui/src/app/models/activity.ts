@@ -1,6 +1,7 @@
 export class Activity {
     __v: number;
     _Id:string;
+    Id:Number
     username?: String  | null;
     createdDate?: String  | null;
     profilUrl?: String  | null;

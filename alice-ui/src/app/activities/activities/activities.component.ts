@@ -5,9 +5,10 @@ import { MenuItem } from 'primeng/api';
 import { Activity } from 'src/app/models/activity';
 
 import { Store, Select } from '@ngxs/store';
-import { GetActivities } from 'src/app/store/actions/activity.action';
+import { GetActivities, GetActivityDetail } from 'src/app/store/actions/activity.action';
 import { ActivityState } from 'src/app/store/states/activity.state';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activities',
@@ -21,7 +22,7 @@ export class ActivitiesComponent implements OnInit {
 
 
   @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
-  constructor(private store:Store) { 
+  constructor(private store:Store,private router:Router) { 
     this.store.dispatch(new GetActivities())
     
   }
@@ -85,6 +86,12 @@ export class ActivitiesComponent implements OnInit {
         "alt": "Description for Image 6",
         "title": "Title 6"
     }]
+  }
+
+  viewDetail(item){
+    console.log(item)
+    this.store.dispatch(new GetActivityDetail(item.Id))
+    this.router.navigate(['/activity-view'])
   }
 }
  
