@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterContentChecked, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {MenuItem} from 'primeng/api'
 import {MenubarModule} from 'primeng/menubar';
@@ -11,11 +11,20 @@ import { LoginService } from '../auth/login.service';
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
 })
-export class IndexComponent implements OnInit {
-
+export class IndexComponent implements   OnInit{
+  isActiveUser:string
   constructor(private loginservice:LoginService){
 
+  this.isActiveUser=localStorage.getItem("aliceuser")
+
+  this.loginservice.user$.subscribe(x=>{
+    console.log("değişiklik oldu")
+    this.isActiveUser=localStorage.getItem("aliceuser")
+    this.ngOnInit()
+  })
   }
+
+  
 
   closeItem(event, index) {
     this.items = this.items.filter((item, i) => i !== index);
@@ -26,21 +35,44 @@ export class IndexComponent implements OnInit {
     
   activeItem: MenuItem;
   
-  ngOnInit() {
-    
-      this.items = [
-          {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
-          {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
-          {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
-          {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file'},
-          {label: 'Giriş Yap', icon: 'pi pi-sign-in', routerLink:'login' },
-          {label: 'Kayıt Ol', icon: 'pi pi-user-plus'},
-          {label: 'Profilim', icon: 'pi pi-user-plus',routerLink:'profile'}
-      ];
 
-      this.activeItem = this.items[0];
+
+  ngOnInit() {
+  console.log("çağrıldı")
+
+    if(this.isActiveUser!=null){
+      console.log(this.isActiveUser,"trueda")
+      this.items = [
+        {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
+        {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
+        {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
+        {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file'},
+        {label: 'Profilim', icon: 'pi pi-user-plus',routerLink:'profile'}
+    ];
+
+    this.activeItem = this.items[0];
+    }
+    else{
+      console.log(this.isActiveUser,"falsede")
+      this.items = [
+        {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
+        {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
+        {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
+        {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file'},
+        {label: 'Giriş Yap', icon: 'pi pi-sign-in', routerLink:'login' },
+        {label: 'Kayıt Ol', icon: 'pi pi-user-plus'},
+        {label: 'Profilim', icon: 'pi pi-user-plus',routerLink:'profile'}
+    ];
+
+    this.activeItem = this.items[0];
+    }
+
+     
   }
+
+
   LogOut(){
    this.loginservice.logout()
   }
+  
 }

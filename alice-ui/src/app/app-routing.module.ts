@@ -31,6 +31,7 @@ const routes: Routes = [
     path: 'activity-view',
     loadChildren: () => import('./activity-view/activity-view.module').then(m => m.ActivityViewModule)
   }
+
   
 ];
 
