@@ -55,6 +55,7 @@ export class LoginService {
             localStorage.setItem('userName', JSON.stringify(user.UserName))
           }
           this.userSubject.next(user);
+          this.router.navigate(['/activities']);
           return user;
         })
       );

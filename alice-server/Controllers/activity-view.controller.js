@@ -7,8 +7,9 @@ var jwt = require('jsonwebtoken');
 
 
 router.get("/", (req, response) => {
-
-    ActivityView.findOne({Id:req.body.Id}, function(err, res) {
+    let id = req.query.Id;
+    console.log("-----burasi",id);
+    ActivityView.findOne({Id:id}, function(err, res) {
         if (err) {
           console.log(err);
         }

@@ -13,7 +13,9 @@ import { LoginService } from '../auth/login.service';
 })
 export class IndexComponent implements   OnInit{
   isActiveUser:string
+  isLogin : Boolean;
   constructor(private loginservice:LoginService){
+   this.isLogin = false;
 
   this.isActiveUser=localStorage.getItem("aliceuser")
 
@@ -42,6 +44,7 @@ export class IndexComponent implements   OnInit{
 
     if(this.isActiveUser!=null){
       console.log(this.isActiveUser,"trueda")
+      this.isLogin = true;
       this.items = [
         {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
         {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
@@ -54,14 +57,12 @@ export class IndexComponent implements   OnInit{
     }
     else{
       console.log(this.isActiveUser,"falsede")
+        this.isLogin = false;
       this.items = [
-        {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
-        {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
+        {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'}, 
+        {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file'}, 
         {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
-        {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file'},
         {label: 'Giriş Yap', icon: 'pi pi-sign-in', routerLink:'login' },
-        {label: 'Kayıt Ol', icon: 'pi pi-user-plus'},
-        {label: 'Profilim', icon: 'pi pi-user-plus',routerLink:'profile'}
     ];
 
     this.activeItem = this.items[0];

@@ -49,12 +49,21 @@ export class ActivityState {
     @Action(GetActivityDetail)
     getActivityDetail({ getState, setState }: StateContext<ActivitiesStateModel>,{id}:GetActivityDetail) {
         const state = getState(); 
-        const activityDetail=state.Activities.find(x=>x.Id==id)
+      /*  const activityDetail=state.Activities.find(x=>x.Id==id)
         console.log(activityDetail,"bu diziden gelen")
         setState({
             ...state,
             Activity: activityDetail
-        });
+        }); */
+        console.log(id,"bu diziden gelen")
+        return this.activityService.getActivity(id).pipe(tap((result) => {
+            const state = getState();
+            setState({
+                ...state,
+                Activity: result
+            });
+        }))
+        
         
 
      

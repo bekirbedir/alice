@@ -7,8 +7,6 @@ var jwt = require('jsonwebtoken');
 router.get("/getall", (request, response) => {
 
     Activity.find({}, function(err, res) {
-      
-
         if (err) {
           console.log(err);
         }

@@ -41,6 +41,7 @@ else {
                          error: 'User not found. Authentication failed.'
                      });
                 }
+            //    console.log("user id::::" ,)
                 const token = jwt.sign({
                   name: user.userName,
                   id: user.id
@@ -86,9 +87,10 @@ else{
    }
 })
 
-router.post("/userview",(req,res)=>{
-  let pUsername=req.body.username
-  if (!req.body.username) {
+router.get("/userview",(req,res)=>{
+  let pUsername=req.query.username
+  console.log("pUsername", pUsername);
+  if (!pUsername) {
     return res.status(404).send({
     message: 'Email or password can not be empty!',
     });
@@ -102,6 +104,23 @@ router.post("/userview",(req,res)=>{
     return res.status(200).send({message:"user not find"})
   }
 })
+})
+
+
+router.get("/detail",(req,res)=>{
+  let id = req.query.Id;
+  console.log("-----burasi",id);
+  User.findOne({Id:id}, function(err, res) {
+      if (err) {
+        console.log(err);
+      }
+      if(res){
+      console.log(res)
+      response.send(res);
+      }
+
+  }
+  )
 })
 
 module.exports = router;

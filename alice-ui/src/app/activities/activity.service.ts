@@ -11,6 +11,7 @@ import { map, tap } from 'rxjs/operators';
 export class ActivityService {
  
   private valuesUrl = environment.apiBaseUrl + "activity/getall";
+  private valuesGetActivityUrl = environment.apiBaseUrl + "activity-view";
   
   constructor(private _httpClient:HttpClient) { }
   getActivityList(): Observable<Activity[]> {
@@ -21,6 +22,18 @@ export class ActivityService {
         tap((x) => console.log("aktiviteler", x))
       );
   } 
+
+  getActivity(id): Observable<Activity> {
+    console.log("-----burasi2",id);
+    return this._httpClient
+      .get<Activity>(this.valuesGetActivityUrl+"?Id=" + id)
+      .pipe(
+        map((res) => res),
+        tap((x) => console.log("aktivite", x)) //bu pipe sadece log icin mi burak? #bb
+      );
+  } 
+  
+  
 
 
 }
