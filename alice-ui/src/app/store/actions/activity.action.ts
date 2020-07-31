@@ -9,7 +9,6 @@ export class GetActivities {
 
 export class GetActivityDetail {
     static readonly type = '[Activity] GetActivityDetail';
-
     constructor(public id) {
     }
 }

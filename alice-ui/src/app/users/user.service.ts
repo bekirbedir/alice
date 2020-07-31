@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Friend } from '../models/friend';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { User } from '../auth/user';
+import { UserModel } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,15 @@ export class UserService {
   getFriendList(): Observable<Friend[]> {
     return this._httpClient
       .get<Friend[]>(this.valuesUrl)
+      .pipe(
+        map((res) => res),
+        tap((x) => console.log("userlar", x))
+      );
+  } 
+
+  getProfile(): Observable<UserModel> {
+    return this._httpClient
+      .get<UserModel>(this.valuesUrl)
       .pipe(
         map((res) => res),
         tap((x) => console.log("userlar", x))

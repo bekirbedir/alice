@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'activity-view',
     loadChildren: () => import('./activity-view/activity-view.module').then(m => m.ActivityViewModule)
+  },
+  {
+    path: 'signup',
+    loadChildren: () => import('./signup/signup.module').then(m => m.SignupModule)
   }
 
   

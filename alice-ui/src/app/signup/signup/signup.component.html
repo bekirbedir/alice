@@ -1,0 +1,66 @@
+<div class="login-panel">
+
+    <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+  
+      <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
+        <p-card  >
+          <div class="p-col-12">
+
+          </div>
+          <div class="p-grid p-align-center">
+              
+            <div class="p-col-12">
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input id="input-name" type="text" size="30" class="p-col " pInputText [(ngModel)]="name"
+                  placeholder="Ad soyad">
+              </div>
+            </div>
+       
+            <div class="p-col-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+                  <input id="input-email" type="text" size="30" class="p-col " pInputText [(ngModel)]="email"
+                    placeholder="Email">
+                </div>
+              </div>
+
+              <div class="p-col-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+                  <input id="input-username" type="text" size="30" class="p-col " pInputText [(ngModel)]="userName"
+                    placeholder="Kullanıcı adı">
+                </div>
+              </div>
+              <div class="p-col-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
+                  <input id="input-password" type="password" size="30" class="p-col" pInputText [(ngModel)]="password"
+                    placeholder="Parola">
+                </div>
+              </div>
+       
+            <div class="p-col-12">
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
+                <textarea  id="input-bio" [rows]="5" [cols]="90" pInputTextarea autoResize="autoResize" [(ngModel)]="bio"  placeholder="biraz kendinden bahseder misin?"></textarea>
+              </div>
+            </div>
+          
+          </div>
+          <div class="p-grid" >
+           
+            <div class="p-col-6">
+              <button pButton type="button" label="Zaten üye misin ?" class="ui-button-raised  p-col-12 login-btn"
+                (click)="routeLogin()"></button>
+              </div>
+              <div class="p-col-6">
+              <button pButton type="button" label="Kayıt Ol »" class="ui-button-raised p-col-12"
+                [routerLink]="['/register']"></button>
+              </div>
+          </div>
+        </p-card>
+        
+      </div>
+    </div>
+  </div>

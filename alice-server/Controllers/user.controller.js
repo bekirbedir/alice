@@ -8,7 +8,6 @@ router.get("/getall", (request, response) => {
 
     User.find({}, function(err, res) {
       
-
         if (err) {
           console.log(err);
         }
@@ -105,7 +104,6 @@ router.get("/userview",(req,res)=>{
   }
 })
 })
-
 
 router.get("/detail",(req,res)=>{
   let id = req.query.Id;
