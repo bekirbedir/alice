@@ -1,1 +1,53 @@
-<p>new-activy works!</p>
+<div class="login-panel">
+
+    <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+  
+      <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
+        <p-card>
+          <div class="p-col-12">
+
+          </div>
+          <div class="p-grid p-align-center">
+              
+            <div class="p-col-12">
+                <h3 class="input-label">Ne yapmak istiyorsun?</h3>
+                <span class="ui-float-label">
+                        <input id="float-input" type="text" size="50" pInputText [(ngModel)]="activity.header" > 
+                        <label for="float-input">Etkinliğine bir başlık ver</label>
+                </span>
+                </div>
+    
+                <div class="p-col-12">
+                    <h3 class="input-label">Biraz detaylandıralım</h3>
+                    <span class="ui-float-label">
+                            <input id="float-input" type="text" size="50" pInputText [(ngModel)]="activity.context" > 
+                            <label for="float-input">Etkinliği daha detaylı şekilde açıklayalım</label>
+                    </span>
+                 </div>
+           
+                <div class="p-col-12">
+                    <p-checkbox [(ngModel)]="limitedParticipant" label="Katılımcı sınırlı mı?" binary="true"></p-checkbox>
+                </div>
+              
+              
+                <div class="p-col-12" *ngIf="limitedParticipant">
+                     <p-inputNumber [(ngModel)]="val" label ="Katılımcı sayısı" [min]="0" [max]="1000" mode="decimal" [showButtons]="true"></p-inputNumber>
+                </div>
+            
+          </div>
+          <div class="p-grid" >
+           
+            <div class="p-col-6">
+              <button pButton type="button" label="Zaten üye misin ?" class="ui-button-raised  p-col-12 login-btn"
+                ></button>
+              </div>
+              <div class="p-col-6">
+              <button pButton type="button" label="Kayıt Ol »" class="ui-button-raised p-col-12"
+                [routerLink]="['/register']"></button>
+              </div>
+          </div>
+        </p-card>
+        
+      </div>
+    </div>
+  </div>

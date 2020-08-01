@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Activity } from 'src/app/models/activity';
+
 
 @Component({
   selector: 'app-new-activy',
@@ -7,9 +10,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewActivyComponent implements OnInit {
 
-  constructor() { }
+  userName: "";
+  password: "";
+  email: "";
+  bio = "";
+  name = "";
+  version: string;
+  msgs: any[];  
+  checked: boolean = false;
+  limitedParticipant: boolean = false;
+  val=3;
+  activity:Activity;
+    
+ 
+  constructor(private router:Router) {
+    this.activity =  new Activity();
+   }
+
 
   ngOnInit(): void {
+ 
+
+
   }
 
 }
