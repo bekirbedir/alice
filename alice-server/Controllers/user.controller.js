@@ -3,6 +3,7 @@ const router = express.Router();
 var bodyParser = require('body-parser')
 var crypto = require('crypto');
 let User=require("../Models/user")
+let mailler=require("../mailler")
 var jwt = require('jsonwebtoken');
 router.get("/getall", (request, response) => {
 
@@ -31,7 +32,7 @@ else {
   
   const username = req.body.username;
   const password = crypto.createHash('md5').update(req.body.password).digest("hex");
-  const potentialUser = {userName: username,password: password};
+  const potentialUser = {username: username,password: password};
   User.findOne(potentialUser)
             .then(user => {
                 if(!user) {
@@ -74,9 +75,13 @@ else{
       const user=new User();
       user.username=req.body.username 
       user.password=crypto.createHash('md5').update(req.body.password).digest("hex");
-      user.isActive=true
+      user.isActive=false,
+      user.biography=req.body.biography,
+      user.name=req.body.name
+      user.email=req.body.email
       user.createdDate=Date.now()
       user.save()
+      mailler.main(user.email);
       return res.status(200).send({message:"user added"})
     }
   });

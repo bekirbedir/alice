@@ -53,6 +53,7 @@ const routes: Routes = [
         InputTextareaModule,
         MessagesModule,
         RouterModule.forChild(routes),
-  ]
+  ],
+
 })
 export class SignupModule { }
