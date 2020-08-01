@@ -43,9 +43,11 @@
             <div class="p-col-12">
               <div class="ui-inputgroup">
                 <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
-                <textarea  id="input-bio" [rows]="5" [cols]="90" pInputTextarea autoResize="autoResize" [(ngModel)]="bio"  placeholder="biraz kendinden bahseder misin?"></textarea>
+                <textarea  id="input-bio" [rows]="6" [cols]="90" pInputTextarea autoResize="autoResize" [(ngModel)]="bio"  placeholder="biraz kendinden bahseder misin?"></textarea>
               </div>
             </div>
+
+            <div class="p-col-12"><p-checkbox [(ngModel)]="checked" label="Sözleşmeyi okudum ve kabul ediyorum." binary="true"></p-checkbox></div>
           
           </div>
           <div class="p-grid" >

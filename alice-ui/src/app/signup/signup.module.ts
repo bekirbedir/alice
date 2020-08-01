@@ -21,6 +21,7 @@ import { MessagesModule } from 'primeng/messages';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { CheckboxModule } from 'primeng/checkbox';
 
 
 const routes: Routes = [
@@ -42,7 +43,7 @@ const routes: Routes = [
         MegaMenuModule,
          MessageModule,
         CardModule,
-    
+        CheckboxModule,
         ProgressSpinnerModule,
         OverlayPanelModule,
         BreadcrumbModule,

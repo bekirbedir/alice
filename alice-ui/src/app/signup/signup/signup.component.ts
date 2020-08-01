@@ -14,6 +14,7 @@ export class SignupComponent implements OnInit {
   name = "";
   version: string;
   msgs: any[];  
+  checked: boolean = false;
 
   constructor(private router:Router) { }
 
