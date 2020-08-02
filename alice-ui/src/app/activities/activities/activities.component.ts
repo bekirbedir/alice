@@ -93,5 +93,9 @@ export class ActivitiesComponent implements OnInit {
     this.store.dispatch(new GetActivityDetail(item.Id))
     this.router.navigate(['/activity-view'])
   }
+
+  newActivity(){
+    this.router.navigate(['/new-activity'])
+  }
 }
  

@@ -28,7 +28,7 @@ router.post("/",(req,res)=>{
   activity.profilUrl=req.body.profilUrl
   activity.activityUrl=req.body.activityUrl
   activity.header=req.body.header
-  activity.participation=req.body.participation
+  activity.participationCount=req.body.participationCount
   activity.like=req.body.like
   activity.context = req.body.context
   activity.save().then(result => {
@@ -75,7 +75,7 @@ router.put("/",(req,res)=>{
         activity.profilUrl=req.body.profilUrl
         activity.activityUrl=req.body.activityUrl
         activity.header=req.body.header
-        activity.participation=req.body.participation
+        activity.participationCount=req.body.participationCount
         activity.like=req.body.like
         activity.save().then(result => {
             res.status(200).json({

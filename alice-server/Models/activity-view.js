@@ -11,7 +11,7 @@ const  ActivityViewSchema = new Schema({
   context:String,
   tagList:[String],
   like:Number,
-  participation:Number,
+  participationCount:Number,
   date:Date
 
 },{

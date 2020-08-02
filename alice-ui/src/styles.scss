@@ -3,15 +3,24 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 $fa-font-path: "../node_modules/font-awesome/fonts";
 @import "../node_modules/font-awesome/scss/font-awesome.scss";
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 body{
     background-image: url("/assets/bg.png");
     padding: 0 !important;
     margin: 0 !important;
 }
-
+.w-100{
+    width: 100% !important;
+}
+.font-size-1-5em{
+    font-size: 1.5em !important;
+}
 .h-10{
     height:10px;
+}
+.h-300{
+    height: 300px !important;
 }
 .h-5{
     height:5px;
@@ -54,4 +63,14 @@ body .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link {
 }
 .cursor-pointer{
     cursor: pointer;
+}
+.ui-card-header{
+    padding-top: 10px;
+    color: mediumpurple;
+    padding-bottom: 10px;
+    font-size: 1.5em;
+    width: 100% !important;
+    font-weight: bold;
+    text-align: center !important;
+    border-bottom: 1px solid #ccc !important;
 }

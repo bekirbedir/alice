@@ -1,23 +1,25 @@
 <div class="route-nav">
   <span><a href="/activities"> <i class="fa fa-home" aria-hidden="true"></i> Anasayfa </a></span> 
 </div>  
-<!-- 
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{'width': '60%', 'margin-top':'2em'}" [numVisible]="5"
-    [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showItemNavigatorsOnHover]="true"
-    [showIndicatorsOnItem]="true"> 
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
-    </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
-        <div class="p-grid p-nogutter p-justify-center">
-            <img [src]="item.thumbnailImageSrc" style="display: block;" />
-        </div>
-    </ng-template>
-</p-galleria> 
--->
 
-<!--   <p>Selected users: <span *ngFor="let c of users" style="margin-right: 10px">{{c.userName}}</span></p> -->
-<!--Repeat area-->
+
+<div   class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+  <div class="p-xl-6 p-lg-6 p-md-6 p-sm-6">
+ 
+  
+      <div class="p-grid">
+        <div class="p-col-6">
+          <button type="button" class="btn btn-info w-100 font-size-1-5em"><i class="fa fa-filter" aria-hidden="true"> </i> Filtrele</button>
+        </div>
+      
+        <div class="p-col-6 ">
+          <button type="button" (click)="newActivity()"  class="btn btn-success w-100 font-size-1-5em"> <i class="fa fa-plus-circle" aria-hidden="true"> </i> Etkinlik Oluştur</button>
+        </div>	
+      </div>
+
+</div>
+</div>
+
 
 
 <div  *ngFor="let act of activities" class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
@@ -48,7 +50,7 @@
           <div class="act-content-footer">
             <div class="p-grid">
                 <div class="p-col"><i class="pi pi-heart"></i> {{act.like}}</div>
-                <div class="p-col"><i class="pi pi-users"></i> {{act.participation}}</div>
+                <div class="p-col"><i class="pi pi-users"></i> {{act.participationCount}}</div>
               <div class="p-col"><i class="pi pi-clock"></i> 22/07/2020</div>
             </div>
             <hr>

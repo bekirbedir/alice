@@ -11,6 +11,6 @@ export class Activity {
     context?: String  | null;
     tagList:[String];
     like?:Number|0;
-    participation?:Number | 0;
+    participationCount?:Number | 0;
   }
   

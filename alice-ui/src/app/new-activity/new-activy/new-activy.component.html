@@ -3,7 +3,12 @@
     <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
   
       <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
+       
+       
         <p-card>
+          <p-header>
+            Etkinlik Oluştur
+        </p-header>
           <div class="p-col-12">
 
           </div>
@@ -12,7 +17,7 @@
             <div class="p-col-12">
                 <h3 class="input-label">Ne yapmak istiyorsun?</h3>
                 <span class="ui-float-label">
-                        <input id="float-input" type="text" size="50" pInputText [(ngModel)]="activity.header" > 
+                        <input id="float-input" type="text" size="100" pInputText [(ngModel)]="activity.header" class="w-100" > 
                         <label for="float-input">Etkinliğine bir başlık ver</label>
                 </span>
                 </div>
@@ -20,7 +25,7 @@
                 <div class="p-col-12">
                     <h3 class="input-label">Biraz detaylandıralım</h3>
                     <span class="ui-float-label">
-                            <input id="float-input" type="text" size="50" pInputText [(ngModel)]="activity.context" > 
+                            <input id="float-input" type="text" size="50" pInputText [(ngModel)]="activity.context" class="w-100 h-300 font-size-1-5em" > 
                             <label for="float-input">Etkinliği daha detaylı şekilde açıklayalım</label>
                     </span>
                  </div>
@@ -36,14 +41,8 @@
             
           </div>
           <div class="p-grid" >
-           
-            <div class="p-col-6">
-              <button pButton type="button" label="Zaten üye misin ?" class="ui-button-raised  p-col-12 login-btn"
-                ></button>
-              </div>
-              <div class="p-col-6">
-              <button pButton type="button" label="Kayıt Ol »" class="ui-button-raised p-col-12"
-                [routerLink]="['/register']"></button>
+              <div class="p-col-12">
+              <button type="button" (click)="newActivity()"  class="btn btn-success w-100 "><i class="fa fa-paper-plane-o" aria-hidden="true"> </i> Kaydet ve onaya gönder </button>
               </div>
           </div>
         </p-card>
