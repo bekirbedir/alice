@@ -21,7 +21,8 @@ export class LoginService {
   
   constructor(private http: HttpClient, private router: Router) {
    
-    const user =  JSON.parse(JSON.stringify(localStorage.getItem('aliceuser')))
+    const data =  JSON.parse(JSON.stringify(localStorage.getItem('aliceuser')))
+    const user= helper.decodeToken(data);
     this.userSubject.next(user);
     this.user$ = this.userSubject.asObservable();
   }
@@ -52,7 +53,8 @@ export class LoginService {
             console.log("içinde")
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('aliceuser', JSON.stringify(data.token));
-            localStorage.setItem('userName', JSON.stringify(user.UserName))
+            localStorage.setItem('userName', JSON.stringify(user.name))
+            localStorage.setItem('userId', JSON.stringify(user.id))
           }
           this.userSubject.next(user);
           this.router.navigate(['/activities']);
@@ -65,6 +67,7 @@ export class LoginService {
     // remove user from local storage to log user out
     localStorage.removeItem('aliceuser');
     localStorage.removeItem('userName');
+    localStorage.removeItem('userId');
     this.userSubject.next(null);
     this.router.navigate(['/login']);
   }

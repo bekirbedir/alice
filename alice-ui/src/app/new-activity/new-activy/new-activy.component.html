@@ -16,7 +16,7 @@
               
             <div class="p-col-12">
                 <h3 class="input-label">Ne yapmak istiyorsun?</h3>
-                <span class="ui-float-label">
+                <span class="ui-float-label" style="margin-top:15px !important">
                         <input id="float-input" type="text" size="100" pInputText [(ngModel)]="activity.header" class="w-100" > 
                         <label for="float-input">Etkinliğine bir başlık ver</label>
                 </span>
@@ -24,27 +24,32 @@
     
                 <div class="p-col-12">
                     <h3 class="input-label">Biraz detaylandıralım</h3>
-                    <span class="ui-float-label">
+                    <span class="ui-float-label" style="margin-top:15px !important">
                             <input id="float-input" type="text" size="50" pInputText [(ngModel)]="activity.context" class="w-100 h-300 font-size-1-5em" > 
                             <label for="float-input">Etkinliği daha detaylı şekilde açıklayalım</label>
                     </span>
                  </div>
-           
+                 <div class="p-col-12">
+                  <h3 class="input-label">Etiketler</h3>
+                  <p-chips [allowDuplicate]="false" [(ngModel)]="values"></p-chips>
+              </div>
+              
                 <div class="p-col-12">
                     <p-checkbox [(ngModel)]="limitedParticipant" label="Katılımcı sınırlı mı?" binary="true"></p-checkbox>
                 </div>
               
               
                 <div class="p-col-12" *ngIf="limitedParticipant">
-                     <p-inputNumber [(ngModel)]="val" label ="Katılımcı sayısı" [min]="0" [max]="1000" mode="decimal" [showButtons]="true"></p-inputNumber>
+                     <p-inputNumber [(ngModel)]="activity.participationCount" label ="Katılımcı sayısı" [min]="0" [max]="1000" mode="decimal" [showButtons]="true"></p-inputNumber>
                 </div>
-            
+               
           </div>
           <div class="p-grid" >
               <div class="p-col-12">
               <button type="button" (click)="newActivity()"  class="btn btn-success w-100 "><i class="fa fa-paper-plane-o" aria-hidden="true"> </i> Kaydet ve onaya gönder </button>
               </div>
           </div>
+   
         </p-card>
         
       </div>

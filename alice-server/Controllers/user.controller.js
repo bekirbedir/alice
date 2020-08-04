@@ -43,7 +43,7 @@ else {
                 }
             //    console.log("user id::::" ,)
                 const token = jwt.sign({
-                  name: user.userName,
+                  name: user.username,
                   id: user.id
               }, 
               'secret_key',

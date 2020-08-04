@@ -22,7 +22,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CheckboxModule } from 'primeng/checkbox';
 import {InputNumberModule} from 'primeng/inputnumber';
-
+import {ChipsModule} from 'primeng/chips';
 
 const routes: Routes = [
   {
@@ -43,6 +43,7 @@ const routes: Routes = [
         MegaMenuModule,
          MessageModule,
         CardModule,
+        ChipsModule,
         CheckboxModule,
         ProgressSpinnerModule,
         OverlayPanelModule,

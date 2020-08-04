@@ -9,6 +9,7 @@ export class User {
     role: string;
     nbf: number;
     exp: number;
+    id:string
     iat: number;
     tagList:[String];
     phone: String;
