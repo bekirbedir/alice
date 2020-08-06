@@ -38,6 +38,10 @@ const routes: Routes = [
   {
     path: 'new-activity',
     loadChildren: () => import('./new-activity/new-activity.module').then(m => m.NewActivityModule)
+  },
+  {
+    path: 'admin-users',
+    loadChildren: () => import('./admin-users/admin-users.module').then(m => m.AdminUsersModule)
   }
 
   
