@@ -105,9 +105,9 @@ router.post("/join",(req,res)=>{
       // here you can check specific property for an object whether it exist in your array or not
 
      if (index === -1){
-        activity.userList.push({status:1,date:Date.now(),UserId:decodedToken.id})
+        activity.userList.push({status:1,date:Date.now(),UserId:decodedToken.id}) //eklenip eklenmeme
        }
-       
+        
         activity.save().then(result => {
             res.status(200).json({
                 status: true,
