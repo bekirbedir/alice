@@ -11,6 +11,7 @@ const UserSchema = new Schema({
   tagList:[String],
   email:String,
   phone: String,
-  biography: String
+  biography: String,
+  status: {type: Number, default: 1},
 });
 module.exports = mongoose.model("User", UserSchema);

@@ -20,6 +20,23 @@ router.get("/getall", (request, response) => {
     )
 
 })
+
+router.get("/getPending", (request, response) => {
+
+  User.find({}, function(err, res) {
+    
+      if (err) {
+        console.log(err);
+      }
+      if(res){
+      console.log(res)
+      response.send(res);
+      }
+  }
+  )
+
+})
+
 router.post("/login",(req,res)=>{
   console.log(req.body.username)
   console.log(req.body.password)
@@ -80,6 +97,7 @@ else{
       user.name=req.body.name
       user.email=req.body.email
       user.createdDate=Date.now()
+      user.status = 2 
       user.save()
       mailler.main(user.email);
       return res.status(200).send({message:"user added"})
