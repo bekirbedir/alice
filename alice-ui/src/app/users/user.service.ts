@@ -32,6 +32,15 @@ export class UserService {
       );
   } 
 
+  getPendingUsers(): Observable<UserModel[]> {
+    return this._httpClient
+      .get<UserModel[]>(this.valuesUrl+"users/getPending")
+      .pipe(
+        map((res) => res),
+        tap((x) => console.log("userlar", x))
+      );
+  } 
+
   creatUser(user:User):Observable<User>{
 
 
