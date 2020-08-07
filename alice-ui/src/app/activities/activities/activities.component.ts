@@ -9,6 +9,7 @@ import { GetActivities, GetActivityDetail } from 'src/app/store/actions/activity
 import { ActivityState } from 'src/app/store/states/activity.state';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { ActivityService } from '../activity.service';
 
 @Component({
   selector: 'app-activities',
@@ -22,7 +23,7 @@ export class ActivitiesComponent implements OnInit {
 
 
   @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
-  constructor(private store:Store,private router:Router) { 
+  constructor(private service:ActivityService,private store:Store,private router:Router) { 
     this.store.dispatch(new GetActivities())
     
   }
@@ -96,6 +97,11 @@ export class ActivitiesComponent implements OnInit {
 
   newActivity(){
     this.router.navigate(['/new-activity'])
+  }
+  joinActivity(item){
+   this.service.join(item._id).subscribe(x=>{
+     console.log(x._id)
+   })
   }
 }
  

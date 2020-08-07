@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+var userStatus = new Schema({
+  status:Number,
+  date:Date,
+  UserId:String
+});
 const  ActivitySchema = new Schema({
   Id:Number,
   username: String,
@@ -12,9 +17,11 @@ const  ActivitySchema = new Schema({
   tagList:[String],
   like:Number,
   participationCount:Number,
-  date:Date
+  date:Date,
+  userList:[userStatus]
 
 },{
     versionKey: false // You should be aware of the outcome after set to false
 });
 module.exports = mongoose.model("Activity", ActivitySchema);
+

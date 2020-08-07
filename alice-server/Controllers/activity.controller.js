@@ -5,13 +5,15 @@ var crypto = require('crypto');
 let Activity=require("../Models/activity")
 var jwt = require('jsonwebtoken');
 router.get("/getall", (request, response) => {
+     
 
+   
+    
     Activity.find({}, function(err, res) {
         if (err) {
           console.log(err);
         }
         if(res){
-        console.log(res)
         response.send(res);
         }
     }
@@ -90,6 +92,38 @@ router.put("/",(req,res)=>{
                 })
       });
     })
+})
+
+router.post("/join",(req,res)=>{
+    const token = req.headers.authorization.split(" ")[1];
+    const decodedToken = jwt.verify(token, 'secret_key');
+    console.log("decode",decodedToken.id)
+    console.log("id",req.body.activityId)
+    Activity.findOne({_id:req.body.activityId}, function(err, activity) {
+
+        var index =   activity.userList.findIndex(x => x.UserId==decodedToken.id)
+      // here you can check specific property for an object whether it exist in your array or not
+
+     if (index === -1){
+        activity.userList.push({status:1,date:Date.now(),UserId:decodedToken.id})
+       }
+       
+        activity.save().then(result => {
+            res.status(200).json({
+                status: true,
+                message: "activity join request  done"
+            })
+        })
+            .catch(error => {
+                res.status(404).json({ 
+                    status: false,
+                    message: "activity join request failed done"
+                })
+      });
+    })
+    
+    
+
 })
 
 module.exports = router;

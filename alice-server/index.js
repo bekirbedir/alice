@@ -17,8 +17,8 @@ var router = express.Router();
 // app.use('/users/',auhtguard, usersRouter);
 app.use('/users/', usersRouter);
 app.use('/activity-view/',activityViewRouter)
-//app.use('/activity/',auhtguard,activityRouter); //auth controlu yapiliyor
-app.use('/activity/',activityRouter);
+app.use('/activity/',auhtguard,activityRouter); //auth controlu yapiliyor
+//app.use('/activity/',activityRouter);
 
 const port= process.env.PORT || 3000;
 app.listen(port, () => {
