@@ -22,9 +22,12 @@ export class LoginService {
   constructor(private http: HttpClient, private router: Router) {
    
     const data =  JSON.parse(JSON.stringify(localStorage.getItem('aliceuser')))
-    const user= helper.decodeToken(data.token);
-    this.userSubject.next(user);
-    this.user$ = this.userSubject.asObservable();
+    if(data != null && data != "" && data != "null"){
+       const user= helper.decodeToken(data.token);
+       this.userSubject.next(user);
+       this.user$ = this.userSubject.asObservable();
+    }
+    
   }
 
  login(userName: string, password: string):Observable<any> {

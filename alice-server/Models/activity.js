@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 var userStatus = new Schema({
   status:Number,
   date:Date,
-  UserId:String
+  userId:String
 });
 const  ActivitySchema = new Schema({
   Id:Number,

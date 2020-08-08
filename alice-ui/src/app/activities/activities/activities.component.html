@@ -58,7 +58,20 @@
                 
               <div class="p-col-4 act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
               <div (click)="viewDetail(act)" class="p-col-4 act-content-btn-comment cursor-pointer">Detaylar <i class="pi pi-angle-double-right" ></i></div>
-          <div   (click)="joinActivity(act)" class="p-col-4 act-content-btn-signin"><i class="pi pi-sign-in"></i>&nbsp; Katıl</div>
+              
+              <div *ngIf="act.currentUserStatus == 0" class="p-col-4 ">
+                 <button type="button" (click)="joinActivity(act)" class=" btn btn-primary w-100"> <i class="pi pi-sign-in" aria-hidden="true"> </i> Katıl</button>
+             </div>
+             <div *ngIf="act.currentUserStatus == 1" class="p-col-4 ">
+              <button type="button" (click)="joinActivity(act)" class=" btn btn-warning w-100" disabled> <i class="fa fa-spinner" aria-hidden="true" > </i> Beklemede </button>
+             </div>
+             <div *ngIf="act.currentUserStatus == 2" class="p-col-4 ">
+              <button type="button" (click)="joinActivity(act)" class=" btn btn-success w-100" disabled> <i class="fa fa-check" aria-hidden="true"> </i>Kabul edildin</button>
+             </div>
+             <div *ngIf="act.currentUserStatus == 3" class="p-col-4 ">
+              <button type="button" (click)="joinActivity(act)" class=" btn btn-danger w-100" disabled> <i class="fa fa-times" aria-hidden="true"> </i>Reddedildi</button>
+             </div>
+
             </div>
 
             

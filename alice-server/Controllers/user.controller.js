@@ -37,6 +37,63 @@ router.get("/getPending", (request, response) => {
 
 })
 
+router.post("/userApprove",(req,res)=>{
+
+  const user=new User();
+  user.id = req.body._id
+
+  User.findOne({ _id: req.body._id }, function (err, user){
+          if(user){
+            user.status = 3;
+            user.updatedDate = Date.now();
+            user.save().then(result => {
+              res.status(200).json({
+                  status: true,
+                  message: "Kullanıcı onaylandı"
+              })
+            })
+              .catch(error => {
+                  res.status(200).json({ 
+                      status: false,
+                      message: "Hata oluştu; " + error
+                  })
+             });
+          }
+          else{
+            console.log("bulamadik");
+          }
+            })
+
+})
+
+router.post("/userReject",(req,res)=>{
+
+  const user=new User();
+  user.id = req.body._id
+
+  User.findOne({ _id: req.body._id }, function (err, user){
+          if(user){
+            user.status = 4;
+            user.updatedDate = Date.now();
+            user.save().then(result => {
+              res.status(200).json({
+                  status: true,
+                  message: "Kullanıcı onaylandı"
+              })
+            })
+              .catch(error => {
+                  res.status(200).json({ 
+                      status: false,
+                      message: "Hata oluştu; " + error
+                  })
+             });
+          }
+          else{
+            console.log("bulamadik");
+          }
+            })
+
+})
 router.post("/login",(req,res)=>{
   console.log(req.body.username)
   console.log(req.body.password)

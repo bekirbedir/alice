@@ -19,10 +19,10 @@
         <th scope="row">1</th>
         <td>{{user.username}}</td>
         <td>{{user.email}}</td>
-        <td *ngIf ="user.status==1"> 
-          <button type="button" (click)="userApprove()"  class="btn btn-success "> <i class="fa fa-check" aria-hidden="true"> </i> Onayla
+        <td *ngIf ="user.status==2"> 
+          <button type="button" (click)="userApprove(user)"  class="btn btn-success "> <i class="fa fa-check" aria-hidden="true"> </i> Onayla
           </button>
-          <button type="button" (click)="userReject()"  class="btn btn-danger"> <i class="fa fa-ban" aria-hidden="true"> </i> Reddet
+          <button type="button" (click)="userReject(user)"  class="btn btn-danger"> <i class="fa fa-ban" aria-hidden="true"> </i> Reddet
           </button>
         </td>
       </tr>

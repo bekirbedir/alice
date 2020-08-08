@@ -3,6 +3,7 @@ const router = express.Router();
 var bodyParser = require('body-parser')
 var crypto = require('crypto');
 let Activity=require("../Models/activity")
+let ActivityUser=require("../Models/activity-user-status")
 var jwt = require('jsonwebtoken');
 router.get("/getall", (request, response) => {
      
@@ -101,12 +102,30 @@ router.post("/join",(req,res)=>{
     console.log("id",req.body.activityId)
     Activity.findOne({_id:req.body.activityId}, function(err, activity) {
 
-        var index =   activity.userList.findIndex(x => x.UserId==decodedToken.id)
+        var index =   activity.userList.findIndex(x => x.userId==decodedToken.id)
       // here you can check specific property for an object whether it exist in your array or not
 
      if (index === -1){
-        activity.userList.push({status:1,date:Date.now(),UserId:decodedToken.id}) //eklenip eklenmeme
-       }
+        activity.userList.push({status:1,date:Date.now(),userId:decodedToken.id}) //eklenip eklenmeme
+    
+        const activityUser = new ActivityUser();
+        activityUser.status = 1;
+        activityUser.date = Date.now();
+        activityUser.activityId = activity._id;
+        activityUser.userId = decodedToken.id;
+        activityUser.save().then(result=>{
+         /*   res.status(200).json({
+                status: true,
+                message: "activity join request  done"
+            }) */
+        })
+        .catch(error => {
+          /*  res.status(404).json({ 
+                status: false,
+                message: "activity join request failed done"
+            }) */
+        });
+    }
         
         activity.save().then(result => {
             res.status(200).json({

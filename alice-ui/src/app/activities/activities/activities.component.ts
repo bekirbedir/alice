@@ -10,6 +10,7 @@ import { ActivityState } from 'src/app/store/states/activity.state';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { ActivityService } from '../activity.service';
+import { UserStatus } from 'src/app/models/user.status';
 
 @Component({
   selector: 'app-activities',
@@ -19,8 +20,9 @@ import { ActivityService } from '../activity.service';
 export class ActivitiesComponent implements OnInit {
 
   images: any[];
-  activities:Activity[]
-
+  activities:Activity[];
+  activityCurrentUserStatus=0;
+  private isActiveUserId=localStorage.getItem("userId");
 
   @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
   constructor(private service:ActivityService,private store:Store,private router:Router) { 
@@ -49,8 +51,18 @@ export class ActivitiesComponent implements OnInit {
   ngOnInit() {
 
     this.Activities.subscribe(x=>{
+      
+    
       console.log("burdaaa",x)
       this.activities=x;
+      for(var i = 0 ; i< this.activities.length ; i++){
+        console.log("burd---------------------aaa", this.activities[i].currentUserStatus)
+        const userPricipantStatus = this.isCurrentUserParticipant(x[i]);
+        console.log(userPricipantStatus);
+        console.log("burdaa---------------a", this.activities[i].currentUserStatus)
+        this.activities[i].currentUserStatus = userPricipantStatus;
+        console.log("burdaa---------------a", this.activities[i].currentUserStatus)
+      }
     })
     
     
@@ -102,6 +114,25 @@ export class ActivitiesComponent implements OnInit {
    this.service.join(item._id).subscribe(x=>{
      console.log(x._id)
    })
+   item.currentUserStatus= 1;
   }
+
+ isCurrentUserParticipant(activity:Activity ){
+  console.log("burdaaaaaaaaaaaaaaaaaaaa",this.isActiveUserId);
+    if(this.isActiveUserId != null && this.isActiveUserId != ""){      
+      const userList =  activity.userList;
+      for(var i =0; i<userList.length; i++){
+        if(userList[i].userId == this.isActiveUserId.trim())
+         activity.currentUserStatus = userList[i].status;
+         console.log(" userList[i].status; + " +  userList[i].status)
+        return userList[i].status;
+      }
+      return 0;
+    }
+    else{
+      console.log(" elseee userList[i].status; + " + 0)
+      return 0;
+    }
+ }
 }
  

@@ -4,7 +4,7 @@ const  ActivityUserStatusSchema = new Schema({
 status:Number,
 date:Date,
 activityId:String,
-UserId:String
+userId:String 
 },{
     versionKey: false // You should be aware of the outcome after set to false
 });

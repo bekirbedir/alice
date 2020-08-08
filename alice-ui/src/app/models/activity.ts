@@ -1,3 +1,5 @@
+import { UserStatus } from 'src/app/models/user.status';
+
 export class Activity {
     __v: number;
     _Id:string;
@@ -13,5 +15,7 @@ export class Activity {
     tagList:string[];
     like?:Number|0;
     participationCount?:Number | 0;
+    userList:[UserStatus];
+    currentUserStatus: Number | 0;
   }
   
