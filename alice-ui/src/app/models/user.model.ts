@@ -1,11 +1,12 @@
 export class UserModel {
-    _id: string;
-    userName?: string | null;
-    createDate?: string | null;
+    _id: String;
+    createDate?: String | null;
     isActive?: boolean | null;
     __v: number;
-    password?: string | null;
-    username?: string | null;
-    createdDate?: string | null;
+    password?: String | null;
+    username?: String | null;
+    email?: String | null;
+    status?:Number | null ;
+
   }
   

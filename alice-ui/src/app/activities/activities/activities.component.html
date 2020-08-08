@@ -71,7 +71,12 @@
              <div *ngIf="act.currentUserStatus == 3" class="p-col-4 ">
               <button type="button" (click)="joinActivity(act)" class=" btn btn-danger w-100" disabled> <i class="fa fa-times" aria-hidden="true"> </i>Reddedildi</button>
              </div>
-
+              <div *ngIf="activeuser==act.ownerId">
+             
+                <button>
+                 Yönet
+                </button>
+              </div>
             </div>
 
             

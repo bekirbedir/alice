@@ -23,7 +23,11 @@ router.get("/getall", (request, response) => {
 })
 router.post("/",(req,res)=>{
   console.log(req.body)
+  const token = req.headers.authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, 'secret_key');
+  console.log("decode",decodedToken.id)
   const activity=new Activity();
+  activity.ownerId='"'+decodedToken.id+'"'
   activity.Id=req.body.Id
   activity.username=req.body.username
   activity.tagList=req.body.tagList

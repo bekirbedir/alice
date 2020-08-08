@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { ActivityService } from '../activity.service';
 import { UserStatus } from 'src/app/models/user.status';
+import { LoginService } from 'src/app/auth/login.service';
 
 @Component({
   selector: 'app-activities',
@@ -22,11 +23,13 @@ export class ActivitiesComponent implements OnInit {
   images: any[];
   activities:Activity[];
   activityCurrentUserStatus=0;
+  activeuser:any
   private isActiveUserId=localStorage.getItem("userId");
 
   @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
-  constructor(private service:ActivityService,private store:Store,private router:Router) { 
+  constructor(private loginservice:LoginService,private service:ActivityService,private store:Store,private router:Router) { 
     this.store.dispatch(new GetActivities())
+    this.activeuser=localStorage.getItem('userId')
     
   }
 
@@ -49,7 +52,10 @@ export class ActivitiesComponent implements OnInit {
   activeItem1: MenuItem;
 
   ngOnInit() {
+    
 
+
+    
     this.Activities.subscribe(x=>{
       
     

@@ -18,12 +18,15 @@ export class IndexComponent implements   OnInit{
    this.isLogin = false;
 
   this.isActiveUser=localStorage.getItem("aliceuser")
+  
+  if(this.isActiveUser){
+    this.loginservice.user$.subscribe(x=>{
+      console.log("değişiklik oldu")
+   
+      this.ngOnInit()
+    })
+  }
 
-  this.loginservice.user$.subscribe(x=>{
-    console.log("değişiklik oldu")
-    this.isActiveUser=localStorage.getItem("aliceuser")
-    this.ngOnInit()
-  })
   }
 
   

@@ -33,4 +33,8 @@ export class AdminUsersComponent implements OnInit {
     })
   }
 
+  userReject(){
+    
+  }
+
 }

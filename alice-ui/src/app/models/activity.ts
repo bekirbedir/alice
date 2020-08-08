@@ -17,5 +17,6 @@ export class Activity {
     participationCount?:Number | 0;
     userList:[UserStatus];
     currentUserStatus: Number | 0;
+    ownerId:String | null;
   }
   

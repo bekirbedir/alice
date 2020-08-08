@@ -13,6 +13,7 @@ const  ActivitySchema = new Schema({
   activityUrl:String,
   isActive:Boolean,
   header:String,
+  ownerId:String,
   context:String,
   tagList:[String],
   like:Number,
