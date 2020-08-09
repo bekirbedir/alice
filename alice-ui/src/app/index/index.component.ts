@@ -3,7 +3,7 @@ import {TabMenuModule} from 'primeng/tabmenu';
 import {MenuItem} from 'primeng/api'
 import {MenubarModule} from 'primeng/menubar';
 import { LoginService } from '../auth/login.service';
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,11 +13,13 @@ import { LoginService } from '../auth/login.service';
 })
 export class IndexComponent implements   OnInit{
   isActiveUser:string
+  currentUserName:string;
   isLogin : Boolean;
-  constructor(private loginservice:LoginService){
+  constructor(private loginservice:LoginService,private router:Router){
    this.isLogin = false;
 
   this.isActiveUser=localStorage.getItem("aliceuser")
+    this.currentUserName=JSON.parse(localStorage.getItem("userName"));
   
   if(this.isActiveUser){
     this.loginservice.user$.subscribe(x=>{
@@ -78,5 +80,8 @@ export class IndexComponent implements   OnInit{
   LogOut(){
    this.loginservice.logout()
   }
+  routeProfile(){
+    this.router.navigate(['/profile'])
+   }
   
 }

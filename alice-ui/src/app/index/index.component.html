@@ -9,43 +9,59 @@
         </div>
     </ng-template>
 </p-tabMenu> -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg  navbar-light" style="background-color: #fcfcfc !important; border-bottom: 1px solid #ccc;height: 80px ">
+   <!-- <a class="navbar-brand" href="/activities">  <img src="assets/logo-brand.jpg" class="menu-logo"></a> buraya logo gelecek -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+       
+        <li *ngIf="isActiveUser" class="nav-item active">
+          <a class="nav-link" href="/activities"> <i class="pi pi-fw pi-home"></i> Aktiviteler<span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+
+     
+    
+        
+        <li *ngIf="!isActiveUser" class="nav-item ">
+          <a class="nav-link" href="/activities"> <i class="pi pi-fw pi-home"></i> Anasayfa </a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Dropdown
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
+
+        <li  class="nav-item active">
+          <a class="nav-link" href="/communication"> <i class="pi pi-fw pi-pencil"></i> İletişim </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+
+        <li   class="nav-item active">
+          <a class="nav-link" href="/biz-kimiz"> <i class="pi pi-users"></i> Biz Kimiz </a>
         </li>
+
+        <li  *ngIf="!isActiveUser"  class="nav-item ">
+          <a class="nav-link" href="/login"> <i class="pi pi-sign-in"></i> Giriş Yap </a>
+        </li>
+    
+        
+        
       </ul>
       <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <input class="form-control mr-sm-2" type="search" placeholder="Ara" aria-label="Ara">
+        <button *ngIf="isActiveUser" (click)="routeProfile()" style="margin-left: 5px !important;" class="btn btn-primary my-2 my-sm-0" type="button">
+          <i class="pi pi-user"> </i>
+          {{currentUserName}}
+        </button>
+        <button *ngIf="isLogin" (click)="LogOut()" style="margin-left: 5px !important;" class="btn btn-secondary my-2 my-sm-0" type="button">
+          <i class="pi pi-power-off"> </i>
+          Çıkış Yap
+        </button>
+
+     
+       
       </form>
     </div>
   </nav>
-<p-menubar [model]="items">
+<!--<p-menubar [model]="items">
     <input  type="text" pInputText placeholder="Ara">
     <button *ngIf="isLogin" (click)="LogOut()" style="margin-left: 5px !important;" pButton label=" Çıkış yap" icon="pi pi-power-off"></button>
 </p-menubar>
-
+-->
