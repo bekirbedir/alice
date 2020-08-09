@@ -17,8 +17,9 @@ export class LoginService {
     
   private valuesUrl = environment.apiBaseUrl
   private userSubject: BehaviorSubject<User | null> = new BehaviorSubject(null);
+
   user$: Observable<User | null>;
-  
+
   constructor(private http: HttpClient, private router: Router) {
    
     const data =  JSON.parse(JSON.stringify(localStorage.getItem('aliceuser')))
@@ -26,6 +27,7 @@ export class LoginService {
        const user= helper.decodeToken(data.token);
        this.userSubject.next(user);
        this.user$ = this.userSubject.asObservable();
+ 
     }
     
   }
@@ -59,9 +61,12 @@ export class LoginService {
             localStorage.setItem('userName', JSON.stringify(user.name))
             localStorage.setItem('userId', JSON.stringify(user.id))
           }
+        
           this.userSubject.next(user);
           this.router.navigate(['/activities']);
+       
           return user;
+          
         })
       );
   }
@@ -73,6 +78,8 @@ export class LoginService {
     localStorage.removeItem('userId');
     this.userSubject.next(null);
     this.router.navigate(['/login']);
+    this.userSubject.next(null);
+
   }
 
 

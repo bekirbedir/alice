@@ -30,13 +30,19 @@ export class LoginComponent implements OnInit {
 
   }
 
+  ngOnDestroy(){
+  window.location.reload()
+  }
+
   onClickLogin() {
     console.log(this.userName, this.password);
     
     this.loginservice.login(this.userName,this.password).subscribe(x=>{
        if(x){
-    
+        console.log("loginden gelen",x)
+        this.router.navigate(['/activities'])
        }
+     
     })
  
   }

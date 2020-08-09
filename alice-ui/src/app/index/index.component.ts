@@ -23,9 +23,16 @@ export class IndexComponent implements   OnInit{
   
   if(this.isActiveUser){
     this.loginservice.user$.subscribe(x=>{
-      console.log("değişiklik oldu")
-   
-      this.ngOnInit()
+      this.isLogin = true;
+      this.items = [
+        {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
+        {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
+        {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
+        {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file'},
+        {label: 'Profilim', icon: 'pi pi-user-plus',routerLink:'profile'}
+    ];
+
+    this.activeItem = this.items[0];
     })
   }
 
@@ -45,9 +52,11 @@ export class IndexComponent implements   OnInit{
 
 
   ngOnInit() {
-  console.log("çağrıldı")
 
-    if(this.isActiveUser!=null){
+    this.loginservice.user$.subscribe(x=>{
+      console.log("user değişti",x)
+    })
+    if(this.isActiveUser){
       console.log(this.isActiveUser,"trueda")
       this.isLogin = true;
       this.items = [
@@ -79,6 +88,15 @@ export class IndexComponent implements   OnInit{
 
   LogOut(){
    this.loginservice.logout()
+   this.isLogin = false;
+   this.items = [
+     {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'}, 
+     {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file'}, 
+     {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
+     {label: 'Giriş Yap', icon: 'pi pi-sign-in', routerLink:'login' },
+ ];
+ this.activeItem = this.items[0];
+ window.location.reload();
   }
   routeProfile(){
     this.router.navigate(['/profile'])

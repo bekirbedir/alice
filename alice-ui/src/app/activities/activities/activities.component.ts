@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import {CardModule} from 'primeng/card';
+import { CardModule } from 'primeng/card';
 import { MenuItem } from 'primeng/api';
 import { Activity } from 'src/app/models/activity';
 
 import { Store, Select } from '@ngxs/store';
-import { GetActivities, GetActivityDetail } from 'src/app/store/actions/activity.action';
+import {
+  GetActivities,
+  GetActivityDetail,
+} from 'src/app/store/actions/activity.action';
 import { ActivityState } from 'src/app/store/states/activity.state';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
@@ -16,129 +19,130 @@ import { LoginService } from 'src/app/auth/login.service';
 @Component({
   selector: 'app-activities',
   templateUrl: './activities.component.html',
-  styleUrls: ['./activities.component.css']
+  styleUrls: ['./activities.component.css'],
 })
 export class ActivitiesComponent implements OnInit {
-
   images: any[];
-  activities:Activity[];
-  activityCurrentUserStatus=0;
-  activeuser:any
-  private isActiveUserId=localStorage.getItem("userId");
+  activities: Activity[];
+  activityCurrentUserStatus = 0;
+  activeuser: any;
+  private isActiveUserId = localStorage.getItem('userId');
 
   @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
-  constructor(private loginservice:LoginService,private service:ActivityService,private store:Store,private router:Router) { 
-    this.store.dispatch(new GetActivities())
-    this.activeuser=localStorage.getItem('userId')
-    
+  constructor(
+    private loginservice: LoginService,
+    private service: ActivityService,
+    private store: Store,
+    private router: Router
+  ) {
+    this.store.dispatch(new GetActivities());
+    this.activeuser = localStorage.getItem('userId');
+    console.log("activeuser ve öbürü",this.activeuser)
   }
 
-  responsiveOptions:any[] = [
-      {
-          breakpoint: '1024px',
-          numVisible: 5
-      },
-      {
-          breakpoint: '768px',
-          numVisible: 3
-      },
-      {
-          breakpoint: '560px',
-          numVisible: 1
-      }
+
+  responsiveOptions: any[] = [
+    {
+      breakpoint: '1024px',
+      numVisible: 5,
+    },
+    {
+      breakpoint: '768px',
+      numVisible: 3,
+    },
+    {
+      breakpoint: '560px',
+      numVisible: 1,
+    },
   ];
   modules: MenuItem[];
-    
+
   activeItem1: MenuItem;
-
+   
   ngOnInit() {
-    
-
-
-    
-    this.Activities.subscribe(x=>{
-      
-    
-      console.log("burdaaa",x)
-      this.activities=x;
-      for(var i = 0 ; i< this.activities.length ; i++){
-        console.log("burd---------------------aaa", this.activities[i].currentUserStatus)
+    this.Activities.subscribe((x) => {
+      console.log('burdaaa', x);
+      this.activities = x;
+      for (var i = 0; i < this.activities.length; i++) {
         const userPricipantStatus = this.isCurrentUserParticipant(x[i]);
-        console.log(userPricipantStatus);
-        console.log("burdaa---------------a", this.activities[i].currentUserStatus)
         this.activities[i].currentUserStatus = userPricipantStatus;
-        console.log("burdaa---------------a", this.activities[i].currentUserStatus)
       }
-    })
-    
-    
-  this.modules = [
-      {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
-      {label: 'Turnuva', icon: 'pi pi-fw pi-calendar',routerLink:'challenges'}
+    });
+
+    this.modules = [
+      {
+        label: 'Aktiviteler',
+        icon: 'pi pi-fw pi-home',
+        routerLink: 'activities',
+      },
+      {
+        label: 'Turnuva',
+        icon: 'pi pi-fw pi-calendar',
+        routerLink: 'challenges',
+      },
     ];
 
-  this.activeItem1 = this.modules[0];
+    this.activeItem1 = this.modules[0];
 
-    this.images=[
+    this.images = [
       {
-          "previewImageSrc": "assets/activites/1.jpeg",
-          "thumbnailImageSrc": "assets/activites/1.jpeg",
-          "alt": "Description for Image 1",
-          "title": "Title 1"
+        previewImageSrc: 'assets/activites/1.jpeg',
+        thumbnailImageSrc: 'assets/activites/1.jpeg',
+        alt: 'Description for Image 1',
+        title: 'Title 1',
       },
- 
+
       {
-          "previewImageSrc":"assets/activites/2.jpeg",
-          "thumbnailImageSrc":"assets/activites/2.jpeg",
-          "alt": "Description for Image 2",
-          "title": "Title 2"
-      },
-      {
-          "previewImageSrc": "assets/activites/3.jpeg",
-          "thumbnailImageSrc":"assets/activites/3.jpeg",
-          "alt": "Description for Image 3",
-          "title": "Title 3"
+        previewImageSrc: 'assets/activites/2.jpeg',
+        thumbnailImageSrc: 'assets/activites/2.jpeg',
+        alt: 'Description for Image 2',
+        title: 'Title 2',
       },
       {
-        "previewImageSrc": "assets/activites/6.jpeg",
-        "thumbnailImageSrc":"assets/activites/6.jpeg",
-        "alt": "Description for Image 6",
-        "title": "Title 6"
-    }]
+        previewImageSrc: 'assets/activites/3.jpeg',
+        thumbnailImageSrc: 'assets/activites/3.jpeg',
+        alt: 'Description for Image 3',
+        title: 'Title 3',
+      },
+      {
+        previewImageSrc: 'assets/activites/6.jpeg',
+        thumbnailImageSrc: 'assets/activites/6.jpeg',
+        alt: 'Description for Image 6',
+        title: 'Title 6',
+      },
+    ];
   }
 
-  viewDetail(item){
-    console.log(item)
-    this.store.dispatch(new GetActivityDetail(item.Id))
-    this.router.navigate(['/activity-view'])
+  viewDetail(item) {
+    console.log(item);
+    this.store.dispatch(new GetActivityDetail(item.Id));
+    this.router.navigate(['/activity-view']);
   }
 
-  newActivity(){
-    this.router.navigate(['/new-activity'])
+  newActivity() {
+    this.router.navigate(['/new-activity']);
   }
-  joinActivity(item){
-   this.service.join(item._id).subscribe(x=>{
-     console.log(x._id)
-   })
-   item.currentUserStatus= 1;
+  joinActivity(item) {
+    this.service.join(item._id).subscribe((x) => {
+      console.log(x._id);
+    });
+    item.currentUserStatus = 1;
   }
 
- isCurrentUserParticipant(activity:Activity ){
-  console.log("burdaaaaaaaaaaaaaaaaaaaa",this.isActiveUserId);
-    if(this.isActiveUserId != null && this.isActiveUserId != ""){      
-      const userList =  activity.userList;
-      for(var i =0; i<userList.length; i++){
-        if(userList[i].userId == this.isActiveUserId.trim())
-         activity.currentUserStatus = userList[i].status;
-         console.log(" userList[i].status; + " +  userList[i].status)
+  isCurrentUserParticipant(activity: Activity) {
+    console.log('burdaaaaaaaaaaaaaaaaaaaa', this.isActiveUserId);
+    if (this.isActiveUserId != null && this.isActiveUserId != '') {
+      const userList = activity.userList;
+      for (var i = 0; i < userList.length; i++) {
+        if (userList[i].userId == this.isActiveUserId.trim())
+          activity.currentUserStatus = userList[i].status;
+        console.log(' userList[i].status; + ' + userList[i].status);
         return userList[i].status;
       }
       return 0;
-    }
-    else{
-      console.log(" elseee userList[i].status; + " + 0)
+    } else {
+      console.log(' elseee userList[i].status; + ' + 0);
       return 0;
     }
- }
+  }
 }
- 
