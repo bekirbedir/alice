@@ -65,7 +65,7 @@ export class IndexComponent implements   OnInit{
         this.isLogin = false;
       this.items = [
         {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'}, 
-        {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file'}, 
+        {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file', routerLink:'communication'}, 
         {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
         {label: 'Giriş Yap', icon: 'pi pi-sign-in', routerLink:'login' },
     ];
