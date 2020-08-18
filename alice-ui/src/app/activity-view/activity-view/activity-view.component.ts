@@ -17,6 +17,7 @@ export class ActivityViewComponent implements OnInit {
     this.Activity.subscribe(x=>{
       this.activityStatic=x
     })
+  
 
   }
 

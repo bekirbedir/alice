@@ -113,6 +113,12 @@ export class ActivitiesComponent implements OnInit {
     this.router.navigate(['/activity-view'])
   }
 
+  viewComments(item){
+    console.log(item)
+    this.store.dispatch(new GetActivityDetail(item.Id))
+    this.router.navigate(['/activity-comment'])
+  }
+
   newActivity(){
     this.router.navigate(['/new-activity'])
   }
