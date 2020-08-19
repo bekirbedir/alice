@@ -153,6 +153,7 @@ else{
       user.biography=req.body.biography,
       user.name=req.body.name
       user.email=req.body.email
+      user.phone=req.body.phone
       user.createdDate=Date.now()
       user.status = 2 
       user.save()

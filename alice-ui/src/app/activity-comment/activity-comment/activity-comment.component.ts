@@ -23,11 +23,10 @@ export class ActivityCommentComponent implements OnInit {
 
   constructor(private loginService: LoginService, private activityCommentService: ActivityCommentService) {
     this.Activity.subscribe(x=>{
+      console.log("-------------------------------xxxxxxxxxxxxxxxxxx-++" + this.activityStatic)
       this.activityStatic=x
     })
   
-  //  console.log("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii:" + this.activityStatic)
-  //  console.log("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii:" + this.activityStatic._Id)
   }
 
   ngOnInit(): void {
@@ -35,7 +34,10 @@ export class ActivityCommentComponent implements OnInit {
   }
 
   getComments() {
-    this.activityCommentService.getComments('5f26b5204104c91e485839c4').subscribe(x => {
+    
+    console.log("--------------------------------++" + this.activityStatic)
+    console.log("--------------------------------++" + this.activityStatic._Id)
+    this.activityCommentService.getComments(this.activityStatic._Id).subscribe(x => {
       this.comments = x
     })
   }
