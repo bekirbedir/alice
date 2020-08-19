@@ -36,8 +36,8 @@ export class ActivityCommentComponent implements OnInit {
   getComments() {
     
     console.log("--------------------------------++" + this.activityStatic)
-    console.log("--------------------------------++" + this.activityStatic._Id)
-    this.activityCommentService.getComments(this.activityStatic._Id).subscribe(x => {
+    console.log("--------------------------------++" + this.activityStatic._id)
+    this.activityCommentService.getComments(this.activityStatic._id).subscribe(x => {
       this.comments = x
     })
   }

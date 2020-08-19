@@ -5,10 +5,11 @@
       <p-card>  
       
           <div class="p-grid">
+            <p>{{activityStatic._id}} - ACTIVITY-Comment SAYFASI</p>
             <p *ngFor="let comment of comments">
                 {{comment.text}} ({{comment.username}})
             </p>
-            
+           
             <div class="p-col-12">
               <h3 class="input-label"></h3>
               <span class="ui-float-label" style="margin-top:15px !important">

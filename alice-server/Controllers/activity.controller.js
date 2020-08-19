@@ -28,7 +28,7 @@ router.post("/",(req,res)=>{
   console.log("decode",decodedToken.id)
   const activity=new Activity();
   activity.ownerId='"'+decodedToken.id+'"'
-  activity.Id=req.body.Id
+  activity._id=req.body._id
   activity.username=req.body.username
   activity.tagList=req.body.tagList
   activity.isActive=true
@@ -55,7 +55,7 @@ router.post("/",(req,res)=>{
 
 router.delete("/",(req,res)=>{
     
-    Activity.findOneAndRemove({ Id: req.body.Id }, function(err) {
+    Activity.findOneAndRemove({ _id: req.body._id }, function(err) {
         if (!err) {
             res.status(200).json({
                 status: true,
@@ -74,8 +74,8 @@ router.delete("/",(req,res)=>{
 
 router.put("/",(req,res)=>{
 
-    Activity.findOne({ Id: req.body.Id }, function (err, activity){
-        activity.Id=req.body.Id
+    Activity.findOne({ _id: req.body._id }, function (err, activity){
+        activity._id=req.body._id
         activity.username=req.body.username
         activity.tagList=req.body.tagList
         activity.isActive=req.body.isActive

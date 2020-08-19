@@ -8,7 +8,7 @@ var jwt = require('jsonwebtoken');
 
 
 router.get("/", (req, response) => {
-    let id = req.query.Id;
+    let id = req.query.id;
     console.log("-----burasi",id);
     Activity.findOne({_id:id}, function(err, res) {
         if (err) {
@@ -27,7 +27,7 @@ router.get("/", (req, response) => {
 router.post("/",(req,res)=>{
   console.log(req.body)
   const activity=new ActivityView();
-  activity.Id=req.body.Id
+  activity._id=req.body._id
   activity.username=req.body.username
   activity.tagList=req.body.tagList
   activity.isActive=req.body.isActive
@@ -54,7 +54,7 @@ router.post("/",(req,res)=>{
 
 router.delete("/",(req,res)=>{
     
-    ActivityView.findOneAndRemove({ Id: req.body.Id }, function(err) {
+    ActivityView.findOneAndRemove({ _id: req.body._id }, function(err) {
         if (!err) {
             res.status(200).json({
                 status: true,
@@ -73,8 +73,8 @@ router.delete("/",(req,res)=>{
 
 router.put("/",(req,res)=>{
 
-    ActivityView.findOne({ Id: req.body.Id }, function (err, activity){
-        activity.Id=req.body.Id
+    ActivityView.findOne({ _id: req.body._id }, function (err, activity){
+        activity._id=req.body._id
         activity.username=req.body.username
         activity.tagList=req.body.tagList
         activity.isActive=req.body.isActive

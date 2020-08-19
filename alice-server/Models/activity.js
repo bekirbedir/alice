@@ -6,7 +6,6 @@ var userStatus = new Schema({
   userId:String
 });
 const  ActivitySchema = new Schema({
-  Id:Number,
   username: String,
   createdDate: {type: Date, default: Date.now},
   profilUrl:String,

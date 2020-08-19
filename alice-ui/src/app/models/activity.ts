@@ -2,8 +2,8 @@ import { UserStatus } from 'src/app/models/user.status';
 
 export class Activity {
     __v: number;
-    _Id:string;
-    Id:Number
+    _id:string;
+    id:Number
     userId?:String | null
     username?: String  | null;
     createdDate?: String  | null;
