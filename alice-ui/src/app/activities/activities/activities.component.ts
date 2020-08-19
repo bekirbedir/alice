@@ -108,8 +108,9 @@ export class ActivitiesComponent implements OnInit {
   }
 
   viewDetail(item){
-    console.log(item)
-    this.store.dispatch(new GetActivityDetail(item.Id))
+    console.log('iteeemmmmmmmmmmmmmmmm----------------')
+    console.log(item._id)
+    this.store.dispatch(new GetActivityDetail(item._id))
     this.router.navigate(['/activity-view'])
   }
 

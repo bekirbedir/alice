@@ -2,14 +2,15 @@ const express = require("express");
 const router = express.Router();
 var bodyParser = require('body-parser')
 var crypto = require('crypto');
-let ActivityView=require("../Models/activity-view")
+let ActivityView=require("../Models/activity-view");
+let Activity=require("../Models/activity");
 var jwt = require('jsonwebtoken');
 
 
 router.get("/", (req, response) => {
     let id = req.query.Id;
     console.log("-----burasi",id);
-    ActivityView.findOne({Id:id}, function(err, res) {
+    Activity.findOne({_id:id}, function(err, res) {
         if (err) {
           console.log(err);
         }

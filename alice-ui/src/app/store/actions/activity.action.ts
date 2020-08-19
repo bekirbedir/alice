@@ -8,7 +8,7 @@ export class GetActivities {
 }
 
 export class GetActivityDetail {
-    static readonly type = '[Activity] GetActivityDetail';
+    static readonly type = '[Activity]';
     constructor(public id) {
     }
 }

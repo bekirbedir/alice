@@ -14,10 +14,13 @@ export class ActivityViewComponent implements OnInit {
 
   activityStatic:Activity
   constructor(private store:Store) { 
+ 
     this.Activity.subscribe(x=>{
+      console.log(x)
       this.activityStatic=x
     })
-  
+    console.log('tetetetettetetetetettete')
+    console.log(this.activityStatic);
 
   }
 
