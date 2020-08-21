@@ -2,7 +2,7 @@ import { UserStatus } from 'src/app/models/user.status';
 
 export class Activity {
     __v: number;
-    _id:string;
+    _id:string | null;
     id:Number
     userId?:String | null
     username?: String  | null;

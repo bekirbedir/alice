@@ -13,8 +13,9 @@ export class ActivityViewComponent implements OnInit {
   @Select(ActivityState.selectedActivty) Activity: Observable<Activity>;
 
   activityStatic:Activity
+  
   constructor(private store:Store) { 
- 
+
     this.Activity.subscribe(x=>{
       console.log("pppppppppppppppppppppp"+ x)
       this.activityStatic=x
