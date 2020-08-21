@@ -22,9 +22,13 @@ export class ActivityCommentComponent implements OnInit {
   
 
   constructor(private loginService: LoginService, private activityCommentService: ActivityCommentService) {
+    this.newComment=new ActivityCommentModel()
     this.Activity.subscribe(x=>{
-      console.log("-------------------------------xxxxxxxxxxxxxxxxxx-++" + this.activityStatic)
-      this.activityStatic=x
+      if(x){
+        this.activityStatic=x
+        console.log("-------------------------------xxxxxxxxxxxxxxxxxx-++" ,x)
+      }
+
     })
   
   }
@@ -35,19 +39,18 @@ export class ActivityCommentComponent implements OnInit {
 
   getComments() {
     
-    console.log("--------------------------------++" + this.activityStatic)
-    console.log("--------------------------------++" + this.activityStatic._id)
-    this.activityCommentService.getComments(this.activityStatic._id).subscribe(x => {
-      this.comments = x
-    })
+
+    // this.activityCommentService.getComments(this.activityStatic._id).subscribe(x => {
+    //   this.comments = x
+    // })
   }
 
   sendComment() { 
     console.log("testststts")
 
-    this.loginService.user$.subscribe(x => {
-      this.newComment.userId = x.id
-    })
+
+      this.newComment.userId =localStorage.getItem('userId')
+  
     var userName = localStorage.getItem('userName')//local store koyup alabilirim veya dedıgım gıbı degısken yaratıp subscribe olurum
     console.log("yeni yorum: "+ this.newComment.text)
 
