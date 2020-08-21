@@ -7,6 +7,8 @@ export class UserModel {
     username?: String | null;
     email?: String | null;
     status?:Number | null ;
+    phone?:String | null;
+    biography?:String | null;
 
   }
   

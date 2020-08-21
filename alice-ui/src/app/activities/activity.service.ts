@@ -26,7 +26,7 @@ export class ActivityService {
   getActivity(id): Observable<Activity> {
     console.log("-----burasi2",id);
     return this._httpClient
-      .get<Activity>(this.valuesGetActivityUrl+"?Id=" + id)
+      .get<Activity>(this.valuesGetActivityUrl+"?id=" + id)
       .pipe(
         map((res) => res),
         tap((x) => console.log("aktivite", x)) //bu pipe sadece log icin mi burak? #bb

@@ -1,0 +1,26 @@
+<p>activity-comment works!</p>
+
+<div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+    <div class="p-xl-6 p-lg-6 p-md-6 p-sm-6">
+      <p-card>  
+      
+          <div class="p-grid">
+            <p>{{activityStatic._id}} - ACTIVITY-Comment SAYFASI</p>
+            <p *ngFor="let comment of comments">
+                {{comment.text}} ({{comment.username}})
+            </p>
+           
+            <div class="p-col-12">
+              <h3 class="input-label"></h3>
+              <span class="ui-float-label" style="margin-top:15px !important">
+                <input id="float-input" type="text" size="50" pInputText [(ngModel)]="newComment.text" class="w-100 h-300 font-size-1-5em" > 
+                <label for="float-input">Etkinliği daha detaylı şekilde açıklayalım</label>
+             </span>
+              </div>
+            <div class="p-col-12">
+                <button type="button" (click)="sendComment()"  class="btn btn-success w-100 "><i class="fa fa-paper-plane-o" aria-hidden="true"> </i> Gönder </button>
+            </div>
+          </div>
+      </p-card>
+    </div>
+</div>

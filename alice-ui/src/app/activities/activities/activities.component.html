@@ -62,7 +62,7 @@
             <hr>
             <div class="p-grid">
                 
-              <div class="p-col-4 act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
+              <div  (click)="viewComments(act)" class="p-col-4 act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
               <div (click)="viewDetail(act)" class="p-col-4 act-content-btn-comment cursor-pointer">Detaylar <i class="pi pi-angle-double-right" ></i></div>
               
               <div *ngIf="act.currentUserStatus == 0" class="p-col-4 ">
