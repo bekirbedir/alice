@@ -1,24 +1,40 @@
-<p>activity-comment works!</p>
+<div class="route-nav">
+  <span><a href="/activities"> <i class="fa fa-home" aria-hidden="true"></i> Anasayfa </a></span> >
+  <span><i class="fa fa-users" aria-hidden="true"></i> {{activityStatic?.header}} </span> >
+  <span> Duvar </span> 
+</div>   
 
 <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
-    <div class="p-xl-6 p-lg-6 p-md-6 p-sm-6">
-      <p-card>  
-      
-          <div class="p-grid">
-            <p>{{activityStatic?._id}} - ACTIVITY-Comment SAYFASI</p>
+  <div class="p-xl-6 p-lg-6 p-md-6 p-sm-6">
+    <p-card>
 
-           
-            <div class="p-col-12">
-              <h3 class="input-label"></h3>
-              <span class="ui-float-label" style="margin-top:15px !important">
-                <input id="float-input" type="text" size="50" pInputText [(ngModel)]="newComment.text" class="w-100 h-300 font-size-1-5em" > 
-                <label for="float-input">Etkinliği daha detaylı şekilde açıklayalım</label>
-             </span>
-              </div>
-            <div class="p-col-12">
-                <button type="button" (click)="sendComment()"  class="btn btn-success w-100 "><i class="fa fa-paper-plane-o" aria-hidden="true"> </i> Gönder </button>
-            </div>
-          </div>
-      </p-card>
-    </div>
+      <div class="p-grid">
+        <p>{{activityStatic?.header}} - Duvar</p>
+        <br>
+        <div *ngIf="comments" class="comments">
+          <div class="comment-box" *ngFor="let cmt of comments ; 
+          let index =index;
+          let isOdd=odd;
+          let isEven=even"  [class.odd-border]="isOdd" 
+          [class.even-border]="isEven" >
+            <span class="comment-date"> {{cmt.createdDate}} </span>
+            <span class="comment-text"> {{cmt.text}} </span> 
+            <span class="comment-username">@{{cmt.username}}</span></div>
+        </div>
+
+        <div class="p-col-12">
+          <h3 class="input-label"></h3>
+          <span class="ui-float-label" style="margin-top:15px !important">
+            <input id="float-input" type="text" size="50" pInputText [(ngModel)]="newComment.text"
+              class="w-100 h-100">
+            <label for="float-input">Etkinlik hakkında sorularını buraya yazabilirsin</label>
+          </span>
+        </div>
+        <div class="p-col-12">
+          <button type="button" (click)="sendComment()" class="btn btn-success w-100 "><i class="fa fa-paper-plane-o"
+              aria-hidden="true"> </i> Gönder </button>
+        </div>
+      </div>
+    </p-card>
+  </div>
 </div>

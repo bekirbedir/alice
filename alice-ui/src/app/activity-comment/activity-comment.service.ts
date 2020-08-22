@@ -22,7 +22,6 @@ export class ActivityCommentService {
       .get<ActivityCommentModel[]>(this.valuesUrl + "getComments"+"?id=" + id)
       .pipe(
         map((res) => res),
-          tap((x) => console.log("commentler", x))
       );
 
   
@@ -39,7 +38,6 @@ export class ActivityCommentService {
       .post<ActivityCommentModel>(this.valuesUrl + "sendComment", object, { headers: header })
       .pipe(
         map((res) => res),
-        tap((x) => console.log("approve", x))
       );
       
   }

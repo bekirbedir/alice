@@ -15,11 +15,13 @@ import { Router } from '@angular/router';
 import { ActivityService } from '../activity.service';
 import { UserStatus } from 'src/app/models/user.status';
 import { LoginService } from 'src/app/auth/login.service';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-activities',
   templateUrl: './activities.component.html',
   styleUrls: ['./activities.component.css'],
+  providers: [MessageService]
 })
 export class ActivitiesComponent implements OnInit {
   images: any[];
@@ -33,7 +35,8 @@ export class ActivitiesComponent implements OnInit {
     private loginservice: LoginService,
     private service: ActivityService,
     private store: Store,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
     this.store.dispatch(new GetActivities());
     this.activeuser = localStorage.getItem('userId');
@@ -114,16 +117,19 @@ export class ActivitiesComponent implements OnInit {
   }
 
   viewDetail(item){
-    console.log('iteeemmmmmmmmmmmmmmmm----------------')
-    console.log(item._id)
     this.store.dispatch(new GetActivityDetail(item._id))
     this.router.navigate(['/activity-view'])
   }
 
   viewComments(item){
-    console.log(item)
-    this.store.dispatch(new GetActivityDetail(item._id))
-    this.router.navigate(['/activity-comment'])
+    console.log("viewcommenetttsss")
+    if(item.currentUserStatus != 2){
+      this.messageService.add({key: 'tc', severity:'info', summary: 'Yetkisiz erişim', detail:'Duvarı, sadece katılımı onaylanan kullanıcılar görebilir..'});
+    }else{
+      this.store.dispatch(new GetActivityDetail(item._id))
+      this.router.navigate(['/activity-comment'])
+    }
+   
   }
 
   newActivity() {
@@ -137,18 +143,15 @@ export class ActivitiesComponent implements OnInit {
   }
 
   isCurrentUserParticipant(activity: Activity) {
-    console.log('burdaaaaaaaaaaaaaaaaaaaa', this.isActiveUserId);
     if (this.isActiveUserId != null && this.isActiveUserId != '') {
       const userList = activity.userList;
       for (var i = 0; i < userList.length; i++) {
         if (userList[i].userId == this.isActiveUserId.trim())
           activity.currentUserStatus = userList[i].status;
-        console.log(' userList[i].status; + ' + userList[i].status);
         return userList[i].status;
       }
       return 0;
     } else {
-      console.log(' elseee userList[i].status; + ' + 0);
       return 0;
     }
   }

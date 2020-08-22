@@ -3,6 +3,7 @@ export class ActivityCommentModel {
     activityId: String;
     userId: String;
     text:String;   
-
+    username:String;
+    createdDate?: String  | null;
   }
   

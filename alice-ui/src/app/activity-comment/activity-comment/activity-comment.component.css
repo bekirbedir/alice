@@ -1,0 +1,40 @@
+.comment-box{
+   
+   
+    display: block;
+    width: 100%;
+    padding:10px 0px;
+    word-break: break-word;
+    border-radius: 3px;
+    margin-top:3px;
+    border-bottom: 1px solid #ccc;
+
+}
+.comment-username{
+    display: block;
+    font-weight: bold;
+    text-align:right;
+    margin-right:5px
+}
+.comment-text{
+    display: block;
+    margin-left: 10px;
+}
+.comment-date{
+    display: block;
+    font-weight: 100;
+}
+.comments{
+    margin: 10px 0;
+    padding: 10px 5px;
+    border:1px solid #ccc;
+    width: 100%;
+    
+}
+.odd-border {
+    border-left:7px solid #2ff5af;
+
+}
+.even-border {
+    border-left:7px solid #ff9029;
+}

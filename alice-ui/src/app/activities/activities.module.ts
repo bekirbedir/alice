@@ -7,6 +7,7 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { MenuItem } from 'primeng/api';
 import {TabMenuModule} from 'primeng/tabmenu';
+import {ToastModule} from 'primeng/toast';
 
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     GalleriaModule,
     ButtonModule,
-    TabMenuModule
+    TabMenuModule,
+    ToastModule
   ]
 })
 export class ActivitiesModule { }

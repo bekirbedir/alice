@@ -40,7 +40,7 @@ export class SignupComponent implements OnInit {
       console.log("user eklendi dönüş tipi:",x)
       this.checked=false
       this.user=new User();
-      this.messageService.add({key: 'tc', severity:'warn', summary: 'Info Message', detail:'PrimeNG rocks'});
+      this.messageService.add({key: 'tc', severity:'warn', summary: 'Info Message', detail:'Kaydınız alındı. Email doğrulaması yapınız'});
     })
   }
 }

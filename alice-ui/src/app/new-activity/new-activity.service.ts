@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Activity } from '../models/activity';
+import { ActivityCommentModel } from '../models/activity.comment.model';
 import { map, tap } from 'rxjs/operators';
 
 @Injectable({
@@ -26,6 +27,8 @@ addActivity(activity:Activity): Observable<Activity> {
       tap((x) => console.log("aktivite", x)) //bu pipe sadece log icin mi burak? #bb
     );
 } 
+
+
 
 }
 
