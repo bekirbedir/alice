@@ -193,7 +193,8 @@ else{
       var rString = randomString(18, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
       user.mailOnayCode = rString;
       user.save();
-      mailler.main(user.email);
+      textHtml = "<b>Merhaba, ActivityFriend'e hoşgeldiniz!</b><p><a href='http://localhost:4200/login/"+ rString + "/"+ user.username+"'>Buraya tıklayarak mail adresinizi onaylayınız.</p>"
+      mailler.main(user.email,textHtml);
       return res.status(200).send({message:"user added"})
     }
   });

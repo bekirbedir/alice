@@ -5,10 +5,11 @@ var crypto = require('crypto');
 let Activity=require("../Models/activity")
 let ActivityUser=require("../Models/activity-user-status")
 var jwt = require('jsonwebtoken');
+let User=require("../Models/user")
 router.get("/getall", (request, response) => {
      
    
-    Activity.find({}, function(err, res) {
+    Activity.find({},null,{sort: '-createdDate'}, function(err, res){
         if (err) {
           console.log(err);
         }
@@ -111,23 +112,34 @@ router.post("/join",(req,res)=>{
      if (index === -1){
         activity.userList.push({status:1,date:Date.now(),userId:decodedToken.id}) //eklenip eklenmeme
     
-        const activityUser = new ActivityUser();
-        activityUser.status = 1;
-        activityUser.date = Date.now();
-        activityUser.activityId = activity._id;
-        activityUser.userId = decodedToken.id;
-        activityUser.save().then(result=>{
-         /*   res.status(200).json({
-                status: true,
-                message: "activity join request  done"
-            }) */
-        })
-        .catch(error => {
-          /*  res.status(404).json({ 
-                status: false,
-                message: "activity join request failed done"
-            }) */
-        });
+        User.findOne({ _id: decodedToken.id }, function (err, user){
+            if(user){
+                const activityUser = new ActivityUser();
+                activityUser.status = 1;
+                activityUser.date = Date.now();
+                activityUser.activityId = activity._id;
+                activityUser.userId = decodedToken.id;
+                activityUser.username = user.username;
+                activityUser.user = user;
+                activityUser.save().then(result=>{
+                 /*   res.status(200).json({
+                        status: true,
+                        message: "activity join request  done"
+                    }) */
+                })
+                .catch(error => {
+                  /*  res.status(404).json({ 
+                        status: false,
+                        message: "activity join request failed done"
+                    }) */
+                });
+            }
+            else{
+              console.log("bulamadik");
+            }
+              })
+
+       
     }
         
         activity.save().then(result => {

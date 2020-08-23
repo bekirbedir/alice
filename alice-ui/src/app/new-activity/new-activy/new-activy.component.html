@@ -25,8 +25,7 @@
           <div class="p-col-12">
             <h5 class="input-label">Biraz detaylandıralım</h5>
             <span class="ui-float-label" style="margin-top:15px !important">
-              <input id="float-input" type="text" size="50" pInputText [(ngModel)]="activity.context"
-                class="w-100 h-300 font-size-1-5em">
+                <textarea class="w-100" id="float-input" [rows]="10" [cols]="30" pInputTextarea autoResize="autoResize" [(ngModel)]="activity.context"></textarea>
               <label for="float-input">Etkinliği daha detaylı şekilde açıklayalım</label>
             </span>
           </div>

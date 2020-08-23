@@ -11,6 +11,7 @@ const routes: Routes = [
     loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
     canActivate: [AuthGuard]
   },
+ 
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: 'new-activity',
     loadChildren: () => import('./new-activity/new-activity.module').then(m => m.NewActivityModule)
+  },
+  {
+    path: 'activity-management',
+    loadChildren: () => import('./activity-management/activity-management.module').then(m => m.ActivityManagementModule)
   },
   {
     path: 'admin-users',

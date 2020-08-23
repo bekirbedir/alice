@@ -34,9 +34,9 @@
         </div>
         <div class="p-col-11 act-content">
           <div *ngIf="activeuser==act.ownerId" class="p-col-12 font-size-1-5em">
-             
-            <button type="button" class="btn btn-warning p-col-12"> <i class="fa fa-cogs" aria-hidden="true"> </i> Yönet</button>
+            <button (click)="activityManagement(act)" type="button" class="btn btn-warning cursor-pointer p-col-12"> <i class="fa fa-cogs" aria-hidden="true"> </i> Yönet</button>
           </div>
+
             <p class="act-header-user-name">{{act.username}}</p>
            <p class="act-header-name">{{act.header}}</p>
            <div class="h-10"></div>
@@ -57,7 +57,7 @@
             <div class="p-grid">
                 <div class="p-col cursor-pointer"><i class="pi pi-heart"></i> {{act.like}}</div>
                 <div class="p-col "><i class="pi pi-users"></i> {{act.participationCount}}</div>
-              <div class="p-col"><i class="pi pi-clock"></i> {{act.date}}</div>
+              <div class="p-col"><i class="pi pi-clock"></i> {{ act.date | date:'dd:mm:yyy HH:mm:ss':null:'tr'}}</div>
             </div>
             <hr>
             <div class="p-grid">

@@ -5,6 +5,13 @@
     <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
   
       <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
+  
+          <div *ngIf="isApprovee">
+
+             KullaniciAdı: {{ approveUsername}}
+             Code: {{ approveCode}}
+          </div>
+
         <p-card  >
           <div class="p-col-12">
 

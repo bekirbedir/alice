@@ -16,7 +16,10 @@ import { ActivityService } from '../activity.service';
 import { UserStatus } from 'src/app/models/user.status';
 import { LoginService } from 'src/app/auth/login.service';
 import {MessageService} from 'primeng/api';
+import localeTr from '@angular/common/locales/tr';
+import { registerLocaleData } from '@angular/common';
 
+registerLocaleData(localeTr, 'tr');
 @Component({
   selector: 'app-activities',
   templateUrl: './activities.component.html',
@@ -132,12 +135,18 @@ export class ActivitiesComponent implements OnInit {
    
   }
 
+  activityManagement(item){
+    localStorage.setItem('selectedActivityId', JSON.stringify(item._id));
+    this.router.navigate(['/activity-management']);
+  }
+
   newActivity() {
     this.router.navigate(['/new-activity']);
   }
   joinActivity(item) {
     this.service.join(item._id).subscribe((x) => {
       console.log(x._id);
+      
     });
     item.currentUserStatus = 1;
   }

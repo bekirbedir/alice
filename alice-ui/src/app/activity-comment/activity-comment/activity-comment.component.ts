@@ -7,6 +7,11 @@ import { Activity } from 'src/app/models/activity';
 import { Store, Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { element } from 'protractor';
+import localeTr from '@angular/common/locales/tr';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeTr, 'tr');
 
 @Component({
   selector: 'app-activity-comment',
@@ -45,6 +50,10 @@ export class ActivityCommentComponent implements OnInit {
   getComments() {
 
     this.activityCommentService.getComments(this.activityStatic._id).subscribe(x => {
+      /*
+      x.forEach(element=>{
+      //  element.createdDate = element.createdDate.toLocaleString();
+      }) */
       this.comments = x
     })
   }

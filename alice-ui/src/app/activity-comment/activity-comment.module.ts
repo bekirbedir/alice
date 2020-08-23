@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CheckboxModule } from 'primeng/checkbox';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {ChipsModule} from 'primeng/chips';
+import { dateToLocalStr } from '../pipes/pipe';
 
 const routes: Routes = [
   {
@@ -37,7 +38,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ActivityCommentComponent],
+  declarations: [ActivityCommentComponent,dateToLocalStr],
   imports: [
     CommonModule,
     CardModule,     

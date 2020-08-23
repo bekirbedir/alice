@@ -26,7 +26,11 @@ const routes: Routes = [
   {
     path: '',
     component: LoginComponent
-  }
+  },
+  {
+    path: ':code/:username',
+    component: LoginComponent
+  },
 ];
  
 @NgModule({
