@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProfileComponent } from './profile/profile.component';
 import { CardModule } from 'primeng/card';
 import { RouterModule, Routes } from '@angular/router';
-
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 const routes: Routes = [
   { 
@@ -18,7 +18,9 @@ const routes: Routes = [
   imports: [
     CommonModule,
     CardModule,
-    RouterModule.forChild(routes)
-  ]
+    RouterModule.forChild(routes),
+
+  ],
+  providers: [NgxImageCompressService],
 })
 export class ProfileModule { }
