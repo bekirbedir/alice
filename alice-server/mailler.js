@@ -27,9 +27,9 @@ static async  main(mailaddres) {
   let info = await transporter.sendMail({
     from: "activityfriendd@gmail.com",
      to: mailaddres, // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
+    subject: "ActivityFriend' e Hoşgeldiniz", // Subject line
+    text: "Activity Friend Mail Onayı", // plain text body
+    html: "<b>Merhaba, ActivityFriend'e hoşgeldiniz!</b><p><a href='http://localhost:4200/login'>Buraya tıklayarak mail adresinizi onaylayınız.</p>", // html body
   });
 
   console.log("Message sent: %s", info.messageId);

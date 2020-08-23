@@ -18,7 +18,8 @@ const  ActivitySchema = new Schema({
   like:Number,
   participationCount:Number,
   date:Date,
-  userList:[userStatus]
+  userList:[userStatus],
+  
 
 },{
     versionKey: false // You should be aware of the outcome after set to false

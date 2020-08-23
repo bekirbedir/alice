@@ -35,6 +35,7 @@ router.post("/",(req,res)=>{
   activity.header=req.body.header
   activity.participationCount=req.body.participationCount
   activity.like=req.body.like
+  activity.date=req.body.date
   activity.context = req.body.context
   activity.save().then(result => {
     res.status(200).json({

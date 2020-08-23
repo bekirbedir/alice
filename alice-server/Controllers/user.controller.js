@@ -23,6 +23,7 @@ router.get("/getall", (request, response) => {
 
 router.get("/getPending", (request, response) => {
 
+  //buraya admin mi kontrolu eklenmeli
   User.find({}, function(err, res) {
     
       if (err) {
@@ -38,7 +39,7 @@ router.get("/getPending", (request, response) => {
 })
 
 router.post("/userApprove",(req,res)=>{
-
+  //buraya admin mi kontrolu eklenmeli
   const user=new User();
   user.id = req.body._id
 
@@ -66,8 +67,39 @@ router.post("/userApprove",(req,res)=>{
 
 })
 
-router.post("/userReject",(req,res)=>{
+router.get("/mailApprove",(req,res)=>{
+  //buraya admin mi kontrolu eklenmeli
 
+  let pMailOnayCode=req.query.onaycode
+  let pUsername=req.query.username
+  user.id = req.body._id
+
+  User.findOne({ username: pUsername , mailOnayCode:pMailOnayCode }, function (err, user){
+          if(user){
+            user.status = 2;
+            user.updatedDate = Date.now();
+            user.save().then(result => {
+              res.status(200).json({
+                  status: true,
+                  message: "Kullanıcı onaylandı"
+              })
+            })
+              .catch(error => {
+                  res.status(200).json({ 
+                      status: false,
+                      message: "Hata oluştu; " + error
+                  })
+             });
+          }
+          else{
+            console.log("bulamadik");
+          }
+            })
+
+})
+
+router.post("/userReject",(req,res)=>{
+  //buraya admin mi kontrolu eklenmeli
   const user=new User();
   user.id = req.body._id
 
@@ -131,6 +163,8 @@ else {
 }
 })
 
+
+
 router.post("/signup",(req,res)=>{
   let pUsername=req.body.username
   if (!req.body.username || !req.body.password) {
@@ -155,8 +189,10 @@ else{
       user.email=req.body.email
       user.phone=req.body.phone
       user.createdDate=Date.now()
-      user.status = 2 
-      user.save()
+      user.status = 1
+      var rString = randomString(18, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+      user.mailOnayCode = rString;
+      user.save();
       mailler.main(user.email);
       return res.status(200).send({message:"user added"})
     }
@@ -201,6 +237,12 @@ router.get("/detail",(req,res)=>{
   }
   )
 })
+
+function randomString(length, chars) {
+  var result = '';
+  for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+  return result;
+}
 
 module.exports = router;
 

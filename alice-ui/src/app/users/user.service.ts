@@ -35,8 +35,6 @@ export class UserService {
  
   creatUser(user:User):Observable<User>{
 
-
-
   let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
   const object = JSON.stringify(user);

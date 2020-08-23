@@ -18,5 +18,6 @@ export class Activity {
     userList:[UserStatus];
     currentUserStatus: Number | 0;
     ownerId:String | null;
+    date?: Date;
   }
   

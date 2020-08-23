@@ -18,10 +18,8 @@ export class LoginComponent implements OnInit {
   version: string;
   msgs: any[];  
 
-  constructor(private loginservice:LoginService,private router:Router
-  ) { 
-
-  }
+  constructor(private loginservice:LoginService,private router:Router ) { 
+    }
 
   ngOnInit() {
 

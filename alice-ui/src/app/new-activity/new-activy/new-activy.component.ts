@@ -13,7 +13,7 @@ import {MessageService} from 'primeng/api';
   providers:[MessageService]
 })
 export class NewActivyComponent implements OnInit {
-
+  tr:any;
   userName: "";
   password: "";
   email: "";
@@ -38,10 +38,23 @@ export class NewActivyComponent implements OnInit {
  
   ngOnInit(): void {
  
-
+    this.tr = {
+      firstDayOfWeek: 0,
+      dayNames: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+      dayNamesShort: ["Paz", "Pzt", "Sal", "ÇRŞ", "PRŞ", "CMA", "CTS"],
+      dayNamesMin: ["PA","PT","SA","ÇA","PE","CU","PZ"],
+      monthNames: [ "January","February","March","April","May","June","July","August","September","October","November","December" ],
+      monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
+      today: 'Today',
+      clear: 'Clear',
+      dateFormat: 'dd.mm.yy',
+      weekHeader: 'Wk'
+  };
 
   }
-
+  onSelect(e){
+      console.log("-------------");
+  }
   newActivity(){
     if(!this.limitedParticipant){
      this.activity.participationCount=0

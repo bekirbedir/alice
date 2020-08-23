@@ -14,5 +14,6 @@ const UserSchema = new Schema({
   phone: String,
   biography: String,
   status: {type: Number, default: 1},
+  mailOnayCode: String
 });
 module.exports = mongoose.model("User", UserSchema);
