@@ -41,7 +41,6 @@ userApprove(user:UserModel): Observable<ResponseModel>{
   .post<ResponseModel>(this.valuesUrl+"userApprove",object,{headers: header})
   .pipe(
     map((res) => res),
-    tap((x) => console.log("approve", x)) 
   );
 }
 userReject(user:UserModel): Observable<ResponseModel>{
@@ -55,7 +54,6 @@ userReject(user:UserModel): Observable<ResponseModel>{
   .post<ResponseModel>(this.valuesUrl+"userReject",object,{headers: header})
   .pipe(
     map((res) => res),
-    tap((x) => console.log("reject", x)) 
   );
 }
 

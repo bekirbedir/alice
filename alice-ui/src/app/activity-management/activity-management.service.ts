@@ -31,6 +31,17 @@ getUsers(activityId,status): Observable<ActivityUserStatus[]> {
     );
 } 
 
+userStateAction(activityId,userId ,status): Observable<ResponseModel> {
+  const transferObject = {'activityId':activityId , 'userId':userId, 'status':status};
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+  return this._httpClient
+    .post<ResponseModel>(this.valuesUrl+"userStateAction",object, { headers: header })
+    .pipe(
+      map((res) => res)
+    );
+} 
+
 }
 
 

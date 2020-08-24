@@ -1,20 +1,17 @@
+<p-toast position="top-center" key="tc"></p-toast>
 <p-tabView>
     <p-tabPanel header="Onay Bekleyenler" [selected]="true" rightIcon="pi pi-pause">
         <table class="table table-striped">
             <thead>
-              <tr>
-                <th scope="col">Kullanıcı</th>
-                <th scope="col"></th>
-              
-              </tr>
+            
             </thead>
             <tbody>
               <tr *ngFor="let actUser of waitingUsers">
                 <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
                 <td>
                     <div class="btn-group" role="group" aria-label="...">
-                        <button (click)="userAction(actUser,2)" type="button" class="btn btn-success">Onayla <i class="pi pi-play"></i></button>
-                        <button (click)="userAction(actUser,3)" type="button" class="btn btn-danger">Reddet <i class="pi pi-times"></i> </button>
+                        <button (click)="userStateAction(actUser.activityId , actUser.user._id,2)" type="button" class="btn btn-success">Onayla <i class="pi pi-play"></i></button>
+                        <button (click)="userStateAction(actUser.activityId , actUser.user._id,3)" type="button" class="btn btn-danger">Reddet <i class="pi pi-times"></i> </button>
                       </div>
                 </td>
               </tr>
@@ -24,9 +21,36 @@
         
     </p-tabPanel>
     <p-tabPanel header="Onaylananlar" rightIcon="pi pi-play" >
-        Content 2
+
+        <table class="table table-striped">
+            <thead>
+             
+            </thead>
+            <tbody>
+              <tr *ngFor="let actUser of approveUsers">
+                <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
+               
+              </tr>
+
+            </tbody>
+          </table>
+        
+
     </p-tabPanel>
     <p-tabPanel header="Reddedilenler" rightIcon="pi pi-times">
-        Content 3
+      <table class="table table-striped">
+        <thead>
+        
+        </thead>
+        <tbody>
+          <tr *ngFor="let actUser of rejectedUsers">
+            <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
+           
+          </tr>
+
+        </tbody>
+      </table>
     </p-tabPanel>
 </p-tabView>
+
+<p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000"></p-toast>

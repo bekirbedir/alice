@@ -4,6 +4,9 @@ import { ActivityManagementComponent } from './activity-management/activity-mana
 import {PanelModule} from 'primeng/panel';
 import { RouterModule, Routes } from '@angular/router';
 import {TabViewModule} from 'primeng/tabview';
+import { ToastModule } from 'primeng/toast';
+
+
 
 const routes: Routes = [
   {
@@ -15,6 +18,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [ActivityManagementComponent],
   imports: [
+    ToastModule,
     CommonModule,
     PanelModule,
     TabViewModule,
