@@ -3,6 +3,7 @@ const router = express.Router();
 var bodyParser = require('body-parser')
 var crypto = require('crypto');
 let ActivityUser = require("../Models/activity-user-status")
+let Activity = require("../Models/activity")
 var jwt = require('jsonwebtoken');
 
 router.post("/getUsers", (request, response) => {
@@ -12,66 +13,69 @@ router.post("/getUsers", (request, response) => {
     pStatus = request.body.status;
     console.log("actId: " + pActivityId + " ------- status: " + pStatus)
 
-    ActivityUser.find({activityId:pActivityId,status: pStatus}, function(err, res) {
+    ActivityUser.find({ activityId: pActivityId, status: pStatus }, function (err, res) {
         if (err) {
-          console.log(err)
-        }
-        if(res){
-         response.send(res);
-        }
-    }
-    )
-  
-  })
-
-
-router.get("/getComments", (req, response) => {
-    console.log("-----------getcomments-------------")
-    const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, 'secret_key');
-    console.log("userId", decodedToken.id);
-    console.log("id", req.query.id);
-    const activityId = req.query.id;
-    console.log("activiyyID : " + activityId);
-
-    ActivityComment.find({ activityId: activityId }, function (err, res) {
-        if (err) {
-            console.log("bulunamadı: " + err);
+            console.log(err)
         }
         if (res) {
             response.send(res);
         }
-
     }
     )
 
 })
 
-router.post("/sendComment", (req,res) => {
 
-    const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, 'secret_key');
-    console.log("userId", decodedToken.id);
-    console.log("activityId", req.body.activityId);
 
-    const activityComment = new ActivityComment();
-    activityComment.userId = decodedToken.id
-    activityComment.text = req.body.text;
-    activityComment.activityId = req.body.activityId;
-    activityComment.username = req.body.username;
-    activityComment.createdDate = Date.now();
+router.post("/userStateAction", (request, res) => {
 
-    activityComment.save().then(result => {
-        res.status(200).json({
-            status: true,
-            message: "comment added successfully done"
-        })
-    })
-        .catch(error => {
-            debugger
-            console.log(error);
-            next(error);
-        });
+    pActivityId = request.body.activityId;
+    pUserId = request.body.userId;
+    pStatus = request.body.status;
+    console.log("userId", pActivityId);
+    console.log("activityId", pStatus);
+
+    ActivityUser.findOne({ activityId: pActivityId, userId: pUserId }, function (err, actUser) {
+        if (actUser) {
+            actUser.status = pStatus;
+            actUser.save().then(result => {
+                ///----------burasi activity icinde duzenleme-----------
+          /*      Activity.findOne({_id:req.body.activityId}, function(err, activity) {
+
+                    activity.save().then(result => {
+                        res.status(200).json({
+                            status: true,
+                            message: "activity join request  done"
+                        })
+                    })
+                        .catch(error => {
+                            res.status(404).json({ 
+                                status: false,
+                                message: "activity join request failed done"
+                            })
+                  });
+                })
+                */
+                //-------------act ici-----------------------------------
+                res.status(200).json({
+                    status: true,
+                    message: "activity update successfully done"
+                })
+            })
+                .catch(error => {
+                    res.status(200).json({
+                        status: false,
+                        message: "activity update failed done"
+                    })
+                });
+        }
+        if (err) {
+            console.log(err)
+        }
+    }
+    )
+
+
 
 })
 
