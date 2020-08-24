@@ -40,7 +40,7 @@ router.post("/userStateAction", (request, res) => {
             actUser.status = pStatus;
             actUser.save().then(result => {
                 ///----------burasi activity icinde duzenleme-----------
-          /*      Activity.findOne({_id:req.body.activityId}, function(err, activity) {
+                Activity.findOne({_id:req.body.activityId}, function(err, activity) {
 
                     activity.save().then(result => {
                         res.status(200).json({
@@ -55,7 +55,7 @@ router.post("/userStateAction", (request, res) => {
                             })
                   });
                 })
-                */
+                
                 //-------------act ici-----------------------------------
                 res.status(200).json({
                     status: true,

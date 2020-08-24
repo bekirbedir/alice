@@ -148,6 +148,7 @@ export class ActivitiesComponent implements OnInit {
       
     });
     item.currentUserStatus = 1;
+    this.messageService.add({key: 'tc', severity:'info', summary: 'Başarılı', detail:'Aktiviteye katılım isteği gönderdiniz'});
   }
 
   isCurrentUserParticipant(activity: Activity) {

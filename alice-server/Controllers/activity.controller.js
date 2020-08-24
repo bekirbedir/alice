@@ -5,21 +5,42 @@ var crypto = require('crypto');
 let Activity=require("../Models/activity")
 let ActivityUser=require("../Models/activity-user-status")
 var jwt = require('jsonwebtoken');
-let User=require("../Models/user")
-router.get("/getall", (request, response) => {
+let User=require("../Models/user");
+const activityUserStatus = require("../Models/activity-user-status");
+
+
+
+router.get("/getall",( request, response) => {
      
-   
+    const activityList = [];
     Activity.find({},null,{sort: '-createdDate'}, function(err, res){
         if (err) {
           console.log(err);
         }
         if(res){
-        response.send(res);
+          
+            res.forEach(element=>{
+                element.actUser = [];
+                activityUserStatus.find({activityId:element._id},function(err, actUser){
+                   if(actUser){
+                      element.actUser.push(actUser);
+                    }
+                   
+                    })
+                   
+            })
+            setTimeout(function(){ 
+                response.send(res);
+            }, 3000);
+            
+           
         }
     }
     )
 
 })
+
+
 router.post("/",(req,res)=>{
   
   const token = req.headers.authorization.split(" ")[1];
