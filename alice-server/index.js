@@ -6,9 +6,10 @@ const app = express();
 var path = require('path');
 var bodyParser = require('body-parser')
 var auhtguard=require('./Controllers/user.authguard')
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(express.static(path.join(__dirname, 'public')));
 const usersRouter = require("./Controllers/user.controller");
 const activityRouter = require("./Controllers/activity.controller");

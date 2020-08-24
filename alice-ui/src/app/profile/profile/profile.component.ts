@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import { ProfilService } from '../profile.service';
+import { UserModel } from 'src/app/models/user.model';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -8,10 +11,17 @@ import {NgxImageCompressService} from 'ngx-image-compress';
 })
 export class ProfileComponent  {
   imagePath:any
-
+  User:any
  
-  constructor( private _sanitizer: DomSanitizer,private imageCompress: NgxImageCompressService){
-
+  constructor( private service:ProfilService,private _sanitizer: DomSanitizer,private imageCompress: NgxImageCompressService){
+    const userId=localStorage.getItem('userId').replace("\"", "").replace("\"", "") 
+    this.User=new UserModel()
+    this.service.getMyProfil(userId).subscribe(x=>{
+      this.sellersPermitString=x.userPhoto
+      this.User=x
+    this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
+    +this.sellersPermitString );
+    })
   }
   imageSrc;
   sellersPermitFile: any;
@@ -31,10 +41,7 @@ export class ProfileComponent  {
 
   addPictures() {
     this.finalJson = {
-      "sellersPermitFile": this.ExteriorPicString,
-      "DriversLicenseFile": this.DriversLicenseString,
-      "InteriorPicFile": this.InteriorPicString,
-      "ExteriorPicFile": this.ExteriorPicString
+      "sellersPermitFile": this.ExteriorPicString
     }
   }
   public picked(event, field) {
@@ -45,19 +52,6 @@ export class ProfileComponent  {
       if (field == 1) {
         this.sellersPermitFile = file;
         this.handleInputChange(file); //turn into base64
-      }
-      else if (field == 2) {
-        this.DriversLicenseFile = file;
-        this.handleInputChange(file); //turn into base64
-      }
-      else if (field == 3) {
-        this.InteriorPicFile = file;
-        this.handleInputChange(file); //turn into base64
-      }
-      else if (field == 4) {
-        this.ExteriorPicFile = file;
-        this.handleInputChange(file); //turn into base64
-
       }
     }
     else {
@@ -81,27 +75,18 @@ export class ProfileComponent  {
     let reader = e.target;
     var base64result = reader.result.substr(reader.result.indexOf(',') + 1);
     //this.imageSrc = base64result;
-    let id = this.currentId;
-    switch (id) {
-      case 1:
-        this.sellersPermitString = base64result;
-        break;
-      case 2:
-        this.DriversLicenseString = base64result;
-        break;
-      case 3:
-        this.InteriorPicString = base64result;
-        break;
-      case 4:
-        this.ExteriorPicString = base64result;
-        break
-    }
+    this.sellersPermitString = base64result;
+
 
     this.log();
  
     
     this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
     +this.sellersPermitString );
+  const userId=localStorage.getItem('userId').replace("\"", "").replace("\"", "") 
+    this.service.updateUserPhoto(userId,this.sellersPermitString).subscribe(x=>{
+      console.log(x)
+    })
   }
 
   log() { 

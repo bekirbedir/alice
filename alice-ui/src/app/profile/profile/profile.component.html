@@ -2,10 +2,10 @@
     <span><a href="/activities"> <i class="fa fa-home" aria-hidden="true"></i> Anasayfa </a></span> >
     <span><i class="fa fa-user" aria-hidden="true"></i> Profil </span>
   </div>   
-  <label for="propic">Profil resmini değiştir</label>
+  <label for="propic">Profil Fotosu Değiştir</label>
   
   <input id="propic" (change)="picked($event,1)" type="file" style="visibility: hidden;">
-<div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+  <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
     <div class="p-xl-5 p-lg-5 p-md-5 p-sm-5">
     <p-card>
         <div class="p-grid">
@@ -14,10 +14,9 @@
             </div>
 
             <div class="p-col-8">
-                <p class="name">Bekir Bedir / 26</p>
-                <p class="username"><a href="#">@bekirbedir</a></p>
-                <p class="age">23.02.1994</p>
-                <p class="email">bekirbedir23@gmail.com</p>
+                <p class="name">{{User.name}}</p>
+                <p class="username"><a href="#">@{{User.username}}</a></p>
+                <p class="email">{{User.email}}</p>
             </div>
                   
            <div class="p-col-12">
