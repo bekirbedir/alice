@@ -5,7 +5,7 @@ class Mailer {
   
   
 // async..await is not allowed in global scope, must use a wrapper
-static async  main(mailaddres , textHtml) {
+static async  main(mailaddres ,subject, textHtml) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
   let testAccount = await nodemailer.createTestAccount();
@@ -27,8 +27,8 @@ static async  main(mailaddres , textHtml) {
   let info = await transporter.sendMail({
     from: "activityfriendd@gmail.com",
      to: mailaddres, // list of receivers
-    subject: "ActivityFriend' e Hoşgeldiniz", // Subject line
-    text: "Activity Friend Mail Onayı", // plain text body
+    subject: subject, // Subject line
+    text: "-ActivityFriend", // plain text body
     html: textHtml, // html body
   });
 

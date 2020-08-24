@@ -11,7 +11,7 @@ router.post("/getUsers", (request, response) => {
     //buraya yonetici mi kontrolu eklenmeli
     pActivityId = request.body.activityId;
     pStatus = request.body.status;
-    console.log("actId: " + pActivityId + " ------- status: " + pStatus)
+
 
     ActivityUser.find({ activityId: pActivityId, status: pStatus }, function (err, res) {
         if (err) {
@@ -80,10 +80,10 @@ router.post("/userStateAction", (request, res) => {
 })
 
 router.post("/", (req, res) => {
-    console.log(req.body)
+
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, 'secret_key');
-    console.log("decode", decodedToken.id)
+   
     const activity = new Activity();
     activity.ownerId = '"' + decodedToken.id + '"'
     activity.Id = req.body.Id
@@ -160,8 +160,6 @@ router.put("/", (req, res) => {
 router.post("/join", (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, 'secret_key');
-    console.log("decode", decodedToken.id)
-    console.log("id", req.body.activityId)
     Activity.findOne({ _id: req.body.activityId }, function (err, activity) {
 
         var index = activity.userList.findIndex(x => x.userId == decodedToken.id)

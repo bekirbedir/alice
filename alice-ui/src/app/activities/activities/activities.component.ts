@@ -67,7 +67,6 @@ export class ActivitiesComponent implements OnInit {
    
   ngOnInit() {
     this.Activities.subscribe((x) => {
-      console.log('burdaaa', x);
       this.activities = x;
       for (var i = 0; i < this.activities.length; i++) {
         const userPricipantStatus = this.isCurrentUserParticipant(x[i]);

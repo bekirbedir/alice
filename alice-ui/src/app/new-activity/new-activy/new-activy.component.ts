@@ -53,7 +53,7 @@ export class NewActivyComponent implements OnInit {
 
   }
   onSelect(e){
-      console.log("-------------");
+      console.log("------------- on select");
   }
   newActivity(){
     if(!this.limitedParticipant){
@@ -63,7 +63,6 @@ export class NewActivyComponent implements OnInit {
    this.activity.username=localStorage.getItem('userName').replace("\"", "").replace("\"", "") //local store koyup alabilirim veya dedıgım gıbı degısken yaratıp subscribe olurum
    this.activity.userId= localStorage.getItem('userId').replace("\"", "").replace("\"", "") 
    this.activity.tagList=this.values
-   console.log(this.activity)
    this.activityService.addActivity(this.activity).subscribe(x=>{
      if(x){
       this.messageService.add({key: 'tc',severity:'success', summary:'Başarılı!', detail:'Aktivite başarı ile oluşturuldu. Admin onayından sonra yayına alınacaktır. İyi eğlenceler'});

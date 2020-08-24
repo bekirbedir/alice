@@ -6,13 +6,14 @@
   
       <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
   
-          <div *ngIf="isApprovee">
-
-             KullaniciAdı: {{ approveUsername}}
-             Code: {{ approveCode}}
+        <div *ngIf="isApprove">
+          
+          <div class="alert alert-success" role="alert">
+            <h3><i class="fa fa-check" aria-hidden="true"> </i> Mailiniz başarılı şekilde onaylanmıştır. Profil onayınızın ardından mail ile bilgilendirileceksiniz.</h3>
           </div>
-
-        <p-card  >
+        </div>
+  
+        <p-card *ngIf="!isApprove">
           <div class="p-col-12">
 
           </div>

@@ -17,11 +17,9 @@ export class ActivityViewComponent implements OnInit {
   constructor(private store:Store) { 
 
     this.Activity.subscribe(x=>{
-      console.log("pppppppppppppppppppppp"+ x)
       this.activityStatic=x
     })
-    console.log('tetetetettetetetetettete')
-    console.log(this.activityStatic);
+
 
   }
 

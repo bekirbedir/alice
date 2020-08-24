@@ -18,8 +18,7 @@ export class UserService {
     return this._httpClient
       .get<Friend[]>(this.valuesUrl+"users/getall")
       .pipe(
-        map((res) => res),
-        tap((x) => console.log("userlar", x))
+        map((res) => res)
       );
   } 
 
@@ -28,7 +27,6 @@ export class UserService {
       .get<UserModel>(this.valuesUrl)
       .pipe(
         map((res) => res),
-        tap((x) => console.log("userlar", x))
       );
   } 
 
@@ -40,10 +38,9 @@ export class UserService {
   const object = JSON.stringify(user);
 
     return this._httpClient
-    .post<User>(this.valuesUrl+"users/signup",object,{headers: header})
+    .post<User>(this.valuesUrl+"login/signup",object,{headers: header})
     .pipe(
       map((res) => res),
-      tap((x) => console.log("userlar", x))
     );
 }
   }

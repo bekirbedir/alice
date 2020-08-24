@@ -26,8 +26,7 @@ getMyProfil(id): Observable<UserModel> {
   return this._httpClient
     .post<UserModel>(this.valuesUrl+"detail",object,{headers: header})
     .pipe(
-      map((res) => res),
-      tap((x) => console.log("userlar", x))
+      map((res) => res)
     );
 } 
 
@@ -48,7 +47,7 @@ updateUserPhoto(userId,photo){
     );
 }
 userApprove(user:UserModel): Observable<ResponseModel>{
-  console.log("servise geldi - userApprove")
+
   const transferObject = user;
   
   

@@ -22,7 +22,6 @@ getUsers(activityId,status): Observable<ActivityUserStatus[]> {
 
     let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     const object = JSON.stringify(transferObject);
-   console.log("objectobjectobjectobject::::" , object)
 
   return this._httpClient
     .post<ActivityUserStatus[]>(this.valuesUrl+"getUsers",object, { headers: header })

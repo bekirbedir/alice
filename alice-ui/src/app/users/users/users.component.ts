@@ -22,7 +22,6 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.Friends.subscribe(x=>{
-      console.log("burdaaa",x)
       this.users=x
     })
   }

@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
     this.registerservice.creatUser(this.user).subscribe(x=>{
       this.checked=false
       this.user=new User();
-      this.messageService.add({key: 'tc', severity:'success', summary: 'Info Message', detail:'Kaydınız alındı. Email doğrulaması yapınız'});
+      this.messageService.add({key: 'tc', severity:'success', summary: 'Başarılı', detail:'Kaydınız alındı. Email doğrulaması yapınız'});
     })
   }
 }

@@ -7,13 +7,12 @@ let ActivityUser = require("../Models/activity-user-status")
 var jwt = require('jsonwebtoken');
 
 router.get("/getComments", (req, response) => {
-    console.log("-----------getcomments-------------")
+
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, 'secret_key');
-    console.log("userId", decodedToken.id);
-    console.log("id", req.query.id);
+
     const activityId = req.query.id;
-    console.log("activiyyID : " + activityId);
+
 
     ActivityComment.find({ activityId: activityId }, function (err, res) {
         if (err) {
@@ -32,8 +31,6 @@ router.post("/sendComment", (req,res) => {
 
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, 'secret_key');
-    console.log("userId", decodedToken.id);
-    console.log("activityId", req.body.activityId);
 
     const activityComment = new ActivityComment();
     activityComment.userId = decodedToken.id

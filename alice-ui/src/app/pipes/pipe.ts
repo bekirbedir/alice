@@ -13,7 +13,6 @@ export class dateToLocalStr implements PipeTransform {
   }
 
   transform(value: Date , args?: any): any {
-      console.log("pipeeeeeeeeeeeeeeeeee value: " ,  value)
     if (value === undefined) {
       return value;
     }

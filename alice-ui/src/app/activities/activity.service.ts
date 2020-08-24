@@ -18,23 +18,19 @@ export class ActivityService {
     return this._httpClient
       .get<Activity[]>(this.valuesUrl+"getall")
       .pipe(
-        map((res) => res),
-        tap((x) => console.log("aktiviteler", x))
+        map((res) => res)
       );
   } 
 
   getActivity(id): Observable<Activity> {
-    console.log("-----burasi2",id);
     return this._httpClient
       .get<Activity>(this.valuesGetActivityUrl+"?id=" + id)
       .pipe(
-        map((res) => res),
-        tap((x) => console.log("aktivite", x)) //bu pipe sadece log icin mi burak? #bb
+        map((res) => res)
       );
   } 
 
   join(activityId): Observable<any>{
-    console.log("servise geldi")
     const transferObject = {
       activityId:activityId
     }
@@ -45,8 +41,7 @@ export class ActivityService {
     return this._httpClient
     .post<any>(this.valuesUrl+"join",object,{headers: header})
     .pipe(
-      map((res) => res),
-      tap((x) => console.log("aktivite", x)) //bu pipe sadece log icin mi burak? #bb
+      map((res) => res)
     );
   }
   

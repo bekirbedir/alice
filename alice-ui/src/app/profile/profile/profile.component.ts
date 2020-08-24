@@ -91,7 +91,7 @@ export class ProfileComponent  {
 
   log() { 
     // for debug
-    console.log('base 64', this.sellersPermitString);
+    console.log('base 64', "this.sellersPermitString seklinde yazilcak");
   }
 
  

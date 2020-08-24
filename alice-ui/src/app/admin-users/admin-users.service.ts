@@ -20,8 +20,7 @@ getPendingUsers(): Observable<UserModel[]> {
   return this._httpClient
     .get<UserModel[]>(this.valuesUrl+"getPending")
     .pipe(
-      map((res) => res),
-      tap((x) => console.log("userlar", x))
+      map((res) => res)
     );
 } 
 

@@ -19,19 +19,20 @@ export class LoginComponent implements OnInit {
   msgs: any[];  
   approveUsername ="";
   approveCode= "";
-  isApprovee = false;
+  isApprove = false;
+  isApproveOk = false;
 
   constructor(private loginservice:LoginService,private router:Router , private actRoute:ActivatedRoute  ) { 
-      this.actRoute.paramMap.subscribe(params => {
+        
+    this.actRoute.paramMap.subscribe(params => {
      
       if(params.get('code')){
         this.approveCode = params.get('code');
         this.approveUsername = params.get('username');
-        this.isApprovee= true;
-
+        this.isApprove= true;
+        this.approve(this.approveCode,this.approveUsername);
       }
-     
-      
+           
     });
     }
 
@@ -60,6 +61,14 @@ export class LoginComponent implements OnInit {
   }
   routeSignup(){
     this.router.navigate(['/signup'])
+  }
+
+  approve(code:String,username:String){
+    this.loginservice.approve(code,username).subscribe(x=>{
+      if(x.status){
+        this.isApproveOk = true;
+      }
+    })
   }
 
 

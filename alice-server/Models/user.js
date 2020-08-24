@@ -18,3 +18,9 @@ const UserSchema = new Schema({
   userPhoto:String
 });
 module.exports = mongoose.model("User", UserSchema);
+/*
+1	mail onay bekliyor
+2	adminin onayını bekliyor
+3	onaylandı
+4	reddedildi
+*/

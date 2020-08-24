@@ -48,9 +48,7 @@ export class ActivityManagementComponent implements OnInit {
     this.getRejectedUsers();
   }
   userStateAction(activityId, userId , status){
-    
-    console.log("------userId: " + userId );
-    console.log("------status: " + status );
+    ;
     this.service.userStateAction(activityId,userId,status).subscribe(x => {
       if(x.status){
         this.getAllStates();

@@ -9,7 +9,7 @@ var jwt = require('jsonwebtoken');
 
 router.get("/", (req, response) => {
     let id = req.query.id;
-    console.log("-----burasi",id);
+
     Activity.findOne({_id:id}, function(err, res) {
         if (err) {
           console.log(err);
@@ -25,7 +25,7 @@ router.get("/", (req, response) => {
 })
 
 router.post("/",(req,res)=>{
-  console.log(req.body)
+
   const activity=new ActivityView();
   activity._id=req.body._id
   activity.username=req.body.username

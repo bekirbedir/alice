@@ -6,6 +6,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { Router } from '@angular/router';
 import { User } from './user';
 import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
+import { ResponseModel } from '../models/response.model';
 
 const helper = new JwtHelperService();
 
@@ -82,6 +83,23 @@ export class LoginService {
 
   }
 
+
+  approve(code: String, username: String):Observable<ResponseModel> {
+    const transferObject = {
+        code: code,
+        username: username
+    }
+
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    const self = this;  
+  
+    return this.http
+      .post<ResponseModel>(this.valuesUrl+'login/approve',object,{headers: header})
+      .pipe( 
+       map((res) => res)
+      );
+  }
 
 
 }
