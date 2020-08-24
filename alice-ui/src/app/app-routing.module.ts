@@ -51,6 +51,14 @@ const routes: Routes = [
   {
     path: 'admin-users',
     loadChildren: () => import('./admin-users/admin-users.module').then(m => m.AdminUsersModule)
+  },
+  {
+    path: 'biz-kimiz',
+    loadChildren: () => import('./info/info.module').then(m => m.InfoModule)
+  },
+  {
+    path: 'createInfo',
+    loadChildren: () => import('./sendInfo/sendInfo.module').then(m => m.SendInfoModule)
   }
 
   

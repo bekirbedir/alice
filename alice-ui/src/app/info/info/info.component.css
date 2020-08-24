@@ -1,0 +1,80 @@
+.info-tags{
+    padding: 12px;
+    border: 1px solid #ccc;
+    background-color: whitesmoke;
+    align-items: center;
+    text-align: center;
+}
+.info-tag{
+    margin-right: 5px;
+    margin-left: 5px;
+   padding: 7px;
+   border-radius: 3px;
+   color: white;
+   background: rgb(71,161,25);
+   background: linear-gradient(90deg, rgba(71,161,25,1) 0%, rgba(89,207,23,1) 100%);
+}
+.bio-header{
+    margin-top: 10px;
+    font-weight: 900;
+    width: 100%;
+    text-align: center;
+    color: #117b8c;
+    padding-bottom:5px ;
+    border-bottom: 1px solid #ccc;
+}
+.bio-context{
+    margin-top: 5px;
+    text-align: center;
+}
+.header-photo{
+    object-fit: cover;
+    width: 150px;
+    height:150px;
+    border-radius: 40%;
+    border: 2px solid #ccc;
+}
+img{
+    margin: 3px ;
+    border-radius: 50%;
+    height: 130px;
+    width: 130px;
+    padding: 8px 8px;
+}
+.rate-buttons{
+    padding: 12px;
+}
+.positive-button{
+   
+    border-radius: 5px;
+    font-size: 1em;
+    color: white;
+    text-align: center;
+    background: rgb(85,190,31);
+background: linear-gradient(90deg, rgba(85,190,31,1) 0%, rgba(89,207,23,1) 72%);
+}
+.negative-button{
+  
+    border-radius: 5px;
+    font-size: 1em;
+    color: white;
+    text-align: center;
+    background: rgb(246,10,10);
+background: linear-gradient(90deg, rgba(246,10,10,1) 0%, rgba(228,50,50,1) 47%);
+}
+
+.info{
+    border: 1px solid #ccc;
+margin-top: 10px;
+}
+
+.hover img {
+	-webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.hover img:hover {
+	-webkit-filter: grayscale(0);
+	filter: grayscale(0);
+}

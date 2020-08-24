@@ -3,33 +3,54 @@
     <span><i class="fa fa-comment" aria-hidden="true"></i> İletişim </span>
   </div>  
 <div class="p-grid p-nogutter p-justify-center p-align-center " style="height:100%">
+    
     <div class="p-xl-5 p-lg-5 p-md-5 p-sm-5 communication">
-<div class="ui-fluid p-formgrid p-grid">
-    <div class="p-field p-col-12 p-md-4">
-        <label for="firstname6">Firstname</label>
-        <input id="firstname6" type="text" pInputText> 
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-        <label for="lastname6">Lastname</label>
-        <input id="lastname6" type="text" pInputText> 
-    </div>
-    <div class="p-field p-col-8">
-        <label for="address">Address</label>
-        <textarea id="address" type="text" rows="4" pInputTextarea></textarea>
-    </div>
-    <div class="p-field p-col-4">
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-        <label for="city">City</label>
-        <input id="city" type="text" pInputText> 
-    </div>
-    <div class="p-field p-col-12 p-md-4">
-        <label for="state">State</label>
-        <p-dropdown inputId="state" [options]="states" [(ngModel)]="selectedState" placeholder="Select" optionLabel="name"></p-dropdown>
-    </div>
+            <h2 class="text-center">İletişim</h2>
+        
+        <div class="p-grid p-align-center">
+              
+            <div class="p-col-12">
+              <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input id="input-name" type="text" size="30" class="p-col " pInputText [(ngModel)]="firstname" required="true"
+                  placeholder="Ad">
+              </div>
+            </div>
 
-</div>
+            <div class="p-col-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+                  <input id="input-lastname" type="text" size="30" class="p-col " pInputText [(ngModel)]="lastname" required="true"
+                    placeholder="Soyad">
+                </div>
+              </div>
+       
+            <div class="p-col-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                  <input id="input-email" type="text" size="30" class="p-col " pInputText [(ngModel)]="eMail" required="true"
+                    placeholder="Email">
+                </div>
+              </div>
 
-<p-editor [(ngModel)]="text" [style]="{'height':'320px'}"></p-editor>
+              <div class="p-col-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                  <input id="input-phone" type="text" size="11" class="p-col " pInputText [(ngModel)]="phone"  required="true"
+                    placeholder="Telefon">
+                </div>
+              </div>
+              <div class="p-col-12">
+                <div class="ui-inputgroup">
+                  <span class="ui-inputgroup-addon"><i class="fa fa-commenting-o" aria-hidden="true"></i></span>
+                  <textarea  id="input-bio" [rows]="6" [cols]="90" pInputTextarea [(ngModel)]="comment"></textarea>
+                </div>
+              </div>
+              <div class="p-field p-col-12 p-md-4" style="margin:0 0 20 0">
+                 <button pButton type="button" (click)="createInfo()" label="Gönder" class="ui-button-rounded ui-button"></button>
+              </div>          
+          </div>
+        
     </div>
+    
 </div>

@@ -17,6 +17,7 @@ const activityViewRouter = require("./Controllers/activity-view.controller");
 const activityCommentRouter = require("./Controllers/activity.comment");
 const activityManagementRouter = require("./Controllers/activity.management.controller");
 const loginRouter = require('./Controllers/login.controller');
+const communicationRouter = require("./Controllers/communication.controller");
 
 var router = express.Router(); 
 // app.use('/users/',auhtguard, usersRouter);
@@ -26,6 +27,7 @@ app.use('/activity/',auhtguard,activityRouter); //auth controlu yapiliyor
 app.use('/activity-comment/',auhtguard,activityCommentRouter); 
 app.use('/activity-management/',activityManagementRouter);
 app.use('/login/',loginRouter)
+app.use('/communication/', communicationRouter);
 //app.use('/activity/',activityRouter);
 
 const port= process.env.PORT || 3000;

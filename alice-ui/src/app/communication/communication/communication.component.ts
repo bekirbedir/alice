@@ -1,35 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import {MenuItem} from 'primeng/api';
+import {InputTextModule} from 'primeng/inputtext';
+import { Router } from '@angular/router';
+import { CommunicationService } from 'src/app/communication/communication.service';
+import {MessageService} from 'primeng/api';
+
 @Component({
   selector: 'app-communication',
   templateUrl: './communication.component.html',
-  styleUrls: ['./communication.component.css']
+  styleUrls: ['./communication.component.css'],
+  providers: [MessageService]
 })
 export class CommunicationComponent implements OnInit {
+  firstname: "";
+  lastname: "";
+  eMail: "";
+  phone: "";
+  comment: "";
 
-  ngOnInit(): void {
-   
+  ngOnInit(): void { 
+    this.firstname,
+    this.lastname,
+    this.eMail,
+    this.phone,
+    this.comment
+    
   }
-  constructor(){
-
+  constructor(private router:Router,private communicationService: CommunicationService,private messageService: MessageService){
   }
 
-  selectedState: any = null;
-
-  states: any[] = [
-      {name: 'Arizona', code: 'Arizona'},
-      {name: 'California', value: 'California'},
-      {name: 'Florida', code: 'Florida'},
-      {name: 'Ohio', code: 'Ohio'},
-      {name: 'Washington', code: 'Washington'}
-  ];
-
-  cities1: any[] = [];
-  
-  cities2: any[] = [];
-  
-  city1:any = null;
-
-  city2:any = null;
-  text: string;
+  createInfo(){
+    console.log ("dsfsdfsd")
+    this.communicationService.createInfo("znrktkc@hotmail.com",this.firstname,this.lastname,this.eMail,this.phone,this.comment).subscribe(x=>{
+      this.messageService.add({key: 'tc', severity:'success', summary: 'Başarılı', detail:'Kaydınız alındı. En kısa ürede dönüş yapılacaktır.'});
+    })
+  }
 }
