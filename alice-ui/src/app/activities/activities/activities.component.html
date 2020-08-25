@@ -3,11 +3,9 @@
 </div>  
 
 
-
+<div class="h-10"></div>
 <div   class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
-  <div class="p-xl-6 p-lg-6 p-md-6 p-sm-6">
- 
-  
+  <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12">
       <div class="p-grid">
         <div class="p-col-6">
           <button type="button" class="btn btn-info w-100 font-size-1-5em"><i class="fa fa-filter" aria-hidden="true"> </i> Filtrele</button>
@@ -23,18 +21,21 @@
 
 
 
-<div  *ngFor="let act of activities" class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
-    <div class="p-xl-6 p-lg-6 p-md-6 p-sm-6">
+<div  *ngFor="let act of activities" class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%; margin-top:10px">
+    <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12">
     <p-card>
     
         <div class="p-grid">
          
-        <div class="p-col-1">
-          <img class="act-header-photo" src="assets/gokcenur.jpg" >
+          
+        <div class="p-col-12">
+          <img class="act-header-photo img-thumbnail" src="assets/gokcenur.jpg" >
         </div>
-        <div class="p-col-11 act-content">
+        
+        
+        <div class="p-col-12">
           <div *ngIf="activeuser==act.ownerId" class="p-col-12 font-size-1-5em">
-            <button (click)="activityManagement(act)" type="button" class="btn btn-warning cursor-pointer p-col-12"> <i class="fa fa-cogs" aria-hidden="true"> </i> Yönet</button>
+            <button (click)="activityManagement(act)" type="button" class="btn btn-secondary cursor-pointer p-col-12"> <i class="fa fa-cogs" aria-hidden="true"> </i> Yönet</button>
           </div>
 
             <p class="act-header-user-name">{{act.username}}</p>
@@ -50,7 +51,7 @@
            </div>
            <div class="h-5"></div>
            <div >
-            <img class="act-photo" src="assets/kamp.jpg" >
+            <img class="act-photo img-thumbnail" src="assets/kamp.jpg" >
           </div>
           <div class="h-5"></div>
           <div class="act-content-footer">
@@ -62,25 +63,27 @@
             <hr>
             <div class="p-grid">
               
-              <div *ngIf="act.currentUserStatus == 2" class="p-col-4 cursor-pointer p-sm-6 ">
+              <div *ngIf="act.currentUserStatus == 2" class="p-col-6 p-sm-6 p-md-4 p-lg-4 cursor-pointer cursor-pointer ">
                 <div  (click)="viewComments(act)" class="act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
               </div>
-              <div *ngIf="act.currentUserStatus != 2" class="p-col-4 cursor-pointer p-sm-6">
+              <div *ngIf="act.currentUserStatus != 2" class="p-col-6 p-sm-6 p-md-4 p-lg-4 cursor-pointer cursor-pointer ">
                 <div  (click)="viewComments(act)" class="act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
               </div>
+
+              <div  class="p-col-6 p-sm-6 p-md-4 p-lg-4 cursor-pointer cursor-pointer ">
+                <div  (click)="viewDetail(act)" class="act-content-btn-comment"><i class="pi pi-angle-double-right"></i> Detaylar</div>
+              </div>
               
-              <div (click)="viewDetail(act)" class="p-col-4 act-content-btn-comment cursor-pointer">Detaylar <i class="pi pi-angle-double-right" ></i></div>
-              
-              <div *ngIf="act.currentUserStatus == 0" class="p-col-4 p-sm-12 cursor-pointer">
+              <div *ngIf="act.currentUserStatus == 0" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
                  <button type="button" (click)="joinActivity(act)" class=" btn btn-primary w-100"> <i class="pi pi-sign-in" aria-hidden="true"> </i> Katıl</button>
              </div>
-             <div *ngIf="act.currentUserStatus == 1" class="p-col-4 p-sm-12 cursor-pointer">
+             <div *ngIf="act.currentUserStatus == 1" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
               <button type="button" (click)="joinActivity(act)" class=" btn btn-warning w-100" disabled> <i class="fa fa-spinner" aria-hidden="true" > </i> Beklemede </button>
              </div>
-             <div *ngIf="act.currentUserStatus == 2" class="p-col-4 p-sm-12 cursor-pointer">
+             <div *ngIf="act.currentUserStatus == 2" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
               <button type="button" (click)="joinActivity(act)" class=" btn btn-success w-100" disabled> <i class="fa fa-check" aria-hidden="true"> </i> Kabul edildin</button>
              </div>
-             <div *ngIf="act.currentUserStatus == 3" class="p-col-4  p-sm-12 cursor-pointer">
+             <div *ngIf="act.currentUserStatus == 3" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
               <button type="button" (click)="joinActivity(act)" class=" btn btn-danger w-100" disabled> <i class="fa fa-times" aria-hidden="true"> </i> Reddedildi</button>
              </div>
 
@@ -111,7 +114,8 @@ not : 1 kız arkadaşı kendi çadırımda misafir edebilirim onun dışında ke
         </p-footer> -->
     </div>
     </p-card>
-</div>
+  </div>
+
 </div>
 
 <!--Repeat area-->
