@@ -31,8 +31,15 @@ export class CommunicationComponent implements OnInit {
 
   createInfo(){
     console.log ("dsfsdfsd")
-    this.communicationService.createInfo("znrktkc@hotmail.com",this.firstname,this.lastname,this.eMail,this.phone,this.comment).subscribe(x=>{
-      this.messageService.add({key: 'tc', severity:'success', summary: 'Başarılı', detail:'Kaydınız alındı. En kısa ürede dönüş yapılacaktır.'});
+    this.communicationService.createInfo("bekirbedir25@gmail.com",this.firstname,this.lastname,this.eMail,this.phone,this.comment).subscribe(x=>{
+     if(x.status){
+      this.messageService.add({key: 'tc', severity:'success', summary: 'Başarılı', detail:'Mesajınız alındı. En kısa sürede geri dönüş yapılacaktır.'});
+      this.firstname = ''
+      this.lastname= ''
+      this.eMail= ''
+      this.phone= ''
+      this.comment= ''
+     }
     })
   }
 }

@@ -12,6 +12,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
 import {TabViewModule} from 'primeng/tabview';
 import { EditorModule } from 'primeng/editor';
 import { RouterModule, Routes } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
+import { CardModule } from 'primeng/card';
 
 const routes: Routes = [
   { 
@@ -23,6 +25,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [CommunicationComponent],
   imports: [
+    ToastModule,
     CommonModule,
     InputTextModule,
 		CheckboxModule,
@@ -33,6 +36,8 @@ const routes: Routes = [
     DropdownModule,
     TabViewModule,
     FormsModule,
+    CardModule,
+ 
     RouterModule.forChild(routes),
   ]
 })

@@ -10,13 +10,20 @@ router.post("/createInfo",(req,res)=>{
     text:String
     text ="Bir yeni mesaj"
      + "<br>"
+     + " Mesaj:"
+     + "<br><b> "
      + req.body.comment 
+     + " </b><br>"
+     + "<br>"
+     + "  Gönderen Kişi: " + req.body.firstname + " " + req.body.lastname
      + " <br>"
-     + " Gönderen Kişi: " + req.body.firstname + " " + req.body.lastname
-     + " <br>"
-     + " Telefon: " +  req.body.phone
-     + " Email: " +  req.body.mail
+     + "  Telefon: " +  req.body.phone
+     + "<br>"
+     + "  Email: " +  req.body.mail
     mailler.main(req.body.mail,subject , text);     
-    return res.status(200).send({ message: "mail created and send to "+req.body.mail })
+    res.status(200).json({
+        status: true,
+        message: "message sended."
+    })
 })
 module.exports = router;

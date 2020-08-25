@@ -21,9 +21,6 @@ const  ActivitySchema = new Schema({
   date:Date,
   userList:[userStatus],
   actUser: [ActivityUser.schema]
-
-  
-
 },{
     versionKey: false // You should be aware of the outcome after set to false
 });

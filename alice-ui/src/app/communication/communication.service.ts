@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { UserModel } from '../models/user.model';
 import { CommunicationMessages } from '../auth/communication';
+import { ResponseModel } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class CommunicationService {
 
   constructor(private httpClient:HttpClient) { }
  
-  createInfo(mail: String,firstname: String,lastname: String,eMail: String,phone: String,comment: String):Observable<any>{
+  createInfo(mail: String,firstname: String,lastname: String,eMail: String,phone: String,comment: String):Observable<ResponseModel>{
   let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
   const transferObject = {
     firstname: firstname,
@@ -29,7 +30,7 @@ export class CommunicationService {
 const object = JSON.stringify(transferObject);
   console.log(mail);
   return this.httpClient
-  .post<any>(this.valuesUrl+'communication/createInfo',object,{headers: header})
+  .post<ResponseModel>(this.valuesUrl+'communication/createInfo',object,{headers: header})
   .pipe(
     map((res) => res),
   );

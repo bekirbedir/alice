@@ -1,56 +1,78 @@
 <div class="route-nav">
-    <span><a href="/activities"> <i class="fa fa-home" aria-hidden="true"></i> Anasayfa </a></span> >
-    <span><i class="fa fa-comment" aria-hidden="true"></i> İletişim </span>
-  </div>  
-<div class="p-grid p-nogutter p-justify-center p-align-center " style="height:100%">
-    
-    <div class="p-xl-5 p-lg-5 p-md-5 p-sm-5 communication">
-            <h2 class="text-center">İletişim</h2>
-        
+  <span><a href="/activities"> <i class="fa fa-home" aria-hidden="true"></i> Anasayfa </a></span> >
+  <span><i class="fa fa-comment" aria-hidden="true"></i> İletişim </span>
+</div>  
+<div class="login-panel">
+
+  <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+
+    <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
+
+
+      <p-card>
+        <p-header>
+          İletişim
+        </p-header>
+        <div class="p-col-12">
+
+        </div>
         <div class="p-grid p-align-center">
-              
-            <div class="p-col-12">
-              <div class="ui-inputgroup">
-                <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
-                <input id="input-name" type="text" size="30" class="p-col " pInputText [(ngModel)]="firstname" required="true"
-                  placeholder="Ad">
-              </div>
+
+          <div class="p-col-12">
+              <span class="ui-float-label" style="margin-top:15px !important">
+                <input id="float-input" type="text" size="100" pInputText [(ngModel)]="firstname" class="w-100">
+                <label for="float-input">Ad</label>
+              </span>
             </div>
 
             <div class="p-col-12">
-                <div class="ui-inputgroup">
-                  <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
-                  <input id="input-lastname" type="text" size="30" class="p-col " pInputText [(ngModel)]="lastname" required="true"
-                    placeholder="Soyad">
-                </div>
-              </div>
-       
-            <div class="p-col-12">
-                <div class="ui-inputgroup">
-                  <span class="ui-inputgroup-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-                  <input id="input-email" type="text" size="30" class="p-col " pInputText [(ngModel)]="eMail" required="true"
-                    placeholder="Email">
-                </div>
-              </div>
+           
+              <span class="ui-float-label" style="margin-top:15px !important">
+                <input id="float-input" type="text" size="100" pInputText [(ngModel)]="lastname" class="w-100">
+                <label for="float-input">Soyad</label>
+              </span>
+            </div>
 
-              <div class="p-col-12">
-                <div class="ui-inputgroup">
-                  <span class="ui-inputgroup-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                  <input id="input-phone" type="text" size="11" class="p-col " pInputText [(ngModel)]="phone"  required="true"
-                    placeholder="Telefon">
-                </div>
-              </div>
-              <div class="p-col-12">
-                <div class="ui-inputgroup">
-                  <span class="ui-inputgroup-addon"><i class="fa fa-commenting-o" aria-hidden="true"></i></span>
-                  <textarea  id="input-bio" [rows]="6" [cols]="90" pInputTextarea [(ngModel)]="comment"></textarea>
-                </div>
-              </div>
-              <div class="p-field p-col-12 p-md-4" style="margin:0 0 20 0">
-                 <button pButton type="button" (click)="createInfo()" label="Gönder" class="ui-button-rounded ui-button"></button>
-              </div>          
-          </div>
-        
+            <div class="p-col-12">
+           
+              <span class="ui-float-label" style="margin-top:15px !important">
+                <input id="float-input" type="text" size="100" pInputText [(ngModel)]="eMail" class="w-100">
+                <label for="float-input">Email</label>
+              </span>
+            </div>
+
+            <div class="p-col-12">
+           
+              <span class="ui-float-label" style="margin-top:15px !important">
+                <input id="float-input" type="text" size="100" pInputText [(ngModel)]="phone" class="w-100">
+                <label for="float-input">Telefon</label>
+              </span>
+            </div>
+
+            <div class="p-col-12">
+              <span class="ui-float-label" style="margin-top:15px !important">
+                  <textarea class="w-100" id="float-input" [rows]="10" [cols]="30" pInputTextarea autoResize="autoResize" [(ngModel)]="comment"></textarea>
+                <label for="float-input">Mesajını buraya yaz</label>
+              </span>
+            </div>
+
+      
+         
+
+
+
+        </div>
+        <div class="p-grid">
+          <div class="p-col-12">
+              <button type="button" (click)="createInfo()" class="btn btn-info w-100 "><i class="fa fa-paper-plane-o"
+               aria-hidden="true"> </i> Gönder </button>
+           </div> 
+        </div>
+
+      </p-card>
+
     </div>
-    
+  </div>
 </div>
+
+<p-toast position="top-center" key="tc"></p-toast>

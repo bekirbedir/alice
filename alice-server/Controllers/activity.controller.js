@@ -18,7 +18,32 @@ router.get("/getall",( request, response) => {
           console.log(err);
         }
         if(res){
-          
+            
+            res.forEach(element=>{
+                element.actUser = [];
+                activityUserStatus.find({activityId:element._id},function(err, actUser){
+                   if(actUser){
+                    console.log("element:res[i]:"  + element.header)
+                      element.actUser.push(actUser);
+                    }
+                   
+                    })
+                   
+            })
+           /* for(var i = 0 ; i<res.length; i++ ){
+               
+                console.log("activityId:res[i]:"  +res[i]._id)
+                activityUserStatus.find({activityId:res[i]._id},function(err, actUserr){
+                   if(actUserr){
+                    console.log("activityId:res[i]:"  + res[i].header)
+                     res[i].actUser = actUserr;
+                    }
+
+                    })
+            } */
+            setTimeout(function(){    response.send(res); }, 3000);
+         
+            /*
             res.forEach(element=>{
                 element.actUser = [];
                 activityUserStatus.find({activityId:element._id},function(err, actUser){
@@ -29,10 +54,9 @@ router.get("/getall",( request, response) => {
                     })
                    
             })
-            setTimeout(function(){ 
-                response.send(res);
-            }, 3000);
-            
+           
+                response.send(res); */
+           
            
         }
     }
