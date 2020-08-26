@@ -45,7 +45,6 @@ const routes: Routes = [
         MegaMenuModule,
          MessageModule,
         CardModule,
-    
         ProgressSpinnerModule,
         OverlayPanelModule,
         BreadcrumbModule,

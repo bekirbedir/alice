@@ -55,10 +55,6 @@ const routes: Routes = [
   {
     path: 'biz-kimiz',
     loadChildren: () => import('./info/info.module').then(m => m.InfoModule)
-  },
-  {
-    path: 'createInfo',
-    loadChildren: () => import('./sendInfo/sendInfo.module').then(m => m.SendInfoModule)
   }
 
   
