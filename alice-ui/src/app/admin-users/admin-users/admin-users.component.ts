@@ -23,6 +23,7 @@ export class AdminUsersComponent implements OnInit {
 
   getPendingUser(){
    this.adminUserService.getPendingUsers().subscribe(x=>{
+     console.log("xxxxxxxxxxxxxxxxxxxxyyyyyyyyyyyyyyyyyy" ,x)
      this.users = x
    })
   }

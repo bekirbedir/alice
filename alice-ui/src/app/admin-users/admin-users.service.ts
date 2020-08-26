@@ -12,15 +12,16 @@ import { ResponseModel } from '../models/response.model';
 })
 export class AdminUsersService {
 
-private valuesUrl = environment.apiBaseUrl + "users/";
+private valuesUrl = environment.apiBaseUrl + "admin/";
 
 constructor(private _httpClient:HttpClient) { }
 
 getPendingUsers(): Observable<UserModel[]> {
   return this._httpClient
-    .get<UserModel[]>(this.valuesUrl+"getPending")
+    .get<UserModel[]>(this.valuesUrl+"users/getPending")
     .pipe(
-      map((res) => res)
+      map((res) => res),
+          tap((x) => console.log("aktiviteeeeeeeeeee", x)) //bu pipe sadece log icin mi burak? #bb
     );
 } 
 
@@ -45,7 +46,7 @@ userReject(user:UserModel): Observable<ResponseModel>{
   const object = JSON.stringify(transferObject);
   const self = this;  
   return this._httpClient
-  .post<ResponseModel>(this.valuesUrl+"userReject",object,{headers: header})
+  .post<ResponseModel>(this.valuesUrl+"users/userReject",object,{headers: header})
   .pipe(
     map((res) => res),
   );

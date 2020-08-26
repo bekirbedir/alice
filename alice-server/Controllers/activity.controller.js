@@ -68,7 +68,7 @@ router.get("/getall",( request, response) => {
 router.post("/",(req,res)=>{
   
   const token = req.headers.authorization.split(" ")[1];
-  const decodedToken = jwt.verify(token, 'secret_key');
+  const decodedToken = jwt.verify(token, 'Act1234SecretKey');
 
   const activity=new Activity();
   activity.ownerId='"'+decodedToken.id+'"'
@@ -146,7 +146,7 @@ router.put("/",(req,res)=>{
 
 router.post("/join",(req,res)=>{
     const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, 'secret_key');
+    const decodedToken = jwt.verify(token, 'Act1234SecretKey');
   
     Activity.findOne({_id:req.body.activityId}, function(err, activity) {
 

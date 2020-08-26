@@ -9,7 +9,7 @@ var jwt = require('jsonwebtoken');
 router.get("/getComments", (req, response) => {
 
     const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, 'secret_key');
+    const decodedToken = jwt.verify(token, 'Act1234SecretKey');
 
     const activityId = req.query.id;
 
@@ -30,7 +30,7 @@ router.get("/getComments", (req, response) => {
 router.post("/sendComment", (req,res) => {
 
     const token = req.headers.authorization.split(" ")[1];
-    const decodedToken = jwt.verify(token, 'secret_key');
+    const decodedToken = jwt.verify(token, 'Act1234SecretKey');
 
     const activityComment = new ActivityComment();
     activityComment.userId = decodedToken.id

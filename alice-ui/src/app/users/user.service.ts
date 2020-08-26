@@ -16,7 +16,7 @@ export class UserService {
   constructor(private _httpClient:HttpClient) { }
   getFriendList(): Observable<Friend[]> {
     return this._httpClient
-      .get<Friend[]>(this.valuesUrl+"users/getall")
+      .get<Friend[]>(this.valuesUrl+"admin/users/getall")
       .pipe(
         map((res) => res)
       );

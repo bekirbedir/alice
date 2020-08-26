@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
 
     if(this.isValidate()){
     this.loginservice.login(this.userName,this.password).subscribe(x=>{
-       if(x.message == "success"){
+       if(x != null){
         this.router.navigate(['/activities'])
        }else{
         this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Kullanıcı adı ve şifre hatalı' });

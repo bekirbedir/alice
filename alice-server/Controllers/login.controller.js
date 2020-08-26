@@ -81,7 +81,43 @@ router.post("/signup", (req, res) => {
 
     }
 })
-
+router.post("/login", (req, res) => {
+    console.log(req.body.username)
+    console.log(req.body.password)
+    if (!req.body.username || !req.body.password) {
+      return res.status(404).send({
+        message: 'Email or password can not be empty!',
+      });
+    }
+    else {
+  
+      const username = req.body.username;
+      const password = crypto.createHash('md5').update(req.body.password).digest("hex");
+      const potentialUser = { username: username, password: password , status: 3 };
+      User.findOne(potentialUser)
+        .then(user => {
+          if (!user) {
+            return res.status(200).send({
+              message: 'fail',  
+              error: 'User not found. Authentication failed.'
+            });
+          }
+     
+          const token = jwt.sign({
+            name: user.username,
+            id: user.id
+          },
+            'Act1234SecretKey',
+            {
+              expiresIn: "2h"
+            }
+          )
+          return res.status(200).send({ message: 'success', token: token });
+  
+        })
+    }
+  })
+  
 function randomString(length, chars) {
     var result = '';
     for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
