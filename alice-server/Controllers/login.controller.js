@@ -3,12 +3,15 @@ const router = express.Router();
 var bodyParser = require('body-parser')
 var crypto = require('crypto');
 let User=require("../Models/user")
+let SendMail=require("../Models/send.mail")
 let mailler=require("../mailler")
+
 var jwt = require('jsonwebtoken');
+const sendMail = require("../Models/send.mail");
 
 router.post("/approve", (req, res) => {
     console.log("loggin-- appproveee" , req.body.code);
-
+    sendMail : SendMail;
     pCode = req.body.code;
     pUsername = req.body.username;
 
@@ -73,6 +76,13 @@ router.post("/signup", (req, res) => {
                 textHtml = "<b>Merhaba, ActivityFriend'e hoşgeldiniz!</b><p><a href='http://localhost:4200/login/" + rString + "/" + user.username + "'>Buraya tıklayarak mail adresinizi onaylayınız.</p>"
                 subject = "ActivityFriend mail onayı"
                 mailler.main(user.email, subject, textHtml);
+                sendMail.userId = user._id;
+                sendMail.username = user.username;
+                sendMail.textHtml = textHtml;
+                sendMail.type = 1;
+                sendMail.createdDate = new Date();
+                sendMail.save();
+
                 return res.status(200).send({ message: "user added" })
             }
         });

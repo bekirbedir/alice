@@ -83,6 +83,7 @@ router.post("/",(req,res)=>{
   activity.like=req.body.like
   activity.date=req.body.date
   activity.context = req.body.context
+  activity.status = 1;
   activity.save().then(result => {
     res.status(200).json({
         status: true,

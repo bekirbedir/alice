@@ -4,12 +4,13 @@ import { LoginService } from 'src/app/auth/login.service';
 import { UserModel } from 'src/app/models/user.model';
 import { UserService } from 'src/app/users/user.service';
 import { AdminUsersService } from 'src/app/admin-users/admin-users.service';
-
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
-  styleUrls: ['./admin-users.component.css']
+  styleUrls: ['./admin-users.component.css'],
+  providers: [MessageService]
 })
 export class AdminUsersComponent implements OnInit {
 

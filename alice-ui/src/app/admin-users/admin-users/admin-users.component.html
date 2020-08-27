@@ -1,38 +1,101 @@
-<p>admin-users works!</p>
+
 <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
   
     <div class="p-xl-8 p-lg-8 p-md-8 p-sm-10">
      
      
       <p-card>
-<table class="table">
+
+<!--tab viewvvwwwwwwwwwwwwwwwww-->
+
+<p-tabView>
+  <p-tabPanel header="Bekleyen Kullanıcılar" [selected]="true" rightIcon="pi pi-pause">
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Kullanıcı</th>
+              <th scope="col">Biyografi</th>
+              <th scope="col">Telefon</th>
+              <th scope="col">Email</th>
+              <th scope="col">Onay Durumu</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <th scope="row">1</th>
+              <td>{{user.username}}</td>
+              <td>{{user.biography}}</td>
+              <td>{{user.phone}}</td>
+              <td>{{user.email}}</td> 
+              <td *ngIf="user.status==2" > 
+                <button type="button" (click)="userApprove(user)"  class="btn btn-success "> <i class="fa fa-check" aria-hidden="true"> </i> Onayla
+                </button>
+                <button type="button" (click)="userReject(user)"  class="btn btn-danger"> <i class="fa fa-ban" aria-hidden="true"> </i> Reddet
+                </button>
+              </td>
+            </tr>
+           
+          </tbody>
+        </table>
+      
+  </p-tabPanel>
+
+  <p-tabPanel header="Bekleyen Aktiviteler" rightIcon="pi pi-times">
+    <table class="table table-striped">
+      <thead>
+      
+      </thead>
+      <tbody>
+       
+
+      </tbody>
+    </table>
+  </p-tabPanel>
+
+  <p-tabPanel header="Reddedilen kullanıcılar" rightIcon="pi pi-times">
+    <table class="table table-striped">
+      <thead>
+      
+      </thead>
+      <tbody>
+       
+
+      </tbody>
+    </table>
+  </p-tabPanel>
+
+  <p-tabPanel header="Tüm kullanıcılar" rightIcon="pi pi-times">
+    <table class="table table-striped">
+      <thead>
+      
+      </thead>
+      <tbody>
+       
+
+      </tbody>
+    </table>
+  </p-tabPanel>
+
+ 
+</p-tabView>
+
+<p-tabPanel header="Reddedilen Aktiviteler" rightIcon="pi pi-times">
+  <table class="table table-striped">
     <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Kullanıcı</th>
-        <th scope="col">Biyografi</th>
-        <th scope="col">Telefon</th>
-        <th scope="col">Email</th>
-        <th scope="col">Onay Durumu</th>
-      </tr>
+    
     </thead>
     <tbody>
-      <tr *ngFor="let user of users">
-        <th scope="row">1</th>
-        <td>{{user.username}}</td>
-        <td>{{user.biography}}</td>
-        <td>{{user.phone}}</td>
-        <td>{{user.email}}</td> 
-        <td *ngIf="user.status==2" > 
-          <button type="button" (click)="userApprove(user)"  class="btn btn-success "> <i class="fa fa-check" aria-hidden="true"> </i> Onayla
-          </button>
-          <button type="button" (click)="userReject(user)"  class="btn btn-danger"> <i class="fa fa-ban" aria-hidden="true"> </i> Reddet
-          </button>
-        </td>
-      </tr>
      
+
     </tbody>
   </table>
+</p-tabPanel>
+
+<p-toast position="top-center" key="tc"></p-toast>
+
+<!--tab viewwwwwwwwwwwwwwwwwww-->
+
 
 </p-card>
     </div>
