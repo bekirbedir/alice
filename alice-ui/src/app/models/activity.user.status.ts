@@ -7,7 +7,8 @@ export class ActivityUserStatus {
   activityId?: String | null;
   userId: String | null;
   username: String |null;
-  user: User | null
+  user: User | null;
+  imagePath: any | null;
 }
 
 /*

@@ -21,9 +21,33 @@ getPendingUsers(): Observable<UserModel[]> {
     .get<UserModel[]>(this.valuesUrl+"users/getPending")
     .pipe(
       map((res) => res),
-          tap((x) => console.log("aktiviteeeeeeeeeee", x)) //bu pipe sadece log icin mi burak? #bb
     );
 } 
+
+
+getPendingActivity(): Observable<Activity[]> {
+  return this._httpClient
+    .get<Activity[]>(this.valuesUrl+"activity/getPending")
+    .pipe(
+      map((res) => res)
+    );
+} 
+
+
+activityApprove(activity:Activity): Observable<ResponseModel>{
+  console.log("servise geldi - userApprove")
+  const transferObject = activity;
+  
+  let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+  const object = JSON.stringify(transferObject);
+  const self = this;  
+  return this._httpClient
+  .post<ResponseModel>(this.valuesUrl+"activity/activityApprove",object,{headers: header})
+  .pipe(
+    map((res) => res),
+  );
+}
+
 
 userApprove(user:UserModel): Observable<ResponseModel>{
   console.log("servise geldi - userApprove")
@@ -33,7 +57,7 @@ userApprove(user:UserModel): Observable<ResponseModel>{
   const object = JSON.stringify(transferObject);
   const self = this;  
   return this._httpClient
-  .post<ResponseModel>(this.valuesUrl+"userApprove",object,{headers: header})
+  .post<ResponseModel>(this.valuesUrl+"users/userApprove",object,{headers: header})
   .pipe(
     map((res) => res),
   );

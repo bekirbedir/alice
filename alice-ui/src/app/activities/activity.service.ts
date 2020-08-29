@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Activity } from '../models/activity';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { ActivityUserStatus } from '../models/activity.user.status';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,16 @@ export class ActivityService {
   getActivity(id): Observable<Activity> {
     return this._httpClient
       .get<Activity>(this.valuesGetActivityUrl+"?id=" + id)
+      .pipe(
+        map((res) => res)
+      );
+  } 
+
+  getActivityUserStatusList(): Observable<ActivityUserStatus[]> {
+   
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._httpClient
+      .get<ActivityUserStatus[]>(this.valuesUrl+"getActivityUserStatusList",{headers: header})
       .pipe(
         map((res) => res)
       );

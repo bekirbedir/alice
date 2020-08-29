@@ -14,5 +14,6 @@ export class User {
     tagList:[String];
     phone: String;
     biography: String;
+    userPhoto: any;
   }
   

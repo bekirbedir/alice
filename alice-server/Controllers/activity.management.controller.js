@@ -38,29 +38,13 @@ router.post("/userStateAction", (request, res) => {
     ActivityUser.findOne({ activityId: pActivityId, userId: pUserId }, function (err, actUser) {
         if (actUser) {
             actUser.status = pStatus;
+            console.log("-----------actUserstatus----",actUser.status)
             actUser.save().then(result => {
-                ///----------burasi activity icinde duzenleme-----------
-                Activity.findOne({_id:req.body.activityId}, function(err, activity) {
-
-                    activity.save().then(result => {
-                        res.status(200).json({
-                            status: true,
-                            message: "activity join request  done"
-                        })
-                    })
-                        .catch(error => {
-                            res.status(404).json({ 
-                                status: false,
-                                message: "activity join request failed done"
-                            })
-                  });
-                })
-                
-                //-------------act ici-----------------------------------
                 res.status(200).json({
                     status: true,
-                    message: "activity update successfully done"
+                    message: "activity join request  done1"
                 })
+               
             })
                 .catch(error => {
                     res.status(200).json({

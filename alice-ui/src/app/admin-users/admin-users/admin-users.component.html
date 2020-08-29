@@ -8,7 +8,7 @@
 
 <!--tab viewvvwwwwwwwwwwwwwwwww-->
 
-<p-tabView>
+<p-tabView (onChange)="handleChange($event)">
   <p-tabPanel header="Bekleyen Kullanıcılar" [selected]="true" rightIcon="pi pi-pause">
       <table class="table table-striped">
           <thead>
@@ -22,7 +22,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of users">
+            <tr *ngFor="let user of pendingUsers">
               <th scope="row">1</th>
               <td>{{user.username}}</td>
               <td>{{user.biography}}</td>
@@ -44,11 +44,24 @@
   <p-tabPanel header="Bekleyen Aktiviteler" rightIcon="pi pi-times">
     <table class="table table-striped">
       <thead>
-      
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Aktivite Adı</th>
+          <th scope="col">Onay Durumu</th>
+        </tr>
       </thead>
       <tbody>
+        <tr *ngFor="let act of pendingActivity">
+          <th scope="row">1</th>
+          <td><a href="{{act._id}}"> {{act.header}} </a> </td>
+          <td  > 
+            <button type="button" (click)="activityApprove(act)"  class="btn btn-success "> <i class="fa fa-check" aria-hidden="true"> </i> Onayla
+            </button>
+            <button type="button" (click)="activityReject(act)"  class="btn btn-danger"> <i class="fa fa-ban" aria-hidden="true"> </i> Reddet
+            </button>
+          </td>
+        </tr>
        
-
       </tbody>
     </table>
   </p-tabPanel>
@@ -92,7 +105,6 @@
   </table>
 </p-tabPanel>
 
-<p-toast position="top-center" key="tc"></p-toast>
 
 <!--tab viewwwwwwwwwwwwwwwwwww-->
 
@@ -100,3 +112,4 @@
 </p-card>
     </div>
 </div>
+<p-toast position="top-center" key="tc"></p-toast>

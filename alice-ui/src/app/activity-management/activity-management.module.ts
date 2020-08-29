@@ -5,6 +5,7 @@ import {PanelModule} from 'primeng/panel';
 import { RouterModule, Routes } from '@angular/router';
 import {TabViewModule} from 'primeng/tabview';
 import { ToastModule } from 'primeng/toast';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 
 
@@ -23,6 +24,7 @@ const routes: Routes = [
     PanelModule,
     TabViewModule,
     RouterModule.forChild(routes),
-  ]
+  ],
+  providers: [NgxImageCompressService],
 })
 export class ActivityManagementModule { }

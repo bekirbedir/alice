@@ -1,4 +1,4 @@
-<p-tabView>
+<p-tabView (onChange)="handleChange($event)">
     <p-tabPanel header="Onay Bekleyenler" [selected]="true" rightIcon="pi pi-pause">
         <table class="table table-striped">
             <thead>
@@ -27,6 +27,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let actUser of approveUsers">
+                <th> <img class="header-photo" [src]="actUser.user.imagePath" alt="Image Source" ></th>
                 <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
                
               </tr>
