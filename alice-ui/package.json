@@ -5,11 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build-prod": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --prod ",
-    "build": "ng build",
     "test": "ng test",
     "build": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --dev",
     "build-stats": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --dev --stats-json",
-    "build-prod": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --prod ",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

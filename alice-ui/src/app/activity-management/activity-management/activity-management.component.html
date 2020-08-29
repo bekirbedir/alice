@@ -27,7 +27,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let actUser of approveUsers">
-                <th> <img class="header-photo" [src]="actUser.user.imagePath" alt="Image Source" ></th>
+                <th> <img class="header-photo" [src]="actUser.imagePath" alt="Image Source" width="100px" height="150px" ></th>
                 <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
                
               </tr>

@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import {NgxImageCompressService} from 'ngx-image-compress';
 import { ProfilService } from '../profile.service';
 import { UserModel } from 'src/app/models/user.model';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,7 @@ import { UserModel } from 'src/app/models/user.model';
 export class ProfileComponent  {
   imagePath:any
   User:any
- 
+  files:any
   constructor( private service:ProfilService,private _sanitizer: DomSanitizer,private imageCompress: NgxImageCompressService){
     const userId=localStorage.getItem('userId').replace("\"", "").replace("\"", "") 
     this.User=new UserModel()
@@ -61,15 +62,29 @@ export class ProfileComponent  {
 
 
   handleInputChange(files) {
-    var file = files;
-    var pattern = /image-*/;
-    var reader = new FileReader();
-    if (!file.type.match(pattern)) {
-      alert('invalid format');
-      return;
-    }
-    reader.onloadend = this._handleReaderLoaded.bind(this);
-    reader.readAsDataURL(file);
+
+
+    this.service.compress(files)
+    .pipe(take(1))
+    .subscribe(compressedImage => {
+      console.log(`Image size after compressed: ${compressedImage.size} bytes.`)
+       this.files = compressedImage;
+       console.log("com:",compressedImage)
+
+       var file=compressedImage
+       console.log("files:",file)
+       var pattern = /image-*/;
+       var reader = new FileReader();
+       console.log("type:  ",file)
+       if (!file.type.match(pattern)) {
+         alert('invalid format');
+         return;
+       }
+       reader.onloadend = this._handleReaderLoaded.bind(this);
+       reader.readAsDataURL(file);
+    })
+
+
   }
   _handleReaderLoaded(e) {
     let reader = e.target;
