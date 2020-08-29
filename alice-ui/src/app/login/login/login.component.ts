@@ -4,11 +4,13 @@ import {CardModule} from 'primeng/card';
 import { LoginService } from 'src/app/auth/login.service';
 import { IndexComponent } from 'src/app/index/index.component';
 import { Router, ActivatedRoute  } from '@angular/router';
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-login',
   templateUrl: 'login.component.html',
-  styleUrls: ['login.component.css']
+  styleUrls: ['login.component.css'],
+  providers: [MessageService]
 })
 export class LoginComponent implements OnInit {
 
@@ -22,7 +24,7 @@ export class LoginComponent implements OnInit {
   isApprove = false;
   isApproveOk = false;
 
-  constructor(private loginservice:LoginService,private router:Router , private actRoute:ActivatedRoute  ) { 
+  constructor(private loginservice:LoginService,private router:Router , private actRoute:ActivatedRoute , private messageService: MessageService ) { 
         
     this.actRoute.paramMap.subscribe(params => {
      
@@ -47,17 +49,33 @@ export class LoginComponent implements OnInit {
   window.location.reload()
   }
 
+  isValidate() {
+    let isControl = true;
+    if (this.userName == null || this.userName== "") {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Kullanıcı adı boş olamaz' });
+      isControl = false;
+    }
+    if (this.password== null || this.password == "") {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Parola boş olamaz' });
+      isControl = false;
+    }
+
+    return isControl;
+  }
+
+
   onClickLogin() {
-    console.log(this.userName, this.password);
-    
+
+    if(this.isValidate()){
     this.loginservice.login(this.userName,this.password).subscribe(x=>{
-       if(x){
-        console.log("loginden gelen",x)
+       if(x != null){
         this.router.navigate(['/activities'])
+       }else{
+        this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Kullanıcı adı ve şifre hatalı' });
        }
      
     })
- 
+  }
   }
   routeSignup(){
     this.router.navigate(['/signup'])

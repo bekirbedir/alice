@@ -1,5 +1,5 @@
 export class User {
-    userId: string;
+    _id: string;
     username: string;
     name:string;
     password:string;
@@ -14,5 +14,6 @@ export class User {
     tagList:[String];
     phone: String;
     biography: String;
+    userPhoto: any;
   }
   

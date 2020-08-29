@@ -5,7 +5,8 @@ var cors = require('cors')
 const app = express();
 var path = require('path');
 var bodyParser = require('body-parser')
-var auhtguard=require('./Controllers/user.authguard')
+var auhtguardAdmin=require('./Controllers/authguard.admin')
+var auhtguardUser=require('./Controllers/authguard.user')
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,16 +19,19 @@ const activityCommentRouter = require("./Controllers/activity.comment");
 const activityManagementRouter = require("./Controllers/activity.management.controller");
 const loginRouter = require('./Controllers/login.controller');
 const communicationRouter = require("./Controllers/communication.controller");
+const adminRouter = require("./Controllers/admin.controller");
 
 var router = express.Router(); 
 // app.use('/users/',auhtguard, usersRouter);
-app.use('/users/', usersRouter);
+app.use('/users/', auhtguardUser,usersRouter);
 app.use('/activity-view/',activityViewRouter)
-app.use('/activity/',auhtguard,activityRouter); //auth controlu yapiliyor
-app.use('/activity-comment/',auhtguard,activityCommentRouter); 
+app.use('/activity/',auhtguardUser,activityRouter); //auth controlu yapiliyor
+app.use('/activity-comment/',auhtguardUser,activityCommentRouter); 
 app.use('/activity-management/',activityManagementRouter);
 app.use('/login/',loginRouter)
 app.use('/communication/', communicationRouter);
+
+app.use('/admin/', auhtguardAdmin,adminRouter);
 //app.use('/activity/',activityRouter);
 
 const port= process.env.PORT || 3000;

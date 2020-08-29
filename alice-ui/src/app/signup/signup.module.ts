@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CheckboxModule } from 'primeng/checkbox';
+import {InputMaskModule} from 'primeng/inputmask';
 
 
 const routes: Routes = [
@@ -52,6 +53,7 @@ const routes: Routes = [
         DynamicDialogModule,
         InputTextareaModule,
         MessagesModule,
+        InputMaskModule,
         RouterModule.forChild(routes),
   ],
 

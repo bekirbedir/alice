@@ -46,28 +46,20 @@ export class LoginService {
     const self = this;  
   
     return this.http
-      .post<any>(this.valuesUrl+'users/login',object,{headers: header})
+      .post<any>(this.valuesUrl+'login/login',object,{headers: header})
       .pipe( 
         map(data => {
-          
-          console.log("gelen token",data.token)
           const user= helper.decodeToken(data.token);
-          console.log("decode edilmiş",user);
-       
-          // login successful if there's a jwt token in the response
           if (data.token) {
             console.log("içinde")
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('aliceuser', JSON.stringify(data.token));
             localStorage.setItem('userName', JSON.stringify(user.name))
             localStorage.setItem('userId', JSON.stringify(user.id))
-          }
-        
+             
           this.userSubject.next(user);
-          this.router.navigate(['/activities']);
-       
+          }  
           return user;
-          
         })
       );
   }

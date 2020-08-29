@@ -15,9 +15,10 @@ import { Router } from '@angular/router';
 import { ActivityService } from '../activity.service';
 import { UserStatus } from 'src/app/models/user.status';
 import { LoginService } from 'src/app/auth/login.service';
-import {MessageService} from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import localeTr from '@angular/common/locales/tr';
 import { registerLocaleData } from '@angular/common';
+import { ActivityUserStatus } from 'src/app/models/activity.user.status';
 
 registerLocaleData(localeTr, 'tr');
 @Component({
@@ -31,6 +32,7 @@ export class ActivitiesComponent implements OnInit {
   activities: Activity[];
   activityCurrentUserStatus = 0;
   activeuser: any;
+  activiteUserStatuses: ActivityUserStatus[]
   private isActiveUserId = localStorage.getItem('userId');
 
   @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
@@ -43,7 +45,7 @@ export class ActivitiesComponent implements OnInit {
   ) {
     this.store.dispatch(new GetActivities());
     this.activeuser = localStorage.getItem('userId');
-    console.log("activeuser ve öbürü",this.activeuser)
+    console.log("activeuser ve öbürü", this.activeuser)
   }
 
 
@@ -64,13 +66,14 @@ export class ActivitiesComponent implements OnInit {
   modules: MenuItem[];
 
   activeItem1: MenuItem;
-   
+
   ngOnInit() {
+
     this.Activities.subscribe((x) => {
       this.activities = x;
-      for (var i = 0; i < this.activities.length; i++) {
-        const userPricipantStatus = this.isCurrentUserParticipant(x[i]);
-        this.activities[i].currentUserStatus = userPricipantStatus;
+      if (x) {
+        this.getActivityUserStatusList();
+        
       }
     });
 
@@ -89,52 +92,26 @@ export class ActivitiesComponent implements OnInit {
 
     this.activeItem1 = this.modules[0];
 
-    this.images = [
-      {
-        previewImageSrc: 'assets/activites/1.jpeg',
-        thumbnailImageSrc: 'assets/activites/1.jpeg',
-        alt: 'Description for Image 1',
-        title: 'Title 1',
-      },
-
-      {
-        previewImageSrc: 'assets/activites/2.jpeg',
-        thumbnailImageSrc: 'assets/activites/2.jpeg',
-        alt: 'Description for Image 2',
-        title: 'Title 2',
-      },
-      {
-        previewImageSrc: 'assets/activites/3.jpeg',
-        thumbnailImageSrc: 'assets/activites/3.jpeg',
-        alt: 'Description for Image 3',
-        title: 'Title 3',
-      },
-      {
-        previewImageSrc: 'assets/activites/6.jpeg',
-        thumbnailImageSrc: 'assets/activites/6.jpeg',
-        alt: 'Description for Image 6',
-        title: 'Title 6',
-      },
-    ];
   }
 
-  viewDetail(item){
+
+  viewDetail(item) {
     this.store.dispatch(new GetActivityDetail(item._id))
     this.router.navigate(['/activity-view'])
   }
 
-  viewComments(item){
+  viewComments(item) {
     console.log("viewcommenetttsss")
-    if(item.currentUserStatus != 2){
-      this.messageService.add({key: 'tc', severity:'info', summary: 'Yetkisiz erişim', detail:'Duvarı, sadece katılımı onaylanan kullanıcılar görebilir..'});
-    }else{
+    if (item.currentUserStatus != 2) {
+      this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Duvarı, sadece katılımı onaylanan kullanıcılar görebilir..' });
+    } else {
       this.store.dispatch(new GetActivityDetail(item._id))
       this.router.navigate(['/activity-comment'])
     }
-   
+
   }
 
-  activityManagement(item){
+  activityManagement(item) {
     localStorage.setItem('selectedActivityId', JSON.stringify(item._id));
     this.router.navigate(['/activity-management']);
   }
@@ -145,23 +122,40 @@ export class ActivitiesComponent implements OnInit {
   joinActivity(item) {
     this.service.join(item._id).subscribe((x) => {
       console.log(x._id);
-      
+
     });
     item.currentUserStatus = 1;
-    this.messageService.add({key: 'tc', severity:'info', summary: 'Başarılı', detail:'Aktiviteye katılım isteği gönderdiniz'});
+    this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Aktiviteye katılım isteği gönderdiniz' });
   }
 
   isCurrentUserParticipant(activity: Activity) {
+    console.log("this.isActiveUserId", this.isActiveUserId);
+    console.log("this.activiteUserStatuses", this.activiteUserStatuses)
+    console.log(" this.activiteUserStatuse", this.activiteUserStatuses);
     if (this.isActiveUserId != null && this.isActiveUserId != '') {
-      const userList = activity.userList;
-      for (var i = 0; i < userList.length; i++) {
-        if (userList[i].userId == this.isActiveUserId.trim())
-          activity.currentUserStatus = userList[i].status;
-        return userList[i].status;
+      for (var i = 0; i < this.activiteUserStatuses.length; i++) {
+        if (this.activiteUserStatuses[i].activityId == activity._id)
+          return this.activiteUserStatuses[i].status
       }
       return 0;
     } else {
       return 0;
     }
+  }
+
+  getActivityUserStatusList() {
+    this.service.getActivityUserStatusList().subscribe(x => {
+      if (x) {
+        this.activiteUserStatuses = x;
+        console.log("this.activiteUserStatuses11", this.activiteUserStatuses)
+        for (var i = 0; i < this.activities.length; i++) {
+          const userPricipantStatus = this.isCurrentUserParticipant(this.activities[i]);
+          this.activities[i].currentUserStatus = userPricipantStatus;
+        }
+      }
+      else {
+
+      }
+    })
   }
 }

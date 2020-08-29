@@ -12,51 +12,51 @@
           </div>
           <div class="p-grid p-align-center">
               
-            <div class="p-col-12">
-              <div class="ui-inputgroup">
-                <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
-                <input id="input-name" type="text" size="30" class="p-col " pInputText [(ngModel)]="user.name" required="true"
-                  placeholder="Ad soyad">
-              </div>
-            </div>
-       
-            <div class="p-col-12">
-                <div class="ui-inputgroup">
-                  <span class="ui-inputgroup-addon"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
-                  <input id="input-email" type="text" size="30" class="p-col " pInputText [(ngModel)]="user.email" required="true"
-                    placeholder="Email">
-                </div>
-              </div>
 
-              <div class="p-col-12">
-                <div class="ui-inputgroup">
-                  <span class="ui-inputgroup-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
-                  <input id="input-phone" type="text" size="11" class="p-col " pInputText [(ngModel)]="user.phone"  required="true"
-                    placeholder="Telefon">
-                </div>
-              </div>
+            
+          <div class="p-col-12">
+            <span class="ui-float-label" style="margin-top:15px !important">
+              <input id="float-input" type="text" size="100" pInputText [(ngModel)]="user.name" class="w-100">
+              <label for="float-input">Ad Soyad</label>
+            </span>
+          </div>
 
-              <div class="p-col-12">
-                <div class="ui-inputgroup">
-                  <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
-                  <input id="input-username" type="text" size="30" class="p-col " pInputText [(ngModel)]="user.username"
-                    placeholder="Kullanıcı adı">
-                </div>
-              </div>
-              <div class="p-col-12">
-                <div class="ui-inputgroup">
-                  <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
-                  <input id="input-password" type="password" size="30" class="p-col" pInputText [(ngModel)]="user.password" required="true"
-                    placeholder="Parola">
-                </div>
-              </div>
+          <div class="p-col-12">
+            <span class="ui-float-label" style="margin-top:15px !important">
+              <input id="float-input" type="text" size="100" pInputText [(ngModel)]="user.email" class="w-100">
+              <label for="float-input">Email adresi girin</label>
+            </span>
+          </div>
        
-            <div class="p-col-12">
-              <div class="ui-inputgroup">
-                <span class="ui-inputgroup-addon"><i class="fa fa-commenting-o" aria-hidden="true"></i></span>
-                <textarea  id="input-bio" [rows]="6" [cols]="90" pInputTextarea autoResize="autoResize" [(ngModel)]="user.biography"  placeholder="Seni tanıyabilmemiz için biraz kendinden bahseder misin?"></textarea>
-              </div>
-            </div>
+          <div class="p-col-12">
+            <span class="ui-float-label" style="margin-top:15px !important">
+              <p-inputMask id="float-input" mask="(999) 999-99-99" [(ngModel)]="user.phone" class="w-100" ></p-inputMask>
+              <label for="float-input">Telefon numarası girin</label>
+            </span>
+          </div>
+
+          <div class="p-col-12">
+            <span class="ui-float-label" style="margin-top:15px !important">
+              <input id="float-input" type="text" size="100" pInputText [(ngModel)]="user.username" class="w-100">
+              <label for="float-input">Kullanıcı adı girin</label>
+            </span>
+          </div>
+
+          <div class="p-col-12">
+            <span class="ui-float-label" style="margin-top:15px !important">
+              <input id="float-input" type="text" size="100" pInputText [(ngModel)]="user.password" class="w-100">
+              <label for="float-input">Parola girin</label>
+            </span>
+          </div>
+
+          <div class="p-col-12">
+            <span class="ui-float-label" style="margin-top:15px !important">
+              <textarea  id="input-bio" [rows]="6" class="w-100" pInputTextarea autoResize="autoResize" [(ngModel)]="user.biography"  ></textarea>
+              <label for="float-input">Seni tanıyabilmemiz için biraz kendinden bahseder misin?</label>
+            </span>
+          </div>
+       
+          
 
             <div class="p-col-12"><p-checkbox [(ngModel)]="checked" label="Sözleşmeyi okudum ve kabul ediyorum." binary="true"></p-checkbox></div>
           

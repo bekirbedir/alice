@@ -1,5 +1,4 @@
-<p-toast position="top-center" key="tc"></p-toast>
-<p-tabView>
+<p-tabView (onChange)="handleChange($event)">
     <p-tabPanel header="Onay Bekleyenler" [selected]="true" rightIcon="pi pi-pause">
         <table class="table table-striped">
             <thead>
@@ -28,6 +27,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let actUser of approveUsers">
+                <th> <img class="header-photo" [src]="actUser.user.imagePath" alt="Image Source" ></th>
                 <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
                
               </tr>
@@ -53,4 +53,4 @@
     </p-tabPanel>
 </p-tabView>
 
-<p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000"></p-toast>
+<p-toast position="top-center" key="tc"></p-toast>

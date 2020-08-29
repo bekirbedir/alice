@@ -3,12 +3,14 @@ const router = express.Router();
 var bodyParser = require('body-parser')
 var crypto = require('crypto');
 let User=require("../Models/user")
+let SendMail=require("../Models/send.mail")
 let mailler=require("../mailler")
+
 var jwt = require('jsonwebtoken');
+const sendMail = require("../Models/send.mail");
 
 router.post("/approve", (req, res) => {
     console.log("loggin-- appproveee" , req.body.code);
-
     pCode = req.body.code;
     pUsername = req.body.username;
 
@@ -73,6 +75,15 @@ router.post("/signup", (req, res) => {
                 textHtml = "<b>Merhaba, ActivityFriend'e hoşgeldiniz!</b><p><a href='http://localhost:4200/login/" + rString + "/" + user.username + "'>Buraya tıklayarak mail adresinizi onaylayınız.</p>"
                 subject = "ActivityFriend mail onayı"
                 mailler.main(user.email, subject, textHtml);
+                
+                const sendMail = new SendMail();
+                sendMail.userId = user._id;
+                sendMail.username = user.username;
+                sendMail.textHtml = textHtml;
+                sendMail.type = 1;
+                sendMail.createdDate = new Date();
+                sendMail.save();
+
                 return res.status(200).send({ message: "user added" })
             }
         });
@@ -81,7 +92,43 @@ router.post("/signup", (req, res) => {
 
     }
 })
-
+router.post("/login", (req, res) => {
+    console.log(req.body.username)
+    console.log(req.body.password)
+    if (!req.body.username || !req.body.password) {
+      return res.status(404).send({
+        message: 'Email or password can not be empty!',
+      });
+    }
+    else {
+  
+      const username = req.body.username;
+      const password = crypto.createHash('md5').update(req.body.password).digest("hex");
+      const potentialUser = { username: username, password: password , status: 3 };
+      User.findOne(potentialUser)
+        .then(user => {
+          if (!user) {
+            return res.status(200).send({
+              message: 'fail',  
+              error: 'User not found. Authentication failed.'
+            });
+          }
+     
+          const token = jwt.sign({
+            name: user.username,
+            id: user.id
+          },
+            'Act1234SecretKey',
+            {
+              expiresIn: "2h"
+            }
+          )
+          return res.status(200).send({ message: 'success', token: token });
+  
+        })
+    }
+  })
+  
 function randomString(length, chars) {
     var result = '';
     for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];

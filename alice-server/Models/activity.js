@@ -19,6 +19,7 @@ const  ActivitySchema = new Schema({
   like:Number,
   participationCount:Number,
   date:Date,
+  status:Number,
   userList:[userStatus],
   actUser: [ActivityUser.schema]
 },{
