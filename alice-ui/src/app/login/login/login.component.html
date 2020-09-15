@@ -41,13 +41,14 @@
           </div>
           <div class="p-grid" >
            
-            <div class="p-col-6">
-              <button pButton type="button" label="Giriş Yap" class="ui-button-raised  p-col-12 login-btn"
-                (click)="onClickLogin()"></button>
-              </div>
+           
               <div class="p-col-6">
               <button (click)="routeSignup()" pButton type="button" label="Kayıt Ol »" class="ui-button-raised p-col-12"
                 [routerLink]="['/register']"></button>
+              </div>
+ <div class="p-col-6">
+              <button pButton type="button" label="Giriş Yap" class="ui-button-raised  p-col-12 login-btn"
+                (click)="onClickLogin()"></button>
               </div>
           </div>
         </p-card>
