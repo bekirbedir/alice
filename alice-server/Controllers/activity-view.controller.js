@@ -15,7 +15,6 @@ router.get("/", (req, response) => {
           console.log(err);
         }
         if(res){
-        console.log(res)
         response.send(res);
         }
 

@@ -7,12 +7,15 @@
           <p-header>
            Kayıt Ol
         </p-header>
-          <div class="p-col-12">
-
-          </div>
+       
           <div class="p-grid p-align-center">
               
-
+            <div *ngIf="isApprove">
+          
+              <div class="alert alert-success" role="alert">
+                <h3><i class="fa fa-check" aria-hidden="true"> </i> Mailiniz başarılı şekilde onaylanmıştır. Profil onayınızın ardından mail ile bilgilendirileceksiniz.</h3>
+              </div>
+            </div>
             
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
@@ -28,12 +31,7 @@
             </span>
           </div>
        
-          <div class="p-col-12">
-            <span class="ui-float-label" style="margin-top:15px !important">
-              <p-inputMask id="float-input" mask="(999) 999-99-99" [(ngModel)]="user.phone" class="w-100" ></p-inputMask>
-              <label for="float-input">Telefon numarası girin</label>
-            </span>
-          </div>
+         
 
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
@@ -41,10 +39,11 @@
               <label for="float-input">Kullanıcı adı girin</label>
             </span>
           </div>
+        
 
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
-              <input id="float-input" type="text" size="100" pInputText [(ngModel)]="user.password" class="w-100">
+              <input id="float-input" type="password" size="100" pInputText [(ngModel)]="user.password" class="w-100">
               <label for="float-input">Parola girin</label>
             </span>
           </div>
@@ -68,7 +67,7 @@
                 (click)="routeLogin()"></button>
               </div>
               <div class="p-col-6">
-              <button  [disabled]="!checked" (click)="createNewUser()" pButton type="button" label="Kayıt Ol »" class="ui-button-raised p-col-12"></button>
+              <button  [disabled]="!checked && buttonEnabled" (click)="createNewUser()" pButton type="button" label="Kayıt Ol »" class="ui-button-raised p-col-12"></button>
               </div>
           </div>
         </p-card>

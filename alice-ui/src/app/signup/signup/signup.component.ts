@@ -16,6 +16,7 @@ export class SignupComponent implements OnInit {
   msgs: any[];
   checked: boolean = false;
   mailOnayBilgisi:Boolean = false;
+  buttonEnabled:Boolean = true;
   user: User
   constructor(private router: Router, private registerservice: UserService, private messageService: MessageService) {
     this.user = new User();
@@ -53,7 +54,7 @@ export class SignupComponent implements OnInit {
     }
     if (this.user.phone == null || this.user.phone == "") {
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Telefon Numarası Boş olamaz' });
-      isControl = false;
+     // isControl = false;
     }
     return isControl;
   }
@@ -63,13 +64,18 @@ export class SignupComponent implements OnInit {
       this.registerservice.creatUser(this.user).subscribe(x => {
         console.log(x);
         this.checked = false
-        if(x._id){
+        if(x.status){
           this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Başarılı', detail: 'Kaydınız alındı. Mail adresinizi onaylayın lütfen' });
           this.mailOnayBilgisi = true;
+          this.buttonEnabled = false;
           this.user = new User();
+        }
+        else{
+          this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: x.message });
         }
     
       })
     }
   }
+ 
 }

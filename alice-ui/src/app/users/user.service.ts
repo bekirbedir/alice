@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { User } from '../auth/user';
 import { UserModel } from '../models/user.model';
+import { ResponseModel } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -31,14 +32,14 @@ export class UserService {
   } 
 
  
-  creatUser(user:User):Observable<User>{
+  creatUser(user:User):Observable<ResponseModel>{
 
   let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
   const object = JSON.stringify(user);
 
     return this._httpClient
-    .post<User>(this.valuesUrl+"login/signup",object,{headers: header})
+    .post<ResponseModel>(this.valuesUrl+"login/signup",object,{headers: header})
     .pipe(
       map((res) => res),
     );

@@ -9,6 +9,22 @@ let mailler=require("../mailler")
 var jwt = require('jsonwebtoken');
 const sendMail = require("../Models/send.mail");
 
+
+router.get("/all", (request, response) => {
+  //buraya admin mi kontrolu eklenmeli
+  User.find({},  function (err, res) {
+
+    if (err) {
+      console.log(err);
+    }
+    if (res) {
+      response.send(res);
+    }
+  }
+  )
+
+})
+
 router.post("/approve", (req, res) => {
     console.log("loggin-- appproveee" , req.body.code);
     pCode = req.body.code;
@@ -55,10 +71,14 @@ router.post("/signup", (req, res) => {
 
         User.findOne({ username: pUsername }, function (err, docs) {
             if (docs) {
-                console.log(docs)
-                return res.status(404).send({ message: "User is existing" })
+               console.log("docsss var-----------------")
+               res.status(200).json({
+                  status: false,
+                  message: "Bu kullanıcı adı daha önce alınmış."
+              })
             }
             else {
+              console.log("docsss yookkkkk-----------------")
                 const user = new User();
                 user.username = req.body.username
                 user.password = crypto.createHash('md5').update(req.body.password).digest("hex");
@@ -84,7 +104,10 @@ router.post("/signup", (req, res) => {
                 sendMail.createdDate = new Date();
                 sendMail.save();
 
-                return res.status(200).send({ message: "user added" })
+                return res.status(200).json({
+                  status: true,
+                  message: "Mail adresinizi onaylayın."
+              })
             }
         });
 
@@ -92,6 +115,7 @@ router.post("/signup", (req, res) => {
 
     }
 })
+
 router.post("/login", (req, res) => {
     console.log(req.body.username)
     console.log(req.body.password)
