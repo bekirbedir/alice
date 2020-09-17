@@ -25,6 +25,8 @@ router.get("/all", (request, response) => {
 
 })
 
+
+
 router.post("/approve", (req, res) => {
     console.log("loggin-- appproveee" , req.body.code);
     pCode = req.body.code;
@@ -59,6 +61,53 @@ router.post("/approve", (req, res) => {
 
 })
 
+router.get("/test", (req, response) => {
+  let id = req.query.id;
+
+  Activity.findOne({_id:id}, function(err, res) {
+      if (err) {
+        console.log(err);
+      }
+      if(res){
+      response.send(res);
+      }
+
+  }
+  )
+
+})
+
+router.post("/", (req, response) => {
+  let id = req.query.id;
+
+  Activity.findOne({_id:id}, function(err, res) {
+      if (err) {
+        console.log(err);
+      }
+      if(res){
+      response.send(res);
+      }
+
+  }
+  )
+
+})
+
+router.get("/", (req, response) => {
+  let id = req.query.id;
+
+  Activity.findOne({_id:id}, function(err, res) {
+      if (err) {
+        console.log(err);
+      }
+      if(res){
+      response.send(res);
+      }
+
+  }
+  )
+
+})
 
 router.post("/signup", (req, res) => {
     let pUsername = req.body.username
