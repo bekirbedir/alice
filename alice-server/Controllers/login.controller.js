@@ -166,6 +166,7 @@ router.post("/signup", (req, res) => {
 })
 
 router.post("/login", (req, res) => {
+
     console.log(req.body.username)
     console.log(req.body.password)
     if (!req.body.username || !req.body.password) {
@@ -183,7 +184,7 @@ router.post("/login", (req, res) => {
           if (!user) {
             return res.status(200).send({
               message: 'fail',  
-              error: 'User not found. Authentication failed.'
+              error: 'User not found. Authentication failed...!'
             });
           }
      
