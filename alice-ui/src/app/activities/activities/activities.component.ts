@@ -19,6 +19,8 @@ import { MessageService } from 'primeng/api';
 import localeTr from '@angular/common/locales/tr';
 import { registerLocaleData } from '@angular/common';
 import { ActivityUserStatus } from 'src/app/models/activity.user.status';
+import { DomSanitizer } from '@angular/platform-browser';
+import { NgxImageCompressService } from 'ngx-image-compress';
 
 registerLocaleData(localeTr, 'tr');
 @Component({
@@ -41,7 +43,9 @@ export class ActivitiesComponent implements OnInit {
     private service: ActivityService,
     private store: Store,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private _sanitizer: DomSanitizer,
+    private imageCompress: NgxImageCompressService
   ) {
     this.store.dispatch(new GetActivities());
     this.activeuser = localStorage.getItem('userId');
@@ -141,6 +145,12 @@ export class ActivitiesComponent implements OnInit {
     } else {
       return 0;
     }
+  }
+
+  convertImage(activity:Activity){
+    console.log("buraya geldii")
+    if(activity?.user?.userPhoto)
+       return this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'  +activity.user.userPhoto ); 
   }
 
   getActivityUserStatusList() {

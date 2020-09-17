@@ -1,5 +1,5 @@
 import { UserStatus } from 'src/app/models/user.status';
-
+import { User } from '../auth/user';
 export class Activity {
     __v: number;
     _id:string | null;
@@ -20,5 +20,7 @@ export class Activity {
     currentUserStatus: Number | 0;
     ownerId:String | null;
     date?: Date;
+    user: User | null;
+    
   }
   

@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const ActivityUser = require("../Models/activity-user-status")
+const User = require("../Models/user")
 var userStatus = new Schema({
   status:Number,
   date:Date,
@@ -20,6 +21,7 @@ const  ActivitySchema = new Schema({
   participationCount:Number,
   date:Date,
   status:Number,
+  user: User.schema,
   userList:[userStatus],
   actUser: [ActivityUser.schema]
 },{

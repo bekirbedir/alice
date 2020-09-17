@@ -29,7 +29,8 @@
          
           
         <div class="p-col-12 text-align-center">
-          <img class="act-header-photo img-thumbnail" src="assets/gokcenur.jpg" >
+          <img *ngIf="act.user?.userPhoto"  class="act-header-photo img-thumbnail" [src]="convertImage(act)" alt="Aktivite sahibi resmi" >
+          <img *ngIf="!act.user?.userPhoto"  class="act-header-photo img-thumbnail" src="assets/gokcenur.jpg" alt="Aktivite sahibi resmi" >
         </div>
         
         
@@ -130,12 +131,11 @@ not : 1 kız arkadaşı kendi çadırımda misafir edebilirim onun dışında ke
           <img class="act-header-photo" src="assets/gokcenur.jpg" >
         </div>
         <div class="p-col-11 act-content">
-            <p class="act-header-user-name">Gökçenur GÖKYÜREK</p>
+            <p class="act-header-user-name">Gökçenur xyzt</p>
            <p class="act-header-name">bir haftalık kamp</p>
            <div class="h-10"></div>
            <div class="act-content-text">
-            SONNN 1 KİŞİLİKKK YERİMİZ KALDI!!!! Ankara da kamp grubu oluşturup 6-7 günde hem tarihi yerleri gezip hemde sahil deniz kampları yapalım. Temmuzun 10-17 si Muğla Datça dayız farklı şehirlerden kampçılara da açık.Tatil yapıp hem de kamp yapmak istiyorsan ne duruyorsun daha....Ankara dışından gelen kampçıları da beklerim.
-            not : 1 kız arkadaşı kendi çadırımda misafir edebilirim onun dışında kendi ekipmanlarımızı getirmeliyiz.
+           test activity lorem ipsum
            </div>
 
            <div class="h-10"></div>

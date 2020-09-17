@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { MenuItem } from 'primeng/api';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {ToastModule} from 'primeng/toast';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
     ButtonModule,
     TabMenuModule,
     ToastModule
-  ]
+  ],
+  providers: [NgxImageCompressService],
 })
 export class ActivitiesModule { }
