@@ -10,22 +10,6 @@ var jwt = require('jsonwebtoken');
 const sendMail = require("../Models/send.mail");
 
 
-router.get("/all", (request, response) => {
-  //buraya admin mi kontrolu eklenmeli
-  User.find({},  function (err, res) {
-
-    if (err) {
-      console.log(err);
-    }
-    if (res) {
-      response.send(res);
-    }
-  }
-  )
-
-})
-
-
 
 router.post("/approve", (req, res) => {
     console.log("loggin-- appproveee" , req.body.code);
