@@ -65,11 +65,9 @@ router.post("/", (req, res) => {
 
     const activity = new Activity();
     activity.ownerId = '"' + decodedToken.id + '"'
-    User.findOne({_id: decodedToken.id} , '_id , username, userPhoto ' , function(err,user){
-        if(user){
-            console.log("uservarrrrrrrrrrrr--" , user._id)
-            activity.user = user;
-            activity._id = req.body._id
+ 
+  
+     activity._id = req.body._id
     activity.username = req.body.username
     activity.tagList = req.body.tagList
     activity.isActive = true
@@ -92,9 +90,9 @@ router.post("/", (req, res) => {
             console.log(error);
             next(error);
         });
-        }
+     
             
-    })
+  
 
     
 
