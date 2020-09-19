@@ -18,7 +18,22 @@ router.get("/getall", (request, response) => {
             console.log(err);
         }
         if (res) {
-            response.send(res);
+
+            for (let index = 0; index < res.length; index++) {
+                const element = res[index];
+             User.find({_id:element.ownerId},function(err,res){
+                    if(res){
+                        element.user=res
+                    }
+                })
+               
+                if(index==res.length-1){
+                    response.send(res);
+                }
+            }
+                
+        
+            
          }
     }
     )
