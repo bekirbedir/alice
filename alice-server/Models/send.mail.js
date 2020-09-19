@@ -5,6 +5,7 @@ const SendMailSchema = new Schema({
   username:String,
   createdDate: String,
   textHtml:String,
+  receivedMail: String,
   type: Number
 });
 module.exports = mongoose.model("SendMail",SendMailSchema);

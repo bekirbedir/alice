@@ -50,12 +50,20 @@
 
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
+               <p-inputMask  mask="(999) 999-9999" [(ngModel)]="user.phone"  class="w-100"></p-inputMask>
+              <label for="float-input">Telefon<small> (5xx) 123-4567</small></label>
+            </span>
+          </div>
+
+
+          <div class="p-col-12">
+            <span class="ui-float-label" style="margin-top:15px !important">
               <textarea  id="input-bio" [rows]="6" class="w-100" pInputTextarea autoResize="autoResize" [(ngModel)]="user.biography"  ></textarea>
               <label for="float-input">Seni tanıyabilmemiz için biraz kendinden bahseder misin?</label>
             </span>
           </div>
        
-          
+      
 
             <div class="p-col-12"><p-checkbox [(ngModel)]="checked" label="Sözleşmeyi okudum ve kabul ediyorum." binary="true"></p-checkbox></div>
           
