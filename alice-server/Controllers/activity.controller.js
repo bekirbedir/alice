@@ -10,35 +10,62 @@ const ActivityUserStatus = require("../Models/activity-user-status");
 
 
 
-router.get("/getall", (request, response) => {
 
-    const activityList = [];
-    Activity.find({status:3}, null, { sort: '-createdDate' }, function (err, res) {
+router.get("/getallAsyncOmayanBozukaq", async (request, response,next) => {
+try{
+     
+     const  activityList = await Activity.find({status:3}, null, { sort: '-createdDate' }, async function (err, res) {
         if (err) {
             console.log(err);
         }
         if (res) {
-
-            for (let index = 0; index < res.length; index++) {
-                const element = res[index];
-             User.find({_id:element.ownerId},function(err,res){
-                    if(res){
-                        element.user=res
-                    }
-                })
+            console.log("11111")
+            for (let i = 0; i < res.length; i++) {
+                
+               const user = await User.find({_id:res[i].ownerId.replace("\"","").replace("\"","")},async function(error,ress){
+                console.log("ress",ress.username)
+                res[i].user = ress;
+                console.log("22222")
+              
+              
+                console.log(ress.name)
+               return ress;
+               });
                
-                if(index==res.length-1){
-                    response.send(res);
-                }
             }
                 
-        
-            
+            return res;
          }
     }
     )
+    console.log("3333")
+    response.send(activityList);
+}
+        catch (error) {
+            console.log(error);
+            return response.json(error);
+        }
 
 })
+
+router.get("/getall",async (request, response , next) => {
+
+    try{
+        console.log("test-------------------basla")
+        const activityList = await Activity.find({status:3}, null, { sort: '-createdDate' }).populate({path:'user', Model:  '../Models/user'}).exec();
+
+        console.log("activityList", activityList[0].user.username)
+        
+        console.log("test-------------------")
+        response.json(activityList);    
+    }
+    catch (error) {
+        console.log(error);
+        return response.json(error);
+      }
+
+})
+
 
 router.get("/getActivityUserStatusList", (request, response) => {
     let userId = request.userId;
@@ -58,6 +85,7 @@ router.get("/getActivityUserStatusList", (request, response) => {
 })
 
 
+
 router.post("/", (req, res) => {
 
     const token = req.headers.authorization.split(" ")[1];
@@ -65,36 +93,36 @@ router.post("/", (req, res) => {
 
     const activity = new Activity();
     activity.ownerId = '"' + decodedToken.id + '"'
- 
+    User.findOne({ _id: decodedToken.id }, function (err, user) {
+        if (user) {
+            console.log('user bulundu');
+         //   activity._id = req.body._id
+              activity.user = user;
+            activity.username = req.body.username
+            activity.tagList = req.body.tagList
+            activity.isActive = true
+            activity.profilUrl = req.body.profilUrl
+            activity.activityUrl = req.body.activityUrl
+            activity.header = req.body.header
+            activity.participationCount = req.body.participationCount
+            activity.like = req.body.like
+            activity.date = req.body.date
+            activity.context = req.body.context
+            activity.status = 1;
+            activity.save().then(result => {
+                res.status(200).json({
+                    status: true,
+                    message: "activity added successfully done"
+                })
+            })
+                .catch(error => {
+                    debugger
+                    console.log(error);
+                    next(error);
+                });
+        }
+    });
   
-     activity._id = req.body._id
-    activity.username = req.body.username
-    activity.tagList = req.body.tagList
-    activity.isActive = true
-    activity.profilUrl = req.body.profilUrl
-    activity.activityUrl = req.body.activityUrl
-    activity.header = req.body.header
-    activity.participationCount = req.body.participationCount
-    activity.like = req.body.like
-    activity.date = req.body.date
-    activity.context = req.body.context
-    activity.status = 1;
-    activity.save().then(result => {
-        res.status(200).json({
-            status: true,
-            message: "activity added successfully done"
-        })
-    })
-        .catch(error => {
-            debugger
-            console.log(error);
-            next(error);
-        });
-     
-            
-  
-
-    
 
 })
 
