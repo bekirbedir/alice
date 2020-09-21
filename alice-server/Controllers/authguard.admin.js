@@ -15,11 +15,8 @@ module.exports = (req, res, next) => {
             if (user) {
                 console.log('userstatus:' , user.status)
                 console.log('user.role', user.role)
-                if(user.role != "ROLE_ADMIN"){
-                    res.status(200).json({
-                        status: false,
-                        message: "Yetkisiz erişim " 
-                    })
+                if( user.role != "ROLE_ADMIN"){
+                    return false ;
                 }
                 else{
                     req.userIsAdmin = true;

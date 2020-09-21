@@ -100,6 +100,7 @@ export class ActivitiesComponent implements OnInit {
 
 
   viewDetail(item) {
+    localStorage.setItem("currentUserStatus",item.currentUserStatus)
     this.store.dispatch(new GetActivityDetail(item._id))
     this.router.navigate(['/activity-view'])
   }

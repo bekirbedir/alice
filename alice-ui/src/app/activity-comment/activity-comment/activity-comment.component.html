@@ -4,8 +4,9 @@
   <span> Duvar </span> 
 </div>   
 
-<div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+<div class="p-grid p-nogutter p-justify-center p-align-center " style="height:100%">
   <div class="p-xl-6 p-lg-6 p-md-6 p-sm-6">
+    <div class="message-list" > 
     <p-card>
 
       <div class="p-grid">
@@ -22,6 +23,17 @@
             <span class="comment-username">@{{cmt.username}} <span class="comment-date"> {{ cmt.createdDate | date:'dd:mm:yyy HH:mm:ss':null:'tr'}}</span></span></div>
         </div>
 
+      </div>
+    </p-card>
+  </div>
+
+    <br>
+  <div class="send-message-button" >
+    <p-card>
+
+      <div class="p-grid">
+      
+
         <div class="p-col-12">
           <h3 class="input-label"></h3>
           <span class="ui-float-label" style="margin-top:15px !important">
@@ -36,5 +48,6 @@
         </div>
       </div>
     </p-card>
+  </div>
   </div>
 </div>

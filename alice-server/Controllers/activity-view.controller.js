@@ -5,21 +5,26 @@ var crypto = require('crypto');
 let ActivityView=require("../Models/activity-view");
 let Activity=require("../Models/activity");
 var jwt = require('jsonwebtoken');
+let User = require("../Models/user");
 
 
-router.get("/", (req, response) => {
+router.get("/", async (req, response) => {
     let id = req.query.id;
 
-    Activity.findOne({_id:id}, function(err, res) {
-        if (err) {
-          console.log(err);
-        }
-        if(res){
-        response.send(res);
-        }
+    
+    try{
+        console.log("test-------------------basla")
+        const activity = await Activity.findOne({status:3,_id:id}, null, { sort: '-createdDate' }).populate({path:'user', Model:  '../Models/user'}).exec();
 
+        console.log("activity", activity.user.username)
+        
+        console.log("test-------------------")
+        response.json(activity);    
     }
-    )
+    catch (error) {
+        console.log(error);
+        return response.json(error);
+      }
 
 })
 

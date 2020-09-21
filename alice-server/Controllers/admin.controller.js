@@ -25,10 +25,12 @@ router.get("/users/getall", (request, response) => {
 
 router.get("/users/getPending", (request, response) => {
   //buraya admin mi kontrolu eklenmeli
+  console.log('buraya geldi--------------------------')
   User.find({}, function (err, res) {
 
     if (err) {
       console.log(err);
+      response.send(err);
     }
     if (res) {
       response.send(res);

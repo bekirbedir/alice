@@ -12,8 +12,8 @@
           <img class="act-header-photo" src="assets/gokcenur.jpg" >
         </div>
         <div class="p-col-11 act-content">
-            <p class="act-header-user-name">{{activityStatic?._id}} - ACTIVITY-VIEW SAYFASI</p>
-           <p class="act-header-name">bir haftalık kamp</p>
+            <p class="act-header-user-name"><a>@{{activityStatic.user.username}}</a></p>
+           <p class="act-header-name">{{activityStatic.header}}</p>
            <div class="h-10"></div>
            <div class="act-content-text">
            {{activityStatic?.context}}
@@ -21,7 +21,7 @@
 
            <div class="h-10"></div>
            <div class="act-content-tags">
-             #gezi  #festival  #doğa  #tarih  #kamp  
+           {{activityStatic.tags}}
            </div>
            <div class="h-5"></div>
            <div >
@@ -30,14 +30,13 @@
           <div class="h-5"></div>
           <div class="act-content-footer">
             <div class="p-grid">
-                <div class="p-col"><i class="pi pi-heart"></i> 7</div>
-                <div class="p-col"><i class="pi pi-users"></i> 12</div>
-              <div class="p-col"><i class="pi pi-clock"></i> 22/07/2020</div>
+                <div class="p-col"><i class="pi pi-heart"></i> 0</div>
+                <div class="p-col"><i class="pi pi-users"></i> {{activityStatic.participationCount}}</div>
+              <div class="p-col"><i class="pi pi-clock"></i>  {{activityStatic.date | date:'dd:mm:yyy HH:mm:ss':null:'tr'}}</div>
             </div>
             <hr>
             <div class="p-grid">
-                
-                <div class="p-col-6 act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
+                <div (click)="viewComments(activityStatic)" class="p-col-6 act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
             <div class="p-col-6 act-content-btn-signin"><i class="pi pi-sign-in"></i>&nbsp; Katıl</div>
             </div>
 
@@ -67,3 +66,4 @@ not : 1 kız arkadaşı kendi çadırımda misafir edebilirim onun dışında ke
     </p-card>
 </div>
 </div>
+<p-toast position="top-center" key="tc"></p-toast>

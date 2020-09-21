@@ -4,6 +4,7 @@ import { ActivityViewComponent } from './activity-view/activity-view.component';
 import { RouterModule, Routes } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
 
 const routes: Routes = [
   {
@@ -16,7 +17,8 @@ const routes: Routes = [
   declarations: [ActivityViewComponent],
   imports: [
     CardModule,
-    CommonModule,      
+    CommonModule,     
+    ToastModule, 
     RouterModule.forChild(routes),
     
   ]

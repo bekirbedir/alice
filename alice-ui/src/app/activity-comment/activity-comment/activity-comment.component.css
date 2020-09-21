@@ -38,3 +38,14 @@
 .even-border {
     border-left:7px solid #ff9029;
 }
+
+.send-message-button{
+    position: absolute;
+     bottom: 0;
+}
+.message-list {
+    height: 100%;
+}
+.bg-white{
+    background:white !important;
+}
