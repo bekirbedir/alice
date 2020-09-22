@@ -66,7 +66,7 @@ router.post("/activity/activityApprove", (req, res) => {
       act.updatedDate = Date.now();
       act.save().then(result => {
       //  subject = "ActivityFriend Kullanıcınız Onaylandı"
-     //   textHtml = "<H4><b>Merhaba, ActivityFriend'e Hoşgeldiniz! Kaydınız onaylanmıştır! </b></H4> <br> <p><a href='http://192.168.1.23:4200/login'></H5>Buraya tıklayarak giriş yapabilirsiniz.</H5></p>"
+     //   textHtml = "<H4><b>Merhaba, ActivityFriend'e Hoşgeldiniz! Kaydınız onaylanmıştır! </b></H4> <br> <p><a href='https://www.activityfriend.com.tr/login'></H5>Buraya tıklayarak giriş yapabilirsiniz.</H5></p>"
      //   mailler.main(user.email,subject, textHtml);
         res.status(200).json({
           status: true,
@@ -99,7 +99,7 @@ router.post("/users/userApprove", (req, res) => {
       user.updatedDate = Date.now();
       user.save().then(result => {
         subject = "ActivityFriend Kullanıcınız Onaylandı"
-        textHtml = "<H4><b>Merhaba, ActivityFriend'e Hoşgeldiniz! Kaydınız onaylanmıştır! </b></H4> <br> <p><a href='http://192.168.1.23:4200/login'></H5>Buraya tıklayarak giriş yapabilirsiniz.</H5></p>"
+        textHtml = "<H4><b>Merhaba, ActivityFriend'e Hoşgeldiniz! Kaydınız onaylanmıştır! </b></H4> <br> <p><a href='https://www.activityfriend.com.tr/login'></H5>Buraya tıklayarak giriş yapabilirsiniz.</H5></p>"
         mailler.main(user.email,subject, textHtml);
         res.status(200).json({
           status: true,

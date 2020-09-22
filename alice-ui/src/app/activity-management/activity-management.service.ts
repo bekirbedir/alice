@@ -30,6 +30,21 @@ getUsers(activityId,status): Observable<ActivityUserStatus[]> {
     );
 } 
 
+
+getSelectedActivity(activityId): Observable<Activity> {
+  const transferObject = {'activityId':activityId ,'status':status};
+
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+
+  return this._httpClient
+    .post<Activity>(this.valuesUrl+"getActivity",object, { headers: header })
+    .pipe(
+      map((res) => res)
+    );
+} 
+
+
 userStateAction(activityId,userId ,status): Observable<ResponseModel> {
   const transferObject = {'activityId':activityId , 'userId':userId, 'status':status};
     let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
@@ -40,6 +55,20 @@ userStateAction(activityId,userId ,status): Observable<ResponseModel> {
       map((res) => res)
     );
 } 
+
+updateActivity(activity:Activity): Observable<ResponseModel> {
+  const transferObject = {activity:activity};
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+  return this._httpClient
+    .put<ResponseModel>(this.valuesUrl+"updateActivity",object, { headers: header })
+    .pipe(
+      map((res) => res)
+    );
+} 
+
+
+
 
 }
 

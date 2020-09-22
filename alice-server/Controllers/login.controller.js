@@ -126,7 +126,7 @@ router.post("/signup", (req, res) => {
         user.mailOnayCode = rString;
         user.save().then(result => {
           console.log("----------user save-------")
-          textHtml = "<b>Merhaba, ActivityFriend'e hoşgeldiniz!</b><p><a href='http://localhost:4200/login/" + rString + "/" + user.username + "'>Buraya tıklayarak mail adresinizi onaylayınız.</p>"
+          textHtml = "<b>Merhaba, ActivityFriend'e hoşgeldiniz!</b><p><a href='https://www.activityfriend.com.tr/login/" + rString + "/" + user.username + "'>Buraya tıklayarak mail adresinizi onaylayınız.</p>"
           subject = "ActivityFriend mail onayı"
           mailler.main(user.email, subject, textHtml);
 

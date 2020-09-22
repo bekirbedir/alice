@@ -145,7 +145,23 @@ router.delete("/", (req, res) => {
     });
 
 })
+router.get("/", async (req, response) => {
+    let id = req.query.id;
 
+    
+    try{
+        console.log("test-------------------basla")
+        const activity = await Activity.findOne({_id:id}, null, { sort: '-createdDate' }).exec();
+
+        console.log("test-------------------")
+        response.json(activity);    
+    }
+    catch (error) {
+        console.log(error);
+        return response.json(error);
+      }
+
+})
 router.put("/", (req, res) => {
 
     Activity.findOne({ _id: req.body._id }, function (err, activity) {

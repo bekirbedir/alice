@@ -29,7 +29,11 @@
               <tr *ngFor="let actUser of approveUsers">
                 <th> <img class="header-photo" [src]="actUser.imagePath" alt="Image Source" width="100px" height="150px" ></th>
                 <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
-               
+                <td>
+                  <div class="btn-group" role="group" aria-label="...">
+                      <button (click)="userStateAction(actUser.activityId , actUser.user._id,3)" type="button" class="btn btn-danger">Reddet <i class="pi pi-times"></i> </button>
+                    </div>
+                </td>
               </tr>
 
             </tbody>
@@ -41,6 +45,91 @@
       <table class="table table-striped">
         <thead>
         
+        </thead>
+        <tbody>
+          <tr *ngFor="let actUser of rejectedUsers">
+            <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
+            <td>
+              <div class="btn-group" role="group" aria-label="...">
+                  <button (click)="userStateAction(actUser.activityId , actUser.user._id,2)" type="button" class="btn btn-success">Onayla <i class="pi pi-play"></i></button>
+                </div>
+          </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </p-tabPanel>
+
+    <p-tabPanel header="Etkinliği düzenle " rightIcon="pi pi-times">
+      <table class="table table-striped">
+        <thead>
+          <div class="login-panel">
+
+            <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+          
+              <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
+          
+          
+                <p-card>
+                  <p-header>
+                    Düzenle
+                  </p-header>
+                  <div class="p-col-12">
+          
+                  </div>
+                  <div class="p-grid p-align-center">
+          
+                    <div class="p-col-12">
+                      <h5 class="input-label">Ne yapmak istiyorsun?</h5>
+                      <span class="ui-float-label" style="margin-top:15px !important">
+                        <input id="float-input" type="text" size="100" pInputText [(ngModel)]="activity.header" class="w-100">
+                        <label for="float-input">Etkinliğine bir başlık ver</label>
+                      </span>
+                    </div>
+          
+                    <div class="p-col-12">
+                      <h5 class="input-label">Biraz detaylandıralım</h5>
+                      <span class="ui-float-label" style="margin-top:15px !important">
+                          <textarea class="w-100" id="float-input" [rows]="10" [cols]="30" pInputTextarea autoResize="autoResize" [(ngModel)]="activity.context"></textarea>
+                        <label for="float-input">Etkinliği daha detaylı şekilde açıklayalım</label>
+                      </span>
+                    </div>
+          
+                    <div class="p-col-12">
+                      <h5 class="input-label">Tarih Seç</h5>
+                      <p-calendar [(ngModel)]="activity.date" onSelect="onSelect()" dateFormat="dd.mm.yy" showTime="true" hourFormat="24" showButtonBar="true" [locale]="tr"></p-calendar>
+                    </div>
+                    
+                    <div class="p-col-12">
+                      <h5 class="input-label">Etiketler</h5>
+                      <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="values"></p-chips>
+                    </div>
+          
+                    <div class="p-col-12">
+                      <p-checkbox [(ngModel)]="limitedParticipant" label="Katılımcı sınırlı mı?" binary="true"></p-checkbox>
+                    </div>
+          
+          
+                    <div class="p-col-12" *ngIf="limitedParticipant">
+                      <p-inputNumber [(ngModel)]="activity.participationCount" label="Katılımcı sayısı" [min]="0" [max]="1000"
+                        mode="decimal" [showButtons]="true"></p-inputNumber>
+                    </div>
+          
+          
+          
+                  </div>
+                  <div class="p-grid">
+                    <div class="p-col-12">
+                      <button type="button" (click)="updateActivity()" class="btn btn-success w-100 "><i class="fa fa-paper-plane-o"
+                          aria-hidden="true"> </i> Kaydet ve onaya gönder </button>
+                    </div>
+                  </div>
+          
+                </p-card>
+          
+              </div>
+            </div>
+          </div>
         </thead>
         <tbody>
           <tr *ngFor="let actUser of rejectedUsers">
