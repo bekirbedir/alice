@@ -189,9 +189,34 @@ router.put("/", (req, res) => {
     })
 })
 
+router.post("/cancelActivity", (req, response) => {
+    let userId = req.userId;
+    let activityId = req.body.activityId;
+    console.log("userId", userId)
+
+    ActivityUser.findOneAndDelete({activityId:activityId , userId:userId},function(err,res){
+        if(res){
+            console.log("res")
+            response.status(200).json({
+                status: true,
+                message: "deleted"
+            })
+
+        }
+        else{
+            response.status(200).json({
+                status: false,
+                message: "hata" + err
+            })
+        }
+    })
+})
+
 router.post("/join", (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, 'Act1234SecretKey');
+
+    
 
     Activity.findOne({ _id: req.body.activityId }, function (err, activity) {
 

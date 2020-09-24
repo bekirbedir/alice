@@ -8,7 +8,7 @@
   <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12">
       <div class="p-grid">
         <div class="p-col-6">
-          <button type="button" class="btn btn-info w-100 font-size-1-5em"><i class="fa fa-filter" aria-hidden="true"> </i> Filtrele</button>
+          <button type="button" (click)="filter()" class="btn btn-info w-100 font-size-1-5em"><i class="fa fa-filter" aria-hidden="true"> </i> Filtrele</button>
         </div>
       
         <div class="p-col-6 ">
@@ -79,10 +79,10 @@
                  <button type="button" (click)="joinActivity(act)" class=" btn btn-primary w-100"> <i class="pi pi-sign-in" aria-hidden="true"> </i> Katıl</button>
              </div>
              <div *ngIf="act.currentUserStatus == 1" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
-              <button type="button" (click)="joinActivity(act)" class=" btn btn-warning w-100" disabled> <i class="fa fa-spinner" aria-hidden="true" > </i> Beklemede </button>
+              <button type="button" (click)="cancelActivityApprove(act)" class=" btn btn-warning w-100" > <i class="fa fa-spinner" aria-hidden="true" > </i> Beklemede </button>
              </div>
              <div *ngIf="act.currentUserStatus == 2" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
-              <button type="button" (click)="joinActivity(act)" class=" btn btn-success w-100" disabled> <i class="fa fa-check" aria-hidden="true"> </i> Kabul edildin</button>
+              <button type="button" (click)="cancelActivityApprove(act)" class=" btn btn-success w-100" > <i class="fa fa-check" aria-hidden="true"> </i> Kabul edildin</button>
              </div>
              <div *ngIf="act.currentUserStatus == 3" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
               <button type="button" (click)="joinActivity(act)" class=" btn btn-danger w-100" disabled> <i class="fa fa-times" aria-hidden="true"> </i> Reddedildi</button>
@@ -124,3 +124,27 @@ not : 1 kız arkadaşı kendi çadırımda misafir edebilirim onun dışında ke
 
 
 <p-toast position="top-center" key="tc"></p-toast>
+
+<p-toast position="top-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+      <div class="p-flex p-flex-column" style="flex: 1">
+          <div class="p-text-center">
+              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+              <h4>{{message.summary}}</h4>
+              <p>{{message.detail}}</p>
+          </div>
+          <div class="p-grid p-fluid">
+            
+              <div class="p-col-6">
+         
+                  <button type="button" (click)="onConfirm()"   class="btn btn-success w-100"> <i class="fa fa-check" aria-hidden="true"> </i> Onayla
+                  </button>
+              </div>
+              <div class="p-col-6">
+                <button type="button" (click)="onReject()"   class="btn btn-info w-100 "> <i class="fa fa-times" aria-hidden="true"> </i> İptal
+                </button>
+              </div>
+          </div>
+      </div>
+  </ng-template>
+</p-toast>
