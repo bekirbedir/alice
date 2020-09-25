@@ -1,20 +1,4 @@
-<!--
-<p-tabMenu  [model]="items" [activeItem]="items[0]">
-    <ng-template  pTemplate="item" let-item let-i="index" >
-        <div style="position: relative; text-align: center ; min-width: 10em;"  >
-            <div class="ui-menuitem-icon " [ngClass]="item.icon" *ngIf="item.icon" style="font-size: 2em;" ></div>
-            <div class="ui-menuitem-text">
-                {{item.label}} 
-            </div>
-        </div>
-    </ng-template>
-</p-tabMenu> -->
 
-<!--<p-menubar [model]="items">
-    <input  type="text" pInputText placeholder="Ara">
-    <button *ngIf="isLogin" (click)="LogOut()" style="margin-left: 5px !important;" pButton label=" Çıkış yap" icon="pi pi-power-off"></button>
-</p-menubar>
--->
 <nav class="navbar navbar-expand-lg navbar-light bg-white" >
   <a class="navbar-brand" style="font-family: monospace;" href="/activities">ActivityFriend</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +17,10 @@
 
       <li  class="nav-item active">
         <a class="nav-link" href="/communication"> <i class="pi pi-fw pi-pencil"></i> İletişim </a>
+      </li>
+
+      <li  class="nav-item active">
+        <a class="nav-link" href="/messages"> <i class="pi pi-comments"></i> Mesajlaşma </a>
       </li>
 
       <li  *ngIf="!isActiveUser"  class="nav-item ">
