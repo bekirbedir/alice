@@ -122,6 +122,7 @@ router.post("/signup", (req, res) => {
         user.phone = req.body.phone
         user.createdDate = Date.now()
         user.status = 1
+        user.role = "ROLE_USER"
         var rString = randomString(25, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ').trim();
         user.mailOnayCode = rString;
         user.save().then(result => {

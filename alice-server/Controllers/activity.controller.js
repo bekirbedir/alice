@@ -7,6 +7,7 @@ let ActivityUser = require("../Models/activity-user-status")
 var jwt = require('jsonwebtoken');
 let User = require("../Models/user");
 const ActivityUserStatus = require("../Models/activity-user-status");
+const Notification = require("../Models/notification")
 
 
 
@@ -216,8 +217,6 @@ router.post("/join", (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, 'Act1234SecretKey');
 
-    
-
     Activity.findOne({ _id: req.body.activityId }, function (err, activity) {
 
         var index = activity.userList.findIndex(x => x.userId == decodedToken.id)
@@ -234,7 +233,24 @@ router.post("/join", (req, res) => {
                     activityUser.userId = decodedToken.id;
                     activityUser.username = user.username;
                     activityUser.user = user;
-                    activityUser.save();
+                    activityUser.save().then(result => {
+                        const notification = new Notification();
+                        notification.activeUserId = user._id;
+                        notification.activity = activity;
+                        notification.user = null;
+                        notification.text = "Aktiviteye katıldın";
+                        notification.isShow = true;
+                        notification.type = 1;
+                        notification.save().then(result=>{
+                            const notification2 = new Notification();
+                            notification2.activeUserId = activity.ownerId;
+                            notification2.activity = activity;
+                            notification2.user = user;
+                            notification2.text = "Aktivitene katılım isteği geldi";
+                            notification2.type = 2;
+                            notification2.save();
+                        });
+                    });
 
                     activity.actUser.push(activityUser);
                 }
@@ -267,6 +283,8 @@ router.post("/join", (req, res) => {
 
 
 })
+
+
 
 module.exports = router;
 

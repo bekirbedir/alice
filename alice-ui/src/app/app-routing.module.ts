@@ -57,6 +57,10 @@ const routes: Routes = [
     loadChildren: () => import('./admin-users/admin-users.module').then(m => m.AdminUsersModule)
   },
   {
+    path: 'notification',
+    loadChildren: () => import('./notification/notification.module').then(m => m.NotificationModule)
+  },
+  {
     path: 'biz-kimiz',
     loadChildren: () => import('./info/info.module').then(m => m.InfoModule)
   }

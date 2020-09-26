@@ -20,12 +20,20 @@
       </li>
 
       <li  class="nav-item active">
-        <a class="nav-link" href="/messages"> <i class="pi pi-comments"></i> Mesajlaşma </a>
+        <a class="nav-link" href="/messages"> <i class="pi pi-comments"></i> Sohbetler </a>
       </li>
+      
+      <li  *ngIf="isActiveUser"  class="nav-item ">
+        <a class="nav-link" href="/notification"> <i class="pi pi-bell"></i> Hareketler <span class="badge badge-info">0</span></a>
+      </li>
+
 
       <li  *ngIf="!isActiveUser"  class="nav-item ">
         <a class="nav-link" href="/login"> <i class="pi pi-sign-in"></i> Giriş Yap </a>
       </li>
+
+   
+
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Ara" aria-label="Ara">
