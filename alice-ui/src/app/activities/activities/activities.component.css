@@ -38,3 +38,12 @@
 .act-content-btn-comment{
     border-radius: 2px;
 }
+.profile-tag{
+    margin-right: 5px;
+    margin-left: 5px;
+   padding: 7px;
+   border-radius: 3px;
+   color: white;
+   background: rgb(71,161,25);
+   background: linear-gradient(90deg, rgba(71,161,25,1) 0%, rgba(89,207,23,1) 100%);
+}
