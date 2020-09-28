@@ -6,14 +6,14 @@
   
       <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
   
-        <div *ngIf="mailOnayBilgisi">
+        <div [hidden]="!isApproveOk">
           
           <div class="alert alert-success" role="alert">
-            <h5><i class="fa fa-check" aria-hidden="true"> </i> Kaydınız alındı. Mail adresinizi onaylayın lütfen.</h5>
+            <h3> <i class="fa fa-check" aria-hidden="true"> </i> Mailiniz başarılı şekilde onaylanmıştır. <br><br>Profil onayınızın ardından mail ile bilgilendirileceksiniz.</h3>
           </div>
         </div>
-  
-        <p-card *ngIf="!isApprove">
+
+        <p-card [hidden]="isApproveOk">
           <div class="p-col-12">
 
           </div>

@@ -3,6 +3,15 @@
     <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
   
       <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
+
+        <div [hidden]="!mailOnayBilgisi">
+          
+          <div class="alert alert-success" role="alert">
+            <h5><i class="fa fa-check" aria-hidden="true"> </i> Kaydınız alındı. Mail adresinizi onaylayın lütfen.</h5>
+          </div>
+        </div>
+  
+
         <p-card  >
           <p-header>
            Kayıt Ol
@@ -10,12 +19,7 @@
        
           <div class="p-grid p-align-center">
               
-            <div *ngIf="isApprove">
-          
-              <div class="alert alert-success" role="alert">
-                <h3><i class="fa fa-check" aria-hidden="true"> </i> Mailiniz başarılı şekilde onaylanmıştır. Profil onayınızın ardından mail ile bilgilendirileceksiniz.</h3>
-              </div>
-            </div>
+            
             
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
@@ -55,6 +59,7 @@
             </span>
           </div>
 
+  
 
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
@@ -63,7 +68,10 @@
             </span>
           </div>
        
-      
+          <div class="p-col-12">
+            <p class="input-label" style="font-size: 12px;">Etiket ekle (Enter'a basarak ekleyin)</p>
+            <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="user.tagList"></p-chips>
+          </div>
 
             <div class="p-col-12"><p-checkbox [(ngModel)]="checked" label="Sözleşmeyi okudum ve kabul ediyorum." binary="true"></p-checkbox></div>
           

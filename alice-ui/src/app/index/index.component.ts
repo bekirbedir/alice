@@ -54,9 +54,14 @@ export class IndexComponent implements   OnInit{
 
   ngOnInit() {
 
-    this.loginservice.user$.subscribe(x=>{
-      console.log("user değişti",x)
-    })
+    try{
+      this.loginservice.user$.subscribe(x=>{
+        console.log("user değişti",x)
+      })
+    }catch(error){
+      console.log('login olmayan birisi signup da patladi')
+    }
+    
     if(this.isActiveUser){
       console.log(this.isActiveUser,"trueda")
       this.isLogin = true;

@@ -1,3 +1,4 @@
+
 <div class="route-nav">
     <span><a href="/activities"> <i class="fa fa-home" aria-hidden="true"></i> Anasayfa </a></span> >
     <span><i class="fa fa-user" aria-hidden="true"></i> Profil </span>
@@ -23,14 +24,12 @@
                
            <div class="p-col-12 mt-50">
                <p class="bio-header">Biyografi </p>
-               <p class="bio-context">Senaryo yazarı, kısa film yönetmeni, tiyatro müdavimi ve eleştirmeni, kısaca sanat adamı olmaya çalışan, doğaya hayran, şanslı bir zat.</p>
+               <p class="bio-context">{{User.biography}}</p>
            </div> 
         </div>
         <hr>
         <div class="h-10"></div>
        
-     
-
         <div class="rate-buttons">
             <div class="progress ">
                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" 
@@ -43,13 +42,27 @@
         </div>
         <div class="h-10"></div>
         <!-------Bu alan ngFor ile yapilacak-------------->
+        <div class="p-grid">
+            <p class="bio-header">Bu kişiye sen de oy ver! </p>
+            
+            <hr>
+            <div class="p-col-6">
+                <button type="button" (click)="(rateUser(1))"  class="btn btn-success w-100 "> Olumlu <i class="fa fa-smile-o" aria-hidden="true"></i></button>
+            </div>
+            <div class="p-col-6">
+                <button type="button" (click)="(rateUser(2))"  class="btn btn-danger w-100 "> Olumsuz <i class="fa fa-frown-o" aria-hidden="true"></i> </button>
+            </div>
+        </div>
         <div class="profile-tags"> 
-            <span class="profile-tag">#Doğa</span>
-            <span class="profile-tag">#Kamp</span>
-            <span class="profile-tag">#Tiyatro</span>
-            <span class="profile-tag">#Film</span>
+            <span *ngFor="let tag of User.tagList"class="profile-tag">#{{tag}}</span>
         </div>
 
     </p-card>
 </div>
+</div>
+<p-toast position="top-center" key="tc"></p-toast>
+<div [hidden]="!loading" class="full-area">
+    <div class="centered">
+        <p-progressSpinner [style]="{width: '100px', height: '100px'}" styleClass="custom-spinner" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+    </div>
 </div>

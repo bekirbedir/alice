@@ -4,17 +4,22 @@ import {NgxImageCompressService} from 'ngx-image-compress';
 import { ProfilService } from '../profile.service';
 import { UserModel } from 'src/app/models/user.model';
 import { take } from 'rxjs/operators';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
+  providers: [MessageService]
 })
 export class ProfileComponent  {
   imagePath:any
   User:any
   files:any
-  constructor( private service:ProfilService,private _sanitizer: DomSanitizer,private imageCompress: NgxImageCompressService){
+  loading:Boolean
+  constructor( private service:ProfilService,private _sanitizer: DomSanitizer,
+    private imageCompress: NgxImageCompressService,
+    private messageService: MessageService){
     const userId=localStorage.getItem('userId').replace("\"", "").replace("\"", "") 
     this.User=new UserModel()
     this.service.getMyProfil(userId).subscribe(x=>{
@@ -23,6 +28,7 @@ export class ProfileComponent  {
     this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
     +this.sellersPermitString );
     })
+    this.loading = false;
   }
   imageSrc;
   sellersPermitFile: any;
@@ -46,6 +52,7 @@ export class ProfileComponent  {
     }
   }
   public picked(event, field) {
+    this.loading = true;
     this.currentId = field;
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) {
@@ -87,27 +94,29 @@ export class ProfileComponent  {
 
   }
   _handleReaderLoaded(e) {
+   
     let reader = e.target;
     var base64result = reader.result.substr(reader.result.indexOf(',') + 1);
     //this.imageSrc = base64result;
     this.sellersPermitString = base64result;
-
-
-    this.log();
- 
-    
-    this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
-    +this.sellersPermitString );
   const userId=localStorage.getItem('userId').replace("\"", "").replace("\"", "") 
     this.service.updateUserPhoto(userId,this.sellersPermitString).subscribe(x=>{
-      console.log(x)
+      if(x.status){
+        this.loading = false;
+        this.messageService.add({ key: 'tc', severity: 'success', summary: 'Başarılı!', detail: 'Profil resmi değiştirildi.' });
+      this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' 
+       +this.sellersPermitString );
+      }
+        
     })
   }
 
-  log() { 
-    // for debug
-    console.log('base 64', "this.sellersPermitString seklinde yazilcak");
+
+  rateUser(oy){
+    /* oy == 1 olumlu , ==2 olumsuz */
+    this.messageService.add({ key: 'tc', severity: 'success', summary: 'Oy verdiniz!', detail: 'Henüz yapım aşamasında' });
   }
+ 
 
  
 

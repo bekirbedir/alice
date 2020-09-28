@@ -23,12 +23,17 @@ export class SocketIOAdapter extends ChatAdapter
     listFriends(): Observable<ParticipantResponse[]> {
         // List connected users to show in the friends list
         // Sending the userId from the request body as this is just a demo 
+        try{
         return this.http
             .post("http://localhost:3000/listFriends", { userId: this.userId })
             .pipe(
                 map((res:any) => res.json()),
                 catchError((error:any) => Observable.throw(error.json().error || 'Server error'))
             );
+        }
+        catch(error){
+            console.log('catche dustu.')
+        }
     }
 
     getMessageHistory(userId: any): Observable<Message[]> {

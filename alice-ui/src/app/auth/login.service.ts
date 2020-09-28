@@ -85,7 +85,7 @@ export class LoginService {
     let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     const object = JSON.stringify(transferObject);
     const self = this;  
-  
+  console.log("burada",transferObject)
     return this.http
       .post<ResponseModel>(this.valuesUrl+'login/approve',object,{headers: header})
       .pipe( 
