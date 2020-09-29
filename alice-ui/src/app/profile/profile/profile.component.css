@@ -28,14 +28,13 @@
     text-align: center;
 }
 .header-photo{
-    object-fit: cover;
-    width: 150px;
-    height:150px;
-    border-radius: 40%;
-    border: 2px solid #ccc;
+ 
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
-.rate-buttons{
-    padding: 12px;
+.rate-buttons>.progress{
+    height: 35px;
 }
 .positive-button{
    
@@ -55,3 +54,37 @@ background: linear-gradient(90deg, rgba(85,190,31,1) 0%, rgba(89,207,23,1) 72%);
     background: rgb(246,10,10);
 background: linear-gradient(90deg, rgba(246,10,10,1) 0%, rgba(228,50,50,1) 47%);
 }
+.upload-photo-btn{
+    background-color: #117b8c;
+    color: white;
+    width: 100%;
+    padding: 5px 0;
+    margin: 5px;
+    text-align: center;
+    border-radius: 3px;
+}
+.p-progressbar{
+    background-color: yellowgreen !important;
+}
+
+.full-area{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform: -webkit-translate(-50%, -50%);
+    transform: -moz-translate(-50%, -50%);
+    transform: -ms-translate(-50%, -50%);
+  }
+  .centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform: -webkit-translate(-50%, -50%);
+    transform: -moz-translate(-50%, -50%);
+    transform: -ms-translate(-50%, -50%);
+    color:darkred;
+  }

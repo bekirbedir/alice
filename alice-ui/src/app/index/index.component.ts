@@ -28,6 +28,7 @@ export class IndexComponent implements   OnInit{
         {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
         {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
         {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
+        {label: 'Mesajlaşma', icon: 'pi pi-fw pi-pencil',routerLink:'messages'},
         {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file',routerLink:'info'},
         {label: 'Profilim', icon: 'pi pi-user-plus',routerLink:'profile'}
     ];
@@ -53,9 +54,14 @@ export class IndexComponent implements   OnInit{
 
   ngOnInit() {
 
-    this.loginservice.user$.subscribe(x=>{
-      console.log("user değişti",x)
-    })
+    try{
+      this.loginservice.user$.subscribe(x=>{
+        console.log("user değişti",x)
+      })
+    }catch(error){
+      console.log('login olmayan birisi signup da patladi')
+    }
+    
     if(this.isActiveUser){
       console.log(this.isActiveUser,"trueda")
       this.isLogin = true;
@@ -63,6 +69,7 @@ export class IndexComponent implements   OnInit{
         {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
         {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
         {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
+        {label: 'Mesajlaşma', icon: 'pi pi-fw pi-pencil',routerLink:'messages'},
         {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file',routerLink:'info'},
         {label: 'Profilim', icon: 'pi pi-user-plus',routerLink:'profile'}
     ];
@@ -76,6 +83,7 @@ export class IndexComponent implements   OnInit{
         {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'}, 
         {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file',routerLink:'info'},
         {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
+        {label: 'Mesajlaşma', icon: 'pi pi-fw pi-pencil',routerLink:'messages'},
         {label: 'Giriş Yap', icon: 'pi pi-sign-in', routerLink:'login' },
     ];
 
@@ -93,6 +101,7 @@ export class IndexComponent implements   OnInit{
      {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'}, 
      {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file',routerLink:'info'},
      {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
+     {label: 'Mesajlaşma', icon: 'pi pi-fw pi-pencil',routerLink:'messages'},
      {label: 'Giriş Yap', icon: 'pi pi-sign-in', routerLink:'login' },
  ];
  this.activeItem = this.items[0];

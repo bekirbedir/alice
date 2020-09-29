@@ -6,14 +6,14 @@
   
       <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
   
-        <div *ngIf="mailOnayBilgisi">
+        <div [hidden]="!isApproveOk">
           
           <div class="alert alert-success" role="alert">
-            <h5><i class="fa fa-check" aria-hidden="true"> </i> Kaydınız alındı. Mail adresinizi onaylayın lütfen.</h5>
+            <h3> <i class="fa fa-check" aria-hidden="true"> </i> Mailiniz başarılı şekilde onaylanmıştır. <br><br>Profil onayınızın ardından mail ile bilgilendirileceksiniz.</h3>
           </div>
         </div>
-  
-        <p-card *ngIf="!isApprove">
+
+        <p-card [hidden]="isApproveOk">
           <div class="p-col-12">
 
           </div>
@@ -35,21 +35,20 @@
                   placeholder="Parola">
               </div>
             </div>
-            <div class="p-col-12 text-center">
-              <a>Şifremi unuttum?</a>
-            </div>
+            
           </div>
           <div class="p-grid" >
            
            
-              <div class="p-col-6">
-              <button (click)="routeSignup()" pButton type="button" label="Kayıt Ol »" class="ui-button-raised p-col-12"
-                [routerLink]="['/register']"></button>
-              </div>
- <div class="p-col-6">
-              <button pButton type="button" label="Giriş Yap" class="ui-button-raised  p-col-12 login-btn"
+ <div class="p-col-12">
+              <button pButton type="button" label="Giriş Yap »" class="ui-button-raised  p-col-12 login-btn"
                 (click)="onClickLogin()"></button>
               </div>
+          </div>
+          <div class="p-col-12 text-center">
+            <hr>
+            <a class="sifre-unuttum-text" >Şifremi unuttum? &nbsp;&nbsp;&nbsp;</a> | <a class="kayit-ol-text" (click)="routeSignup()"> &nbsp;&nbsp;&nbsp; Hemen kayıt ol »</a>
+            <hr>
           </div>
         </p-card>
         

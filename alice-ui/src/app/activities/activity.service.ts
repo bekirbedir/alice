@@ -5,6 +5,7 @@ import { Activity } from '../models/activity';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ActivityUserStatus } from '../models/activity.user.status';
+import { ResponseModel } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,21 @@ export class ActivityService {
     const self = this;  
     return this._httpClient
     .post<any>(this.valuesUrl+"join",object,{headers: header})
+    .pipe(
+      map((res) => res)
+    );
+  }
+
+  cancelActivity(activityId): Observable<ResponseModel>{
+    const transferObject = {
+      activityId:activityId
+    }
+
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    const self = this;  
+    return this._httpClient
+    .post<ResponseModel>(this.valuesUrl+"cancelActivity",object,{headers: header})
     .pipe(
       map((res) => res)
     );

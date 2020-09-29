@@ -39,7 +39,10 @@ router.post("/approve", (req, res) => {
         });
     }
     else {
-      console.log("bulamadik");
+      res.status(200).json({
+        status: false,
+        message: "Hata oluştu; " 
+      })
     }
   })
 
@@ -120,13 +123,15 @@ router.post("/signup", (req, res) => {
           user.name = req.body.name
         user.email = req.body.email
         user.phone = req.body.phone
+        user.tagList = req.body.tagList;
         user.createdDate = Date.now()
         user.status = 1
+        user.role = "ROLE_USER"
         var rString = randomString(25, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ').trim();
         user.mailOnayCode = rString;
         user.save().then(result => {
           console.log("----------user save-------")
-          textHtml = "<b>Merhaba, ActivityFriend'e hoşgeldiniz!</b><p><a href='https://www.activityfriend.com.tr/login/" + rString + "/" + user.username + "'>Buraya tıklayarak mail adresinizi onaylayınız.</p>"
+          textHtml = "<b>Merhaba, ActivityFriend'e hoşgeldiniz!</b><p><a href='https://www.activityfriend.com.tr/login/" + rString + "/" + user.username + "'>Buraya tıklayarak mail adresinizi onaylayınız.</p><br>Kullanıcı adınız: "+ user.username + "<br>"
           subject = "ActivityFriend mail onayı"
           mailler.main(user.email, subject, textHtml);
 
@@ -188,7 +193,7 @@ router.post("/login", (req, res) => {
         },
           'Act1234SecretKey',
           {
-            expiresIn: "2h"
+            expiresIn: "500h"
           }
         )
         return res.status(200).send({ message: 'success', token: token });

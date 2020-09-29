@@ -29,13 +29,23 @@ import { ActivityState } from './store/states/activity.state';
 import { AuthGuard } from './auth/auth.guard';
 
 
+import { Routes, RouterModule } from '@angular/router';
+import { NgChatModule } from 'ng-chat';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+import { MessageUserComponent } from './message-user/message-user.component';
+import { FormsModule } from '@angular/forms';
 
+
+
+const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 @NgModule({
   declarations: [
     AppComponent,
-    IndexComponent
+    IndexComponent,
+    MessageUserComponent
   ], 
   imports: [
+    
     BrowserModule,
     NgxsModule.forRoot([ActivityState,FriendState]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
@@ -45,6 +55,7 @@ import { AuthGuard } from './auth/auth.guard';
     BrowserAnimationsModule,
     MatToolbarModule,  
     MatTooltipModule,
+    FormsModule,
     MatMenuModule,
     MatButtonModule,
     FlexLayoutModule,
@@ -55,8 +66,12 @@ import { AuthGuard } from './auth/auth.guard';
     GMapModule,
     MenubarModule,
     InputTextModule,
-    ButtonModule
-    
+    ButtonModule,
+    NgChatModule,
+    SocketIoModule.forRoot(config), 
+
+
+
   ],
   providers: [  AuthGuard,LoginService,{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
               { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }],

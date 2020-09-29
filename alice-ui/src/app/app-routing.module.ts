@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, ExtraOptions } from '@angular/router';
 import { IndexComponent } from './index/index.component';
 import { AuthGuard } from './auth/auth.guard';
 
 
 const routes: Routes = [
 
+  {
+    path: '',
+    loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule)
+  },
   {
     path: 'users',
     loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
@@ -19,6 +23,10 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+  },
+  {
+    path: 'messages',
+    loadChildren: () => import('./message-user/message-user.module').then(m => m.MessageUserModule)
   },
   {
     path: 'activities',
@@ -51,6 +59,10 @@ const routes: Routes = [
   {
     path: 'admin-users',
     loadChildren: () => import('./admin-users/admin-users.module').then(m => m.AdminUsersModule)
+  },
+  {
+    path: 'notification',
+    loadChildren: () => import('./notification/notification.module').then(m => m.NotificationModule)
   },
   {
     path: 'biz-kimiz',

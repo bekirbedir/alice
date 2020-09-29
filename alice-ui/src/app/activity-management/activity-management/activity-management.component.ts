@@ -98,7 +98,7 @@ export class ActivityManagementComponent implements OnInit {
         this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Aktivite kaydedildi,yönetici onayından sonra yeniden yayınlanacaktır..' });
       }
       else {
-        this.messageService.add({ key: 'tc', severity: 'danger', summary: 'Hata', detail: x.message });
+        this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: x.message });
       }
     })
   }

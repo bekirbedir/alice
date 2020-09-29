@@ -34,7 +34,9 @@ export class ActivitiesComponent implements OnInit {
   activities: Activity[];
   activityCurrentUserStatus = 0;
   activeuser: any;
+  selectedActivityItem: Activity;
   activiteUserStatuses: ActivityUserStatus[]
+  loading:Boolean
   private isActiveUserId = localStorage.getItem('userId');
 
   @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
@@ -50,6 +52,7 @@ export class ActivitiesComponent implements OnInit {
     this.store.dispatch(new GetActivities());
     this.activeuser = localStorage.getItem('userId');
     console.log("activeuser ve öbürü", this.activeuser)
+    this.loading = false;
   }
 
 
@@ -72,12 +75,12 @@ export class ActivitiesComponent implements OnInit {
   activeItem1: MenuItem;
 
   ngOnInit() {
-
+    this.loading = true;
     this.Activities.subscribe((x) => {
       this.activities = x;
       if (x) {
         this.getActivityUserStatusList();
-        
+
       }
     });
 
@@ -100,7 +103,7 @@ export class ActivitiesComponent implements OnInit {
 
 
   viewDetail(item) {
-    localStorage.setItem("currentUserStatus",item.currentUserStatus)
+    localStorage.setItem("currentUserStatus", item.currentUserStatus)
     this.store.dispatch(new GetActivityDetail(item._id))
     this.router.navigate(['/activity-view'])
   }
@@ -133,6 +136,34 @@ export class ActivitiesComponent implements OnInit {
     this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Aktiviteye katılım isteği gönderdiniz' });
   }
 
+  cancelActivityApprove(item) {
+     this.selectedActivityItem = item;
+    this.messageService.clear();
+    this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Emin misiniz?', detail: 'Aktiviteye katılma isteğiniz geri çekilecek.' });
+  }
+
+  onConfirm() {
+    this.cancelActivity();
+    this.messageService.clear('c');
+  }
+
+  onReject() {
+    this.messageService.clear('c');
+  }
+
+  clear() {
+    this.messageService.clear();
+  }
+  cancelActivity() {
+    this.service.cancelActivity( this.selectedActivityItem._id).subscribe((x) => {
+      if (x.status) {
+        this.selectedActivityItem.currentUserStatus = 0;
+        this.messageService.add({ key: 'tc', severity: 'success', summary: 'Başarılı', detail: 'Katılım isteği geri çekildi' });
+      }
+    });
+
+  }
+
   isCurrentUserParticipant(activity: Activity) {
     console.log("this.isActiveUserId", this.isActiveUserId);
     console.log("this.activiteUserStatuses", this.activiteUserStatuses)
@@ -148,10 +179,10 @@ export class ActivitiesComponent implements OnInit {
     }
   }
 
-  convertImage(activity:Activity){
+  convertImage(activity: Activity) {
     console.log("buraya geldii")
-    if(activity?.user?.userPhoto)
-       return this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'  +activity.user.userPhoto ); 
+    if (activity?.user?.userPhoto)
+      return this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + activity.user.userPhoto);
   }
 
   getActivityUserStatusList() {
@@ -167,6 +198,12 @@ export class ActivitiesComponent implements OnInit {
       else {
 
       }
+      
+      this.loading = false;
     })
+  }
+
+  filter() {
+    this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Yapım aşamasında..' });
   }
 }
