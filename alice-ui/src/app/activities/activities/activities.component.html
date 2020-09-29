@@ -150,3 +150,9 @@ not : 1 kız arkadaşı kendi çadırımda misafir edebilirim onun dışında ke
       </div>
   </ng-template>
 </p-toast>
+
+<div [hidden]="!loading" class="full-area">
+  <div class="centered">
+      <p-progressSpinner [style]="{width: '100px', height: '100px'}" styleClass="custom-spinner" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+  </div>
+</div>

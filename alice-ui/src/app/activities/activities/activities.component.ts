@@ -36,6 +36,7 @@ export class ActivitiesComponent implements OnInit {
   activeuser: any;
   selectedActivityItem: Activity;
   activiteUserStatuses: ActivityUserStatus[]
+  loading:Boolean
   private isActiveUserId = localStorage.getItem('userId');
 
   @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
@@ -51,6 +52,7 @@ export class ActivitiesComponent implements OnInit {
     this.store.dispatch(new GetActivities());
     this.activeuser = localStorage.getItem('userId');
     console.log("activeuser ve öbürü", this.activeuser)
+    this.loading = false;
   }
 
 
@@ -73,7 +75,7 @@ export class ActivitiesComponent implements OnInit {
   activeItem1: MenuItem;
 
   ngOnInit() {
-
+    this.loading = true;
     this.Activities.subscribe((x) => {
       this.activities = x;
       if (x) {
@@ -196,6 +198,8 @@ export class ActivitiesComponent implements OnInit {
       else {
 
       }
+      
+      this.loading = false;
     })
   }
 

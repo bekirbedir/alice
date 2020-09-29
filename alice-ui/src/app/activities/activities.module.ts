@@ -9,6 +9,7 @@ import { MenuItem } from 'primeng/api';
 import {TabMenuModule} from 'primeng/tabmenu';
 import {ToastModule} from 'primeng/toast';
 import {NgxImageCompressService} from 'ngx-image-compress';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
     GalleriaModule,
     ButtonModule,
     TabMenuModule,
+    ProgressSpinnerModule,
     ToastModule
   ],
   providers: [NgxImageCompressService],
