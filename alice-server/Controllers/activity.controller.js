@@ -85,6 +85,40 @@ router.get("/getActivityUserStatusList", (request, response) => {
 
 })
 
+router.get("/getApprovedUsers", async (request, response) => {
+    let activityId = request.query.id;
+    console.log("activityId", activityId)
+    try{
+        const approvedUsers = await ActivityUserStatus.find({status:2 , activityId: activityId}, null, { sort: 'date' }).populate({path:'user', Model:  '../Models/user'}).exec();
+        response.json(approvedUsers);    
+    }
+    catch (error) {
+        console.log(error);
+        return response.json(error);
+      }
+})
+
+
+router.post("/getActivityAndUserStatus", (request, response) => {
+    let userId = request.userId;
+    console.log('userId----------' , userId)
+    let activityId = request.body.activityId
+
+    console.log("userId", userId)
+    const activityList = [];
+    ActivityUserStatus.find({activityId:activityId, userId: userId}, function (err, res) {
+        if (err) {
+            response.send([]);
+        }
+        if (res) {
+            response.send(res);
+            
+        }
+    }
+    )
+
+})
+
 
 
 router.post("/", (req, res) => {
@@ -98,7 +132,7 @@ router.post("/", (req, res) => {
         if (user) {
             console.log('user bulundu');
          //   activity._id = req.body._id
-              activity.user = user;
+            activity.user = user;
             activity.username = req.body.username
             activity.tagList = req.body.tagList
             activity.isActive = true

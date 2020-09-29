@@ -8,10 +8,10 @@
     <p-card>  
     
         <div class="p-grid">
-        <div class="p-col-1">
-          <img class="act-header-photo" src="assets/gokcenur.jpg" >
+        <div class="p-col-12 text-align-center">
+          <img class="act-header-photo img-thumbnail" src="assets/gokcenur.jpg" >
         </div>
-        <div class="p-col-11 act-content">
+        <div class="p-col-12 act-content">
             <p class="act-header-user-name"><a>@{{activityStatic.user.username}}</a></p>
            <p class="act-header-name">{{activityStatic.header}}</p>
            <div class="h-10"></div>
@@ -20,9 +20,11 @@
            </div>
 
            <div class="h-10"></div>
+           <br>
            <div class="act-content-tags">
-           {{activityStatic.tags}}
+            <span *ngFor="let tag of activityStatic.tagList"class="profile-tag">#{{tag}}</span>
            </div>
+           <br>
            <div class="h-5"></div>
            <div >
             <img class="act-photo" src="assets/kamp.jpg" >
@@ -37,33 +39,67 @@
             <hr>
             <div class="p-grid">
                 <div (click)="viewComments(activityStatic)" class="p-col-6 act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
-            <div class="p-col-6 act-content-btn-signin"><i class="pi pi-sign-in"></i>&nbsp; Katıl</div>
+           
+                <div *ngIf="activityStatic.currentUserStatus == 0" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+                  <button type="button" (click)="joinActivity(activityStatic)" class=" btn btn-primary w-100"> <i class="pi pi-sign-in" aria-hidden="true"> </i> Katıl</button>
+              </div>
+              <div *ngIf="activityStatic.currentUserStatus == 1" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+               <button type="button" (click)="cancelActivityApprove(activityStatic)" class=" btn btn-warning w-100" > <i class="fa fa-spinner" aria-hidden="true" > </i> Beklemede </button>
+              </div>
+              <div *ngIf="activityStatic.currentUserStatus == 2" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+               <button type="button" (click)="cancelActivityApprove(activityStatic)" class=" btn btn-success w-100" > <i class="fa fa-check" aria-hidden="true"> </i> Kabul edildin</button>
+              </div>
+              <div *ngIf="activityStatic.currentUserStatus == 3" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+               <button type="button"  class=" btn btn-danger w-100" disabled> <i class="fa fa-times" aria-hidden="true"> </i> Reddedildi</button>
+              </div>
+           
+               
             </div>
 
             
           </div>
            
         </div>
-        <!--<div class="act-header">
-           <span><img class="act-header-photo" src="assets/gokcenur.jpg" ></span>
-        <span class="act-header-name">Gökçenur GÖKYÜREK</span>
-           
-        </div>
-        <p>
-            #7 Günlük Kamp
-        </p>
-       
-        SONNN 1 KİŞİLİKKK YERİMİZ KALDI!!!! Ankara da kamp grubu oluşturup 6-7 günde hem tarihi yerleri gezip hemde sahil deniz kampları yapalım. Temmuzun 10-17 si Muğla Datça dayız farklı şehirlerden kampçılara da açık.Tatil yapıp hem de kamp yapmak istiyorsan ne duruyorsun daha....Ankara dışından gelen kampçıları da beklerim.
-not : 1 kız arkadaşı kendi çadırımda misafir edebilirim onun dışında kendi ekipmanlarımızı getirmeliyiz.
 
-        <div >
-            <img class="act-photo" src="assets/kamp.jpg" >
-        </div>
-        <p-footer>
-            Footer content here
-        </p-footer> -->
     </div>
+    </p-card>
+    <br>
+    <p-card>
+      <p-header>
+        Katılımcılar
+      </p-header>
+      <div [hidden]="activityStatic.currentUserStatus == 2 " class="alert alert-warning" role="alert">
+        <p> <i class="fa fa-times" aria-hidden="true"> </i> Katılımcıları yalnızca onaylanan kullanıcılar görebilir.</p>
+      </div>
+      <div *ngIf= "activityStatic.currentUserStatus == 2 ">
+        <p *ngFor="let actUser of approvedUsers" class="approved-user">- {{actUser.user.name}} ( @{{actUser.user.username}} ) </p>  
+      </div>
+ 
+
     </p-card>
 </div>
 </div>
 <p-toast position="top-center" key="tc"></p-toast>
+<p-toast position="top-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+      <div class="p-flex p-flex-column" style="flex: 1">
+          <div class="p-text-center">
+              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+              <h4>{{message.summary}}</h4>
+              <p>{{message.detail}}</p>
+          </div>
+          <div class="p-grid p-fluid">
+            
+              <div class="p-col-6">
+         
+                  <button type="button" (click)="onConfirm()"   class="btn btn-success w-100"> <i class="fa fa-check" aria-hidden="true"> </i> Onayla
+                  </button>
+              </div>
+              <div class="p-col-6">
+                <button type="button" (click)="onReject()"   class="btn btn-info w-100 "> <i class="fa fa-times" aria-hidden="true"> </i> İptal
+                </button>
+              </div>
+          </div>
+      </div>
+  </ng-template>
+</p-toast>

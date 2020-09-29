@@ -34,7 +34,7 @@ router.post("/userStateAction", (request, res) => {
     pStatus = request.body.status;
     console.log("userId", pActivityId);
     console.log("activityId", pStatus);
-
+    try{
     ActivityUser.findOne({ activityId: pActivityId, userId: pUserId }, function (err, actUser) {
         if (actUser) {
             actUser.status = pStatus;
@@ -58,7 +58,13 @@ router.post("/userStateAction", (request, res) => {
         }
     }
     )
-
+    }
+    catch(error){
+        res.status(200).json({
+            status: false,
+            message: "activity update failed done" + error
+        })
+    }
 
 
 })

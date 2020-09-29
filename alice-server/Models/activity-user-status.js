@@ -7,7 +7,7 @@ const ActivityUserStatusSchema = new Schema({
     activityId: String,
     userId: String,
     username: String,
-    user: User.schema
+    user: {type:Schema.Types.ObjectId, ref: 'User'},
 }, {
     versionKey: false // You should be aware of the outcome after set to false
 });

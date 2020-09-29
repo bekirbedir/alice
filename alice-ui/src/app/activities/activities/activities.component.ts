@@ -104,7 +104,8 @@ export class ActivitiesComponent implements OnInit {
 
   viewDetail(item) {
     localStorage.setItem("currentUserStatus", item.currentUserStatus)
-    this.store.dispatch(new GetActivityDetail(item._id))
+    localStorage.setItem("selectedActivityId", item._id)
+  //  this.store.dispatch(new GetActivityDetail(item._id))
     this.router.navigate(['/activity-view'])
   }
 
@@ -165,9 +166,6 @@ export class ActivitiesComponent implements OnInit {
   }
 
   isCurrentUserParticipant(activity: Activity) {
-    console.log("this.isActiveUserId", this.isActiveUserId);
-    console.log("this.activiteUserStatuses", this.activiteUserStatuses)
-    console.log(" this.activiteUserStatuse", this.activiteUserStatuses);
     if (this.isActiveUserId != null && this.isActiveUserId != '') {
       for (var i = 0; i < this.activiteUserStatuses.length; i++) {
         if (this.activiteUserStatuses[i].activityId == activity._id)

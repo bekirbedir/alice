@@ -11,13 +11,10 @@ let User = require("../Models/user");
 router.get("/", async (req, response) => {
     let id = req.query.id;
 
-    
     try{
-        console.log("test-------------------basla")
+      
         const activity = await Activity.findOne({status:3,_id:id}, null, { sort: '-createdDate' }).populate({path:'user', Model:  '../Models/user'}).exec();
 
-        console.log("activity", activity.user.username)
-        
         console.log("test-------------------")
         response.json(activity);    
     }

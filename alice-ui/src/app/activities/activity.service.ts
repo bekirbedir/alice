@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ActivityUserStatus } from '../models/activity.user.status';
 import { ResponseModel } from '../models/response.model';
+import { UserModel } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +33,34 @@ export class ActivityService {
       );
   } 
 
+  getApprovedUsers(id): Observable<ActivityUserStatus[]> {
+    return this._httpClient
+      .get<ActivityUserStatus[]>(this.valuesUrl+"/getApprovedUsers?id=" + id)
+      .pipe(
+        map((res) => res)
+      );
+  } 
+
+
   getActivityUserStatusList(): Observable<ActivityUserStatus[]> {
    
     let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     return this._httpClient
       .get<ActivityUserStatus[]>(this.valuesUrl+"getActivityUserStatusList",{headers: header})
+      .pipe(
+        map((res) => res)
+      );
+  } 
+
+  getActivityAndUserStatus(activityId): Observable<ActivityUserStatus> {
+    const transferObject = {
+      activityId:activityId
+    }
+   
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    return this._httpClient
+      .post<ActivityUserStatus>(this.valuesUrl+"getActivityAndUserStatus",object,{headers: header})
       .pipe(
         map((res) => res)
       );
