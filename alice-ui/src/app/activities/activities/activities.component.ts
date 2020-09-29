@@ -49,7 +49,7 @@ export class ActivitiesComponent implements OnInit {
     private _sanitizer: DomSanitizer,
     private imageCompress: NgxImageCompressService
   ) {
-    this.store.dispatch(new GetActivities());
+  //  this.store.dispatch(new GetActivities());
     this.activeuser = localStorage.getItem('userId');
     console.log("activeuser ve öbürü", this.activeuser)
     this.loading = false;
@@ -76,7 +76,7 @@ export class ActivitiesComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.Activities.subscribe((x) => {
+    this.service.getActivityList().subscribe(x => {
       this.activities = x;
       if (x) {
         this.getActivityUserStatusList();
@@ -137,6 +137,27 @@ export class ActivitiesComponent implements OnInit {
     this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Aktiviteye katılım isteği gönderdiniz' });
   }
 
+  unlikeActivity(item) {
+    this.service.unlikeActivity(item._id).subscribe((x) => {
+      console.log(x);
+      if(x.status){
+        item.currentUserLike = false;
+      }
+
+    });
+   }
+
+  likeActivity(item) {
+    this.service.likeActivity(item._id).subscribe((x) => {
+      console.log(x);
+      if(x.status){
+        item.currentUserLike = true;
+      }
+
+    });
+  }
+
+
   cancelActivityApprove(item) {
      this.selectedActivityItem = item;
     this.messageService.clear();
@@ -177,6 +198,18 @@ export class ActivitiesComponent implements OnInit {
     }
   }
 
+  isCurrentUserLike(activity: Activity) {
+    if (this.isActiveUserId != null && this.isActiveUserId != '') {
+      for (var i = 0; i < this.activiteUserStatuses.length; i++) {
+        if (this.activiteUserStatuses[i].activityId == activity._id)
+          return this.activiteUserStatuses[i].like
+      }
+      return false;
+    } else {
+      return false;
+    }
+  }
+
   convertImage(activity: Activity) {
     console.log("buraya geldii")
     if (activity?.user?.userPhoto)
@@ -191,6 +224,8 @@ export class ActivitiesComponent implements OnInit {
         for (var i = 0; i < this.activities.length; i++) {
           const userPricipantStatus = this.isCurrentUserParticipant(this.activities[i]);
           this.activities[i].currentUserStatus = userPricipantStatus;
+          const userLike = this.isCurrentUserLike(this.activities[i]);
+          this.activities[i].currentUserLike = userLike;
         }
       }
       else {

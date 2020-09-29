@@ -9,6 +9,7 @@ export class ActivityUserStatus {
   username: String |null;
   user: User | null;
   imagePath: any | null;
+  like: Boolean | false;
 }
 
 /*

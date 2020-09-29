@@ -6,22 +6,20 @@ let ActivityUser = require("../Models/activity-user-status")
 let Activity = require("../Models/activity")
 var jwt = require('jsonwebtoken');
 
-router.post("/getUsers", (request, response) => {
+router.post("/getUsers", async(request, response) => {
 
     //buraya yonetici mi kontrolu eklenmeli
     pActivityId = request.body.activityId;
     pStatus = request.body.status;
 
-
-    ActivityUser.find({ activityId: pActivityId, status: pStatus }, function (err, res) {
-        if (err) {
-            console.log(err)
-        }
-        if (res) {
-            response.send(res);
-        }
+    try{
+        const users = await ActivityUser.find({status:pStatus , activityId: pActivityId}, null, { sort: 'date' }).populate({path:'user', Model:  '../Models/user'}).exec();
+        response.json(users);    
     }
-    )
+    catch (error) {
+        console.log(error);
+        return response.json(error);
+      }
 
 })
 
@@ -32,8 +30,8 @@ router.post("/userStateAction", (request, res) => {
     pActivityId = request.body.activityId;
     pUserId = request.body.userId;
     pStatus = request.body.status;
-    console.log("userId", pActivityId);
-    console.log("activityId", pStatus);
+    console.log("userId", pUserId);
+    console.log("activityId", pActivityId);
     try{
     ActivityUser.findOne({ activityId: pActivityId, userId: pUserId }, function (err, actUser) {
         if (actUser) {

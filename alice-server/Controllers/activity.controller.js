@@ -72,7 +72,7 @@ router.get("/getActivityUserStatusList", (request, response) => {
     let userId = request.userId;
     console.log("userId", userId)
     const activityList = [];
-    ActivityUserStatus.find({userId: userId}, 'activityId status', function (err, res) {
+    ActivityUserStatus.find({userId: userId}, 'activityId status like', function (err, res) {
         if (err) {
             console.log(err);
         }
@@ -229,8 +229,10 @@ router.post("/cancelActivity", (req, response) => {
     let activityId = req.body.activityId;
     console.log("userId", userId)
 
-    ActivityUser.findOneAndDelete({activityId:activityId , userId:userId},function(err,res){
+    ActivityUser.find({activityId:activityId , userId:userId},function(err,res){
         if(res){
+            res.status = 0;
+            res.save();
             console.log("res")
             response.status(200).json({
                 status: true,
@@ -246,6 +248,105 @@ router.post("/cancelActivity", (req, response) => {
         }
     })
 })
+
+router.post("/likeActivity", (req, response) => {
+    let userId = req.userId;
+    let activityId = req.body.activityId;
+    console.log("userId", userId)
+
+    ActivityUser.findOne({activityId:activityId , userId:userId},function(err,activityUser){
+        if(activityUser){
+            activityUser.like = true
+            activityUser.save().then(result => {
+                console.log("-----kaydedildiii----------------")
+                response.status(200).json({
+                    status: true,
+                    message: "liked"
+                })
+            });
+          
+
+        }
+        else{
+            User.findOne({ _id: userId }, function (err, user) {
+                if(user){
+                    const activityUser = new ActivityUser();
+                    activityUser.status = 0;
+                    activityUser.date = Date.now();
+                    activityUser.activityId = activityId;
+                    activityUser.userId = userId;
+                    activityUser.username = user.username;
+                    activityUser.like = true;
+                    activityUser.user = user;
+                    activityUser.save().then(result => {
+                        response.status(200).json({
+                            status: true,
+                            message: "liked"
+                        })
+                    })
+                }
+                else{
+                    response.status(200).json({
+                        status: false,
+                        message: "hata" + err
+                    })
+                }
+
+            })
+
+           
+        }
+    })
+})
+
+router.post("/unlikeActivity", (req, response) => {
+    let userId = req.userId;
+    let activityId = req.body.activityId;
+    console.log("userId", userId)
+
+    ActivityUser.findOne({activityId:activityId , userId:userId},function(err,activityUser){
+        if(activityUser){
+            activityUser.like = false
+            activityUser.save();
+            console.log("res")
+            response.status(200).json({
+                status: true,
+                message: "unliked"
+            })
+
+        }
+        else{
+            User.findOne({ _id: userId }, function (err, user) {
+                if(user){
+                    const activityUser = new ActivityUser();
+                    activityUser.status = 0;
+                    activityUser.date = Date.now();
+                    activityUser.activityId = activityId;
+                    activityUser.userId = userId;
+                    activityUser.username = user.username;
+                    activityUser.like = false;
+                    activityUser.user = user;
+                    activityUser.save().then(result => {
+                        response.status(200).json({
+                            status: true,
+                            message: "unliked"
+                        })
+                    })
+                }
+                else{
+                    response.status(200).json({
+                        status: false,
+                        message: "hata" + err
+                    })
+                }
+
+            })
+
+           
+        }
+    })
+})
+
 
 router.post("/join", (req, res) => {
     const token = req.headers.authorization.split(" ")[1];

@@ -19,6 +19,11 @@
     height: 150px;
     border-radius: 50%;
 }
+.header-photo{
+    object-fit: cover;
+    width: 80px;
+    height: 80px;
+ }
 .h-10{
     height:10px;
 }

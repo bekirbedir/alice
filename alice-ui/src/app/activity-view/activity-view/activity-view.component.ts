@@ -9,6 +9,8 @@ import { GetActivityDetail } from 'src/app/store/actions/activity.action';
 import { ActivityService } from 'src/app/activities/activity.service';
 import { ActivityUserStatus } from 'src/app/models/activity.user.status';
 import { UserModel } from 'src/app/models/user.model';
+import { DomSanitizer } from '@angular/platform-browser';
+import { NgxImageCompressService } from 'ngx-image-compress';
 
 @Component({
   selector: 'app-activity-view',
@@ -24,7 +26,11 @@ export class ActivityViewComponent implements OnInit {
   activityId: String;
   approvedUsers: ActivityUserStatus[];
   
-  constructor(private store:Store,  private router: Router, private messageService: MessageService,private activityService:ActivityService) { 
+  constructor(private store:Store,  private router: Router,
+    private messageService: MessageService,
+    private activityService:ActivityService,
+    private _sanitizer: DomSanitizer, 
+    private imageCompress: NgxImageCompressService) { 
       this.activityId = localStorage.getItem('selectedActivityId').replace("\"","").replace("\"","");
       this.getActivity(this.activityId);
       
@@ -49,7 +55,6 @@ export class ActivityViewComponent implements OnInit {
     this.activityService.getActivityAndUserStatus(activityId).subscribe(x => {
        if (x) {
          try{
-          console.log('xxxxxxxxxxxxxxxxxxxx',x[0])
           this.activityUserStatuses = x[0];
           this.activityStatic.currentUserStatus = x[0].status;
             if(x[0].status == 2)
@@ -71,6 +76,10 @@ export class ActivityViewComponent implements OnInit {
     this.activityService.getApprovedUsers(activityId).subscribe(x => {
        if (x) {
          this.approvedUsers = x;
+         for (var i = 0; i < this.approvedUsers.length; i++) {
+          this.approvedUsers[i].imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+            + this.approvedUsers[i].user.userPhoto);
+        }
        }
        else{
          console.log('activite bulunamadi')

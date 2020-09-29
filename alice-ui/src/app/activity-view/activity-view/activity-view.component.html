@@ -72,7 +72,11 @@
         <p> <i class="fa fa-times" aria-hidden="true"> </i> Katılımcıları yalnızca onaylanan kullanıcılar görebilir.</p>
       </div>
       <div *ngIf= "activityStatic.currentUserStatus == 2 ">
-        <p *ngFor="let actUser of approvedUsers" class="approved-user">- {{actUser.user.name}} ( @{{actUser.user.username}} ) </p>  
+        <div *ngFor="let actUser of approvedUsers">
+          <img class="header-photo img-thumbnail" [src]="actUser.imagePath" alt="Image Source"  > 
+           <span  class="approved-user"> - {{actUser.user.name}} ( @{{actUser.user.username}} ) </span>
+        </div>
+         
       </div>
  
 

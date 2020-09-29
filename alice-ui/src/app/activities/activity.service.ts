@@ -66,6 +66,36 @@ export class ActivityService {
       );
   } 
 
+  likeActivity(activityId): Observable<ResponseModel>{
+    const transferObject = {
+      activityId:activityId
+    }
+
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    const self = this;  
+    return this._httpClient
+    .post<ResponseModel>(this.valuesUrl+"likeActivity",object,{headers: header})
+    .pipe(
+      map((res) => res)
+    );
+  }
+
+  unlikeActivity(activityId): Observable<ResponseModel>{
+    const transferObject = {
+      activityId:activityId
+    }
+
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    const self = this;  
+    return this._httpClient
+    .post<ResponseModel>(this.valuesUrl+"unlikeActivity",object,{headers: header})
+    .pipe(
+      map((res) => res)
+    );
+  }
+
   join(activityId): Observable<any>{
     const transferObject = {
       activityId:activityId

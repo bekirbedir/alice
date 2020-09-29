@@ -18,6 +18,7 @@ export class Activity {
     status:Number |1;
     userList:[UserStatus];
     currentUserStatus: Number | 0;
+    currentUserLike: Boolean | false;
     ownerId:String | null;
     date?: Date;
     user: User | null;

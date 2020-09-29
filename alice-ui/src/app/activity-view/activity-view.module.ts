@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import {NgxImageCompressService} from 'ngx-image-compress';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
     ToastModule, 
     RouterModule.forChild(routes),
     
-  ]
+  ],
+  providers: [NgxImageCompressService],
 })
 export class ActivityViewModule { }

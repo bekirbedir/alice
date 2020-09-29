@@ -51,6 +51,10 @@ export class ActivityManagementComponent implements OnInit {
 
     this.service.getUsers(this.selectedActivityId, 1).subscribe(x => {
       this.waitingUsers = x
+      for (var i = 0; i < this.waitingUsers.length; i++) {
+        this.waitingUsers[i].imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+          + this.waitingUsers[i].user.userPhoto);
+      }
     })
 
   }
@@ -66,6 +70,10 @@ export class ActivityManagementComponent implements OnInit {
   getRejectedUsers() {
     this.service.getUsers(this.selectedActivityId, 3).subscribe(x => {
       this.rejectedUsers = x
+      for (var i = 0; i < this.rejectedUsers.length; i++) {
+        this.rejectedUsers[i].imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+          + this.rejectedUsers[i].user.userPhoto);
+      }
     })
   }
 
@@ -77,7 +85,7 @@ export class ActivityManagementComponent implements OnInit {
     let selectedTab = localStorage.getItem('selectedManagementTab');
     this.service.userStateAction(activityId, userId, status).subscribe(x => {
       if (x.status) {
-        this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Kullanıcı Onaylandı..' });
+        this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Kaydedildi..' });
         this.callFunctionSelected(Number(selectedTab));
       }
       else {

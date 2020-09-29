@@ -6,6 +6,8 @@
             </thead>
             <tbody>
               <tr *ngFor="let actUser of waitingUsers">
+                <th> <img class="header-photo" [src]="actUser.imagePath" alt="Image Source" width="100px" height="100px" ></th>
+      
                 <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
                 <td>
                     <div class="btn-group" role="group" aria-label="...">
@@ -27,7 +29,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let actUser of approveUsers">
-                <th> <img class="header-photo" [src]="actUser.imagePath" alt="Image Source" width="100px" height="150px" ></th>
+                <th> <img class="header-photo" [src]="actUser.imagePath" alt="Image Source" width="100px" height="100px" ></th>
                 <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
                 <td>
                   <div class="btn-group" role="group" aria-label="...">
@@ -48,6 +50,8 @@
         </thead>
         <tbody>
           <tr *ngFor="let actUser of rejectedUsers">
+            <th> <img class="header-photo" [src]="actUser.imagePath" alt="Image Source" width="100px" height="100px" ></th>
+      
             <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
             <td>
               <div class="btn-group" role="group" aria-label="...">
@@ -102,7 +106,7 @@
                     
                     <div class="p-col-12">
                       <h5 class="input-label">Etiketler</h5>
-                      <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="values"></p-chips>
+                      <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="activity.tagList"></p-chips>
                     </div>
           
                     <div class="p-col-12">
