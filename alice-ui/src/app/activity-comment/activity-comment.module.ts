@@ -30,6 +30,8 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {ChipsModule} from 'primeng/chips';
 import { dateToLocalStr } from '../pipes/pipe';
 
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+
 const routes: Routes = [
   {
     path: '',
@@ -63,6 +65,7 @@ const routes: Routes = [
     InputTextareaModule,
     MessagesModule,
     InputNumberModule,
+    ScrollPanelModule,
     RouterModule.forChild(routes),
   ]
 })
