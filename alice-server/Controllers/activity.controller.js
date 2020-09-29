@@ -53,7 +53,7 @@ router.get("/getall",async (request, response , next) => {
 
     try{
         console.log("test-------------------basla")
-        const activityList = await Activity.find({status:3}, null, { sort: '-createdDate' }).populate({path:'user', Model:  '../Models/user'}).exec();
+        const activityList = await Activity.find({status:3,date: {"$gt":Date.now()} }, null, { sort: '-createdDate' }).populate({path:'user', Model:  '../Models/user'}).exec();
 
         console.log("activityList", activityList[0].user.username)
         
