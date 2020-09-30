@@ -80,6 +80,31 @@ router.post("/detail", (req, res) => {
   )
 })
 
+router.put("/updateUser", (req, res) => {
+
+  User.findOne({ _id: req.body._id }, function (err, user) {
+     
+    user.name = req.body.name
+      user.tagList = req.body.tagList
+      user.biography = req.body.biography
+      user.email = req.body.email
+  //    user.phone = req.body.phone
+  
+      user.save().then(result => {
+          res.status(200).json({
+              status: true,
+              message: "user update successfully done"
+          })
+      })
+          .catch(error => {
+              res.status(200).json({
+                  status: false,
+                  message: "activity update failed done"
+              })
+          });
+  })
+})
+
 
 
 module.exports = router;

@@ -65,6 +65,20 @@ export class ProfilService {
         map((res) => res),
       );
   }
+  updateUser(user: UserModel): Observable<ResponseModel> {
+
+    const transferObject = user;
+
+
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    const self = this;
+    return this._httpClient
+      .put<ResponseModel>(this.valuesUrl + "updateUser", object, { headers: header })
+      .pipe(
+        map((res) => res),
+      );
+  }
   userReject(user: UserModel): Observable<ResponseModel> {
     const transferObject = user;
 

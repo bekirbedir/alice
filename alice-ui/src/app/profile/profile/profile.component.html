@@ -1,68 +1,105 @@
-
 <div class="route-nav">
     <span><a href="/activities"> <i class="fa fa-home" aria-hidden="true"></i> Anasayfa </a></span> >
     <span><i class="fa fa-user" aria-hidden="true"></i> Profil </span>
-  </div>   
-
-  <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
-    <div class="p-xl-6 p-lg-6 p-md-8 p-sm-12">
-    <p-card>
-        <div class="p-grid">
-            <div class="p-col-5">
-                <img class="header-photo img-thumbnail" [src]="imagePath" alt="Image Source" >
-                <p>
-                    <label for="propic" class="upload-photo-btn"> <i class="fa fa-cloud-upload" aria-hidden="true"></i> Resim yükle</label>
-                    <input id="propic" (change)="picked($event,1)" type="file" style="visibility: hidden;">
-                </p>
-            </div>
-
-            <div class="p-col-7">
-                <p class="name">{{User.name}}</p>
-                <p class="username"><a href="#">@{{User.username}}</a></p>
-                <p class="email">{{User.email}}</p>
-            </div>
-               
-           <div class="p-col-12 mt-50">
-               <p class="bio-header">Biyografi </p>
-               <p class="bio-context">{{User.biography}}</p>
-           </div> 
-        </div>
-        <hr>
-        <div class="h-10"></div>
-       
-        <div class="rate-buttons">
-            <div class="progress ">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" 
-                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
-                <i class="pi pi-thumbs-up"> %75 </i></div>
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" 
-                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
-                <i class="pi pi-thumbs-down"> %25 </i></div>
-              </div>
-        </div>
-        <div class="h-10"></div>
-        <!-------Bu alan ngFor ile yapilacak-------------->
-        <div class="p-grid">
-            <p class="bio-header">Bu kişiye sen de oy ver! </p>
-            
-            <hr>
-            <div class="p-col-6">
-                <button type="button" (click)="(rateUser(1))"  class="btn btn-success w-100 "> Olumlu <i class="fa fa-smile-o" aria-hidden="true"></i></button>
-            </div>
-            <div class="p-col-6">
-                <button type="button" (click)="(rateUser(2))"  class="btn btn-danger w-100 "> Olumsuz <i class="fa fa-frown-o" aria-hidden="true"></i> </button>
-            </div>
-        </div>
-        <div class="profile-tags"> 
-            <span *ngFor="let tag of User.tagList"class="profile-tag">#{{tag}}</span>
-        </div>
-
-    </p-card>
 </div>
+
+<div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+    <div class="p-xl-6 p-lg-6 p-md-8 p-sm-12">
+        <p-card>
+            <div class="p-grid">
+                <div class="p-col-5">
+                    <img class="header-photo img-thumbnail" [src]="imagePath" alt="Image Source">
+                    <p [hidden]="!editMode" >
+                        <label for="propic" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
+                                aria-hidden="true"></i> Resim yükle</label>
+                        <input id="propic" (change)="picked($event,1)" type="file" style="visibility: hidden;">
+                    </p>
+                    <p [hidden]="editMode">
+                        <label  (click)="editMode=true" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
+                                aria-hidden="true"></i> Düzenle</label>
+                    </p>
+                    <p [hidden]="!editMode" >
+                        <label  (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
+                                aria-hidden="true"></i> Kaydet</label>
+                    </p>
+                </div>
+
+                <div class="p-col-7">
+                    <br>
+                    <p [hidden]="editMode" class="name">{{User.name}}</p>
+                    <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
+                        <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.name" class="w-100">
+                        <label for="float-input">Ad Soyad</label>
+                    </span>
+
+
+                    <br>
+                    <p class="username"><a href="#">@{{User.username}}</a></p>
+                    <br>
+                    <p [hidden]="editMode" class="email">{{User.email}}</p>
+
+                    <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
+                        <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email"
+                            class="w-100">
+                        <label for="float-input">Email</label>
+                    </span>
+                </div>
+
+                <div class="p-col-12 mt-50">
+                    <p class="bio-header">Biyografi </p>
+                    <p [hidden]="editMode" class="bio-context">{{User.biography}}</p>
+
+                    <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
+                        <textarea id="input-bio" [rows]="6" class="w-100" pInputTextarea autoResize="autoResize"
+                            [(ngModel)]="User.biography"></textarea>
+                        <label for="float-input">Seni tanıyabilmemiz için biraz kendinden bahseder misin?</label>
+                    </span>
+
+                </div>
+            </div>
+            <hr>
+            <div class="h-10"></div>
+
+            <div class="rate-buttons">
+                <div class="progress ">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
+                        <i class="pi pi-thumbs-up"> %75 </i></div>
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
+                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
+                        <i class="pi pi-thumbs-down"> %25 </i></div>
+                </div>
+            </div>
+            <div class="h-10"></div>
+            <!-------Bu alan ngFor ile yapilacak-------------->
+            <div class="p-grid">
+                <p class="bio-header">Bu kişiye sen de oy ver! </p>
+
+                <hr>
+                <div class="p-col-6">
+                    <button type="button" (click)="(rateUser(1))" class="btn btn-success w-100 "> Olumlu <i
+                            class="fa fa-smile-o" aria-hidden="true"></i></button>
+                </div>
+                <div class="p-col-6">
+                    <button type="button" (click)="(rateUser(2))" class="btn btn-danger w-100 "> Olumsuz <i
+                            class="fa fa-frown-o" aria-hidden="true"></i> </button>
+                </div>
+            </div>
+            <div class="profile-tags">
+                <span [hidden]="editMode" *ngFor="let tag of User.tagList" class="profile-tag">#{{tag}}</span>
+                <div [hidden]="!editMode" class="p-col-12">
+                    <p class="input-label" style="font-size: 12px;">Etiket ekle (Enter'a basarak ekleyin)</p>
+                    <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="User.tagList"></p-chips>
+                </div>
+            </div>
+
+        </p-card>
+    </div>
 </div>
 <p-toast position="top-center" key="tc"></p-toast>
 <div [hidden]="!loading" class="full-area">
     <div class="centered">
-        <p-progressSpinner [style]="{width: '100px', height: '100px'}" styleClass="custom-spinner" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+        <p-progressSpinner [style]="{width: '100px', height: '100px'}" styleClass="custom-spinner" strokeWidth="8"
+            fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
     </div>
 </div>

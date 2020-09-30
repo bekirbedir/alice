@@ -17,11 +17,13 @@ export class ProfileComponent  {
   User:any
   files:any
   loading:Boolean
+  editMode:Boolean
   constructor( private service:ProfilService,private _sanitizer: DomSanitizer,
     private imageCompress: NgxImageCompressService,
     private messageService: MessageService){
     const userId=localStorage.getItem('userId').replace("\"", "").replace("\"", "") 
     this.User=new UserModel()
+    this.editMode = false;
     this.service.getMyProfil(userId).subscribe(x=>{
       this.sellersPermitString=x.userPhoto
       this.User=x
@@ -117,6 +119,15 @@ export class ProfileComponent  {
     this.messageService.add({ key: 'tc', severity: 'success', summary: 'Oy verdiniz!', detail: 'Henüz yapım aşamasında' });
   }
  
+  updateUser(){
+    this.editMode = false;
+    this.service.updateUser(this.User).subscribe(x=>{
+      if(x.status)
+       this.messageService.add({ key: 'tc', severity: 'success', summary: 'Profiliniz Güncellendi!' });
+      
+    })
+
+  }
 
  
 
