@@ -12,13 +12,14 @@ const multipart = require('connect-multiparty');
 const fs = require('fs')
 var path = require('path');
 console.log("pathhh", path.join(__dirname, 'public'))
-const multipartMiddleware = multipart({ uploadDir: path.join(__dirname).replace("Controllers","")+'\\public\\uploads' });
+const multipartMiddleware = multipart({ uploadDir: path.join(__dirname).replace("Controllers","")+'public\\uploads' });
 
 
 router.get("/getall", async (request, response, next) => {
 
     try {
-        console.log("pathhh", path.join(__dirname).replace("Controllers",""))
+        console.log("pathhh", path.join(__dirname).replace("Controllers","")+'public\\uploads')
+
         console.log("test-------------------basla")
         const activityList = await Activity.find({ status: 3, date: { "$gt": Date.now() } }, null, { sort: '-createdDate' }).populate({ path: 'user', Model: '../Models/user' }).exec();
 
