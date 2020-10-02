@@ -22,10 +22,15 @@ export class NewActivyComponent implements OnInit {
   name = "";
   version: string;
   msgs: any[];
+  uploadedFiles: File[] ;
   checked: boolean = false;
   limitedParticipant: boolean = false;
   val = 3;
   activity: Activity;
+  imgHidden: Boolean = true;
+  imgSrc: String;
+  deleteOld:Boolean = false;
+  fileName:String;
 
 
   constructor(private router: Router, private loginservice: LoginService,
@@ -89,4 +94,18 @@ export class NewActivyComponent implements OnInit {
       })
     }
   }
+
+  onBasicUpload(element){
+    if( this.deleteOld ){
+      this.activityService.deleteFile(this.fileName);
+    }
+    this.fileName = element.originalEvent.body.photoLink
+    this.imgHidden = false;
+    this.imgSrc = "http://localhost:3000/static/uploads/"+this.fileName
+    console.log(this.imgSrc)
+    this.deleteOld = true;
+    this.activity.fileLink = this.imgSrc;
+  }
+
+
 }

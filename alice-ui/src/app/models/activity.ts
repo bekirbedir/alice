@@ -22,6 +22,7 @@ export class Activity {
     ownerId:String | null;
     date?: Date;
     user: User | null;
+    fileLink:String;
     
   }
   

@@ -27,7 +27,8 @@
            <br>
            <div class="h-5"></div>
            <div >
-            <img class="act-photo" src="assets/kamp.jpg" >
+            <img *ngIf="!activityStatic.fileLink"  class="act-photo img-thumbnail" src="assets/empty_activity.jpg" > 
+            <img *ngIf="activityStatic.fileLink"  class="act-photo  img-thumbnail" [src]=activityStatic.fileLink >
           </div>
           <div class="h-5"></div>
           <div class="act-content-footer">

@@ -53,10 +53,22 @@
             <p-inputNumber [(ngModel)]="activity.participationCount" label="Katılımcı sayısı" [min]="0" [max]="1000"
               mode="decimal" [showButtons]="true"></p-inputNumber>
           </div>
+        
+          <img [hidden] = "imgHidden" class="img-thumbnail" [src]='imgSrc' >
 
-
-
-        </div>
+          <p></p>
+        <p-fileUpload name="photo" multiple="false" 
+        invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
+        maxFileSize="3000000"
+        uploadLabel="Yükle"
+        chooseLabel="Seç"
+        cancelIcon="Vazgeç"
+        (onUpload)="onBasicUpload($event)" 
+        invalidFileTypeMessageDetail="Geçersiz dosya tipi, lütfen resim yükleyin"
+         accept="image/*" url="http://localhost:3000/activity/upload"></p-fileUpload>
+         <p></p>
+      </div>
+      <p></p>
         <div class="p-grid">
           <div class="p-col-12">
             <button type="button" (click)="newActivity()" class="btn btn-success w-100 "><i class="fa fa-paper-plane-o"

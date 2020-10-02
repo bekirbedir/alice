@@ -10,8 +10,8 @@ var auhtguardUser=require('./Controllers/authguard.user')
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/static', express.static('public'))
 const usersRouter = require("./Controllers/user.controller");
 const activityRouter = require("./Controllers/activity.controller");
 const activityViewRouter = require("./Controllers/activity-view.controller");
