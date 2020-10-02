@@ -12,7 +12,7 @@ const multipart = require('connect-multiparty');
 const fs = require('fs')
 var path = require('path');
 console.log("pathhh", path.join(__dirname, 'public'))
-const multipartMiddleware = multipart({ uploadDir: './public/uploads' });
+const multipartMiddleware = multipart({ uploadDir: './' });
 
 fs.mkdir('./public/', function(err) {
     if (err) {
@@ -361,7 +361,8 @@ router.post('/upload', multipartMiddleware, (req, res) => {
      res.json({
          status: true,
          message: 'File uploaded successfully',
-         photoLink: req.files.photo.path.split("\\")[2]
+         photoLink: req.files.photo.path.split("\\")[2],
+         photoOrgLink: req.files.photo.path.split("\\")
      });
  });
  
