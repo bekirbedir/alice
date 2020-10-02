@@ -14,6 +14,23 @@ var path = require('path');
 console.log("pathhh", path.join(__dirname, 'public'))
 const multipartMiddleware = multipart({ uploadDir: './public/uploads' });
 
+fs.mkdir(path.join(__dirname)+"/public", function(err) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log("New directory successfully created.")
+      fs.mkdir(path.join(__dirname)+"/public/uploads", function(err) {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log("New directory successfully created.")
+        }
+      })
+    }
+  })
+
+
+
 
 router.get("/getall", async (request, response, next) => {
 
