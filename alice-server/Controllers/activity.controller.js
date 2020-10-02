@@ -12,14 +12,13 @@ const multipart = require('connect-multiparty');
 const fs = require('fs')
 var path = require('path');
 console.log("pathhh", path.join(__dirname, 'public'))
-const multipartMiddleware = multipart({ uploadDir: path.join(__dirname).replace("Controllers","")+'public\\uploads' });
+const multipartMiddleware = multipart({ uploadDir: './public/uploads' });
 
 
 router.get("/getall", async (request, response, next) => {
 
     try {
-        console.log("pathhh", path.join(__dirname).replace("Controllers","")+'public\\uploads')
-
+        console.log("pathhh", path.join(__dirname));
         console.log("test-------------------basla")
         const activityList = await Activity.find({ status: 3, date: { "$gt": Date.now() } }, null, { sort: '-createdDate' }).populate({ path: 'user', Model: '../Models/user' }).exec();
 
@@ -34,6 +33,21 @@ router.get("/getall", async (request, response, next) => {
     }
 
 })
+
+router.get("/test", (req, response) => {
+
+    Activity.find( function (err, res) {
+      if (err) {
+        console.log(err);
+      }
+      if (res) {
+        response.send(res);
+      }
+  
+    }
+    )
+  
+  })
 
 
 router.get("/getActivityUserStatusList", (request, response) => {
@@ -322,8 +336,7 @@ router.post('/upload', multipartMiddleware, (req, res) => {
      res.json({
          status: true,
          message: 'File uploaded successfully',
-         photoLink: req.files.photo.path.split("\\")[2],
-         photoOrgLink: req.files.photo.path
+         photoLink: req.files.photo.path.split("\\")[2]
      });
  });
  
