@@ -10,52 +10,15 @@ const ActivityUserStatus = require("../Models/activity-user-status");
 const Notification = require("../Models/notification")
 const multipart = require('connect-multiparty');
 const fs = require('fs')
-const multipartMiddleware = multipart({ uploadDir: './public/uploads' });
+var path = require('path');
+console.log("pathhh", path.join(__dirname, 'public'))
+const multipartMiddleware = multipart({ uploadDir: path.join(__dirname).replace("Controllers","")+'\\public\\uploads' });
 
-
-
-
-
-router.get("/getallAsyncOmayanBozukaq", async (request, response, next) => {
-    try {
-
-        const activityList = await Activity.find({ status: 3 }, null, { sort: '-createdDate' }, async function (err, res) {
-            if (err) {
-                console.log(err);
-            }
-            if (res) {
-                console.log("11111")
-                for (let i = 0; i < res.length; i++) {
-
-                    const user = await User.find({ _id: res[i].ownerId.replace("\"", "").replace("\"", "") }, async function (error, ress) {
-                        console.log("ress", ress.username)
-                        res[i].user = ress;
-                        console.log("22222")
-
-
-                        console.log(ress.name)
-                        return ress;
-                    });
-
-                }
-
-                return res;
-            }
-        }
-        )
-        console.log("3333")
-        response.send(activityList);
-    }
-    catch (error) {
-        console.log(error);
-        return response.json(error);
-    }
-
-})
 
 router.get("/getall", async (request, response, next) => {
 
     try {
+        console.log("pathhh", path.join(__dirname).replace("Controllers",""))
         console.log("test-------------------basla")
         const activityList = await Activity.find({ status: 3, date: { "$gt": Date.now() } }, null, { sort: '-createdDate' }).populate({ path: 'user', Model: '../Models/user' }).exec();
 
@@ -358,7 +321,8 @@ router.post('/upload', multipartMiddleware, (req, res) => {
      res.json({
          status: true,
          message: 'File uploaded successfully',
-         photoLink: req.files.photo.path.split("\\")[2]
+         photoLink: req.files.photo.path.split("\\")[2],
+         photoOrgLink: req.files.photo.path
      });
  });
  

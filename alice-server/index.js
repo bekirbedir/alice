@@ -39,6 +39,15 @@ var server =app.listen(port, () => {
   console.log(`localhost:${port} -> api working !!! `);
 });
 
+const fs = require("fs")
+
+fs.mkdir(path.join(__dirname)+"/public/uploads", function(err) {
+  if (err) {
+    console.log(err)
+  } else {
+    console.log("New directory successfully created.")
+  }
+})
 
 var io = require('socket.io').listen(server);
 
