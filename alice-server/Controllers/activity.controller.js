@@ -15,6 +15,7 @@ console.log("pathhh", path.join(__dirname, 'public'))
 const multipartMiddleware = multipart({ uploadDir: './public/uploads' });
 
 fs.mkdir('./public/', function(err) {
+
     if (err) {
       console.log(err)
       console.log("New directory successfully created.")
@@ -35,7 +36,10 @@ fs.mkdir('./public/', function(err) {
         }
       })
     }
-  })
+  
+
+
+})
 
 
 
@@ -356,13 +360,14 @@ router.post("/unlikeActivity", (req, response) => {
 })
 
 router.post('/upload', multipartMiddleware, (req, res) => {
-    // console.log("buraya dustuu", req)
+     console.log("buraya dustuu",  req.files.photo.path)
      // show the uploaded file name        
-                                                 
+    let photoLink = req.files.photo.path.replace("\\","/").replace("\\","/").split("/")[2]        
+     console.log("buraya dustuu",  photoLink)                          
      res.json({
          status: true,
          message: 'File uploaded successfully',
-         photoLink: req.files.photo.path.split("/")[2],
+         photoLink: photoLink
      });
  });
  
