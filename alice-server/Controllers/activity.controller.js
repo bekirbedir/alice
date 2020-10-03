@@ -12,7 +12,7 @@ const multipart = require('connect-multiparty');
 const fs = require('fs')
 var path = require('path');
 console.log("pathhh", path.join(__dirname, 'public'))
-const multipartMiddleware = multipart({ uploadDir: './' });
+const multipartMiddleware = multipart({ uploadDir: './public/uploads' });
 
 fs.mkdir('./public/', function(err) {
     if (err) {
@@ -357,12 +357,12 @@ router.post("/unlikeActivity", (req, response) => {
 
 router.post('/upload', multipartMiddleware, (req, res) => {
     // console.log("buraya dustuu", req)
-     // show the uploaded file name                                                               
+     // show the uploaded file name        
+                                                 
      res.json({
          status: true,
          message: 'File uploaded successfully',
-         photoLink: req.files.photo.path.split("\\")[2],
-         photoOrgLink: req.files.photo.path.split("\\")
+         photoLink: req.files.photo.path.split("/")[2],
      });
  });
  
