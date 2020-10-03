@@ -25,9 +25,13 @@ export class MessageUserComponent implements OnInit {
   public adapter: ChatAdapter;
 
   constructor(private socket: Socket, private http: HttpClient) {
-    this.isActive=true
 
-    
+
+    const aliceuser = JSON.parse(localStorage.getItem('aliceuser'));
+    if(aliceuser!=null){
+      console.log("user true oldu")
+      this.isActive=true
+    }
 
  
   }

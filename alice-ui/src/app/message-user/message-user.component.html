@@ -1,3 +1,4 @@
 
-
-<ng-chat *ngIf="userId" [adapter]="adapter" [userId]="userId" [historyEnabled]="false" [theme]="'light-theme'"></ng-chat>
+<div *ngIf="isActive">
+    <ng-chat *ngIf="userId" [adapter]="adapter" [userId]="userId" [historyEnabled]="false" [theme]="'light-theme'"></ng-chat>
+</div>
