@@ -29,6 +29,13 @@ addActivity(activity:Activity): Observable<Activity> {
 } 
 
 
+deleteFile(filename){
+  return this._httpClient.get(this.valuesUrl+'activity/deleteFile?filename='+filename )
+  .subscribe((response) => {
+       console.log('file deleted ', response);
+  })
+}
+
 
 }
 

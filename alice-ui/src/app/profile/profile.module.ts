@@ -10,6 +10,12 @@ import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
+import {InputMaskModule} from 'primeng/inputmask';
+
+import { InputTextModule } from 'primeng/inputtext';
 const routes: Routes = [
   { 
     path: '',
@@ -28,6 +34,13 @@ const routes: Routes = [
     MessagesModule,
     ToastModule,
     ProgressSpinnerModule,
+    InputTextareaModule,
+        MessagesModule,
+        InputMaskModule,
+        ChipsModule,
+        CheckboxModule,
+        InputTextModule,
+        FormsModule,
     RouterModule.forChild(routes),
   ],
   providers: [NgxImageCompressService],

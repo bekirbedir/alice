@@ -21,6 +21,7 @@ const  ActivitySchema = new Schema({
   participationCount:Number,
   date:Date,
   status:Number,
+  fileLink:String,
   user: {type:Schema.Types.ObjectId, ref: 'User'},
   userList:[userStatus],
   actUser: [ActivityUser.schema]

@@ -8,77 +8,84 @@ var jwt = require('jsonwebtoken');
 let User = require("../Models/user");
 const ActivityUserStatus = require("../Models/activity-user-status");
 const Notification = require("../Models/notification")
+const multipart = require('connect-multiparty');
+const fs = require('fs')
+var path = require('path');
+console.log("pathhh", path.join(__dirname, 'public'))
+const multipartMiddleware = multipart({ uploadDir: './' });
 
-
-
-
-router.get("/getallAsyncOmayanBozukaq", async (request, response,next) => {
-try{
-     
-     const  activityList = await Activity.find({status:3}, null, { sort: '-createdDate' }, async function (err, res) {
+fs.mkdir('./public/', function(err) {
+    if (err) {
+      console.log(err)
+      console.log("New directory successfully created.")
+      fs.mkdir('./public/uploads', function(err) {
         if (err) {
-            console.log(err);
+          console.log(err)
+        } else {
+          console.log("New directory successfully created.")
         }
-        if (res) {
-            console.log("11111")
-            for (let i = 0; i < res.length; i++) {
-                
-               const user = await User.find({_id:res[i].ownerId.replace("\"","").replace("\"","")},async function(error,ress){
-                console.log("ress",ress.username)
-                res[i].user = ress;
-                console.log("22222")
-              
-              
-                console.log(ress.name)
-               return ress;
-               });
-               
-            }
-                
-            return res;
-         }
+      })
+    } else {
+      console.log("New directory successfully created.")
+      fs.mkdir(path.join(__dirname)+"/public/uploads", function(err) {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log("New directory successfully created.")
+        }
+      })
     }
-    )
-    console.log("3333")
-    response.send(activityList);
-}
-        catch (error) {
-            console.log(error);
-            return response.json(error);
-        }
+  })
 
-})
 
-router.get("/getall",async (request, response , next) => {
 
-    try{
+
+router.get("/getall", async (request, response, next) => {
+
+    try {
+        console.log("pathhh", path.join(__dirname));
         console.log("test-------------------basla")
-        const activityList = await Activity.find({status:3,date: {"$gt":Date.now()} }, null, { sort: '-createdDate' }).populate({path:'user', Model:  '../Models/user'}).exec();
+        const activityList = await Activity.find({ status: 3, date: { "$gt": Date.now() } }, null, { sort: '-createdDate' }).populate({ path: 'user', Model: '../Models/user' }).exec();
 
-        console.log("activityList", activityList[0].user.username)
-        
+        //   console.log("activityList", activityList[0].user.username)
+
         console.log("test-------------------")
-        response.json(activityList);    
+        response.json(activityList);
     }
     catch (error) {
         console.log(error);
         return response.json(error);
-      }
+    }
 
 })
+
+router.get("/test", (req, response) => {
+
+    Activity.find( function (err, res) {
+      if (err) {
+        console.log(err);
+      }
+      if (res) {
+        response.send(res);
+      }
+  
+    }
+    )
+  
+  })
 
 
 router.get("/getActivityUserStatusList", (request, response) => {
     let userId = request.userId;
     console.log("userId", userId)
     const activityList = [];
-    ActivityUserStatus.find({userId: userId}, 'activityId status like', function (err, res) {
+    ActivityUserStatus.find({ userId: userId }, 'activityId status like', function (err, res) {
         if (err) {
             console.log(err);
         }
         if (res) {
             response.send(res);
-            
+
         }
     }
     )
@@ -88,31 +95,31 @@ router.get("/getActivityUserStatusList", (request, response) => {
 router.get("/getApprovedUsers", async (request, response) => {
     let activityId = request.query.id;
     console.log("activityId", activityId)
-    try{
-        const approvedUsers = await ActivityUserStatus.find({status:2 , activityId: activityId}, null, { sort: 'date' }).populate({path:'user', Model:  '../Models/user'}).exec();
-        response.json(approvedUsers);    
+    try {
+        const approvedUsers = await ActivityUserStatus.find({ status: 2, activityId: activityId }, null, { sort: 'date' }).populate({ path: 'user', Model: '../Models/user' }).exec();
+        response.json(approvedUsers);
     }
     catch (error) {
         console.log(error);
         return response.json(error);
-      }
+    }
 })
 
 
 router.post("/getActivityAndUserStatus", (request, response) => {
     let userId = request.userId;
-    console.log('userId----------' , userId)
+    console.log('userId----------', userId)
     let activityId = request.body.activityId
 
     console.log("userId", userId)
     const activityList = [];
-    ActivityUserStatus.find({activityId:activityId, userId: userId}, function (err, res) {
+    ActivityUserStatus.find({ activityId: activityId, userId: userId }, function (err, res) {
         if (err) {
             response.send([]);
         }
         if (res) {
             response.send(res);
-            
+
         }
     }
     )
@@ -131,7 +138,7 @@ router.post("/", (req, res) => {
     User.findOne({ _id: decodedToken.id }, function (err, user) {
         if (user) {
             console.log('user bulundu');
-         //   activity._id = req.body._id
+            //   activity._id = req.body._id
             activity.user = user;
             activity.username = req.body.username
             activity.tagList = req.body.tagList
@@ -143,6 +150,7 @@ router.post("/", (req, res) => {
             activity.like = req.body.like
             activity.date = req.body.date
             activity.context = req.body.context
+            activity.fileLink = req.body.fileLink
             activity.status = 1;
             activity.save().then(result => {
                 res.status(200).json({
@@ -157,7 +165,7 @@ router.post("/", (req, res) => {
                 });
         }
     });
-  
+
 
 })
 
@@ -183,18 +191,18 @@ router.delete("/", (req, res) => {
 router.get("/", async (req, response) => {
     let id = req.query.id;
 
-    
-    try{
+
+    try {
         console.log("test-------------------basla")
-        const activity = await Activity.findOne({_id:id}, null, { sort: '-createdDate' }).exec();
+        const activity = await Activity.findOne({ _id: id }, null, { sort: '-createdDate' }).exec();
 
         console.log("test-------------------")
-        response.json(activity);    
+        response.json(activity);
     }
     catch (error) {
         console.log(error);
         return response.json(error);
-      }
+    }
 
 })
 router.put("/", (req, res) => {
@@ -229,8 +237,8 @@ router.post("/cancelActivity", (req, response) => {
     let activityId = req.body.activityId;
     console.log("userId", userId)
 
-    ActivityUser.find({activityId:activityId , userId:userId},function(err,res){
-        if(res){
+    ActivityUser.find({ activityId: activityId, userId: userId }, function (err, res) {
+        if (res) {
             res.status = 0;
             res.save();
             console.log("res")
@@ -240,7 +248,7 @@ router.post("/cancelActivity", (req, response) => {
             })
 
         }
-        else{
+        else {
             response.status(200).json({
                 status: false,
                 message: "hata" + err
@@ -254,8 +262,8 @@ router.post("/likeActivity", (req, response) => {
     let activityId = req.body.activityId;
     console.log("userId", userId)
 
-    ActivityUser.findOne({activityId:activityId , userId:userId},function(err,activityUser){
-        if(activityUser){
+    ActivityUser.findOne({ activityId: activityId, userId: userId }, function (err, activityUser) {
+        if (activityUser) {
             activityUser.like = true
             activityUser.save().then(result => {
                 console.log("-----kaydedildiii----------------")
@@ -264,12 +272,12 @@ router.post("/likeActivity", (req, response) => {
                     message: "liked"
                 })
             });
-          
+
 
         }
-        else{
+        else {
             User.findOne({ _id: userId }, function (err, user) {
-                if(user){
+                if (user) {
                     const activityUser = new ActivityUser();
                     activityUser.status = 0;
                     activityUser.date = Date.now();
@@ -285,7 +293,7 @@ router.post("/likeActivity", (req, response) => {
                         })
                     })
                 }
-                else{
+                else {
                     response.status(200).json({
                         status: false,
                         message: "hata" + err
@@ -294,7 +302,7 @@ router.post("/likeActivity", (req, response) => {
 
             })
 
-           
+
         }
     })
 })
@@ -304,8 +312,8 @@ router.post("/unlikeActivity", (req, response) => {
     let activityId = req.body.activityId;
     console.log("userId", userId)
 
-    ActivityUser.findOne({activityId:activityId , userId:userId},function(err,activityUser){
-        if(activityUser){
+    ActivityUser.findOne({ activityId: activityId, userId: userId }, function (err, activityUser) {
+        if (activityUser) {
             activityUser.like = false
             activityUser.save();
             console.log("res")
@@ -315,9 +323,9 @@ router.post("/unlikeActivity", (req, response) => {
             })
 
         }
-        else{
+        else {
             User.findOne({ _id: userId }, function (err, user) {
-                if(user){
+                if (user) {
                     const activityUser = new ActivityUser();
                     activityUser.status = 0;
                     activityUser.date = Date.now();
@@ -333,7 +341,7 @@ router.post("/unlikeActivity", (req, response) => {
                         })
                     })
                 }
-                else{
+                else {
                     response.status(200).json({
                         status: false,
                         message: "hata" + err
@@ -342,11 +350,39 @@ router.post("/unlikeActivity", (req, response) => {
 
             })
 
-           
+
         }
     })
 })
 
+router.post('/upload', multipartMiddleware, (req, res) => {
+    // console.log("buraya dustuu", req)
+     // show the uploaded file name                                                               
+     res.json({
+         status: true,
+         message: 'File uploaded successfully',
+         photoLink: req.files.photo.path.split("\\")[2],
+         photoOrgLink: req.files.photo.path.split("\\")
+     });
+ });
+ 
+ router.get("/deleteFile", async (request, response) => {
+     let filename = request.query.filename;
+     try {
+         fs.unlinkSync('./public/uploads/'+filename)
+         return response.json({
+            status: true,
+            message: 'File uploaded successfully',
+        });
+     } catch (err) {
+         console.error(err)
+         return  response.json({
+            status: false,
+            message: err,
+        });
+     }
+ })
+ 
 
 router.post("/join", (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
@@ -356,50 +392,50 @@ router.post("/join", (req, res) => {
 
         var index = activity.userList.findIndex(x => x.userId == decodedToken.id)
         // here you can check specific property for an object whether it exist in your array or not
-            //   if (index === -1) 
-         //   activity.userList.push({ status: 1, date: Date.now(), userId: decodedToken.id }) //eklenip eklenmeme
+        //   if (index === -1) 
+        //   activity.userList.push({ status: 1, date: Date.now(), userId: decodedToken.id }) //eklenip eklenmeme
 
-            User.findOne({ _id: decodedToken.id }, function (err, user) {
-                if (user) {
-                    const activityUser = new ActivityUser();
-                    activityUser.status = 1;
-                    activityUser.date = Date.now();
-                    activityUser.activityId = activity._id;
-                    activityUser.userId = decodedToken.id;
-                    activityUser.username = user.username;
-                    activityUser.user = user;
-                    activityUser.save().then(result => {
-                        const notification = new Notification();
-                        notification.activeUserId = user._id;
-                        notification.activity = activity;
-                        notification.user = null;
-                        notification.text = "Aktiviteye katıldın";
-                        notification.isShow = true;
-                        notification.type = 1;
-                        notification.save().then(result=>{
-                            const notification2 = new Notification();
-                            notification2.activeUserId = activity.ownerId;
-                            notification2.activity = activity;
-                            notification2.user = user;
-                            notification2.text = "Aktivitene katılım isteği geldi";
-                            notification2.type = 2;
-                            notification2.save();
-                        });
+        User.findOne({ _id: decodedToken.id }, function (err, user) {
+            if (user) {
+                const activityUser = new ActivityUser();
+                activityUser.status = 1;
+                activityUser.date = Date.now();
+                activityUser.activityId = activity._id;
+                activityUser.userId = decodedToken.id;
+                activityUser.username = user.username;
+                activityUser.user = user;
+                activityUser.save().then(result => {
+                    const notification = new Notification();
+                    notification.activeUserId = user._id;
+                    notification.activity = activity;
+                    notification.user = null;
+                    notification.text = "Aktiviteye katıldın";
+                    notification.isShow = true;
+                    notification.type = 1;
+                    notification.save().then(result => {
+                        const notification2 = new Notification();
+                        notification2.activeUserId = activity.ownerId;
+                        notification2.activity = activity;
+                        notification2.user = user;
+                        notification2.text = "Aktivitene katılım isteği geldi";
+                        notification2.type = 2;
+                        notification2.save();
                     });
+                });
 
-                    activity.actUser.push(activityUser);
-                }
-                else {
-                    console.log("bulamadik");
-                    res.status(200).json({
-                        status: false,
-                        message: "kullanici bulunamadi"
-                    })
-                }
-            })
+                activity.actUser.push(activityUser);
+            }
+            else {
+                console.log("bulamadik");
+                res.status(200).json({
+                    status: false,
+                    message: "kullanici bulunamadi"
+                })
+            }
+        })
 
 
-        
+
 
         activity.save().then(result => {
             res.status(200).json({

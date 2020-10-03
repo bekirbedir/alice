@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CheckboxModule } from 'primeng/checkbox';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {ChipsModule} from 'primeng/chips';
+import {FileUploadModule} from 'primeng/fileupload';
 
 
 const routes: Routes = [
@@ -55,6 +56,7 @@ const routes: Routes = [
         InputTextareaModule,
         MessagesModule,
         InputNumberModule,
+        FileUploadModule,
         RouterModule.forChild(routes),
   ]
 })

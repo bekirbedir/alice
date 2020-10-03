@@ -49,9 +49,8 @@ router.post("/approve", (req, res) => {
 })
 
 router.get("/test", (req, response) => {
-  let id = req.query.id;
 
-  Activity.findOne({ _id: id }, function (err, res) {
+  User.find( function (err, res) {
     if (err) {
       console.log(err);
     }

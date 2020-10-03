@@ -10,8 +10,8 @@ var auhtguardUser=require('./Controllers/authguard.user')
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/static', express.static('public'))
 const usersRouter = require("./Controllers/user.controller");
 const activityRouter = require("./Controllers/activity.controller");
 const activityViewRouter = require("./Controllers/activity-view.controller");
@@ -39,6 +39,15 @@ var server =app.listen(port, () => {
   console.log(`localhost:${port} -> api working !!! `);
 });
 
+const fs = require("fs")
+
+fs.mkdir(path.join(__dirname)+"/public/uploads", function(err) {
+  if (err) {
+    console.log(err)
+  } else {
+    console.log("New directory successfully created.")
+  }
+})
 
 var io = require('socket.io').listen(server);
 
