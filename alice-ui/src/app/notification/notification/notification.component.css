@@ -1,0 +1,11 @@
+.notification-row{
+    border-bottom: 1px solid #ccc;
+    padding: 10px 2px;
+}
+.notification-text{
+    color: blueviolet;
+    font-weight: bolder;
+}
+.notification-box{
+    width: 100%;
+}

@@ -8,7 +8,7 @@ const Activity = require("./activity")
   userId:String
 }); */
 const  NotificationSchema = new Schema({
-  activeUserId: String,
+  activeUserId: String, //bildirimin hangi kullaniciya gorunecegi
   type: Number,
   userId: String,
   activityId: String,

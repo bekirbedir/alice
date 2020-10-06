@@ -17,7 +17,22 @@
 
         </div>
         <div class="p-grid p-align-center">
-            Test Alanı
+          <div  *ngFor="let noti of notifications" class="notification-box">
+            <p *ngIf="noti.type == 1" class="notification-row">
+              <span class="notification-text"> {{noti.text}} </span>
+              <small>Aktivite: <b>{{noti.activity.header}} </b> </small>
+            </p>
+
+            <p *ngIf="noti.type == 2"  class="notification-row">
+             <span class="notification-text"> {{noti.text}} </span>
+              <br>
+              <small>Aktivite: <b>{{noti.activity.header}} </b> </small>
+              <br>
+            <small>Kullanıcı:<b> {{noti.user.username +'( '+ noti.user.name + ' )'}}</b></small>
+             </p>
+          
+          
+          </div>
 
         </div>
        

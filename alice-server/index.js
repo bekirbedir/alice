@@ -20,12 +20,14 @@ const activityManagementRouter = require("./Controllers/activity.management.cont
 const loginRouter = require('./Controllers/login.controller');
 const communicationRouter = require("./Controllers/communication.controller");
 const adminRouter = require("./Controllers/admin.controller");
+const notificationRouter = require("./Controllers/notification.controller");
 
 var router = express.Router(); 
 // app.use('/users/',auhtguard, usersRouter);
 app.use('/users/', auhtguardUser,usersRouter);
 app.use('/activity-view/',activityViewRouter)
 app.use('/activity/',auhtguardUser,activityRouter); //auth controlu yapiliyor
+app.use('/notification/',auhtguardUser,notificationRouter); //auth controlu yapiliyor
 app.use('/activity-comment/',auhtguardUser,activityCommentRouter); 
 app.use('/activity-management/',activityManagementRouter);
 app.use('/login/',loginRouter)

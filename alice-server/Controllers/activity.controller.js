@@ -12,7 +12,9 @@ const multipart = require('connect-multiparty');
 const fs = require('fs')
 var path = require('path');
 console.log("pathhh", path.join(__dirname, 'public'))
-const multipartMiddleware = multipart({ uploadDir: './public/uploads' });
+//const multipartMiddleware = multipart({ uploadDir: './public/uploads' }); bu calisiyor
+
+const multipartMiddleware = multipart({ uploadDir: '../' });// bu calisiyor
 
 fs.mkdir('./public/', function(err) {
 
@@ -419,7 +421,7 @@ router.post("/join", (req, res) => {
                     notification.type = 1;
                     notification.save().then(result => {
                         const notification2 = new Notification();
-                        notification2.activeUserId = activity.ownerId;
+                        notification2.activeUserId = activity.ownerId.replace("\"", "").replace("\"", "");
                         notification2.activity = activity;
                         notification2.user = user;
                         notification2.text = "Aktivitene katılım isteği geldi";
