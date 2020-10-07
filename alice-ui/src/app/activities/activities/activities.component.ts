@@ -211,7 +211,7 @@ export class ActivitiesComponent implements OnInit {
   }
 
   convertImage(activity: Activity) {
-    console.log("buraya geldii")
+    
     if (activity?.user?.userPhoto)
       return this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,' + activity.user.userPhoto);
   }

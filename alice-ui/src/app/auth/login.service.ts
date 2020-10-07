@@ -93,5 +93,15 @@ export class LoginService {
       );
   }
 
+  notificationCount():Observable<any> {
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const self = this;  
+    return this.http
+      .post<any>(this.valuesUrl+'notification/count',null,{headers: header})
+      .pipe( 
+       map((res) => res)
+      );
+  }
+
 
 }

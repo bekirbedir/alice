@@ -24,8 +24,7 @@ addActivity(activity:Activity): Observable<Activity> {
   return this._httpClient
     .post<Activity>(this.valuesUrl+"activity/",object,{headers: header})
     .pipe(
-      map((res) => res),
-      tap((x) => console.log("aktivite", x)) //bu pipe sadece log icin mi burak? #bb
+      map((res) => res)
     );
 } 
 

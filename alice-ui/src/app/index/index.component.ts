@@ -15,27 +15,21 @@ export class IndexComponent implements   OnInit{
   isActiveUser:string
   currentUserName:string;
   isLogin : Boolean;
+  notificationCount: Number;
   constructor(private loginservice:LoginService,private router:Router){
    this.isLogin = false;
 
   this.isActiveUser=localStorage.getItem("aliceuser")
-    this.currentUserName=JSON.parse(localStorage.getItem("userName"));
+  this.currentUserName=JSON.parse(localStorage.getItem("userName"));
   
   if(this.isActiveUser){
-    this.loginservice.user$.subscribe(x=>{
-      this.isLogin = true;
-      this.items = [
-        {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
-        {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
-        {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
-        {label: 'Mesajlaşma', icon: 'pi pi-fw pi-pencil',routerLink:'messages'},
-        {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file',routerLink:'info'},
-        {label: 'Profilim', icon: 'pi pi-user-plus',routerLink:'profile'}
-    ];
-
-    this.activeItem = this.items[0];
-    })
+    loginservice.notificationCount().subscribe(x=>{
+      console.log("notificationCount", x);
+      this.notificationCount = x;
+    });
   }
+
+
 
   }
 
@@ -65,14 +59,7 @@ export class IndexComponent implements   OnInit{
     if(this.isActiveUser){
       console.log(this.isActiveUser,"trueda")
       this.isLogin = true;
-      this.items = [
-        {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'},  
-        {label: 'Arkadaşlar', icon: 'pi pi-fw pi-calendar',routerLink:'users'},
-        {label: 'İletişim', icon: 'pi pi-fw pi-pencil',routerLink:'communication'},
-        {label: 'Mesajlaşma', icon: 'pi pi-fw pi-pencil',routerLink:'messages'},
-        {label: 'Biz Kimiz ?', icon: 'pi pi-fw pi-file',routerLink:'info'},
-        {label: 'Profilim', icon: 'pi pi-user-plus',routerLink:'profile'}
-    ];
+    
 
     this.activeItem = this.items[0];
     }

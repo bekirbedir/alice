@@ -50,7 +50,7 @@ export class SocketIOAdapter extends ChatAdapter
     {
       this.socket.on("messageReceived", (messageWrapper) => {
         // Handle the received message to ng-chat
-        console.log(messageWrapper)
+    
         this.onMessageReceived(messageWrapper.user, messageWrapper.message);
       });
 

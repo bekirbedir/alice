@@ -53,15 +53,15 @@ export class SignupComponent implements OnInit {
       isControl = false;
     }
     if (this.user.phone == null || this.user.phone == "") {
-      console.log("a",this.user.phone)
+    
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Telefon Numarası Boş olamaz' });
       isControl = false;
     }else{
-      console.log("b",this.user.phone)
+   
       let phoneNumber=this.user.phone;
-      console.log("c",phoneNumber)
+     
       phoneNumber = phoneNumber.replace(" ", "").replace("(", "").replace(")", "").replace("-", "");
-      console.log("e",phoneNumber)
+
       if (phoneNumber== null || phoneNumber == ""){
         this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Telefon Numarası Boş olamaz' });
         isControl = false;
