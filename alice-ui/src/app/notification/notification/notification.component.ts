@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NotificationModel } from 'src/app/models/notification.model';
 import { NotificationService } from '../notification.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -10,7 +10,8 @@ import { NotificationService } from '../notification.service';
 export class NotificationComponent implements OnInit {
   notifications: NotificationModel[];
   constructor(
-    private service: NotificationService
+    private service: NotificationService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
@@ -22,6 +23,10 @@ export class NotificationComponent implements OnInit {
     });
 
   }
+
+  routeProfile(userId){
+    this.router.navigate(['/profile/'+userId])
+   }
 
 
 }

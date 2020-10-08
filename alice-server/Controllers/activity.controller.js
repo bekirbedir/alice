@@ -14,7 +14,7 @@ var path = require('path');
 console.log("pathhh", path.join(__dirname, 'public'))
 //const multipartMiddleware = multipart({ uploadDir: './public/uploads' }); bu calisiyor
 
-const multipartMiddleware = multipart({ uploadDir: '../' });// bu calisiyor
+const multipartMiddleware = multipart({ uploadDir: '../' });
 
 fs.mkdir('./public/', function(err) {
 
@@ -51,7 +51,8 @@ router.get("/getall", async (request, response, next) => {
     try {
         console.log("pathhh", path.join(__dirname));
         console.log("test-------------------basla")
-        const activityList = await Activity.find({ status: 3, date: { "$gt": Date.now() } }, null, { sort: '-createdDate' }).populate({ path: 'user', Model: '../Models/user' }).exec();
+        const activityList = await Activity.find({ status: 3, date: { "$gt": Date.now() } }, null, { sort: '-createdDate' }).
+        populate({ path: 'user', Model: '../Models/user' ,select:'_id username name email userPhoto' }).exec();
 
         //   console.log("activityList", activityList[0].user.username)
 

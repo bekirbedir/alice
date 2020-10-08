@@ -239,4 +239,7 @@ export class ActivitiesComponent implements OnInit {
   filter() {
     this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Yapım aşamasında..' });
   }
+  routeProfile(userId){
+    this.router.navigate(['/profile/'+userId])
+   }
 }

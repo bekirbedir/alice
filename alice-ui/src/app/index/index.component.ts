@@ -95,7 +95,8 @@ export class IndexComponent implements   OnInit{
  window.location.reload();
   }
   routeProfile(){
-    this.router.navigate(['/profile'])
+    const userId = localStorage.getItem('userId').replace("\"", "").replace("\"", "");
+    this.router.navigate(['/profile/'+userId])
    }
   
 }

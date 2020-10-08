@@ -13,7 +13,9 @@ router.post("/getNotifications", async (request, response) => {
 
     try {
 
-        const notificationList = await NotificationSchema.find({ activeUserId: userId }, null, { sort: '-createdDate' }).limit(20).populate([{ path: 'user', Model: '../Models/user' }, { path: 'activity', Model: '../Models/activity' }]).exec();
+        const notificationList = await NotificationSchema.find({ activeUserId: userId }, null, { sort: '-createdDate' }).limit(20).populate(
+            [{ path: 'user', Model: '../Models/user' , select:'_id username name'},
+             { path: 'activity', Model: '../Models/activity'  ,  select:'_id header '}]).exec();
         const x = await NotificationSchema.updateMany({ activeUserId: userId }, { isShow: true });
         response.json(notificationList);
     }

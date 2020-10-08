@@ -29,8 +29,8 @@
          
           
         <div class="p-col-12 text-align-center">
-          <img *ngIf="act.user?.userPhoto"  class="act-header-photo img-thumbnail" [src]="convertImage(act)" alt="Aktivite sahibi resmi" >
-          <img *ngIf="!act.user?.userPhoto"  class="act-header-photo img-thumbnail" src="assets/gokcenur.jpg" alt="Aktivite sahibi resmi" >
+          <img (click)="routeProfile(act.user._id)" *ngIf="act.user?.userPhoto"  class="act-header-photo img-thumbnail" [src]="convertImage(act)" alt="Aktivite sahibi resmi" >
+          <img (click)="routeProfile(act.user._id)" *ngIf="!act.user?.userPhoto"  class="act-header-photo img-thumbnail" src="assets/gokcenur.jpg" alt="Aktivite sahibi resmi" >
         </div>
         
         

@@ -14,10 +14,12 @@
                                 aria-hidden="true"></i> Resim yükle</label>
                         <input id="propic" (change)="picked($event,1)" type="file" style="visibility: hidden;">
                     </p>
-                    <p [hidden]="editMode">
+                    <span [hidden]="!isEditable">
+                    <p [hidden]="editMode" >
                         <label  (click)="editMode=true" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
                                 aria-hidden="true"></i> Düzenle</label>
                     </p>
+                    </span>
                     <p [hidden]="!editMode" >
                         <label  (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
                                 aria-hidden="true"></i> Kaydet</label>

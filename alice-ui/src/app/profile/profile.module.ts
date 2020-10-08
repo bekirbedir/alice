@@ -20,7 +20,11 @@ const routes: Routes = [
   { 
     path: '',
     component: ProfileComponent
-  }
+  },
+  {
+    path: ':id',
+    component: ProfileComponent
+  },
 ];
 
 
