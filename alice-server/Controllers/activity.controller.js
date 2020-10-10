@@ -26,7 +26,7 @@ router.get("/getall", async (request, response, next) => {
         console.log("pathhh", path.join(__dirname));
         console.log("test-------------------basla")
         const activityList = await Activity.find({ status: 3, date: { "$gt": Date.now() } }, null, { sort: '-createdDate' }).
-        populate({ path: 'user', Model: '../Models/user' ,select:'_id username name email userPhoto' }).exec();
+        populate({ path: 'user', Model: '../Models/user' ,select:'_id username name email fileLink' }).exec();
 
         //   console.log("activityList", activityList[0].user.username)
 
@@ -77,7 +77,8 @@ router.get("/getApprovedUsers", async (request, response) => {
     let activityId = request.query.id;
     console.log("activityId", activityId)
     try {
-        const approvedUsers = await ActivityUserStatus.find({ status: 2, activityId: activityId }, null, { sort: 'date' }).populate({ path: 'user', Model: '../Models/user' }).exec();
+        const approvedUsers = await ActivityUserStatus.find({ status: 2, activityId: activityId }, null, { sort: 'date' })
+        .populate({ path: 'user', Model: '../Models/user' ,select:'_id username name email fileLink' }).exec();
         response.json(approvedUsers);
     }
     catch (error) {

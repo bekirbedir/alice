@@ -4,6 +4,7 @@ import { Activity } from 'src/app/models/activity';
 import { LoginService } from 'src/app/auth/login.service';
 import { NewActivityService } from '../new-activity.service';
 import { MessageService } from 'primeng/api';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -31,12 +32,15 @@ export class NewActivyComponent implements OnInit {
   imgSrc: String;
   deleteOld:Boolean = false;
   fileName:String;
-
+  baseUrl: String;
+  uploadUrl: String;
 
   constructor(private router: Router, private loginservice: LoginService,
     private activityService: NewActivityService,
     private messageService: MessageService) {
     this.activity = new Activity();
+    this.baseUrl = environment.apiBaseUrl
+    this.uploadUrl = this.baseUrl + "activity/upload"
 
   }
 
@@ -101,7 +105,7 @@ export class NewActivyComponent implements OnInit {
     }
     this.fileName = element.originalEvent.body.photoLink
     this.imgHidden = false;
-    this.imgSrc = "https://api.activityfriend.com.tr/static/uploads/"+this.fileName
+    this.imgSrc = this.baseUrl+"static/uploads/"+this.fileName
     console.log(this.imgSrc)
     this.deleteOld = true;
     this.activity.fileLink = this.imgSrc;

@@ -15,5 +15,6 @@ export class User {
     phone: String;
     biography: String;
     userPhoto: any;
+    fileLink:string;
   }
   

@@ -7,6 +7,7 @@ export const environment = {
   hmr       : false,
 //  apiBaseUrl:'http://gbutfsprp01:5001/api/v1/' 
   apiBaseUrl:'http://localhost:3000/',
+  dbUrl: 'mongodb+srv://alice:alice@activity.b03go.mongodb.net/Activity?retryWrites=true&w=majority'
 };
  
 

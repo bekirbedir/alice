@@ -126,6 +126,7 @@ router.post("/signup", (req, res) => {
         user.createdDate = Date.now()
         user.status = 1
         user.role = "ROLE_USER"
+        user.fileLink = "static/uploads/profile/empty_profile128.png";
         var rString = randomString(25, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ').trim();
         user.mailOnayCode = rString;
         user.save().then(result => {

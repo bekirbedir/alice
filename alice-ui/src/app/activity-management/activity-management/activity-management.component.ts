@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivityManagementService } from 'src/app/activity-management/activity-management.service';
 import { ActivityUserStatus } from 'src/app/models/activity.user.status';
 import { stat } from 'fs';
+import { environment } from 'src/environments/environment';
 import { ResponseModel } from 'src/app/models/response.model';
 import { MessageService } from 'primeng/api';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { Activity } from 'src/app/models/activity';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activity-management',
@@ -25,7 +27,9 @@ export class ActivityManagementComponent implements OnInit {
   limitedParticipant: boolean = false;
   activityheader: String;
   tr: any;
-  constructor(private service: ActivityManagementService, private messageService: MessageService, private _sanitizer: DomSanitizer, private imageCompress: NgxImageCompressService) {
+  constructor(private service: ActivityManagementService, private messageService: MessageService, 
+    private _sanitizer: DomSanitizer, private imageCompress: NgxImageCompressService,
+    private router: Router,) {
     this.activity = new Activity();
     this.activityheader = "ssdfs"
   }
@@ -130,6 +134,19 @@ export class ActivityManagementComponent implements OnInit {
     if (index == 3)
       this.getSelectedActivity();
   }
+  photoLinkCreate(link){
+    console.log("linkkk" , link)
+    if(link == null || link == "")
+      link = "static/uploads/profile/empty_profile128.png";
+
+    return environment.apiBaseUrl +link
+  }
+
+  routeProfile(userId){
+    this.router.navigate(['/profile/'+userId])
+   }
+
+  
 
   /*
 1	Katılım isteği

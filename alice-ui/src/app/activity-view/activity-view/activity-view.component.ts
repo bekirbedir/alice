@@ -11,6 +11,7 @@ import { ActivityUserStatus } from 'src/app/models/activity.user.status';
 import { UserModel } from 'src/app/models/user.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-activity-view',
@@ -76,10 +77,7 @@ export class ActivityViewComponent implements OnInit {
     this.activityService.getApprovedUsers(activityId).subscribe(x => {
        if (x) {
          this.approvedUsers = x;
-         for (var i = 0; i < this.approvedUsers.length; i++) {
-          this.approvedUsers[i].imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
-            + this.approvedUsers[i].user.userPhoto);
-        }
+         
        }
        else{
          console.log('activite bulunamadi')
@@ -133,6 +131,18 @@ export class ActivityViewComponent implements OnInit {
     });
 
   }
+
+  routeProfile(userId){
+    this.router.navigate(['/profile/'+userId])
+   }
+
+   photoLinkCreate(link){
+    if(link == null || link == "")
+      link = "static/uploads/profile/empty_profile128.png";
+
+    return environment.apiBaseUrl +link
+  }
+
 
   
 }

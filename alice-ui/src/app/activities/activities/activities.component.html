@@ -29,17 +29,16 @@
          
           
         <div class="p-col-12 text-align-center">
-          <img (click)="routeProfile(act.user._id)" *ngIf="act.user?.userPhoto"  class="act-header-photo img-thumbnail" [src]="convertImage(act)" alt="Aktivite sahibi resmi" >
-          <img (click)="routeProfile(act.user._id)" *ngIf="!act.user?.userPhoto"  class="act-header-photo img-thumbnail" src="assets/gokcenur.jpg" alt="Aktivite sahibi resmi" >
-        </div>
+          <img (click)="routeProfile(act.user._id)" *ngIf="act.user"  class="act-header-photo img-thumbnail" [src]="photoLinkCreate(act.user.fileLink)" alt="Aktivite sahibi resmi" >
+         </div>
+      
         
-        
-        <div class="p-col-12">
+        <div class="p-col-12"  style="border-top:1px solid #ccc">
           <div *ngIf="activeuser==act.ownerId" class="p-col-12 font-size-1-5em">
             <button (click)="activityManagement(act)" type="button" class="btn btn-secondary cursor-pointer p-col-12"> <i class="fa fa-cogs" aria-hidden="true"> </i> Yönet</button>
           </div>
 
-            <p class="act-header-user-name">{{act.username}}</p>
+            <p (click)="activityManagement(act)" class="act-header-user-name"><b>Etkinlik Sahibi: </b> {{act.user.name.toLocaleUpperCase()}} ( @{{act.user.username}} )</p>
            <p class="act-header-name">{{act.header}}</p>
            <div class="h-10"></div>
            <div class="act-content-text">
@@ -55,7 +54,7 @@
            <div class="h-5"></div>
            <div >
             <img *ngIf="!act.fileLink"  class="act-photo img-thumbnail" src="assets/empty_activity.jpg" > 
-         <!--   <img *ngIf="act.fileLink"  class="act-photo  img-thumbnail" [src]=act.fileLink > -->
+            <img *ngIf="act.fileLink"  class="act-photo  img-thumbnail" [src]=act.fileLink > 
           </div>
           <div class="h-5"></div>
           <div class="act-content-footer">

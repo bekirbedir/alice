@@ -6,6 +6,7 @@ import { UserModel } from 'src/app/models/user.model';
 import { take } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { Router, ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -21,6 +22,12 @@ export class ProfileComponent {
   editMode: Boolean
   isEditable: Boolean=false;
   userId: String = '';
+  fileName:String;
+  baseUrl: String;
+  uploadUrl: String;
+  imgHidden: Boolean = true;
+  imgSrc: String;
+  deleteOld:Boolean = false;
   
   constructor(private service: ProfilService, private _sanitizer: DomSanitizer,
     private imageCompress: NgxImageCompressService,
@@ -35,6 +42,9 @@ export class ProfileComponent {
         }
              
       });
+
+      this.baseUrl = environment.apiBaseUrl
+      this.uploadUrl = this.baseUrl + "users/upload"
 
     this.User = new UserModel()
     this.editMode = false;
@@ -149,6 +159,22 @@ export class ProfileComponent {
 
   }
 
+  photoLinkCreate(link){
+    if(link == null || link == "")
+      link = "static/uploads/profile/empty_profile128.png";
 
+    return this.baseUrl +link
+  }
+  onBasicUpload(element){
+    if( this.deleteOld ){
+   //   this.activityService.deleteFile(this.fileName);
+    }
+    this.fileName = element.originalEvent.body.photoLink
+    this.imgHidden = false;
+    this.imgSrc = "static/uploads/profile/"+this.fileName
+    console.log(this.imgSrc)
+    this.deleteOld = true;
+    this.User.fileLink = this.imgSrc;
+  }
 
 }

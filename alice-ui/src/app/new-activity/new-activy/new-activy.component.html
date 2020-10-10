@@ -59,13 +59,14 @@
           <p></p>
         <p-fileUpload name="photo" multiple="false" 
         invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
-        maxFileSize="3000000"
+        invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB"
+        maxFileSize="3145728"
         uploadLabel="Yükle"
         chooseLabel="Seç"
         cancelIcon="Vazgeç"
         (onUpload)="onBasicUpload($event)" 
         invalidFileTypeMessageDetail="Geçersiz dosya tipi, lütfen resim yükleyin"
-         accept="image/*" url="https://api.activityfriend.com.tr/activity/upload"></p-fileUpload>
+         accept="image/*" [url]='uploadUrl'></p-fileUpload>
          <p></p>
       </div>
       <p></p>
