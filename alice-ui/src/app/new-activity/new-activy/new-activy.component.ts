@@ -101,7 +101,7 @@ export class NewActivyComponent implements OnInit {
     }
     this.fileName = element.originalEvent.body.photoLink
     this.imgHidden = false;
-    this.imgSrc = "http://localhost:3000/static/uploads/"+this.fileName
+    this.imgSrc = "https://api.activityfriend.com.tr/static/uploads/"+this.fileName
     console.log(this.imgSrc)
     this.deleteOld = true;
     this.activity.fileLink = this.imgSrc;
