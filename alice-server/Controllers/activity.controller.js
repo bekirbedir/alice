@@ -12,36 +12,10 @@ const multipart = require('connect-multiparty');
 const fs = require('fs')
 var path = require('path');
 console.log("pathhh", path.join(__dirname, 'public'))
-//const multipartMiddleware = multipart({ uploadDir: './public/uploads' }); bu calisiyor
+const multipartMiddleware = multipart({ uploadDir: './public/uploads' }); //bu calisiyor
 
-const multipartMiddleware = multipart({ uploadDir: '../' });
+//const multipartMiddleware = multipart({ uploadDir: '../' });
 
-fs.mkdir('./public/', function(err) {
-
-    if (err) {
-      console.log(err)
-      console.log("New directory successfully created.")
-      fs.mkdir('./public/uploads', function(err) {
-        if (err) {
-          console.log(err)
-        } else {
-          console.log("New directory successfully created.")
-        }
-      })
-    } else {
-      console.log("New directory successfully created.")
-      fs.mkdir(path.join(__dirname)+"/public/uploads", function(err) {
-        if (err) {
-          console.log(err)
-        } else {
-          console.log("New directory successfully created.")
-        }
-      })
-    }
-  
-
-
-})
 
 
 
