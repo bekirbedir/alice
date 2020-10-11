@@ -97,20 +97,27 @@ router.get("/", (req, response) => {
 
 router.post("/signup", (req, res) => {
   let pUsername = req.body.username
-  if (!req.body.username || !req.body.password) {
+  if (!req.body.username || !req.body.password || !req.body.email ) {
     return res.status(404).send({
-      message: 'Email or password can not be empty!',
+      message: 'Email or username or password can not be empty!',
     });
   }
   else {
 
-    User.findOne({ username: pUsername }, function (err, docs) {
+    User.findOne({  $or:[ {'username':pUsername}, {'email':email} ]}, function (err, docs) {
       if (docs) {
-        console.log("docsss var-----------------")
-        res.status(200).json({
-          status: false,
-          message: "Bu kullanıcı adı daha önce alınmış."
-        })
+        if(docs.username == pUsername){
+          res.status(200).json({
+            status: false,
+            message: "Bu kullanıcı adı daha önce alınmış."
+          })
+        }else{
+          res.status(200).json({
+            status: false,
+            message: "Bu email adresi daha önce kullanılmıştır."
+          })
+        }
+       
       }
       else {
         console.log("docsss yookkkkk-----------------")
@@ -177,7 +184,7 @@ router.post("/login", (req, res) => {
 
     const username = req.body.username;
     const password = crypto.createHash('md5').update(req.body.password).digest("hex");
-    const potentialUser = { username: username, password: password, status: 3 };
+    const potentialUser = { $or:[ {'username':username}, {'email':username} ], password: password, status: 3 };
     User.findOne(potentialUser)
       .then(user => {
         if (!user) {

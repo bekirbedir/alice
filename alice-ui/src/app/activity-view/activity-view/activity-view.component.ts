@@ -26,6 +26,7 @@ export class ActivityViewComponent implements OnInit {
   activityUserStatuses:ActivityUserStatus;
   activityId: String;
   approvedUsers: ActivityUserStatus[];
+  isOwner: Boolean=false;
   
   constructor(private store:Store,  private router: Router,
     private messageService: MessageService,
@@ -44,7 +45,7 @@ export class ActivityViewComponent implements OnInit {
    this.activityService.getActivity(activityId).subscribe(x => {
       if (x) {
         this.activityStatic = x;
-        this.getActivityUserStatus(this.activityId);
+        this.getActivityUserStatus(this.activityStatic);
       }
       else{
         console.log('activite bulunamadi')
@@ -52,14 +53,19 @@ export class ActivityViewComponent implements OnInit {
     })
   }
 
-  getActivityUserStatus(activityId){
-    this.activityService.getActivityAndUserStatus(activityId).subscribe(x => {
+  getActivityUserStatus(activity){
+    if( localStorage.getItem("userId").replace("\"","").replace("\"","")== activity.ownerId.replace("\"","").replace("\"","")){
+     
+      this.isOwner = true;
+      this.getApprovedUsers(activity._id);
+    }
+    this.activityService.getActivityAndUserStatus(activity._id).subscribe(x => {
        if (x) {
          try{
           this.activityUserStatuses = x[0];
           this.activityStatic.currentUserStatus = x[0].status;
-            if(x[0].status == 2)
-              this.getApprovedUsers(activityId);
+            if(x[0].status == 2 )
+              this.getApprovedUsers(activity._id);
          }
          catch(error){
           this.activityStatic.currentUserStatus = 0;
@@ -143,6 +149,4 @@ export class ActivityViewComponent implements OnInit {
     return environment.apiBaseUrl +link
   }
 
-
-  
 }

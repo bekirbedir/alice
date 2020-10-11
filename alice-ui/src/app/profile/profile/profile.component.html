@@ -10,11 +10,7 @@
                 <div class="p-col-12 text-align-center">
                  
                     <img  class="header-photo img-thumbnail" [src]="photoLinkCreate(User.fileLink)"> 
-                    <p [hidden]="!editMode" >
-                        <label for="propic" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
-                                aria-hidden="true"></i> Resim yükle</label>
-                        <input id="propic" (change)="picked($event,1)" type="file" style="visibility: hidden;">
-                    </p>
+                  
 
                     <p-fileUpload [hidden]="!isEditable" name="photo" multiple="false" 
                     [auto]="true"
@@ -37,6 +33,10 @@
                     <p [hidden]="!editMode" >
                         <label  (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
                                 aria-hidden="true"></i> Kaydet</label>
+                    </p>
+                    <p [hidden]="!editMode" >
+                        <label  (click)="editMode = false" class="cancel-btn"> <i class="fa fa-times"
+                                aria-hidden="true"></i> Vazgeç</label>
                     </p>
 
                 </div>
@@ -111,6 +111,14 @@
                     <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="User.tagList"></p-chips>
                 </div>
             </div>
+            <p [hidden]="!editMode" >
+                <label  (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
+                        aria-hidden="true"></i> Kaydet</label>
+            </p>
+            <p [hidden]="!editMode" >
+                <label  (click)="editMode = false" class="cancel-btn"> <i class="fa fa-times"
+                        aria-hidden="true"></i> Vazgeç</label>
+            </p>
 
         </p-card>
     </div>
