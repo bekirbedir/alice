@@ -110,9 +110,14 @@ export class ActivitiesComponent implements OnInit {
   }
 
   viewComments(item) {
-    console.log("viewcommenetttsss")
-    if (item.currentUserStatus != 2) {
-      this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Duvarı, sadece katılımı onaylanan kullanıcılar görebilir..' });
+   
+    if (item.currentUserStatus != 2 ) {
+      if(localStorage.getItem("userId").replace("\"","").replace("\"","")== item.ownerId.replace("\"","").replace("\"","")){
+        this.store.dispatch(new GetActivityDetail(item._id))
+        this.router.navigate(['/activity-comment'])
+      }
+      else
+       this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Duvarı, sadece katılımı onaylanan kullanıcılar görebilir..' });
     } else {
       this.store.dispatch(new GetActivityDetail(item._id))
       this.router.navigate(['/activity-comment'])
@@ -248,5 +253,8 @@ export class ActivitiesComponent implements OnInit {
   }
   routeProfile(userId){
     this.router.navigate(['/profile/'+userId])
+   }
+   isOwner(act){
+    return localStorage.getItem('userId').replace('\"','').replace('\"','')== act.ownerId.replace('\"','').replace('\"','')
    }
 }

@@ -78,7 +78,7 @@
                 <div  (click)="viewDetail(act)" class="act-content-btn-comment"><i class="pi pi-angle-double-right"></i> Detaylar</div>
               </div>
               
-              <div *ngIf="act.currentUserStatus == 0" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+              <div [hidden] ="isOwner(act)" *ngIf="act.currentUserStatus == 0" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
                  <button type="button" (click)="joinActivity(act)" class=" btn btn-primary w-100"> <i class="pi pi-sign-in" aria-hidden="true"> </i> Katıl</button>
              </div>
              <div *ngIf="act.currentUserStatus == 1" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">

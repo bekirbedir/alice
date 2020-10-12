@@ -58,11 +58,12 @@
 
           <p></p>
         <p-fileUpload name="photo" multiple="false" 
+        [auto]="true"
         invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
         invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB"
         maxFileSize="3145728"
         uploadLabel="Yükle"
-        chooseLabel="Seç"
+        chooseLabel="Aktiviteye Resim Yükle"
         cancelIcon="Vazgeç"
         (onUpload)="onBasicUpload($event)" 
         invalidFileTypeMessageDetail="Geçersiz dosya tipi, lütfen resim yükleyin"

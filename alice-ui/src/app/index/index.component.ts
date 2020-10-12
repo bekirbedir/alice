@@ -23,6 +23,9 @@ export class IndexComponent implements   OnInit{
   this.currentUserName=JSON.parse(localStorage.getItem("userName"));
   
   if(this.isActiveUser){
+    loginservice.notificationCount().subscribe(x=>{
+      this.notificationCount = x;
+    });
     var countInterval = setInterval(()=>{    
     loginservice.notificationCount().subscribe(x=>{
       this.notificationCount = x;
