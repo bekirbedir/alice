@@ -53,9 +53,11 @@
                     <br>
                     <p class="username"><a href="#"><b>Kullanıcı Adı: </b>@{{User.username}}</a></p>
                     <br>
-                    <p class="username"><a ><b>Telefon: </b>{{User.phone}}</a></p>
+                    <p [hidden]="!isEditable" class="username"><a ><b>Telefon: </b>{{User.phone}}</a></p>
+                    <p [hidden]="isEditable" class="username"><a ><b>Telefon: </b>*******</a></p>
                     <br>
-                    <p [hidden]="editMode" class="email"><b>Email :</b>{{User.email}}</p>
+
+                    <p  [hidden]="!(isEditable && !editMode)" class="email"><b>Email :</b>{{User.email}}</p>
 
                     <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
                         <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email"
@@ -69,11 +71,20 @@
                     <p [hidden]="editMode" class="bio-context">{{User.biography}}</p>
 
                     <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
-                        <textarea id="input-bio" [rows]="8" class="w-100" pInputTextarea 
+                        <textarea id="input-bio" [rows]="10" class="w-100" pInputTextarea 
                             [(ngModel)]="User.biography"></textarea>
                         <label for="float-input">Seni tanıyabilmemiz için biraz kendinden bahseder misin?</label>
                     </span>
 
+                </div>
+                <div class="p-col-12">
+                    <div class="profile-tags">
+                        <span [hidden]="editMode" *ngFor="let tag of User.tagList" class="profile-tag">#{{tag}}</span>
+                        <div [hidden]="!editMode" class="p-col-12">
+                            <p class="input-label" style="font-size: 12px;">Etiket ekle (Enter'a basarak ekleyin)</p>
+                            <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="User.tagList"></p-chips>
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr>
@@ -104,13 +115,7 @@
                             class="fa fa-frown-o" aria-hidden="true"></i> </button>
                 </div>
             </div>
-            <div class="profile-tags">
-                <span [hidden]="editMode" *ngFor="let tag of User.tagList" class="profile-tag">#{{tag}}</span>
-                <div [hidden]="!editMode" class="p-col-12">
-                    <p class="input-label" style="font-size: 12px;">Etiket ekle (Enter'a basarak ekleyin)</p>
-                    <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="User.tagList"></p-chips>
-                </div>
-            </div>
+           
             <p [hidden]="!editMode" >
                 <label  (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
                         aria-hidden="true"></i> Kaydet</label>

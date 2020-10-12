@@ -20,13 +20,13 @@
           <div  *ngFor="let noti of notifications" class="notification-box">
             <p *ngIf="noti.type == 1" class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
               <i class="fa fa-check" aria-hidden="true"> </i> <span class="notification-text"> {{noti.text}} </span>
-              <small>Aktivite: <b><a>{{noti.activity.header}}</a> </b> </small>
+              <small (click)="routeActivity(noti.activity._id)">Aktivite: <b><a>{{noti.activity.header}}</a> </b> </small>
             </p>
 
             <p *ngIf="noti.type == 2"  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
               <i class="fa fa-sign-in" aria-hidden="true"> </i> <span class="notification-text"> {{noti.text}} </span>
               <br>
-              <small>Aktivite: <b>{{noti.activity.header}} </b> </small>
+              <small (click)="routeActivity(noti.activity._id)" >Aktivite: <b>{{noti.activity.header}} </b> </small>
               <br>
             <small>Kullanıcı:<b><a (click)="routeProfile(noti.user._id)"> {{noti.user.username +'( '+ noti.user.name + ' )'}} </a></b></small>
              </p>
@@ -34,7 +34,7 @@
              <p *ngIf="noti.type == 3"  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
               <i class="fa fa-commenting-o" aria-hidden="true"> </i><span class="notification-text"> {{noti.text}} </span>
                <br>
-               <small>Aktivite: <b>{{noti.activity.header}} </b> </small>
+               <small (click)="routeActivity(noti.activity._id)">Aktivite: <b>{{noti.activity.header}} </b> </small>
                <br>
              <small><b> <a (click)="routeProfile(noti.user._id)" >{{noti.user.username +' ( '+ noti.user.name + ' )'}}</a></b></small>
               </p>

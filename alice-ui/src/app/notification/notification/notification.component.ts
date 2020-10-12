@@ -28,5 +28,10 @@ export class NotificationComponent implements OnInit {
     this.router.navigate(['/profile/'+userId])
    }
 
+   routeActivity(activityId) {
+    localStorage.setItem("selectedActivityId",activityId)
+  //  this.store.dispatch(new GetActivityDetail(item._id))
+    this.router.navigate(['/activity-view'])
+  }
 
 }

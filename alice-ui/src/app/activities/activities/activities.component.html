@@ -38,8 +38,8 @@
             <button (click)="activityManagement(act)" type="button" class="btn btn-secondary cursor-pointer p-col-12"> <i class="fa fa-cogs" aria-hidden="true"> </i> Yönet</button>
           </div>
 
-            <p (click)="activityManagement(act)" class="act-header-user-name"><b>Etkinlik Sahibi: </b> {{act.user.name.toLocaleUpperCase()}} ( @{{act.user.username}} )</p>
-           <p class="act-header-name">{{act.header}}</p>
+            <p (click)="routeProfile(act.user._id)" class="act-header-user-name"><b>Etkinlik Sahibi: </b> {{act.user.name.toLocaleUpperCase()}} ( @{{act.user.username}} )</p>
+           <p (click)="viewDetail(act)"  class="act-header-name">{{act.header}}</p>
            <div class="h-10"></div>
            <div class="act-content-text">
             {{act.context}}
