@@ -104,7 +104,7 @@ router.post("/signup", (req, res) => {
   }
   else {
 
-    User.findOne({  $or:[ {'username':pUsername}, {'email':email} ]}, function (err, docs) {
+    User.findOne({  $or:[ {'username':pUsername}, {'email':req.body.email} ]}, function (err, docs) {
       if (docs) {
         if(docs.username == pUsername){
           res.status(200).json({
