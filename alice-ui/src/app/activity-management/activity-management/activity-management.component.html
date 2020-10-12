@@ -6,9 +6,13 @@
             </thead>
             <tbody>
               <tr *ngFor="let actUser of waitingUsers">
-                <th> <img class="header-photo" [src]="actUser.imagePath" alt="Image Source" width="100px" height="100px" ></th>
+                <td>
+                   <img class="management-user-photo img-thumbnail"  [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
+                <br>
+                <br>
+                <span  (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b> ( {{actUser.user.email}} )<br> @{{actUser.user.username}} </span>
+                </td>
       
-                <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
                 <td>
                     <div class="btn-group" role="group" aria-label="...">
                         <button (click)="userStateAction(actUser.activityId , actUser.user._id,2)" type="button" class="btn btn-success">Onayla <i class="pi pi-play"></i></button>
@@ -29,8 +33,12 @@
             </thead>
             <tbody>
               <tr *ngFor="let actUser of approveUsers">
-                <th> <img class="header-photo" [src]="actUser.imagePath" alt="Image Source" width="100px" height="100px" ></th>
-                <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
+                <td>
+                  <img class="management-user-photo img-thumbnail"  [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
+               <br>
+               <br>
+               <span  (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b> ( {{actUser.user.email}} )<br> @{{actUser.user.username}} </span>
+               </td>
                 <td>
                   <div class="btn-group" role="group" aria-label="...">
                       <button (click)="userStateAction(actUser.activityId , actUser.user._id,3)" type="button" class="btn btn-danger">Reddet <i class="pi pi-times"></i> </button>
@@ -50,9 +58,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let actUser of rejectedUsers">
-            <th> <img class="header-photo" [src]="actUser.imagePath" alt="Image Source" width="100px" height="100px" ></th>
-      
-            <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
+            <td>
+              <img class="management-user-photo img-thumbnail"  [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
+           <br>
+           <br>
+           <span  (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b> ( {{actUser.user.email}} )<br> @{{actUser.user.username}} </span>
+           </td>
             <td>
               <div class="btn-group" role="group" aria-label="...">
                   <button (click)="userStateAction(actUser.activityId , actUser.user._id,2)" type="button" class="btn btn-success">Onayla <i class="pi pi-play"></i></button>

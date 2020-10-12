@@ -16,16 +16,18 @@ static async  main(mailaddres ,subject, textHtml) {
       service: "gmail",
       host: "smtp.gmail.com",
       auth: {
-        user: "activityfriendd@gmail.com",
-        pass: "Act1234_"
+        user: "info@activityfriend.com.tr",
+        pass:  "1234bekir",
       }
     })
   );
 
+  //        user: "activityfriendd@gmail.com",
+  //      pass: "Act1234_"
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: "activityfriendd@gmail.com",
+    from: "info@activityfriend.com.tr",
      to: mailaddres, // list of receivers
     subject: subject, // Subject line
     text: "-ActivityFriend", // plain text body

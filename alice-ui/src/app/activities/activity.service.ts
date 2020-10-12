@@ -35,7 +35,7 @@ export class ActivityService {
 
   getApprovedUsers(id): Observable<ActivityUserStatus[]> {
     return this._httpClient
-      .get<ActivityUserStatus[]>(this.valuesUrl+"/getApprovedUsers?id=" + id)
+      .get<ActivityUserStatus[]>(this.valuesUrl+"getApprovedUsers?id=" + id)
       .pipe(
         map((res) => res)
       );

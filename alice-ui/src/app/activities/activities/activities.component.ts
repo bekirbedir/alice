@@ -235,6 +235,13 @@ export class ActivitiesComponent implements OnInit {
       this.loading = false;
     })
   }
+  photoLinkCreate(link){
+    console.log("linkkk" , link)
+    if(link == null || link == "")
+      link = "static/uploads/profile/empty_profile128.png";
+
+    return environment.apiBaseUrl +link
+  }
 
   filter() {
     this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Yapım aşamasında..' });

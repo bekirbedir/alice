@@ -11,6 +11,7 @@ import { ActivityUserStatus } from 'src/app/models/activity.user.status';
 import { UserModel } from 'src/app/models/user.model';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-activity-view',
@@ -25,6 +26,7 @@ export class ActivityViewComponent implements OnInit {
   activityUserStatuses:ActivityUserStatus;
   activityId: String;
   approvedUsers: ActivityUserStatus[];
+  isOwner: Boolean=false;
   
   constructor(private store:Store,  private router: Router,
     private messageService: MessageService,
@@ -43,7 +45,7 @@ export class ActivityViewComponent implements OnInit {
    this.activityService.getActivity(activityId).subscribe(x => {
       if (x) {
         this.activityStatic = x;
-        this.getActivityUserStatus(this.activityId);
+        this.getActivityUserStatus(this.activityStatic);
       }
       else{
         console.log('activite bulunamadi')
@@ -51,14 +53,19 @@ export class ActivityViewComponent implements OnInit {
     })
   }
 
-  getActivityUserStatus(activityId){
-    this.activityService.getActivityAndUserStatus(activityId).subscribe(x => {
+  getActivityUserStatus(activity){
+    if( localStorage.getItem("userId").replace("\"","").replace("\"","")== activity.ownerId.replace("\"","").replace("\"","")){
+     
+      this.isOwner = true;
+      this.getApprovedUsers(activity._id);
+    }
+    this.activityService.getActivityAndUserStatus(activity._id).subscribe(x => {
        if (x) {
          try{
           this.activityUserStatuses = x[0];
           this.activityStatic.currentUserStatus = x[0].status;
-            if(x[0].status == 2)
-              this.getApprovedUsers(activityId);
+            if(x[0].status == 2 )
+              this.getApprovedUsers(activity._id);
          }
          catch(error){
           this.activityStatic.currentUserStatus = 0;
@@ -76,10 +83,7 @@ export class ActivityViewComponent implements OnInit {
     this.activityService.getApprovedUsers(activityId).subscribe(x => {
        if (x) {
          this.approvedUsers = x;
-         for (var i = 0; i < this.approvedUsers.length; i++) {
-          this.approvedUsers[i].imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
-            + this.approvedUsers[i].user.userPhoto);
-        }
+         
        }
        else{
          console.log('activite bulunamadi')
@@ -134,5 +138,15 @@ export class ActivityViewComponent implements OnInit {
 
   }
 
-  
+  routeProfile(userId){
+    this.router.navigate(['/profile/'+userId])
+   }
+
+   photoLinkCreate(link){
+    if(link == null || link == "")
+      link = "static/uploads/profile/empty_profile128.png";
+
+    return environment.apiBaseUrl +link
+  }
+
 }

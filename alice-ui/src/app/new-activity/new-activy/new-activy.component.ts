@@ -4,6 +4,7 @@ import { Activity } from 'src/app/models/activity';
 import { LoginService } from 'src/app/auth/login.service';
 import { NewActivityService } from '../new-activity.service';
 import { MessageService } from 'primeng/api';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -31,12 +32,15 @@ export class NewActivyComponent implements OnInit {
   imgSrc: String;
   deleteOld:Boolean = false;
   fileName:String;
-
+  baseUrl: String;
+  uploadUrl: String;
 
   constructor(private router: Router, private loginservice: LoginService,
     private activityService: NewActivityService,
     private messageService: MessageService) {
     this.activity = new Activity();
+    this.baseUrl = environment.apiBaseUrl
+    this.uploadUrl = this.baseUrl + "activity/upload"
 
   }
 
@@ -45,13 +49,13 @@ export class NewActivyComponent implements OnInit {
 
     this.tr = {
       firstDayOfWeek: 0,
-      dayNames: ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+      dayNames: [ "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi","Pazar"],
       dayNamesShort: ["Paz", "Pzt", "Sal", "ÇRŞ", "PRŞ", "CMA", "CTS"],
       dayNamesMin: ["PA", "PT", "SA", "ÇA", "PE", "CU", "PZ"],
-      monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-      monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      today: 'Today',
-      clear: 'Clear',
+      monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+      monthNamesShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Temm", "Agu", "Eyl", "Eki", "Kas", "Ara"],
+      today: 'Bugün',
+      clear: 'Temizle',
       dateFormat: 'dd.mm.yy',
       weekHeader: 'Wk'
     };
@@ -101,7 +105,7 @@ export class NewActivyComponent implements OnInit {
     }
     this.fileName = element.originalEvent.body.photoLink
     this.imgHidden = false;
-    this.imgSrc = "http://localhost:3000/static/uploads/"+this.fileName
+    this.imgSrc = this.baseUrl+"static/uploads/"+this.fileName
     console.log(this.imgSrc)
     this.deleteOld = true;
     this.activity.fileLink = this.imgSrc;

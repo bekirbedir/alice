@@ -9,7 +9,8 @@
     
         <div class="p-grid">
         <div class="p-col-12 text-align-center">
-          <img class="act-header-photo img-thumbnail" src="assets/gokcenur.jpg" >
+         
+          <img class="act-header-photo img-thumbnail"  [src]="photoLinkCreate(activityStatic.user.fileLink)" >
         </div>
         <div class="p-col-12 act-content">
             <p class="act-header-user-name"><a>@{{activityStatic.user.username}}</a></p>
@@ -28,7 +29,7 @@
            <div class="h-5"></div>
            <div >
             <img *ngIf="!activityStatic.fileLink"  class="act-photo img-thumbnail" src="assets/empty_activity.jpg" > 
-            <img *ngIf="activityStatic.fileLink"  class="act-photo  img-thumbnail" [src]=activityStatic.fileLink >
+            <img *ngIf="activityStatic.fileLink"  class="act-photo  img-thumbnail" [src]=activityStatic.fileLink > 
           </div>
           <div class="h-5"></div>
           <div class="act-content-footer">
@@ -69,13 +70,13 @@
       <p-header>
         Katılımcılar
       </p-header>
-      <div [hidden]="activityStatic.currentUserStatus == 2 " class="alert alert-warning" role="alert">
+      <div [hidden]="activityStatic.currentUserStatus == 2 || isOwner " class="alert alert-warning" role="alert">
         <p> <i class="fa fa-times" aria-hidden="true"> </i> Katılımcıları yalnızca onaylanan kullanıcılar görebilir.</p>
       </div>
-      <div *ngIf= "activityStatic.currentUserStatus == 2 ">
+      <div [hidden]= "!(activityStatic.currentUserStatus == 2 || isOwner )">
         <div *ngFor="let actUser of approvedUsers">
-          <img class="header-photo img-thumbnail" [src]="actUser.imagePath" alt="Image Source"  > 
-           <span  class="approved-user"> - {{actUser.user.name}} ( @{{actUser.user.username}} ) </span>
+          <img (click)="routeProfile(actUser.user._id)" class="header-photo img-thumbnail" [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source"  > 
+           <span  (click)="routeProfile(actUser.user._id)" class="approved-user"> - {{actUser.user.name}} ( @{{actUser.user.username}} ) </span>
         </div>
          
       </div>

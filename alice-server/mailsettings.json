@@ -1,8 +1,8 @@
 {
-    "name": "My Name",
-    "email": "user@domain.com",
-    "username": "activityfriendd@gmail.com",
-    "password": "Act1234_",
+    "name": "Activity Friend",
+    "email": "info@activityfriend.com.tr",
+    "username": "info@activityfriend.com.tr",
+    "password": "1234bekir",
     "imap": {
         "seqno":2,
         "host": "imap.gmail.com",

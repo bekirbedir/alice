@@ -9,6 +9,7 @@ export class UserModel {
     status?:Number | null ;
     phone?:String | null;
     biography?:String | null;
-    userPhoto?:string 
+    userPhoto?:string
+    fileLink?:String | null;
   }
   

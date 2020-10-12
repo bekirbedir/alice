@@ -5,6 +5,8 @@ var crypto = require('crypto');
 let User = require("../Models/user")
 let mailler = require("../mailler")
 var jwt = require('jsonwebtoken');
+const multipart = require('connect-multiparty');
+const multipartMiddleware = multipart({ uploadDir: './public/uploads/profile' }); //bu calisiyor
 
 
 
@@ -80,6 +82,7 @@ router.post("/detail", (req, res) => {
   )
 })
 
+
 router.put("/updateUser", (req, res) => {
 
   User.findOne({ _id: req.body._id }, function (err, user) {
@@ -104,6 +107,21 @@ router.put("/updateUser", (req, res) => {
           });
   })
 })
+
+router.post('/upload', multipartMiddleware, (req, res) => {
+     
+ let photoLink = req.files.photo.path.replace("\\","/").replace("\\","/").replace("\\","/").split("/")[3]                            
+  fileLink = "static/uploads/profile/" + photoLink
+  User.findOne({_id: req.userId} ,function(err,user){
+    user.fileLink = fileLink;
+    user.save();
+  })
+ res.json({
+      status: true,
+      message: 'File uploaded successfully',
+      photoLink: photoLink
+  });
+});
 
 
 

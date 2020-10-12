@@ -12,36 +12,10 @@ const multipart = require('connect-multiparty');
 const fs = require('fs')
 var path = require('path');
 console.log("pathhh", path.join(__dirname, 'public'))
-//const multipartMiddleware = multipart({ uploadDir: './public/uploads' }); bu calisiyor
+const multipartMiddleware = multipart({ uploadDir: './public/uploads' }); //bu calisiyor
 
-const multipartMiddleware = multipart({ uploadDir: '../' });
+//const multipartMiddleware = multipart({ uploadDir: '../' });
 
-fs.mkdir('./public/', function(err) {
-
-    if (err) {
-      console.log(err)
-      console.log("New directory successfully created.")
-      fs.mkdir('./public/uploads', function(err) {
-        if (err) {
-          console.log(err)
-        } else {
-          console.log("New directory successfully created.")
-        }
-      })
-    } else {
-      console.log("New directory successfully created.")
-      fs.mkdir(path.join(__dirname)+"/public/uploads", function(err) {
-        if (err) {
-          console.log(err)
-        } else {
-          console.log("New directory successfully created.")
-        }
-      })
-    }
-  
-
-
-})
 
 
 
@@ -52,7 +26,7 @@ router.get("/getall", async (request, response, next) => {
         console.log("pathhh", path.join(__dirname));
         console.log("test-------------------basla")
         const activityList = await Activity.find({ status: 3, date: { "$gt": Date.now() } }, null, { sort: '-createdDate' }).
-        populate({ path: 'user', Model: '../Models/user' ,select:'_id username name email userPhoto' }).exec();
+        populate({ path: 'user', Model: '../Models/user' ,select:'_id username name email fileLink' }).exec();
 
         //   console.log("activityList", activityList[0].user.username)
 
@@ -103,7 +77,8 @@ router.get("/getApprovedUsers", async (request, response) => {
     let activityId = request.query.id;
     console.log("activityId", activityId)
     try {
-        const approvedUsers = await ActivityUserStatus.find({ status: 2, activityId: activityId }, null, { sort: 'date' }).populate({ path: 'user', Model: '../Models/user' }).exec();
+        const approvedUsers = await ActivityUserStatus.find({ status: 2, activityId: activityId }, null, { sort: 'date' })
+        .populate({ path: 'user', Model: '../Models/user' ,select:'_id username name email fileLink' }).exec();
         response.json(approvedUsers);
     }
     catch (error) {

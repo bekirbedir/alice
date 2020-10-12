@@ -19,7 +19,7 @@ export class Activity {
     userList:[UserStatus];
     currentUserStatus: Number | 0;
     currentUserLike: Boolean | false;
-    ownerId:String | null;
+    ownerId:string | null;
     date?: Date;
     user: User | null;
     fileLink:String;

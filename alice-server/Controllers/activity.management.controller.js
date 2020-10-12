@@ -13,7 +13,8 @@ router.post("/getUsers", async(request, response) => {
     pStatus = request.body.status;
 
     try{
-        const users = await ActivityUser.find({status:pStatus , activityId: pActivityId}, null, { sort: 'date' }).populate({path:'user', Model:  '../Models/user'}).exec();
+        const users = await ActivityUser.find({status:pStatus , activityId: pActivityId}, null, { sort: 'date' }).
+        populate({path:'user', Model:  '../Models/user' , select:'_id username name email fileLink' }).exec();
         response.json(users);    
     }
     catch (error) {

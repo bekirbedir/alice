@@ -14,6 +14,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import {InputMaskModule} from 'primeng/inputmask';
+import {FileUploadModule} from 'primeng/fileupload';
 
 import { InputTextModule } from 'primeng/inputtext';
 const routes: Routes = [
@@ -45,6 +46,7 @@ const routes: Routes = [
         CheckboxModule,
         InputTextModule,
         FormsModule,
+        FileUploadModule,
     RouterModule.forChild(routes),
   ],
   providers: [NgxImageCompressService],

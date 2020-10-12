@@ -7,13 +7,23 @@
     <div class="p-xl-6 p-lg-6 p-md-8 p-sm-12">
         <p-card>
             <div class="p-grid">
-                <div class="p-col-5">
-                    <img class="header-photo img-thumbnail" [src]="imagePath" alt="Image Source">
-                    <p [hidden]="!editMode" >
-                        <label for="propic" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
-                                aria-hidden="true"></i> Resim yükle</label>
-                        <input id="propic" (change)="picked($event,1)" type="file" style="visibility: hidden;">
-                    </p>
+                <div class="p-col-12 text-align-center">
+                 
+                    <img  class="header-photo img-thumbnail" [src]="photoLinkCreate(User.fileLink)"> 
+                  
+
+                    <p-fileUpload [hidden]="!isEditable" name="photo" multiple="false" 
+                    [auto]="true"
+                    invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
+                    invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB"
+                    maxFileSize="3145728"
+                    uploadLabel="Yükle"
+                    chooseLabel="Profil Resmi Yükle"
+                    cancelIcon="Vazgeç"
+                    (onUpload)="onBasicUpload($event)" 
+                    invalidFileTypeMessageDetail="Geçersiz dosya tipi, lütfen resim yükleyin"
+                     accept="image/*" [url]='uploadUrl'></p-fileUpload>
+
                     <span [hidden]="!isEditable">
                     <p [hidden]="editMode" >
                         <label  (click)="editMode=true" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
@@ -24,11 +34,16 @@
                         <label  (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
                                 aria-hidden="true"></i> Kaydet</label>
                     </p>
+                    <p [hidden]="!editMode" >
+                        <label  (click)="editMode = false" class="cancel-btn"> <i class="fa fa-times"
+                                aria-hidden="true"></i> Vazgeç</label>
+                    </p>
+
                 </div>
 
-                <div class="p-col-7">
+                <div class="p-col-12">
                     <br>
-                    <p [hidden]="editMode" class="name">{{User.name}}</p>
+                    <p [hidden]="editMode" class="name"><b>{{User.name}}</b></p>
                     <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
                         <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.name" class="w-100">
                         <label for="float-input">Ad Soyad</label>
@@ -36,9 +51,13 @@
 
 
                     <br>
-                    <p class="username"><a href="#">@{{User.username}}</a></p>
+                    <p class="username"><a href="#"><b>Kullanıcı Adı: </b>@{{User.username}}</a></p>
                     <br>
-                    <p [hidden]="editMode" class="email">{{User.email}}</p>
+                    <p [hidden]="!isEditable" class="username"><a ><b>Telefon: </b>{{User.phone}}</a></p>
+                    <p [hidden]="isEditable" class="username"><a ><b>Telefon: </b>*******</a></p>
+                    <br>
+
+                    <p  [hidden]="!(isEditable && !editMode)" class="email"><b>Email :</b>{{User.email}}</p>
 
                     <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
                         <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email"
@@ -52,11 +71,20 @@
                     <p [hidden]="editMode" class="bio-context">{{User.biography}}</p>
 
                     <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
-                        <textarea id="input-bio" [rows]="6" class="w-100" pInputTextarea autoResize="autoResize"
+                        <textarea id="input-bio" [rows]="10" class="w-100" pInputTextarea 
                             [(ngModel)]="User.biography"></textarea>
                         <label for="float-input">Seni tanıyabilmemiz için biraz kendinden bahseder misin?</label>
                     </span>
 
+                </div>
+                <div class="p-col-12">
+                    <div class="profile-tags">
+                        <span [hidden]="editMode" *ngFor="let tag of User.tagList" class="profile-tag">#{{tag}}</span>
+                        <div [hidden]="!editMode" class="p-col-12">
+                            <p class="input-label" style="font-size: 12px;">Etiket ekle (Enter'a basarak ekleyin)</p>
+                            <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="User.tagList"></p-chips>
+                        </div>
+                    </div>
                 </div>
             </div>
             <hr>
@@ -87,13 +115,15 @@
                             class="fa fa-frown-o" aria-hidden="true"></i> </button>
                 </div>
             </div>
-            <div class="profile-tags">
-                <span [hidden]="editMode" *ngFor="let tag of User.tagList" class="profile-tag">#{{tag}}</span>
-                <div [hidden]="!editMode" class="p-col-12">
-                    <p class="input-label" style="font-size: 12px;">Etiket ekle (Enter'a basarak ekleyin)</p>
-                    <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="User.tagList"></p-chips>
-                </div>
-            </div>
+           
+            <p [hidden]="!editMode" >
+                <label  (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
+                        aria-hidden="true"></i> Kaydet</label>
+            </p>
+            <p [hidden]="!editMode" >
+                <label  (click)="editMode = false" class="cancel-btn"> <i class="fa fa-times"
+                        aria-hidden="true"></i> Vazgeç</label>
+            </p>
 
         </p-card>
     </div>
