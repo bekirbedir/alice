@@ -97,6 +97,7 @@ export class ActivityManagementComponent implements OnInit {
   getSelectedActivity() {
     this.service.getSelectedActivity(this.selectedActivityId).subscribe(x => {
       this.activity = x
+      this.activity.date=new Date(x.date)
     })
   }
   updateActivity() {
