@@ -26,5 +26,8 @@ module.exports = mongoose.model("Notification", NotificationSchema);
 typeler;
 1 - aktiviteye katıldın
 2 - aktivitene katılım isteği
+3 - duvara yeni mesaj
+4- aktiviteye katılım onaylandı
+5- aktiviteye katılım isteğin reddedildi
 
 */

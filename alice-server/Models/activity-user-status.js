@@ -19,6 +19,7 @@ module.exports = mongoose.model("ActivityUserStatus", ActivityUserStatusSchema);
 0_hiçbirseyyok_like_atmis_olabilir //sayımlarda bu filterin cikmasi lazım
 1_Katılım isteği
 2_onaylandı
-3_katılmadı
+3_reddedildi
 4_istegi_geri_cekti
+5_katılmadı
 */

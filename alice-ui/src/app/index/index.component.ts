@@ -15,7 +15,7 @@ export class IndexComponent implements   OnInit{
   isActiveUser:string
   currentUserName:string;
   isLogin : Boolean;
-  notificationCount: Number;
+  notificationCount: any =0;
   constructor(private loginservice:LoginService,private router:Router){
    this.isLogin = false;
 
@@ -23,10 +23,11 @@ export class IndexComponent implements   OnInit{
   this.currentUserName=JSON.parse(localStorage.getItem("userName"));
   
   if(this.isActiveUser){
+    var countInterval = setInterval(()=>{    
     loginservice.notificationCount().subscribe(x=>{
-      console.log("notificationCount", x);
       this.notificationCount = x;
     });
+   },15000)
   }
 
 

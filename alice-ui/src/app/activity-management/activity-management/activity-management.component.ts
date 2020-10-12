@@ -55,29 +55,17 @@ export class ActivityManagementComponent implements OnInit {
 
     this.service.getUsers(this.selectedActivityId, 1).subscribe(x => {
       this.waitingUsers = x
-      for (var i = 0; i < this.waitingUsers.length; i++) {
-        this.waitingUsers[i].imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
-          + this.waitingUsers[i].user.userPhoto);
-      }
     })
 
   }
   getApprovedUsers() {
     this.service.getUsers(this.selectedActivityId, 2).subscribe(x => {
       this.approveUsers = x
-      for (var i = 0; i < this.approveUsers.length; i++) {
-        this.approveUsers[i].imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
-          + this.approveUsers[i].user.userPhoto);
-      }
     })
   }
   getRejectedUsers() {
     this.service.getUsers(this.selectedActivityId, 3).subscribe(x => {
       this.rejectedUsers = x
-      for (var i = 0; i < this.rejectedUsers.length; i++) {
-        this.rejectedUsers[i].imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
-          + this.rejectedUsers[i].user.userPhoto);
-      }
     })
   }
 
@@ -135,7 +123,7 @@ export class ActivityManagementComponent implements OnInit {
       this.getSelectedActivity();
   }
   photoLinkCreate(link){
-    console.log("linkkk" , link)
+ 
     if(link == null || link == "")
       link = "static/uploads/profile/empty_profile128.png";
 
