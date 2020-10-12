@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChatAdapter } from 'ng-chat';
-import { SocketIOAdapter } from './socketio-adapter'
+
 import { Socket } from 'ng-socket-io';
 import {HttpClient} from "@angular/common/http";
 
@@ -12,8 +11,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class MessageUserComponent implements OnInit {
   ngOnInit(): void {
-    this.InitializeSocketListerners(localStorage.getItem('userId'));  
-    this.joinRoom()
+
   }
 
 
@@ -22,9 +20,9 @@ export class MessageUserComponent implements OnInit {
   userId: string;
   username: string;
   isActive=false
-  public adapter: ChatAdapter;
 
-  constructor(private socket: Socket, private http: HttpClient) {
+
+  constructor() {
 
 
     const aliceuser = JSON.parse(localStorage.getItem('aliceuser'));
@@ -36,20 +34,7 @@ export class MessageUserComponent implements OnInit {
  
   }
 
-  public joinRoom(): void 
-  {
-    console.log("joined",this.adapter)
-    this.socket.emit("join", "test");
-  }
 
-  public InitializeSocketListerners(userId): void
-  {
-    this.socket.on("generatedUserId", (userId) => {
-      // Initializing the chat with the userId and the adapter with the socket instance
-      this.adapter = new SocketIOAdapter(userId, this.socket, this.http);
-      this.userId = userId;
-    });
-  }
 
 
 }

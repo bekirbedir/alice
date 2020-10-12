@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MessageUserComponent } from './message-user.component';
 import { RouterModule, Routes } from '@angular/router';
 
-import { BrowserModule } from '@angular/platform-browser';
+
 import { FormsModule } from '@angular/forms';
-import { NgChatModule } from 'ng-chat';
-import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
+
 import { HttpClientModule } from '@angular/common/http';
 const routes: Routes = [
   {
@@ -14,15 +13,13 @@ const routes: Routes = [
     component: MessageUserComponent
   }
 ];
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+
 @NgModule({
-  declarations: [],
+  declarations: [MessageUserComponent],
   imports: [
     CommonModule,
     FormsModule,
     HttpClientModule,
-    NgChatModule,
-    SocketIoModule.forRoot(config), 
     RouterModule.forChild(routes)
 
   ],
