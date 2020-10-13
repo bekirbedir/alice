@@ -25,7 +25,7 @@ router.get("/users/getall", (request, response) => {
 
 router.get("/users/getPending", (request, response) => {
   //buraya admin mi kontrolu eklenmeli
-  User.find({}, function (err, res) {
+  User.find({status:2}, function (err, res) {
 
     if (err) {
       console.log(err);
