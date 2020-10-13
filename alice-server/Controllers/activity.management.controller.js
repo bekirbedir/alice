@@ -160,7 +160,6 @@ router.put("/updateActivity", (req, res) => {
     console.log(" req.body._id", req.body.activity._id);
     Activity.findOne({ _id: req.body.activity._id }, function (err, activity) {
         console.log('bulundu')
-        activity._id = req.body.activity._id
         activity.tagList = req.body.activity.tagList
         activity.header = req.body.activity.header
         activity.participationCount = req.body.activity.participationCount
@@ -172,6 +171,26 @@ router.put("/updateActivity", (req, res) => {
             res.status(200).json({
                 status: true,
                 message: "activity update successfully done"
+            })
+        })
+            .catch(error => {
+                res.status(200).json({
+                    status: false,
+                    message: error
+                })
+            });
+    })
+})
+
+router.put("/deleteActivity", (req, res) => {
+    console.log(" req.body._id", req.body.activity._id);
+    Activity.findOne({ _id: req.body.activity._id }, function (err, activity) {
+        console.log('bulundu')
+        activity.status = 4;
+        activity.save().then(result => {
+            res.status(200).json({
+                status: true,
+                message: "activity deleted successfully done"
             })
         })
             .catch(error => {

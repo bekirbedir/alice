@@ -6,6 +6,7 @@ import { UserService } from 'src/app/users/user.service';
 import { AdminUsersService } from 'src/app/admin-users/admin-users.service';
 import { MessageService } from 'primeng/api';
 import { Activity } from 'src/app/models/activity';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-admin-users',
@@ -70,4 +71,19 @@ export class AdminUsersComponent implements OnInit {
     this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Yapım aşamasında..' });
   }
 
+  
+  photoLinkCreate(link){
+    if(link == null || link == "")
+      link = "static/uploads/empty_activity.jpg";
+
+    return environment.apiBaseUrl +link
+  }
+  createActPhotoLink(link){
+  
+    if(link == null || link == "")
+      link = "empty_activity.png";
+
+    return environment.apiBaseUrl +"static/uploads/"+ link
+  }
+  
 }

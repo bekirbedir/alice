@@ -41,6 +41,8 @@ export class NewActivyComponent implements OnInit {
     this.activity = new Activity();
     this.baseUrl = environment.apiBaseUrl
     this.uploadUrl = this.baseUrl + "activity/upload"
+    this.activity.fileLink =  "empty_activity.jpg";
+    this.imgSrc = this.baseUrl+"static/uploads/"+this.activity.fileLink
 
   }
 
@@ -93,6 +95,7 @@ export class NewActivyComponent implements OnInit {
       console.log("activity", this.activity);
       this.activityService.addActivity(this.activity).subscribe(x => {
         if (x) {
+          this.activity = new Activity();
           this.messageService.add({ key: 'tc', severity: 'success', summary: 'Başarılı!', detail: 'Aktivite başarı ile oluşturuldu. Admin onayından sonra yayına alınacaktır. İyi eğlenceler' });
         }
       })
@@ -108,7 +111,7 @@ export class NewActivyComponent implements OnInit {
     this.imgSrc = this.baseUrl+"static/uploads/"+this.fileName
     console.log(this.imgSrc)
     this.deleteOld = true;
-    this.activity.fileLink = this.imgSrc;
+    this.activity.fileLink = this.fileName;
   }
 
 

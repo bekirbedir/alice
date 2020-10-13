@@ -67,6 +67,17 @@ updateActivity(activity:Activity): Observable<ResponseModel> {
     );
 } 
 
+deleteActivity(activity:Activity): Observable<ResponseModel> {
+  const transferObject = {activity:activity};
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+  return this._httpClient
+    .put<ResponseModel>(this.valuesUrl+"deleteActivity",object, { headers: header })
+    .pipe(
+      map((res) => res)
+    );
+} 
+
 
 
 

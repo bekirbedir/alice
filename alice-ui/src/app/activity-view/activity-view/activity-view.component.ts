@@ -148,5 +148,12 @@ export class ActivityViewComponent implements OnInit {
 
     return environment.apiBaseUrl +link
   }
+  createActPhotoLink(link){
+  
+    if(link == null || link == "")
+      link = "empty_activity.png";
+
+    return environment.apiBaseUrl +"static/uploads/"+ link
+  }
 
 }

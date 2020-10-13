@@ -132,7 +132,11 @@ router.post("/", (req, res) => {
             activity.like = req.body.like
             activity.date = req.body.date
             activity.context = req.body.context
-            activity.fileLink = req.body.fileLink
+            if(req.body.fileLink)
+                 activity.fileLink = req.body.fileLink
+            else{
+                activity.fileLink = req.body.fileLink
+            }
             activity.status = 1;
             activity.save().then(result => {
                 res.status(200).json({

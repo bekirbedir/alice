@@ -103,6 +103,18 @@ export class ActivityManagementComponent implements OnInit {
       }
     })
   }
+  deleteActivity() {
+    this.service.deleteActivity(this.activity).subscribe(x => {
+      this.response = x
+      if (x.status) {
+        this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Aktivite silindi' });
+        this.router.navigate(['/'])
+      }
+      else {
+        this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: x.message });
+      }
+    })
+  }
 
   handleChange(e) {
     var index = e.index;

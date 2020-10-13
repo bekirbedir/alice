@@ -41,7 +41,7 @@ router.get("/users/getPending", (request, response) => {
 
 router.get("/activity/getPending", (request, response) => {
   //buraya admin mi kontrolu eklenmeli
-  Activity.find({status: 1}, 'header , status', function (err, res) {
+  Activity.find({status: 1}, '_id , header , status , context , fileLink', function (err, res) {
 
     if (err) {
       console.log(err);

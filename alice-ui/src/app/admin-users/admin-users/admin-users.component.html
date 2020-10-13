@@ -28,7 +28,7 @@
               <td>{{user.biography}}</td>
               <td>{{user.phone}}</td>
               <td>{{user.email}}</td> 
-              <td *ngIf="user.status==2" > 
+              <td > 
                 <button type="button" (click)="userApprove(user)"  class="btn btn-success "> <i class="fa fa-check" aria-hidden="true"> </i> Onayla
                 </button>
                 <button type="button" (click)="userReject(user)"  class="btn btn-danger"> <i class="fa fa-ban" aria-hidden="true"> </i> Reddet
@@ -53,7 +53,14 @@
       <tbody>
         <tr *ngFor="let act of pendingActivity">
           <th scope="row">1</th>
-          <td><a href="{{act._id}}"> {{act.header}} </a> </td>
+          <td>
+            <p> {{act.header}} </p>
+            <br>
+            <p> {{act.context}} </p>
+            <br>
+            <img  class="act-photo-in-row img-thumbnail" [src]="createActPhotoLink(act.fileLink)"> 
+          
+          </td>
           <td  > 
             <button type="button" (click)="activityApprove(act)"  class="btn btn-success "> <i class="fa fa-check" aria-hidden="true"> </i> Onayla
             </button>
