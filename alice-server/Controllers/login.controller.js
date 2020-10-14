@@ -12,7 +12,6 @@ const sendMail = require("../Models/send.mail");
 
 
 router.post("/approve", (req, res) => {
-  console.log("loggin-- appproveee", req.body.code);
   pCode = req.body.code;
   pUsername = req.body.username;
 
@@ -48,50 +47,98 @@ router.post("/approve", (req, res) => {
 
 })
 
-router.get("/test", (req, response) => {
 
-  User.find( function (err, res) {
-    if (err) {
-      console.log(err);
-    }
-    if (res) {
-      response.send(res);
-    }
+router.post("/savePassword", (req, res) => {
+  pCode = req.body.code;
+  pUsername = req.body.username;
+  pNewPassword = req.body.newPassword;
 
-  }
-  )
+
+  User.findOne({ resetPasswordCode: pCode, username: pUsername }, function (err, user) {
+    if (user) {
+    
+      user.password = crypto.createHash('md5').update(pNewPassword).digest("hex");
+      user.resetPasswordCode = '';
+      user.updatedDate = Date.now();
+      user.mailOnayCode = '';
+
+      user.save().then(result => {
+        res.status(200).json({
+          status: true,
+          toastType: "success" ,
+          summary: "Başarılı" ,
+          message: "Şifreniz kaydedildi. Yeni şifre ile giriş yapabilirsiniz"
+        })
+      })
+        .catch(error => {
+          res.status(200).json({
+            status: false,
+            toastType: "error" ,
+            summary: "Hata" ,
+            message: "Hata oluştu; " + error
+          })
+        });
+    }
+    else {
+      res.status(200).json({
+        status: false,
+            toastType: "error" ,
+            summary: "Hata" ,
+            message: "Hata oluştu; " + error
+      })
+    }
+  })
 
 })
 
-router.post("/", (req, response) => {
-  let id = req.query.id;
 
-  Activity.findOne({ _id: id }, function (err, res) {
-    if (err) {
-      console.log(err);
+router.post("/resetPasswordRequest", (req, res) => {
+
+  pUsername = req.body.username;
+
+  User.findOne({$or:[ {'username':pUsername}, {'email':pUsername} ]}, function (err, user) {
+    if (user) {
+      user.updatedDate = Date.now();
+      user.resetPasswordCode = randomString(25, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ').trim();
+      user.save().then(result => {
+
+     
+        textHtml = "<b>Merhaba, ActivityFriend şifrenizi sıfırlama talebinizi aldık. </b><p><a href='https://www.activityfriend.com.tr/reset-password/" + result.resetPasswordCode + "/" + result.username + "'>Buraya tıklayarak şifrenizi yenileyebilirsiniz.</p><br><br>"
+        subject = "ActivityFriend şifre sıfırlama"
+        mailler.main(result.email, subject, textHtml);
+        const sendMail = new SendMail();
+        sendMail.userId = result._id;
+        sendMail.username = result.username;
+        sendMail.textHtml = textHtml;
+        sendMail.receivedMail = result.email;
+        sendMail.type = 6;
+        sendMail.createdDate = new Date();
+        sendMail.save();
+
+        res.status(200).json({
+          status: true,
+          toastType: 'success',
+          message: "Sistemde kayıtlı olan mail adresinize, şifre sıfırlama maili gönderildi."
+        })
+      })
+        .catch(error => {
+          res.status(200).json({
+            status: false,
+            toastType: "error" ,
+            summary: "Hata" ,
+            message: "Hata oluştu; " + error
+          })
+        });
     }
-    if (res) {
-      response.send(res);
+    else {
+      res.status(200).json({
+        status: false,
+        toastType: "error" ,
+        summary: "Hata" ,
+        message: 'Böyle bir kullanıcı adı veya mail bulunamadı' 
+      })
     }
-
-  }
-  )
-
-})
-
-router.get("/", (req, response) => {
-  let id = req.query.id;
-
-  Activity.findOne({ _id: id }, function (err, res) {
-    if (err) {
-      console.log(err);
-    }
-    if (res) {
-      response.send(res);
-    }
-
-  }
-  )
+  })
 
 })
 

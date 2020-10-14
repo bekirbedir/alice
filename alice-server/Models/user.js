@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   password:String,
   isActive:Boolean,
   role:String,
+  resetPasswordCode:String,
   tagList:[String],
   email:String,
   phone: String,

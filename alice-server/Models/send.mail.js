@@ -16,4 +16,5 @@ admin kullaniciyi onayladi: 2
 aktivite acildi: 3
 yenimesaj: 4 
 yenigrupmesaj:5
+şifresıfırlama: 6
 */

@@ -67,6 +67,10 @@ const routes: Routes = [
   {
     path: 'biz-kimiz',
     loadChildren: () => import('./info/info.module').then(m => m.InfoModule)
+  },
+  {
+    path: 'reset-password',
+    loadChildren: () => import('./forgot-password/forgot-password.module').then(m => m.ForgotPasswordModule)
   }
 
   

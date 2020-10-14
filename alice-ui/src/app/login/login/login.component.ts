@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
   isApprove = false;
   isApproveOk = false;
 
-  constructor(private loginservice:LoginService,private router:Router , private actRoute:ActivatedRoute , private messageService: MessageService ) { 
+  constructor(private loginservice:LoginService,private router:Router , 
+    private actRoute:ActivatedRoute , private messageService: MessageService ) { 
         
     this.actRoute.paramMap.subscribe(params => {
      
@@ -79,6 +80,9 @@ export class LoginComponent implements OnInit {
   }
   routeSignup(){
     this.router.navigate(['/signup'])
+  }
+  routeResetPassword(){
+    this.router.navigate(['/reset-password'])
   }
 
   approve(code:String,username:String){

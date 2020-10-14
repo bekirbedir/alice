@@ -93,6 +93,37 @@ export class LoginService {
       );
   }
 
+  
+  resetPasswordRequest(username: String):Observable<ResponseModel> {
+    const transferObject = {
+        username: username
+    }
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    const self = this;  
+    return this.http
+      .post<ResponseModel>(this.valuesUrl+'login/resetPasswordRequest',object,{headers: header})
+      .pipe( 
+       map((res) => res)
+      );
+  }
+
+  savePassword(username: String, code: String , newPassword: String):Observable<ResponseModel> {
+    const transferObject = {
+        username: username,
+        newPassword:newPassword,
+        code: code
+    }
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    const self = this;  
+    return this.http
+      .post<ResponseModel>(this.valuesUrl+'login/savePassword',object,{headers: header})
+      .pipe( 
+       map((res) => res)
+      );
+  }
+
   notificationCount():Observable<any> {
     let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     const self = this;  
