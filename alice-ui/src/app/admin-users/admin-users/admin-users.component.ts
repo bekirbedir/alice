@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 export class AdminUsersComponent implements OnInit {
 
   pendingUsers: UserModel[];
+  allUsers: UserModel[];
   pendingActivity: Activity[];
 
   constructor(private userService: UserService, private adminUserService: AdminUsersService, private messageService:MessageService) { }
@@ -26,6 +27,11 @@ export class AdminUsersComponent implements OnInit {
   }
 
   getPendingUser() {
+    this.adminUserService.getPendingUsers().subscribe(x => {
+      this.pendingUsers = x
+    })
+  }
+  getAllUsers() {
     this.adminUserService.getPendingUsers().subscribe(x => {
       this.pendingUsers = x
     })
@@ -51,6 +57,8 @@ export class AdminUsersComponent implements OnInit {
       this.getPendingUser();
     if (index == 1)
       this.getPendingActivity();
+    if (index == 3)
+      this.getAllUsers();
   }
 
   activityApprove(activity: Activity) {

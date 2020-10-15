@@ -88,11 +88,28 @@
   <p-tabPanel header="Tüm kullanıcılar" rightIcon="pi pi-times">
     <table class="table table-striped">
       <thead>
-      
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Kullanıcı</th>
+          <th scope="col">Biyografi</th>
+          <th scope="col">Telefon</th>
+          <th scope="col">Email</th>
+          <th scope="col">Onay Durumu</th>
+        </tr>
       </thead>
       <tbody>
+        <tr *ngFor="let user of allUsers">
+          <th scope="row">1</th>
+          <td>{{user.username}}</td>
+          <td>{{user.biography}}</td>
+          <td>{{user.phone}}</td>
+          <td>{{user.email}}</td> 
+          <td > 
+            <button type="button" (click)="userReject(user)"  class="btn btn-danger"> <i class="fa fa-ban" aria-hidden="true"> </i> Sil
+            </button>
+          </td>
+        </tr>
        
-
       </tbody>
     </table>
   </p-tabPanel>

@@ -24,6 +24,14 @@ getPendingUsers(): Observable<UserModel[]> {
     );
 } 
 
+getAllUsers(): Observable<UserModel[]> {
+  return this._httpClient
+    .get<UserModel[]>(this.valuesUrl+"users/getAllUsers")
+    .pipe(
+      map((res) => res),
+    );
+} 
+
 
 getPendingActivity(): Observable<Activity[]> {
   return this._httpClient

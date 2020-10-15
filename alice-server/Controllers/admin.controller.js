@@ -38,6 +38,21 @@ router.get("/users/getPending", (request, response) => {
   )
 
 })
+router.get("/users/getAllUsers", (request, response) => {
+  //buraya admin mi kontrolu eklenmeli
+  User.find({status:3}, function (err, res) {
+
+    if (err) {
+      console.log(err);
+      response.send(err);
+    }
+    if (res) {
+      response.send(res);
+    }
+  }
+  )
+
+})
 
 router.get("/activity/getPending", (request, response) => {
   //buraya admin mi kontrolu eklenmeli
