@@ -15,6 +15,7 @@ const routes: Routes = [
     component: ForgotPasswordComponent
 
   },
+  
   {
     path: ':code/:username',
     component: ForgotPasswordComponent

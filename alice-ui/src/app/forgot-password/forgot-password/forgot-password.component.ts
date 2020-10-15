@@ -15,6 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
   pCode:String;
 
   password:String;
+  passwordRepeat:String;
   pUsername:String;
   newPassword:Boolean = false;
 
@@ -45,8 +46,9 @@ export class ForgotPasswordComponent implements OnInit {
     }
     
     this.loginService.resetPasswordRequest(this.username).subscribe(x=>{
-      if(x.status){
-        this.messageService.add({ key: 'tc', severity: x.toastType, summary: 'Hata', detail:x.message });
+      if(x){
+        this.messageService.add({ key: 'tc', severity: x.toastType, summary: x.summary, detail:x.message });
+        this.username = '';
       }
     })
   }
@@ -57,12 +59,23 @@ export class ForgotPasswordComponent implements OnInit {
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Geçerli bir veri giriniz' });
       return false;
     }
+
+    if(this.password.trim() != this.passwordRepeat.trim()){
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Girilen şifreler eşleşmiyor, kontrol ediniz' });
+      return false;
+    }
     
-    this.loginService.resetPasswordRequest(this.username).subscribe(x=>{
-      if(x.status){
-        this.messageService.add({ key: 'tc', severity: x.toastType, summary: 'Hata', detail:x.message });
+    this.loginService.savePassword(  this.pUsername ,this.pCode ,this.passwordRepeat).subscribe(x=>{
+      if(x){
+        this.messageService.add({ key: 'tc', severity: x.toastType, summary: x.summary, detail:x.message });
+        this.passwordRepeat = '';
+        this.password = '';
       }
     })
+  }
+
+  routeLogin() {
+    this.router.navigate(['/login'])
   }
 
   

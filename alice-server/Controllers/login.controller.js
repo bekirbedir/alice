@@ -56,13 +56,28 @@ router.post("/savePassword", (req, res) => {
 
   User.findOne({ resetPasswordCode: pCode, username: pUsername }, function (err, user) {
     if (user) {
-    
+      console.log("pUsername",pUsername)
+      console.log("pNewPassword",pNewPassword)
       user.password = crypto.createHash('md5').update(pNewPassword).digest("hex");
+      console.log(" user.password", user.password)
       user.resetPasswordCode = '';
       user.updatedDate = Date.now();
       user.mailOnayCode = '';
 
       user.save().then(result => {
+
+        textHtml = "<b>Merhaba, ActivityFriend şifreniz yenilendi </b><p><a href='https://www.activityfriend.com.tr/login/'>Buraya tıklayarak giriş yapabilirsiniz.</p><br><br>"
+        subject = "ActivityFriend şifreniz yenilendi"
+        mailler.main(result.email, subject, textHtml);
+        const sendMail = new SendMail();
+        sendMail.userId = result._id;
+        sendMail.username = result.username;
+        sendMail.textHtml = textHtml;
+        sendMail.receivedMail = result.email;
+        sendMail.type = 7;
+        sendMail.createdDate = new Date();
+        sendMail.save();
+
         res.status(200).json({
           status: true,
           toastType: "success" ,
@@ -81,10 +96,10 @@ router.post("/savePassword", (req, res) => {
     }
     else {
       res.status(200).json({
-        status: false,
+            status: false,
             toastType: "error" ,
             summary: "Hata" ,
-            message: "Hata oluştu; " + error
+            message: "Linkin kullanım süresi dolmuş veya kullanıcı bulunamadı."
       })
     }
   })
@@ -230,7 +245,10 @@ router.post("/login", (req, res) => {
   else {
 
     const username = req.body.username;
+    console.log(req.body.username)
+    console.log(req.body.password)
     const password = crypto.createHash('md5').update(req.body.password).digest("hex");
+    console.log(password)
     const potentialUser = { $or:[ {'username':username}, {'email':username} ], password: password, status: 3 };
     User.findOne(potentialUser)
       .then(user => {
