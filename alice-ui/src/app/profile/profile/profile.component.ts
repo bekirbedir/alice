@@ -28,6 +28,10 @@ export class ProfileComponent {
   imgHidden: Boolean = true;
   imgSrc: String;
   deleteOld:Boolean = false;
+  currentPassword:String;
+  password:String;
+  passwordRepeat:String;
+  passwordChangeAction:Boolean=false;
   
   constructor(private service: ProfilService, private _sanitizer: DomSanitizer,
     private imageCompress: NgxImageCompressService,
@@ -157,6 +161,45 @@ export class ProfileComponent {
 
     })
 
+  }
+
+  isPasswordValidation(){
+    let isValid = true;
+    if(this.currentPassword == null || this.currentPassword == "" ){
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şuanki şifre boş olamaz'  });
+      isValid = false;
+    }
+    if(this.password == null || this.password == "" ){
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şifre boş olamaz'  });
+      isValid = false;
+    }
+    if(this.passwordRepeat == null || this.passwordRepeat == "" ){
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şifre tekrarı boş olamaz'  });
+      isValid = false;
+    }
+    if(this.passwordRepeat.trim() != this.password.trim()){
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şifreler eşleşmiyor'  });
+      isValid = false;
+    }
+
+    return isValid
+  }
+  
+
+  passwordChange(){
+    if(this.isPasswordValidation()){
+      this.service.savePassword(this.User.username,this.currentPassword,this.password,this.passwordRepeat).subscribe(x => {
+        if (x){
+          if(x.status)
+            this.passwordChangeAction = false
+
+          this.messageService.add({ key: 'tc', severity: x.toastType, summary: x.summary, detail:x.message });
+        
+        }
+      })
+    
+    }
+   
   }
 
   photoLinkCreate(link){

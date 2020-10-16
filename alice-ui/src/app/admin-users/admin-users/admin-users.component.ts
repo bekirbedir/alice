@@ -32,8 +32,8 @@ export class AdminUsersComponent implements OnInit {
     })
   }
   getAllUsers() {
-    this.adminUserService.getPendingUsers().subscribe(x => {
-      this.pendingUsers = x
+    this.adminUserService.getAllUsers().subscribe(x => {
+      this.allUsers = x
     })
   }
   getPendingActivity() {

@@ -16,10 +16,14 @@ module.exports = (req, res, next) => {
                 console.log('userstatus:' , user.status)
                 console.log('user.role', user.role)
                 if( user.role != "ROLE_ADMIN"){
-                    return false ;
+                    res.status(200).json({
+                        status: false,
+                        message: "Yetkisiz erişim,not admin " 
+                    })
                 }
                 else{
                     req.userIsAdmin = true;
+                    next();
                 }
             }
             else {
@@ -33,7 +37,7 @@ module.exports = (req, res, next) => {
         //admin kontrol
 
 
-        next();
+       
     }catch(error) {
         console.log("authguard admin cactch")
         return res.status(401).send({

@@ -79,6 +79,26 @@ export class ProfilService {
         map((res) => res),
       );
   }
+
+  savePassword(username:String,currentPassword:String, password:String , repeatPassword: String): Observable<ResponseModel> {
+
+    const transferObject = {
+      username:username,
+      currentPassword:currentPassword,
+      password:password,
+      repeatPassword:repeatPassword
+    };
+
+
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    const self = this;
+    return this._httpClient
+      .post<ResponseModel>(this.valuesUrl + "savePassword", object, { headers: header })
+      .pipe(
+        map((res) => res),
+      );
+  }
   userReject(user: UserModel): Observable<ResponseModel> {
     const transferObject = user;
 

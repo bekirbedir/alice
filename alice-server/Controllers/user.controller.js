@@ -83,6 +83,7 @@ router.post("/detail", (req, res) => {
 })
 
 
+
 router.put("/updateUser", (req, res) => {
 
   User.findOne({ _id: req.body._id }, function (err, user) {
@@ -108,6 +109,8 @@ router.put("/updateUser", (req, res) => {
   })
 })
 
+
+
 router.post('/upload', multipartMiddleware, (req, res) => {
      
  let photoLink = req.files.photo.path.replace("\\","/").replace("\\","/").replace("\\","/").split("/")[3]                            
@@ -122,6 +125,51 @@ router.post('/upload', multipartMiddleware, (req, res) => {
       photoLink: photoLink
   });
 });
+
+
+router.post("/savePassword", (req, res) => {
+
+  pUsername = req.body.username;
+  pCurrentPassword = req.body.currentPassword;
+  pPassword = req.body.password;
+  pRepeatPassword = req.body.repeatPassword;
+
+  hashCurrentPassword = crypto.createHash('md5').update(pCurrentPassword).digest("hex");
+
+
+  User.findOne({ password: hashCurrentPassword, username: pUsername }, function (err, user) {
+    if (user) {
+
+      user.password = crypto.createHash('md5').update(pRepeatPassword).digest("hex");
+      user.updatedDate = Date.now();
+          user.save().then(result => {
+        res.status(200).json({
+          status: true,
+          toastType: "success" ,
+          summary: "Başarılı" ,
+          message: "Şifreniz kaydedildi. Yeni şifre ile giriş yapabilirsiniz"
+        })
+      })
+        .catch(error => {
+          res.status(200).json({
+            status: false,
+            toastType: "error" ,
+            summary: "Hata" ,
+            message: "Hata oluştu; " + error
+          })
+        });
+    }
+    else {
+      res.status(200).json({
+            status: false,
+            toastType: "error" ,
+            summary: "Hata" ,
+            message: "Şuanki şifrenizi yanlış girdiniz"
+      })
+    }
+  })
+
+})
 
 
 

@@ -8,34 +8,72 @@
         <p-card>
             <div class="p-grid">
                 <div class="p-col-12 text-align-center">
-                 
-                    <img  class="header-photo img-thumbnail" [src]="photoLinkCreate(User.fileLink)"> 
-                  
 
-                    <p-fileUpload [hidden]="!isEditable" name="photo" multiple="false" 
-                    [auto]="true"
-                    invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
-                    invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB"
-                    maxFileSize="3145728"
-                    uploadLabel="Yükle"
-                    chooseLabel="Profil Resmi Yükle"
-                    cancelIcon="Vazgeç"
-                    (onUpload)="onBasicUpload($event)" 
-                    invalidFileTypeMessageDetail="Geçersiz dosya tipi, lütfen resim yükleyin"
-                     accept="image/*" [url]='uploadUrl'></p-fileUpload>
+                    <img class="header-photo img-thumbnail" [src]="photoLinkCreate(User.fileLink)">
+
+
+                    <p-fileUpload [hidden]="!isEditable" name="photo" multiple="false" [auto]="true"
+                        invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
+                        invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB" maxFileSize="3145728"
+                        uploadLabel="Yükle" chooseLabel="Profil Resmi Yükle" cancelIcon="Vazgeç"
+                        (onUpload)="onBasicUpload($event)"
+                        invalidFileTypeMessageDetail="Geçersiz dosya tipi, lütfen resim yükleyin" accept="image/*"
+                        [url]='uploadUrl'></p-fileUpload>
+
+
+                    <p [hidden]="!(isEditable && !passwordChangeAction)" >
+                        <label (click)="passwordChangeAction = true" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
+                                aria-hidden="true"></i> Şifre Değiştir</label>
+                    </p>
+                    <div [hidden]="!(isEditable && passwordChangeAction)">
+                        <!--  -->
+
+                        <div class="p-field w-100">
+                            <label for="current-pass">Şuanki şifre</label>
+                            <br>
+                            <input id="current-pass" type="password" aria-describedby="username1-help" class="w-100"
+                                pInputText [(ngModel)]="currentPassword" />
+
+                        </div>
+
+                        <div class="p-field w-100">
+                            <label for="new-pass">Yeni şifre</label>
+                            <br>
+                            <input id="new-pass" type="password" aria-describedby="username1-help" class="w-100"
+                                pInputText [(ngModel)]="password" />
+
+                        </div>
+
+                        <div class="p-field w-100">
+                            <label for="new-pass">Yeni şifre tekrar</label>
+                            <br>
+                            <input id="new-pass" type="password" aria-describedby="username1-help" class="w-100"
+                                pInputText [(ngModel)]="passwordRepeat" />
+
+                        </div>
+
+                        <p class="p-col-12">
+                            <label class="p-col-6" (click)="passwordChange()" class="upload-photo-btn"> <i class="fa fa-unlock-alt"
+                                    aria-hidden="true"></i> Şifreyi kaydet</label>
+                             <label class="p-col-6" (click)="passwordChangeAction = false" class="cancel-btn"> <i class="fa fa-unlock-alt"
+                                        aria-hidden="true"></i> Vazgeç</label>
+                        </p>
+
+                        <!--  -->
+                    </div>
 
                     <span [hidden]="!isEditable">
-                    <p [hidden]="editMode" >
-                        <label  (click)="editMode=true" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
-                                aria-hidden="true"></i> Düzenle</label>
-                    </p>
+                        <p [hidden]="editMode">
+                            <label (click)="editMode=true" class="upload-photo-btn"> <i class="fa fa-edit"
+                                    aria-hidden="true"></i> Profili Düzenle</label>
+                        </p>
                     </span>
-                    <p [hidden]="!editMode" >
-                        <label  (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
+                    <p [hidden]="!editMode">
+                        <label (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-save"
                                 aria-hidden="true"></i> Kaydet</label>
                     </p>
-                    <p [hidden]="!editMode" >
-                        <label  (click)="editMode = false" class="cancel-btn"> <i class="fa fa-times"
+                    <p [hidden]="!editMode">
+                        <label (click)="editMode = false" class="cancel-btn"> <i class="fa fa-times"
                                 aria-hidden="true"></i> Vazgeç</label>
                     </p>
 
@@ -53,11 +91,11 @@
                     <br>
                     <p class="username"><a href="#"><b>Kullanıcı Adı: </b>@{{User.username}}</a></p>
                     <br>
-                    <p [hidden]="!isEditable" class="username"><a ><b>Telefon: </b>{{User.phone}}</a></p>
-                    <p [hidden]="isEditable" class="username"><a ><b>Telefon: </b>*******</a></p>
+                    <p [hidden]="!isEditable" class="username"><a><b>Telefon: </b>{{User.phone}}</a></p>
+                    <p [hidden]="isEditable" class="username"><a><b>Telefon: </b>*******</a></p>
                     <br>
 
-                    <p  [hidden]="!(isEditable && !editMode)" class="email"><b>Email :</b>{{User.email}}</p>
+                    <p [hidden]="!(isEditable && !editMode)" class="email"><b>Email :</b>{{User.email}}</p>
 
                     <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
                         <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email"
@@ -71,7 +109,7 @@
                     <p [hidden]="editMode" class="bio-context">{{User.biography}}</p>
 
                     <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
-                        <textarea id="input-bio" [rows]="10" class="w-100" pInputTextarea 
+                        <textarea id="input-bio" [rows]="10" class="w-100" pInputTextarea
                             [(ngModel)]="User.biography"></textarea>
                         <label for="float-input">Seni tanıyabilmemiz için biraz kendinden bahseder misin?</label>
                     </span>
@@ -115,14 +153,14 @@
                             class="fa fa-frown-o" aria-hidden="true"></i> </button>
                 </div>
             </div>
-           
-            <p [hidden]="!editMode" >
-                <label  (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
+
+            <p [hidden]="!editMode">
+                <label (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
                         aria-hidden="true"></i> Kaydet</label>
             </p>
-            <p [hidden]="!editMode" >
-                <label  (click)="editMode = false" class="cancel-btn"> <i class="fa fa-times"
-                        aria-hidden="true"></i> Vazgeç</label>
+            <p [hidden]="!editMode">
+                <label (click)="editMode = false" class="cancel-btn"> <i class="fa fa-times" aria-hidden="true"></i>
+                    Vazgeç</label>
             </p>
 
         </p-card>
