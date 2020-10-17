@@ -42,4 +42,5 @@ export class CommunicationComponent implements OnInit {
      }
     })
   }
+  showResponse(){}
 }

@@ -14,7 +14,7 @@ import { EditorModule } from 'primeng/editor';
 import { RouterModule, Routes } from '@angular/router';
 import { ToastModule } from 'primeng/toast';
 import { CardModule } from 'primeng/card';
-
+import {CaptchaModule} from 'primeng/captcha';
 const routes: Routes = [
   { 
     path: '',
@@ -37,7 +37,7 @@ const routes: Routes = [
     TabViewModule,
     FormsModule,
     CardModule,
- 
+    CaptchaModule,
     RouterModule.forChild(routes),
   ]
 })
