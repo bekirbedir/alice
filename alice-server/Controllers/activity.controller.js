@@ -21,11 +21,14 @@ const multipartMiddleware = multipart({ uploadDir: './public/uploads' }); //bu c
 
 
 router.get("/getall", async (request, response, next) => {
-
+    let search = request.query.q;
+  
+    console.log("searchtostring()" , search.toString())
     try {
         console.log("pathhh", path.join(__dirname));
         console.log("test-------------------basla")
-        const activityList = await Activity.find({ status: 3, date: { "$gt": Date.now() } }, null, { sort: '-createdDate' }).
+      //  const activityList = await Activity.find({ status: 3, date: { "$gt": Date.now() } }, null, { sort: 'date' }).
+        const activityList = await Activity.search(search,{ status: 3, date: { "$gt": Date.now() } }, null, { sort: 'date' }).
         populate({ path: 'user', Model: '../Models/user' ,select:'_id username name email fileLink' }).exec();
 
         //   console.log("activityList", activityList[0].user.username)
@@ -36,7 +39,7 @@ router.get("/getall", async (request, response, next) => {
     catch (error) {
         console.log(error);
         return response.json(error);
-    }
+    } 
 
 })
 

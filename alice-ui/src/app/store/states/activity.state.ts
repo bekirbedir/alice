@@ -35,7 +35,7 @@ export class ActivityState {
 
     @Action(GetActivities)
     getActivities({ getState, setState }: StateContext<ActivitiesStateModel>) {
-        return this.activityService.getActivityList().pipe(tap((result) => {
+        return this.activityService.getActivityList('').pipe(tap((result) => {
             const state = getState();
             setState({
                 ...state,

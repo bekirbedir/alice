@@ -17,9 +17,14 @@ export class ActivityService {
   private valuesGetActivityUrl = environment.apiBaseUrl + "activity-view";
   
   constructor(private _httpClient:HttpClient) { }
-  getActivityList(): Observable<Activity[]> {
+  getActivityList(search:String ): Observable<Activity[]> {
+   let link = this.valuesUrl+"getall?q="
+    
+   if(search != '')
+   link = this.valuesUrl+"getall?q="+search
+
     return this._httpClient
-      .get<Activity[]>(this.valuesUrl+"getall")
+      .get<Activity[]>(link)
       .pipe(
         map((res) => res)
       );

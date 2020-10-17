@@ -157,15 +157,15 @@ router.delete("/", (req, res) => {
 })
 
 router.put("/updateActivity", (req, res) => {
-    console.log(" req.body._id", req.body.activity._id);
+    console.log(" req.body._id", req.body.activity.context);
     Activity.findOne({ _id: req.body.activity._id }, function (err, activity) {
         console.log('bulundu')
+        activity.context = req.body.activity.context
         activity.tagList = req.body.activity.tagList
         activity.header = req.body.activity.header
         activity.participationCount = req.body.activity.participationCount
         activity.like = req.body.activity.like
         activity.date = req.body.activity.date
-        activity.context = req.body.context
         activity.status = 1;
         activity.save().then(result => {
             res.status(200).json({

@@ -37,9 +37,10 @@ export class ActivitiesComponent implements OnInit {
   selectedActivityItem: Activity;
   activiteUserStatuses: ActivityUserStatus[]
   loading:Boolean
+  searchWord:String;
   private isActiveUserId = localStorage.getItem('userId');
 
-  @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
+//  @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
   constructor(
     private loginservice: LoginService,
     private service: ActivityService,
@@ -76,7 +77,7 @@ export class ActivitiesComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.service.getActivityList().subscribe(x => {
+    this.service.getActivityList('').subscribe(x => {
       this.activities = x;
       if (x) {
         this.getActivityUserStatusList();
@@ -255,7 +256,18 @@ export class ActivitiesComponent implements OnInit {
     return environment.apiBaseUrl +"static/uploads/"+ link
   }
   
+  searchFilter(e){
 
+    this.loading = true
+    this.service.getActivityList(this.searchWord).subscribe(x => {
+      this.activities = x;
+      if (x) {
+        this.loading = false
+        this.getActivityUserStatusList();
+
+      }
+    }); 
+  }
   filter() {
     this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Yapım aşamasında..' });
   }

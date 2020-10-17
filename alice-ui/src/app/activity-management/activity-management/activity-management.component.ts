@@ -27,6 +27,7 @@ export class ActivityManagementComponent implements OnInit {
   limitedParticipant: boolean = false;
   activityheader: String;
   tr: any;
+  edited:Boolean=false;
   constructor(private service: ActivityManagementService, private messageService: MessageService, 
     private _sanitizer: DomSanitizer, private imageCompress: NgxImageCompressService,
     private router: Router,) {
@@ -97,6 +98,7 @@ export class ActivityManagementComponent implements OnInit {
       this.response = x
       if (x.status) {
         this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Aktivite kaydedildi,yönetici onayından sonra yeniden yayınlanacaktır..' });
+      this.edited = true;
       }
       else {
         this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: x.message });

@@ -11,9 +11,7 @@
     font-weight: 800;
     color:darkturquoise;
 }
-.act-header-user-name{
-  
-}
+
 .act-header-photo{
     object-fit: cover;
     width: 150px;
@@ -68,4 +66,8 @@
     transform: -moz-translate(-50%, -50%);
     transform: -ms-translate(-50%, -50%);
     color:darkred;
+  }
+  .search-button{
+    border: 1px solid !important;
+    background-color: white !important;
   }

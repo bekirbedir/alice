@@ -10,9 +10,12 @@
         <div class="p-grid">
         <div class="p-col-12 text-align-center">
          
-          <img class="act-header-photo img-thumbnail"  [src]="photoLinkCreate(activityStatic.user.fileLink)" >
+          <img (click)="routeProfile(activityStatic.user._id)"  class="act-header-photo img-thumbnail"  [src]="photoLinkCreate(activityStatic.user.fileLink)" >
         </div>
         <div class="p-col-12 act-content">
+          <div *ngIf="isOwner" class="p-col-12 font-size-1-5em">
+            <button (click)="activityManagement(activityStatic)" type="button" class="btn btn-secondary cursor-pointer p-col-12"> <i class="fa fa-cogs" aria-hidden="true"> </i> Yönet</button>
+          </div>
             <p class="act-header-user-name"><a>@{{activityStatic.user.username}}</a></p>
            <p class="act-header-name">{{activityStatic.header}}</p>
            <div class="h-10"></div>
@@ -41,7 +44,7 @@
             <div class="p-grid">
                 <div (click)="viewComments(activityStatic)" class="p-col-6 act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
            
-                <div *ngIf="activityStatic.currentUserStatus == 0" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+                <div [hidden] ="isOwner"  *ngIf="activityStatic.currentUserStatus == 0" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
                   <button type="button" (click)="joinActivity(activityStatic)" class=" btn btn-primary w-100"> <i class="pi pi-sign-in" aria-hidden="true"> </i> Katıl</button>
               </div>
               <div *ngIf="activityStatic.currentUserStatus == 1" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
