@@ -42,5 +42,10 @@ export class CommunicationComponent implements OnInit {
      }
     })
   }
-  showResponse(){}
+  showResponse(){
+    this.communicationService.showCaptchaResponse().subscribe(data => {
+        console.log("Data: ",data
+    })
+
+  }
 }

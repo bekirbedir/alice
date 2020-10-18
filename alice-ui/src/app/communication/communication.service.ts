@@ -16,6 +16,17 @@ export class CommunicationService {
 
   constructor(private httpClient:HttpClient) { }
  
+  showCaptchaResponse():Observable<ResponseModel>{
+    return this.httpClient
+  .post<ResponseModel>("https://www.google.com/recaptcha/api/siteverify",{secret: "6LfbtNgZAAAAACcP8pXNd3T3pYXq1j1IjrW7eSYw", 
+  response:"6LfbtNgZAAAAAHyU44M70pcVFzU360FOLWNfRzPr"})
+  .pipe(
+    map((res) => res),
+  );
+  
+  }
+
+
   createInfo(mail: String,firstname: String,lastname: String,eMail: String,phone: String,comment: String):Observable<ResponseModel>{
   let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
   const transferObject = {
@@ -25,9 +36,9 @@ export class CommunicationService {
     phone: phone,
     mail: mail,
     comment: comment
-}
+  }
 
-const object = JSON.stringify(transferObject);
+  const object = JSON.stringify(transferObject);
   console.log(mail);
   return this.httpClient
   .post<ResponseModel>(this.valuesUrl+'communication/createInfo',object,{headers: header})
