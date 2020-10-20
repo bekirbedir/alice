@@ -16,17 +16,40 @@ export class CommunicationService {
 
   constructor(private httpClient:HttpClient) { }
  
-  showCaptchaResponse():Observable<ResponseModel>{
+  showCaptchaResponse():Observable<any>{
+    const transferObject = {
+      secret: "6LfbtNgZAAAAACcP8pXNd3T3pYXq1j1IjrW7eSYw", 
+      response:"6LfbtNgZAAAAAHyU44M70pcVFzU360FOLWNfRzPr"
+    }
+
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    
     return this.httpClient
-  .post<ResponseModel>("https://www.google.com/recaptcha/api/siteverify",{secret: "6LfbtNgZAAAAACcP8pXNd3T3pYXq1j1IjrW7eSYw", 
-  response:"6LfbtNgZAAAAAHyU44M70pcVFzU360FOLWNfRzPr"})
-  .pipe(
-    map((res) => res),
-  );
+    .post<any>("https://www.google.com/recaptcha/api/siteverify",transferObject,{headers:transferObject})
+    .pipe(
+      map((res) => res),
+    );
   
   }
 
+  showCaptchaResponseForUserVerify():Observable<any>{
+    const transferObject = {
+      secret: "6LfbtNgZAAAAACcP8pXNd3T3pYXq1j1IjrW7eSYw", 
+      response:"6LfbtNgZAAAAAHyU44M70pcVFzU360FOLWNfRzPr"
+    }
 
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    
+    return this.httpClient
+    .get<any>("https://www.google.com/recaptcha/api2/userverify?k="+transferObject.secret,{headers: header})
+    .pipe(
+      map((res) => res),
+    );
+  
+  }
+  
   createInfo(mail: String,firstname: String,lastname: String,eMail: String,phone: String,comment: String):Observable<ResponseModel>{
   let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
   const transferObject = {
