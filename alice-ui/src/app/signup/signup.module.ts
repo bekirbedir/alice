@@ -25,6 +25,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import {InputMaskModule} from 'primeng/inputmask';
 import { ChipsModule } from 'primeng/chips';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {CaptchaModule} from 'primeng/captcha';
 
 
 const routes: Routes = [
@@ -58,6 +59,7 @@ const routes: Routes = [
         InputMaskModule,
         ChipsModule,
         SelectButtonModule,
+        CaptchaModule,
         RouterModule.forChild(routes),
   ],
 

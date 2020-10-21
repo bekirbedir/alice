@@ -20,6 +20,7 @@ export class SignupComponent implements OnInit {
   user: User
   tr:any
   cinsiyetler: SelectItem[];
+  captchaCheck: Boolean= false;
   constructor(private router: Router, private registerservice: UserService, private messageService: MessageService) {
     this.user = new User();
   }
@@ -43,10 +44,27 @@ export class SignupComponent implements OnInit {
   routeLogin() {
     this.router.navigate(['/login'])
   }
+  showResponse(response) {
+    //call to a backend to verify against recaptcha with private key
 
+    console.log('response', response)
+    if(response){
+      this.captchaCheck = true;
+    }
+
+  /*  this.registerservice.captchaControl(response).subscribe(x => {
+      console.log('sdfsdfsds')
+    }) */
+}
 
   isValidate() {
     let isControl = true;
+
+    if(!this.captchaCheck ){
+      isControl = false;
+      return isControl;
+    }
+
     if (this.user.username == null || this.user.username == "") {
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Kullanıcı Adı boş olamaz' });
       isControl = false;
@@ -104,6 +122,7 @@ export class SignupComponent implements OnInit {
           this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Başarılı', detail: 'Kaydınız alındı. Mail adresinizi onaylayın lütfen' });
           this.mailOnayBilgisi = true;
           this.buttonEnabled = false;
+          this.captchaCheck = false;
           this.user = new User();
         }
         else{

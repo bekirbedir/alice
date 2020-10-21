@@ -89,6 +89,10 @@
             <div class="p-col-12"><p-checkbox [(ngModel)]="checked" label="Sözleşmeyi okudum ve kabul ediyorum." binary="true"></p-checkbox></div>
           
           </div>
+
+          <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=initRecaptcha" async defer></script>
+          <p-captcha siteKey="6LfbtNgZAAAAAHyU44M70pcVFzU360FOLWNfRzPr" (onResponse)="showResponse($event)"></p-captcha>
+
           <div class="p-grid" >
            
             <div class="p-col-6">

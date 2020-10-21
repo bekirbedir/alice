@@ -22,6 +22,10 @@ const communicationRouter = require("./Controllers/communication.controller");
 const adminRouter = require("./Controllers/admin.controller");
 const notificationRouter = require("./Controllers/notification.controller");
 
+
+
+
+
 var router = express.Router(); 
 // app.use('/users/',auhtguard, usersRouter);
 app.use('/users/', auhtguardUser,usersRouter);
@@ -40,16 +44,13 @@ const port= process.env.PORT || 3000;
 var server =app.listen(port, () => {
   console.log(`localhost:${port} -> api working !!! `);
 });
+/*
+app.get('/captchaControl', recaptcha.middleware.render, function(req, res){
+  console.log('---------------------',recaptcha)
+  
+ 
+}); */
 
-const fs = require("fs")
-
-fs.mkdir(path.join(__dirname)+"/public/uploads", function(err) {
-  if (err) {
-    console.log(err)
-  } else {
-    console.log("New directory successfully created.")
-  }
-})
 
 
 

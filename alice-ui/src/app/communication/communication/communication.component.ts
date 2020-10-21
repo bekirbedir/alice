@@ -18,6 +18,7 @@ export class CommunicationComponent implements OnInit {
   phone: "";
   comment: "";
   sended :Boolean= false;
+  captchaCheck: Boolean= false;
 
   ngOnInit(): void { 
     this.firstname,
@@ -32,6 +33,13 @@ export class CommunicationComponent implements OnInit {
 
   isValidate() {
     let isControl = true;
+
+    if(!this.captchaCheck ){
+      isControl = false;
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Captcha işaretleyin' });
+      return false;
+    }
+
     if (this.firstname == null || this.firstname == "") {
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Ad boş olamaz' });
       isControl = false;
@@ -54,7 +62,7 @@ export class CommunicationComponent implements OnInit {
   }
 
   createInfo(){
-    if(this.isValidate()){
+    if(this.isValidate() && false){
     this.communicationService.createInfo("bekirbedir25@gmail.com",this.firstname,this.lastname,this.eMail,this.phone,this.comment).subscribe(x=>{
      if(x.status){
       this.messageService.add({key: 'tc', severity:'success', summary: 'Başarılı', detail:'Mesajınız alındı. En kısa sürede geri dönüş yapılacaktır.'});
@@ -65,15 +73,19 @@ export class CommunicationComponent implements OnInit {
       this.comment= ''
 
       this.sended = true;
+      this.captchaCheck = false;
      }
     })
   }
   }
-  showResponse(event){
-    console.log(event.response);
-    this.communicationService.showCaptchaResponse().subscribe(data => {
+  showResponse(response){
+
+    if(response){
+      this.captchaCheck = true;
+    }
+   /* this.communicationService.showCaptchaResponse().subscribe(data => {
         console.log("Data: ",data)
-    })
+    }) */
 
   }
 }

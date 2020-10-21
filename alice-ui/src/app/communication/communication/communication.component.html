@@ -56,9 +56,9 @@
               </span>
             </div>
 
-            <div class="p-col-12">
-              <p-captcha siteKey="6LfbtNgZAAAAAHyU44M70pcVFzU360FOLWNfRzPr" (onResponse)="showResponse($event)"></p-captcha>
-            </div>
+            <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=initRecaptcha" async defer></script>
+            <p-captcha siteKey="6LfbtNgZAAAAAHyU44M70pcVFzU360FOLWNfRzPr" (onResponse)="showResponse($event)"></p-captcha>
+            <br>
       
          
 

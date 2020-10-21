@@ -31,6 +31,20 @@ export class UserService {
       );
   } 
 
+  captchaControl(responseStr):Observable<any>{
+
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+  
+    const object = JSON.stringify({recaptcha:responseStr});
+  
+      return this._httpClient
+      .get<any>(this.valuesUrl+"captchaControl")
+      .pipe(
+        map((res) => res),
+      );
+  }
+
+  
  
   creatUser(user:User):Observable<ResponseModel>{
 
