@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CardModule } from 'primeng/card';
+import {FileUploadModule} from 'primeng/fileupload';
 const routes: Routes = [
   {
     path: '',
@@ -36,6 +37,7 @@ const routes: Routes = [
     CalendarModule,
     CheckboxModule,
     CardModule,
+    FileUploadModule,
     RouterModule.forChild(routes),
   ],
   providers: [NgxImageCompressService],

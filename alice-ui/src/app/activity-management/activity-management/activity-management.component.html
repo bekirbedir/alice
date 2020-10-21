@@ -131,7 +131,21 @@
                         mode="decimal" [showButtons]="true"></p-inputNumber>
                     </div>
           
-          
+                    <img class="img-thumbnail" [src]='imgSrc' >
+
+                    <p></p>
+                    
+                  <p-fileUpload name="photo" multiple="false" 
+                  [auto]="true"
+                  invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
+                  invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB"
+                  maxFileSize="3145728"
+                  uploadLabel="Yükle"
+                  chooseLabel="Aktiviteye Resim Yükle"
+                  cancelIcon="Vazgeç"
+                  (onUpload)="onBasicUpload($event)" 
+                  invalidFileTypeMessageDetail="Geçersiz dosya tipi, lütfen resim yükleyin"
+                   accept="image/*" [url]='uploadUrl'></p-fileUpload>
           
                   </div>
                   <div class="p-grid">

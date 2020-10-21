@@ -28,11 +28,20 @@ export class ActivityManagementComponent implements OnInit {
   activityheader: String;
   tr: any;
   edited:Boolean=false;
-  constructor(private service: ActivityManagementService, private messageService: MessageService, 
+
+  imgHidden: Boolean = true;
+  imgSrc: String;
+  deleteOld:Boolean = false;
+  fileName:String;
+  baseUrl: String;
+  uploadUrl: String;
+
+  constructor(private service: ActivityManagementService, 
+    private messageService: MessageService, 
     private _sanitizer: DomSanitizer, private imageCompress: NgxImageCompressService,
     private router: Router,) {
     this.activity = new Activity();
-    this.activityheader = "ssdfs"
+    
   }
 
   ngOnInit(): void {
@@ -91,6 +100,10 @@ export class ActivityManagementComponent implements OnInit {
     this.service.getSelectedActivity(this.selectedActivityId).subscribe(x => {
       this.activity = x
       this.activity.date=new Date(x.date)
+      this.baseUrl = environment.apiBaseUrl
+      this.uploadUrl = this.baseUrl + "activity/upload"
+      this.activity.fileLink =  "empty_activity.jpg";
+      this.imgSrc = this.baseUrl+"static/uploads/"+this.activity.fileLink
     })
   }
   updateActivity() {
@@ -149,7 +162,18 @@ export class ActivityManagementComponent implements OnInit {
     this.router.navigate(['/profile/'+userId])
    }
 
-  
+   onBasicUpload(element){
+    if( this.deleteOld ){
+      this.service.deleteFile(this.fileName);
+    }
+    this.fileName = element.originalEvent.body.photoLink
+    this.imgHidden = false;
+    this.imgSrc = this.baseUrl+"static/uploads/"+this.fileName
+    console.log(this.imgSrc)
+    this.deleteOld = true;
+    this.activity.fileLink = this.fileName;
+  }
+
 
   /*
 1	Katılım isteği

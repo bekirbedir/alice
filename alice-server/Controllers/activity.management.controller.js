@@ -166,6 +166,7 @@ router.put("/updateActivity", (req, res) => {
         activity.participationCount = req.body.activity.participationCount
         activity.like = req.body.activity.like
         activity.date = req.body.activity.date
+        activity.fileLink = req.body.activity.fileLink
         activity.status = 1;
         activity.save().then(result => {
             res.status(200).json({

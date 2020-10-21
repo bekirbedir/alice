@@ -78,6 +78,12 @@ deleteActivity(activity:Activity): Observable<ResponseModel> {
     );
 } 
 
+deleteFile(filename){
+  return this._httpClient.get(environment.apiBaseUrl+'activity/deleteFile?filename='+filename )
+  .subscribe((response) => {
+       console.log('file deleted ', response);
+  })
+}
 
 
 
