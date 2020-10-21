@@ -62,7 +62,7 @@ export class CommunicationComponent implements OnInit {
   }
 
   createInfo(){
-    if(this.isValidate() && false){
+    if(this.isValidate() ){
     this.communicationService.createInfo("bekirbedir25@gmail.com",this.firstname,this.lastname,this.eMail,this.phone,this.comment).subscribe(x=>{
      if(x.status){
       this.messageService.add({key: 'tc', severity:'success', summary: 'Başarılı', detail:'Mesajınız alındı. En kısa sürede geri dönüş yapılacaktır.'});
