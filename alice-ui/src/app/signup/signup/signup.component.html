@@ -43,7 +43,10 @@
               <label for="float-input">Kullanıcı adı girin</label>
             </span>
           </div>
-        
+
+
+          
+      
 
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
@@ -59,6 +62,16 @@
             </span>
           </div>
 
+
+          <div class="p-col-12">
+            <p>Doğum günü</p>
+            <p-calendar [(ngModel)]="user.birthDate"  ateFormat="dd.mm.yy" showTime="true" class="w-100" hourFormat="24" showButtonBar="true" [locale]="tr"></p-calendar>
+          </div>
+
+          <div class="p-col-12">
+            <p>Cinsiyet</p>
+            <p-selectButton [options]="cinsiyetler" [(ngModel)]="user.gender"></p-selectButton>
+          </div>
   
 
           <div class="p-col-12">

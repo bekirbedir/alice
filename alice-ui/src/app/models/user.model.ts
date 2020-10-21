@@ -11,5 +11,7 @@ export class UserModel {
     biography?:String | null;
     userPhoto?:string
     fileLink?:String | null;
+    gender?:String | null;
+    birthDate?:Date |null;
   }
   

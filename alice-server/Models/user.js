@@ -17,7 +17,10 @@ const UserSchema = new Schema({
   status: {type: Number, default: 1},
   mailOnayCode: String,
   userPhoto:String,
-  fileLink:String
+  fileLink:String,
+  gender:String,
+  birthDate:Date
+
 });
 module.exports = mongoose.model("User", UserSchema);
 /*

@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/auth/user';
 import { UserService } from 'src/app/users/user.service';
 import { MessageService } from 'primeng/api';
-
+import { SelectItem } from 'primeng/api';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -18,11 +18,27 @@ export class SignupComponent implements OnInit {
   mailOnayBilgisi:Boolean = false;
   buttonEnabled:Boolean = true;
   user: User
+  tr:any
+  cinsiyetler: SelectItem[];
   constructor(private router: Router, private registerservice: UserService, private messageService: MessageService) {
     this.user = new User();
   }
 
   ngOnInit(): void {
+    this.tr = {
+      firstDayOfWeek: 0,
+      dayNames: [ "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi","Pazar"],
+      dayNamesShort: ["Paz", "Pzt", "Sal", "ÇRŞ", "PRŞ", "CMA", "CTS"],
+      dayNamesMin: ["PA", "PT", "SA", "ÇA", "PE", "CU", "PZ"],
+      monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+      monthNamesShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Temm", "Agu", "Eyl", "Eki", "Kas", "Ara"],
+      today: 'Bugün',
+      clear: 'Temizle',
+      dateFormat: 'dd.mm.yy',
+      weekHeader: 'Wk'
+    };
+    this.cinsiyetler = [{label: 'Erkek', value: 'Erkek'}, {label: 'Kadın', value: 'Kadın'}];
+
   }
   routeLogin() {
     this.router.navigate(['/login'])
@@ -32,24 +48,32 @@ export class SignupComponent implements OnInit {
   isValidate() {
     let isControl = true;
     if (this.user.username == null || this.user.username == "") {
-      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Kullanıcı Adı Boş olamaz' });
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Kullanıcı Adı boş olamaz' });
       isControl = false;
     }
     if (this.user.password == null || this.user.password == "") {
-      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Parola Boş olamaz' });
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Parola boş olamaz' });
       isControl = false;
     }
 
     if (this.user.email == null || this.user.email == "") {
-      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Email olamaz' });
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Email boş olamaz' });
       isControl = false;
     }
     if (this.user.biography == null || this.user.biography == "") {
-      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Biyograf Alanı Boş olamaz' });
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Biyograf Alanı boş olamaz' });
       isControl = false;
     }
     if (this.user.name == null || this.user.name == "") {
-      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Ad Boş olamaz' });
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Ad boş olamaz' });
+      isControl = false;
+    }
+    if (this.user.gender == null || this.user.gender == "") {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Cinsiyet boş olamaz' });
+      isControl = false;
+    }
+    if (this.user.birthDate == null) {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Doğum günü boş' });
       isControl = false;
     }
     if (this.user.phone == null || this.user.phone == "") {

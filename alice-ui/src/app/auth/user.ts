@@ -16,5 +16,7 @@ export class User {
     biography: String;
     userPhoto: any;
     fileLink:string;
+    gender:String;
+    birthDate:Date;
   }
   

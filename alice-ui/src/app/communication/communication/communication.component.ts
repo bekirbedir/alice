@@ -17,6 +17,7 @@ export class CommunicationComponent implements OnInit {
   eMail: "";
   phone: "";
   comment: "";
+  sended :Boolean= false;
 
   ngOnInit(): void { 
     this.firstname,
@@ -29,8 +30,31 @@ export class CommunicationComponent implements OnInit {
   constructor(private router:Router,private communicationService: CommunicationService,private messageService: MessageService){
   }
 
+  isValidate() {
+    let isControl = true;
+    if (this.firstname == null || this.firstname == "") {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Ad boş olamaz' });
+      isControl = false;
+    }
+    if (this.lastname == null || this.lastname == "") {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Soyad boş olamaz' });
+      isControl = false;
+    }
+    if (this.phone == null || this.phone == "") {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Telefon boş olamaz' });
+      isControl = false;
+    }
+
+    if (this.comment == null || this.comment == "") {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Mesaj alanı boş olamaz' });
+      isControl = false;
+    }
+   
+    return isControl;
+  }
+
   createInfo(){
-    console.log ("dsfsdfsd")
+    if(this.isValidate()){
     this.communicationService.createInfo("bekirbedir25@gmail.com",this.firstname,this.lastname,this.eMail,this.phone,this.comment).subscribe(x=>{
      if(x.status){
       this.messageService.add({key: 'tc', severity:'success', summary: 'Başarılı', detail:'Mesajınız alındı. En kısa sürede geri dönüş yapılacaktır.'});
@@ -39,8 +63,11 @@ export class CommunicationComponent implements OnInit {
       this.eMail= ''
       this.phone= ''
       this.comment= ''
+
+      this.sended = true;
      }
     })
+  }
   }
   showResponse(event){
     console.log(event.response);

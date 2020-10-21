@@ -24,6 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CheckboxModule } from 'primeng/checkbox';
 import {InputMaskModule} from 'primeng/inputmask';
 import { ChipsModule } from 'primeng/chips';
+import {SelectButtonModule} from 'primeng/selectbutton';
 
 
 const routes: Routes = [
@@ -56,6 +57,7 @@ const routes: Routes = [
         MessagesModule,
         InputMaskModule,
         ChipsModule,
+        SelectButtonModule,
         RouterModule.forChild(routes),
   ],
 
