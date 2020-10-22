@@ -120,7 +120,13 @@ export class ActivityViewComponent implements OnInit {
     this.activityService.likeActivity(item._id).subscribe((x) => {
       console.log(x);
       if(x.status){
-        this.activityUserStatuses.like= true;
+        if(this.activityUserStatuses != null)
+           this.activityUserStatuses.like= true;
+          else{
+            this.activityUserStatuses = new ActivityUserStatus;
+            this.activityUserStatuses.like= true;
+          }
+        
         this.messageService.add({ key: 'tc', severity: 'info', summary: 'Aktiviteyi beğendin' });
     
       }
