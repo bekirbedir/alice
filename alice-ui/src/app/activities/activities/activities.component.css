@@ -35,7 +35,9 @@
     background-color: #007ad9;
 }
 .act-content-btn-comment{
-    border-radius: 2px;
+    border-radius: 7px;
+    padding: 9px 0;
+    text-align: center;
 }
 .profile-tag{
     margin-right: 5px;

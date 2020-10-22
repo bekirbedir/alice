@@ -58,7 +58,7 @@
           </div>
           <div class="h-5"></div>
           <div class="act-content-footer">
-            <div class="p-grid">
+            <div class="p-grid text-center">
                 <div class="p-col "><i class="pi pi-users"></i> {{act.participationCount}}</div>
                 <div [hidden]="act.currentUserLike" (click)="likeActivity(act)" class="p-col cursor-pointer"><i class="fa fa-heart-o  text-danger fa-2x" aria-hidden="true"></i> {{act.like}}</div>
                 <div [hidden]="!act.currentUserLike" (click)="unlikeActivity(act)" class="p-col cursor-pointer"><i class="fa fa-heart text-danger fa-2x" aria-hidden="true"></i> {{act.like}}</div>
@@ -68,14 +68,14 @@
             <div class="p-grid">
               
               <div *ngIf="act.currentUserStatus == 2" class="p-col-6 p-sm-6 p-md-4 p-lg-4 cursor-pointer cursor-pointer ">
-                <div  (click)="viewComments(act)" class="act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
+                <div  (click)="viewComments(act)" class="act-content-btn-comment btn-light""><i class="pi pi-comments"></i> Duvar</div>
               </div>
               <div *ngIf="act.currentUserStatus != 2" class="p-col-6 p-sm-6 p-md-4 p-lg-4 cursor-pointer cursor-pointer ">
-                <div  (click)="viewComments(act)" class="act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
+                <div  (click)="viewComments(act)" class="act-content-btn-comment btn-light""><i class="pi pi-comments"></i> Duvar</div>
               </div>
 
               <div  class="p-col-6 p-sm-6 p-md-4 p-lg-4 cursor-pointer cursor-pointer ">
-                <div  (click)="viewDetail(act)" class="act-content-btn-comment">Detaylar <i class="pi pi-angle-double-right"></i></div>
+                <div  (click)="viewDetail(act)" class="act-content-btn-comment btn-info">Detaylar <i class="pi pi-angle-double-right"></i></div>
               </div>
               
               <div [hidden] ="isOwner(act)" *ngIf="act.currentUserStatus == 0" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
