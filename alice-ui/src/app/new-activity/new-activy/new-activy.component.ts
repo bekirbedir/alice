@@ -86,7 +86,7 @@ export class NewActivyComponent implements OnInit {
   newActivity() {
     if (this.isValidate()) {
       if (!this.limitedParticipant) {
-        this.activity.participationCount = 0
+        this.activity.participationLimit = null
       }
 
       this.activity.username = localStorage.getItem('userName').replace("\"", "").replace("\"", "") //local store koyup alabilirim veya dedıgım gıbı degısken yaratıp subscribe olurum

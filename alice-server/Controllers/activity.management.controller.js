@@ -32,8 +32,7 @@ router.post("/userStateAction", (request, res) => {
     pActivityId = request.body.activityId;
     pUserId = request.body.userId;
     pStatus = request.body.status;
-    console.log("userId", pUserId);
-    console.log("activityId", pActivityId);
+
     try {
         ActivityUser.findOne({ activityId: pActivityId, userId: pUserId }, function (err, actUser) {
             if (actUser) {
@@ -49,10 +48,31 @@ router.post("/userStateAction", (request, res) => {
                         notification.isShow = false;
                         notification.type = 4;
                         notification.save().then(result => {
-                            res.status(200).json({
-                                status: true,
-                                message: "activity join request  done1"
-                            })
+                            //----- activite katılımcı sayısı------------------------------
+                            ActivityUser.count({ activityId: pActivityId, status:2 }, function (errCount, count) {
+                                if (err){
+                                    res.status(200).json({
+                                        status: false,
+                                        message: "error" + errCount 
+                                    })
+                                } else{
+
+                                    Activity.findOne({ _id: pActivityId }, function (err, activity) {
+                                        activity.participationCount = count
+                                        activity.save().then(result => {
+                                            res.status(200).json({
+                                                status: true,
+                                                message: "activity join request  done1"
+                                            })
+                                        })
+                                    })
+
+                        
+                                }
+                                
+                              });
+                             //----- activite katılımcı sayısı------------------------------
+                           
                         });
                     }
                     if (pStatus == 3) {
@@ -64,10 +84,30 @@ router.post("/userStateAction", (request, res) => {
                         notification.isShow = false;
                         notification.type = 5;
                         notification.save().then(result => {
-                            res.status(200).json({
-                                status: true,
-                                message: "activity join request  done1"
-                            })
+                            //----- activite katılımcı sayısı------------------------------
+                            ActivityUser.count({ activityId: pActivityId, status:2 }, function (errCount, count) {
+                                if (err){
+                                    res.status(200).json({
+                                        status: false,
+                                        message: "error" + errCount 
+                                    })
+                                } else{
+
+                                    Activity.findOne({ _id: pActivityId }, function (err, activity) {
+                                        activity.participationCount = count
+                                        activity.save().then(result => {
+                                            res.status(200).json({
+                                                status: true,
+                                                message: "activity rejected request  done1"
+                                            })
+                                        })
+                                    })
+
+                        
+                                }
+                                
+                              });
+                             //----- activite katılımcı sayısı------------------------------
                         });
                     }
                     else {

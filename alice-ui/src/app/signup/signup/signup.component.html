@@ -72,7 +72,10 @@
             <p>Cinsiyet</p>
             <p-selectButton [options]="cinsiyetler" [(ngModel)]="user.gender"></p-selectButton>
           </div>
-  
+          <div class="p-col-12">
+            <p class="input-label" style="font-size: 12px;">Kendin hakkında etiket ekle (Enter'a basarak ekleyin)</p>
+            <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="user.tagList"></p-chips>
+        </div>
 
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
@@ -81,18 +84,16 @@
             </span>
           </div>
        
-          <div class="p-col-12">
-            <p class="input-label" style="font-size: 12px;">Etiket ekle (Enter'a basarak ekleyin)</p>
-            <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="user.tagList"></p-chips>
-          </div>
-
-            <div class="p-col-12"><p-checkbox [(ngModel)]="checked" label="Sözleşmeyi okudum ve kabul ediyorum." binary="true"></p-checkbox></div>
           
-          </div>
-
+        <div class="p-col-12">
           <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=initRecaptcha" async defer></script>
           <p-captcha siteKey="6LfbtNgZAAAAAHyU44M70pcVFzU360FOLWNfRzPr" (onResponse)="showResponse($event)"></p-captcha>
+          <p></p>
+        </div>
 
+        <div class="p-col-12"><p-checkbox [(ngModel)]="checked" label="Sözleşmeyi okudum ve kabul ediyorum." binary="true"></p-checkbox></div>
+      
+      </div>
           <div class="p-grid" >
            
             <div class="p-col-6">

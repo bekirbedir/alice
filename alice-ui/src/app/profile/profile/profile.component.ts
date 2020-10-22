@@ -150,7 +150,7 @@ export class ProfileComponent {
 
   rateUser(oy) {
     /* oy == 1 olumlu , ==2 olumsuz */
-    this.messageService.add({ key: 'tc', severity: 'success', summary: 'Oy verdiniz!', detail: 'Henüz yapım aşamasında' });
+    this.messageService.add({ key: 'tc', severity: 'error', summary: 'Şimdi olmaz!', detail: 'Henüz oy verme yetkiniz yok' });
   }
 
   updateUser() {

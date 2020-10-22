@@ -106,6 +106,28 @@ export class ActivityViewComponent implements OnInit {
     }
   }
 
+  unlikeActivity(item) {
+    this.activityService.unlikeActivity(item._id).subscribe((x) => {
+      console.log(x);
+      if(x.status){
+        this.activityUserStatuses.like= false;
+     }
+
+    });
+   }
+
+  likeActivity(item) {
+    this.activityService.likeActivity(item._id).subscribe((x) => {
+      console.log(x);
+      if(x.status){
+        this.activityUserStatuses.like= true;
+        this.messageService.add({ key: 'tc', severity: 'info', summary: 'Aktiviteyi beğendin' });
+    
+      }
+
+    });
+  }
+
 
 
   joinActivity(item) {

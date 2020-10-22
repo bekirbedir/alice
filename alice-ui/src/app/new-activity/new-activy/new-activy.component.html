@@ -50,7 +50,7 @@
 
 
           <div class="p-col-12" *ngIf="limitedParticipant">
-            <p-inputNumber [(ngModel)]="activity.participationCount" label="Katılımcı sayısı" [min]="0" [max]="1000"
+            <p-inputNumber [(ngModel)]="activity.participationLimit" label="Katılımcı sayısı" [min]="0" [max]="1000"
               mode="decimal" [showButtons]="true"></p-inputNumber>
           </div>
         

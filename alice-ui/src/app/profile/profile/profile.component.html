@@ -81,7 +81,9 @@
 
                 <div class="p-col-12">
                     <br>
-                    <p [hidden]="editMode" class="name"><b>{{User.name}}</b></p>
+                    <p [hidden]="editMode" class="name"><b><i class="fa fa-user" aria-hidden="true"></i> {{User.name}}</b></p>
+                    <p [hidden]="editMode" class="name"><i class="fa fa-birthday-cake" aria-hidden="true"></i> {{ User.birthDate | date:'dd/MM/yyyy'}} - {{User.gender}} </p>
+                    
                     <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
                         <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.name" class="w-100">
                         <label for="float-input">Ad Soyad</label>
@@ -91,11 +93,11 @@
                     <br>
                     <p class="username"><a href="#"><b>Kullanıcı Adı: </b>@{{User.username}}</a></p>
                     <br>
-                    <p [hidden]="!isEditable" class="username"><a><b>Telefon: </b>{{User.phone}}</a></p>
-                    <p [hidden]="isEditable" class="username"><a><b>Telefon: </b>*******</a></p>
+                    <p [hidden]="!isEditable" class="username"><a><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>{{User.phone}}</a></p>
+                    <p [hidden]="isEditable" class="username"><a><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>*******</a></p>
                     <br>
 
-                    <p [hidden]="!(isEditable && !editMode)" class="email"><b>Email :</b>{{User.email}}</p>
+                    <p [hidden]="!(isEditable && !editMode)" class="email"><b><i class="fa fa-envelope" aria-hidden="true"></i> Email :</b>{{User.email}}</p>
 
                     <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
                         <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email"
@@ -131,11 +133,11 @@
             <div class="rate-buttons">
                 <div class="progress ">
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">
-                        <i class="pi pi-thumbs-up"> %75 </i></div>
+                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                        <i class="pi pi-thumbs-up"> 0 </i></div>
                     <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar"
-                        aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 25%">
-                        <i class="pi pi-thumbs-down"> %25 </i></div>
+                        aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                        <i class="pi pi-thumbs-down"> 0 </i></div>
                 </div>
             </div>
             <div class="h-10"></div>

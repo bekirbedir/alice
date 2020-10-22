@@ -20,6 +20,7 @@ const  ActivitySchema = new Schema({
   tagList:{ type: [String], searchable: true },
   like:Number,
   participationCount:Number,
+  participationLimit:Number,
   date:Date,
   status:Number,
   fileLink:String,

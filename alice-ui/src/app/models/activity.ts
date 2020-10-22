@@ -15,6 +15,7 @@ export class Activity {
     tagList:string[];
     like?:Number|0;
     participationCount?:Number | 0;
+    participationLimit?:Number | 0
     status:Number |1;
     userList:[UserStatus];
     currentUserStatus: Number | 0;
