@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NotificationModel } from 'src/app/models/notification.model';
 import { NotificationService } from '../notification.service';
 import { Router } from '@angular/router';
+import { Store, Select } from '@ngxs/store';
+import {
+  GetActivities,
+  GetActivityDetail,
+} from 'src/app/store/actions/activity.action';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -11,7 +16,8 @@ export class NotificationComponent implements OnInit {
   notifications: NotificationModel[];
   constructor(
     private service: NotificationService,
-    private router:Router
+    private router:Router,
+    private store: Store
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +35,7 @@ export class NotificationComponent implements OnInit {
    }
 
    routeActivity(activityId) {
+    this.store.dispatch(new GetActivityDetail(activityId))
     localStorage.setItem("selectedActivityId",activityId)
   //  this.store.dispatch(new GetActivityDetail(item._id))
     this.router.navigate(['/activity-view'])

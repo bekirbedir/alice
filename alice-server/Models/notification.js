@@ -29,5 +29,7 @@ typeler;
 3 - duvara yeni mesaj
 4- aktiviteye katılım onaylandı
 5- aktiviteye katılım isteğin reddedildi
+6- Aktiviten onaylandı
+7- Aktiviten Reddedildi
 
 */

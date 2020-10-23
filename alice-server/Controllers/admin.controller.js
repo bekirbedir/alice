@@ -6,6 +6,7 @@ let User = require("../Models/user")
 let Activity = require("../Models/activity")
 let mailler = require("../mailler")
 var jwt = require('jsonwebtoken');
+const Notification = require("../Models/notification")
 
 router.get("/users/getall", (request, response) => {
 
@@ -54,8 +55,24 @@ router.get("/users/getAllUsers", (request, response) => {
 
 })
 
-router.get("/activity/getPending", (request, response) => {
+router.get("/activity/getPending",async  (request, response) => {
   //buraya admin mi kontrolu eklenmeli
+
+
+  try{
+      
+    const activity = await Activity.find({status:1}, null, { sort: '-createdDate' })
+    .populate({path:'user', Model:  '../Models/user' , select:'_id username name email fileLink'}).exec();
+
+    console.log("test-------------------")
+    response.json(activity);    
+  }
+catch (error) {
+    console.log(error); 
+    return response.json(error);
+  }
+
+/*
   Activity.find({status: 1}, '_id , header , status , context , fileLink', function (err, res) {
 
     if (err) {
@@ -65,7 +82,10 @@ router.get("/activity/getPending", (request, response) => {
       response.send(res);
     }
   }
-  )
+
+
+  
+  ) */
 
 })
 
@@ -79,13 +99,26 @@ router.post("/activity/activityApprove", (req, res) => {
       act.status = 3;
       act.updatedDate = Date.now();
       act.save().then(result => {
-      //  subject = "ActivityFriend Kullanıcınız Onaylandı"
-     //   textHtml = "<H4><b>Merhaba, ActivityFriend'e Hoşgeldiniz! Kaydınız onaylanmıştır! </b></H4> <br> <p><a href='https://www.activityfriend.com.tr/login'></H5>Buraya tıklayarak giriş yapabilirsiniz.</H5></p>"
-     //   mailler.main(user.email,subject, textHtml);
-        res.status(200).json({
-          status: true,
-          message: "Aktivite onaylandı"
+        User.findOne({_id:act.user},function(err,actUser){
+          const notification = new Notification();
+          notification.activeUserId = actUser._id;
+          notification.activity = act._id;
+          notification.user = null;
+          notification.text = "Aktiviten Onaylandı";
+          notification.isShow = false;
+          notification.type = 6;
+          notification.save();
+
+          console.log("act.user.email" , actUser);
+          subject = "ActivityFriend Etkinlik Onayı"
+          textHtml = "<H4>Merhaba,<b>"+ act.header + "</b> isimli etkinliğin onaylandı! İyi eğlenceler</H4>"
+          mailler.main(actUser.email,subject, textHtml);
+          res.status(200).json({
+            status: true,
+            message: "Aktivite onaylandı"
+          })
         })
+        
       })
         .catch(error => {
           res.status(200).json({

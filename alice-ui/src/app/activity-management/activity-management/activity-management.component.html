@@ -112,13 +112,13 @@
           
                     <div class="p-col-12">
                       <h5 class="input-label">Tarih Seç</h5>
-                      <p-calendar [(ngModel)]="activity.date" onSelect="onSelect()" dateFormat="dd.mm.yy" showTime="true" hourFormat="24" showButtonBar="true" [locale]="tr"></p-calendar>
+                      <p-calendar [(ngModel)]="activity.date" onSelect="onSelect()" dateFormat="dd.mm.yy" showTime="true" hourFormat="24" showButtonBar="true" [showIcon]="true" inputId="icon" [locale]="tr"></p-calendar>
                     </div>
 
                     
                     <div class="p-col-12">
                       <h5 class="input-label">Etiketler</h5>
-                      <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="activity.tagList"></p-chips>
+                      <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="activity.tagList" separator=","></p-chips>
                     </div>
           
                     <div class="p-col-12">
@@ -155,7 +155,7 @@
                     </div>
                     <br>
                     <div class="p-col-12">
-                      <button type="button" (click)="deleteActivity()" class="btn btn-danger w-100 "><i class="fa fa-ban"
+                      <button type="button" (click)="deleteActivityApprove()" class="btn btn-danger w-100 "><i class="fa fa-ban"
                           aria-hidden="true"> </i> Sil </button>
                     </div>
                   </div>
@@ -178,3 +178,26 @@
 </p-tabView>
 
 <p-toast position="top-center" key="tc"></p-toast>
+<p-toast position="top-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+      <div class="p-flex p-flex-column" style="flex: 1">
+          <div class="p-text-center">
+              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+              <h4>{{message.summary}}</h4>
+              <p>{{message.detail}}</p>
+          </div>
+          <div class="p-grid p-fluid">
+            
+              <div class="p-col-6">
+         
+                  <button type="button" (click)="onConfirm()"   class="btn btn-success w-100"> <i class="fa fa-check" aria-hidden="true"> </i> Onayla
+                  </button>
+              </div>
+              <div class="p-col-6">
+                <button type="button" (click)="onReject()"   class="btn btn-info w-100 "> <i class="fa fa-times" aria-hidden="true"> </i> İptal
+                </button>
+              </div>
+          </div>
+      </div>
+  </ng-template>
+</p-toast>

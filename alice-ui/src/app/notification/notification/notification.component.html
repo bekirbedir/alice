@@ -49,6 +49,11 @@
                 <i class="fa fa-times" aria-hidden="true"> </i> <span class="notification-text"> {{noti.text}} </span>
                 <small (click)="routeActivity(noti.activity._id)"><br>Aktivite: <b><a>{{noti.activity.header}}</a> </b> </small>
               </p>
+
+              <p *ngIf="noti.type == 6" class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
+                <i class="fa fa-check" aria-hidden="true"> </i> <span class="notification-text"> {{noti.text}} </span>
+                <small (click)="routeActivity(noti.activity._id)"><br>Aktivite: <b><a>{{noti.activity.header}}</a> </b> </small>
+              </p>
           
           
           </div>

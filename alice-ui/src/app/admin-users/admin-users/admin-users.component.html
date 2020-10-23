@@ -54,9 +54,10 @@
         <tr *ngFor="let act of pendingActivity">
           <th scope="row">1</th>
           <td>
-            <p> {{act.header}} </p>
+            <p><b>Etkinlik sahibi:</b> {{act.user.name}} ( @{{act.user.username}} ) </p>
+            <p><b>Etkinlik adı:</b> {{act.header}} </p>
             <br>
-            <p> {{act.context}} </p>
+            <p><b>Etkinlik içerik:</b> {{act.context}} </p>
             <br>
             <img  class="act-photo-in-row img-thumbnail" [src]="createActPhotoLink(act.fileLink)"> 
           

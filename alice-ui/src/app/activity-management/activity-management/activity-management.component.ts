@@ -102,7 +102,6 @@ export class ActivityManagementComponent implements OnInit {
       this.activity.date=new Date(x.date)
       this.baseUrl = environment.apiBaseUrl
       this.uploadUrl = this.baseUrl + "activity/upload"
-      this.activity.fileLink =  "empty_activity.jpg";
       this.imgSrc = this.baseUrl+"static/uploads/"+this.activity.fileLink
     })
   }
@@ -117,6 +116,9 @@ export class ActivityManagementComponent implements OnInit {
         this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: x.message });
       }
     })
+  }
+  deleteActivityApprove(){
+    this.messageService.add({ key: 'c', sticky: true, severity: 'warn', summary: 'Emin misiniz?', detail: 'Aktiviteyi silmek istediğinize emin misiniz?' });
   }
   deleteActivity() {
     this.service.deleteActivity(this.activity).subscribe(x => {
@@ -172,6 +174,14 @@ export class ActivityManagementComponent implements OnInit {
     console.log(this.imgSrc)
     this.deleteOld = true;
     this.activity.fileLink = this.fileName;
+  }
+
+  onReject() {
+    this.messageService.clear('c');
+  }
+  onConfirm() {
+    this.deleteActivity();
+    this.messageService.clear('c');
   }
 
 
