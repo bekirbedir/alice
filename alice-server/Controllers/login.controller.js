@@ -50,7 +50,7 @@ router.post("/approve", (req, res) => {
 
 router.post("/savePassword", (req, res) => {
   pCode = req.body.code;
-  pUsername = req.body.username;
+  pUsername = req.body.username.toLowerCase();
   pNewPassword = req.body.newPassword;
 
 
@@ -185,7 +185,7 @@ router.post("/signup", (req, res) => {
       else {
         console.log("docsss yookkkkk-----------------")
         const user = new User();
-        user.username = req.body.username
+        user.username = pUsername //buyuk kucuk harf duyarli
         user.password = crypto.createHash('md5').update(req.body.password).digest("hex");
         user.isActive = false,
           user.biography = req.body.biography,
