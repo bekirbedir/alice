@@ -121,8 +121,8 @@
                     <div class="profile-tags">
                         <span [hidden]="editMode" *ngFor="let tag of User.tagList" class="profile-tag">#{{tag}}</span>
                         <div [hidden]="!editMode" class="p-col-12">
-                            <p class="input-label" style="font-size: 12px;">Etiket ekle (Enter'a basarak ekleyin)</p>
-                            <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="User.tagList"></p-chips>
+                            <p class="input-label" style="font-size: 12px;">Etiket ekle (Virgül ile ayırın)</p>
+                            <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="User.tagList" separator=","></p-chips>
                         </div>
                     </div>
                 </div>

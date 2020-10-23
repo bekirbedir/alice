@@ -36,12 +36,12 @@
 
           <div class="p-col-12">
             <h5 class="input-label">Tarih Seç</h5>
-            <p-calendar [(ngModel)]="activity.date" onSelect="onSelect()" dateFormat="dd.mm.yy" showTime="true" hourFormat="24" showButtonBar="true" [locale]="tr"></p-calendar>
+            <p-calendar [(ngModel)]="activity.date" onSelect="onSelect()" dateFormat="dd.mm.yy" showTime="true" hourFormat="24" showButtonBar="true" [locale]="tr" [showIcon]="true" inputId="icon"></p-calendar>
           </div>
           
           <div class="p-col-12">
             <h5 class="input-label">Etiketler</h5>
-            <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="tags"></p-chips>
+            <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="tags" separator=","></p-chips>
           </div>
 
           <div class="p-col-12">
