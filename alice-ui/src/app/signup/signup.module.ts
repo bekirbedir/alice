@@ -26,6 +26,7 @@ import {InputMaskModule} from 'primeng/inputmask';
 import { ChipsModule } from 'primeng/chips';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {CaptchaModule} from 'primeng/captcha';
+import {DialogModule} from 'primeng/dialog';
 
 
 const routes: Routes = [
@@ -59,6 +60,7 @@ const routes: Routes = [
         InputMaskModule,
         ChipsModule,
         SelectButtonModule,
+        DialogModule,
         CaptchaModule,
         RouterModule.forChild(routes),
   ],

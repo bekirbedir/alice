@@ -54,8 +54,6 @@ export class ProfileComponent {
     this.editMode = false;
     this.service.getMyProfil(this.userId).subscribe(x => {
       if(localStorage.getItem('userId').replace("\"", "").replace("\"", "") == x._id){
-        console.log("this.userId", this.userId)
-        console.log("x._id", x._id)
         this.isEditable = true;
       }
 

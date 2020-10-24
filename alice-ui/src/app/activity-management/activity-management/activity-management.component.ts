@@ -171,7 +171,7 @@ export class ActivityManagementComponent implements OnInit {
     this.fileName = element.originalEvent.body.photoLink
     this.imgHidden = false;
     this.imgSrc = this.baseUrl+"static/uploads/"+this.fileName
-    console.log(this.imgSrc)
+
     this.deleteOld = true;
     this.activity.fileLink = this.fileName;
   }

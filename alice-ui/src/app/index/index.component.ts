@@ -54,21 +54,18 @@ export class IndexComponent implements   OnInit{
 
     try{
       this.loginservice.user$.subscribe(x=>{
-        console.log("user değişti",x)
+        
       })
     }catch(error){
-      console.log('login olmayan birisi signup da patladi')
+      
     }
     
     if(this.isActiveUser){
-      console.log(this.isActiveUser,"trueda")
       this.isLogin = true;
-    
-
-    this.activeItem = this.items[0];
+   //   this.activeItem = this.items[0];
     }
     else{
-      console.log(this.isActiveUser,"falsede")
+
         this.isLogin = false;
       this.items = [
         {label: 'Aktiviteler', icon: 'pi pi-fw pi-home', routerLink:'activities'}, 

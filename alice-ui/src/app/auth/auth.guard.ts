@@ -8,7 +8,6 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         if (localStorage.getItem('aliceuser')) {
-            console.log("can acvtive baktı")
             // logged in so return true
             return true;
         }

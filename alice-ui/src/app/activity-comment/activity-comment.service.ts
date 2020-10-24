@@ -28,7 +28,7 @@ export class ActivityCommentService {
   }
 
   sendComment(newComment: ActivityCommentModel): Observable<ActivityCommentModel> {
-    console.log("servise geldi - sendComment")
+
     const transferObject = newComment;
 
     let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');

@@ -18,6 +18,7 @@ export class SignupComponent implements OnInit {
   mailOnayBilgisi:Boolean = false;
   buttonEnabled:Boolean = true;
   user: User
+  sozlesmeVisible: Boolean = false;
   tr:any
   cinsiyetler: SelectItem[];
   captchaCheck: Boolean= false;
@@ -44,16 +45,18 @@ export class SignupComponent implements OnInit {
   routeLogin() {
     this.router.navigate(['/login'])
   }
+  showDialog() {
+    this.sozlesmeVisible = true;
+}
   showResponse(response) {
     //call to a backend to verify against recaptcha with private key
 
-    console.log('response', response)
     if(response){
       this.captchaCheck = true;
     }
 
   /*  this.registerservice.captchaControl(response).subscribe(x => {
-      console.log('sdfsdfsds')
+    
     }) */
 }
 
@@ -116,7 +119,7 @@ export class SignupComponent implements OnInit {
   createNewUser() {
     if (this.isValidate()) {
       this.registerservice.creatUser(this.user).subscribe(x => {
-        console.log(x);
+        
         this.checked = false
         if(x.status){
           this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Başarılı', detail: 'Kaydınız alındı. Mail adresinizi onaylayın lütfen' });

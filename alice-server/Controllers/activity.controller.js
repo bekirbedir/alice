@@ -11,7 +11,6 @@ const Notification = require("../Models/notification")
 const multipart = require('connect-multiparty');
 const fs = require('fs')
 var path = require('path');
-console.log("pathhh", path.join(__dirname, 'public'))
 const multipartMiddleware = multipart({ uploadDir: './public/uploads' }); //bu calisiyor
 
 //const multipartMiddleware = multipart({ uploadDir: '../' });
@@ -23,17 +22,14 @@ const multipartMiddleware = multipart({ uploadDir: './public/uploads' }); //bu c
 router.get("/getall", async (request, response, next) => {
     let search = request.query.q;
   
-    console.log("searchtostring()" , search.toString())
+   
     try {
-        console.log("pathhh", path.join(__dirname));
-        console.log("test-------------------basla")
+      
       //  const activityList = await Activity.find({ status: 3, date: { "$gt": Date.now() } }, null, { sort: 'date' }).
         const activityList = await Activity.search(search,{ status: 3, date: { "$gt": Date.now() } }, null, { sort: 'date' }).
         populate({ path: 'user', Model: '../Models/user' ,select:'_id username name email fileLink' }).exec();
 
-        //   console.log("activityList", activityList[0].user.username)
-
-        console.log("test-------------------")
+    
         response.json(activityList);
     }
     catch (error) {
@@ -43,25 +39,12 @@ router.get("/getall", async (request, response, next) => {
 
 })
 
-router.get("/test", (req, response) => {
 
-    Activity.find( function (err, res) {
-      if (err) {
-        console.log(err);
-      }
-      if (res) {
-        response.send(res);
-      }
-  
-    }
-    )
-  
-  })
 
 
 router.get("/getActivityUserStatusList", (request, response) => {
     let userId = request.userId;
-    console.log("userId", userId)
+    
     const activityList = [];
     ActivityUserStatus.find({ userId: userId }, 'activityId status like', function (err, res) {
         if (err) {
@@ -93,10 +76,9 @@ router.get("/getApprovedUsers", async (request, response) => {
 
 router.post("/getActivityAndUserStatus", (request, response) => {
     let userId = request.userId;
-    console.log('userId----------', userId)
+  
     let activityId = request.body.activityId
 
-    console.log("userId", userId)
     const activityList = [];
     ActivityUserStatus.find({ activityId: activityId, userId: userId }, function (err, res) {
         if (err) {
@@ -122,7 +104,7 @@ router.post("/", (req, res) => {
     activity.ownerId = '"' + decodedToken.id + '"'
     User.findOne({ _id: decodedToken.id }, function (err, user) {
         if (user) {
-            console.log('user bulundu');
+           
             //   activity._id = req.body._id
             activity.user = user;
             activity.username = req.body.username
@@ -183,14 +165,14 @@ router.get("/", async (req, response) => {
 
 
     try {
-        console.log("test-------------------basla")
+      
         const activity = await Activity.findOne({ _id: id }, null, { sort: '-createdDate' }).exec();
 
-        console.log("test-------------------")
+      
         response.json(activity);
     }
     catch (error) {
-        console.log(error);
+      
         return response.json(error);
     }
 
@@ -225,13 +207,13 @@ router.put("/", (req, res) => {
 router.post("/cancelActivity", (req, response) => {
     let userId = req.userId;
     let activityId = req.body.activityId;
-    console.log("userId", userId)
+ 
 
-    ActivityUser.find({ activityId: activityId, userId: userId }, function (err, res) {
-        if (res) {
-            res.status = 0;
-            res.save();
-            console.log("res")
+    ActivityUser.findOne({ activityId: activityId, userId: userId }, function (err, activityUser) {
+        if (activityUser) {
+            activityUser.status = 0;
+            activityUser.save();
+        
             response.status(200).json({
                 status: true,
                 message: "deleted"
@@ -256,7 +238,6 @@ router.post("/likeActivity", (req, response) => {
         if (activityUser) {
             activityUser.like = true
             activityUser.save().then(result => {
-                console.log("-----kaydedildiii----------------")
                 response.status(200).json({
                     status: true,
                     message: "liked"
@@ -300,13 +281,13 @@ router.post("/likeActivity", (req, response) => {
 router.post("/unlikeActivity", (req, response) => {
     let userId = req.userId;
     let activityId = req.body.activityId;
-    console.log("userId", userId)
+ 
 
     ActivityUser.findOne({ activityId: activityId, userId: userId }, function (err, activityUser) {
         if (activityUser) {
             activityUser.like = false
             activityUser.save();
-            console.log("res")
+         
             response.status(200).json({
                 status: true,
                 message: "unliked"
@@ -346,10 +327,9 @@ router.post("/unlikeActivity", (req, response) => {
 })
 
 router.post('/upload', multipartMiddleware, (req, res) => {
-     console.log("buraya dustuu",  req.files.photo.path)
-     // show the uploaded file name        
+         
     let photoLink = req.files.photo.path.replace("\\","/").replace("\\","/").split("/")[2]        
-     console.log("buraya dustuu",  photoLink)                          
+                       
      res.json({
          status: true,
          message: 'File uploaded successfully',
@@ -388,33 +368,65 @@ router.post("/join", (req, res) => {
 
         User.findOne({ _id: decodedToken.id }, function (err, user) {
             if (user) {
-                const activityUser = new ActivityUser();
-                activityUser.status = 1;
-                activityUser.date = Date.now();
-                activityUser.activityId = activity._id;
-                activityUser.userId = decodedToken.id;
-                activityUser.username = user.username;
-                activityUser.user = user;
-                activityUser.save().then(result => {
-                    const notification = new Notification();
-                    notification.activeUserId = user._id;
-                    notification.activity = activity;
-                    notification.user = null;
-                    notification.text = "Aktiviteye katılım isteği gönderdin";
-                    notification.isShow = true;
-                    notification.type = 1;
-                    notification.save().then(result => {
-                        const notification2 = new Notification();
-                        notification2.activeUserId = activity.ownerId.replace("\"", "").replace("\"", "");
-                        notification2.activity = activity;
-                        notification2.user = user;
-                        notification2.text = "Aktivitene katılım isteği geldi";
-                        notification2.type = 2;
-                        notification2.save();
-                    });
-                });
-
-                activity.actUser.push(activityUser);
+                ActivityUser.findOne({ activityId: req.body.activityId, userId: decodedToken.id  }, function (err, activityUser) {
+                    if (activityUser) {
+                        activityUser.status = 1;
+                        activityUser.date = Date.now();
+                        activityUser.activityId = activity._id;
+                        activityUser.userId = decodedToken.id;
+                        activityUser.username = user.username;
+                        activityUser.user = user;
+                        activityUser.save().then(result => {
+                            const notification = new Notification();
+                            notification.activeUserId = user._id;
+                            notification.activity = activity;
+                            notification.user = null;
+                            notification.text = "Aktiviteye katılım isteği gönderdin";
+                            notification.isShow = true;
+                            notification.type = 1;
+                            notification.save().then(result => {
+                                const notification2 = new Notification();
+                                notification2.activeUserId = activity.ownerId.replace("\"", "").replace("\"", "");
+                                notification2.activity = activity;
+                                notification2.user = user;
+                                notification2.text = "Aktivitene katılım isteği geldi";
+                                notification2.type = 2;
+                                notification2.save();
+                            });
+                        });
+        
+                        activity.actUser.push(activityUser);
+                    }else{
+                         activityUser = new ActivityUser();
+                        activityUser.status = 1;
+                        activityUser.date = Date.now();
+                        activityUser.activityId = activity._id;
+                        activityUser.userId = decodedToken.id;
+                        activityUser.username = user.username;
+                        activityUser.user = user;
+                        activityUser.save().then(result => {
+                            const notification = new Notification();
+                            notification.activeUserId = user._id;
+                            notification.activity = activity;
+                            notification.user = null;
+                            notification.text = "Aktiviteye katılım isteği gönderdin";
+                            notification.isShow = true;
+                            notification.type = 1;
+                            notification.save().then(result => {
+                                const notification2 = new Notification();
+                                notification2.activeUserId = activity.ownerId.replace("\"", "").replace("\"", "");
+                                notification2.activity = activity;
+                                notification2.user = user;
+                                notification2.text = "Aktivitene katılım isteği geldi";
+                                notification2.type = 2;
+                                notification2.save();
+                            });
+                        });
+        
+                        activity.actUser.push(activityUser);
+                    }
+                })
+              
             }
             else {
                 console.log("bulamadik");

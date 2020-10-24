@@ -34,7 +34,6 @@ export class LoginService {
   }
 
  login(userName: string, password: string):Observable<any> {
-   console.log("servise geldi")
     const transferObject = {
         password: password,
         username: userName
@@ -51,7 +50,7 @@ export class LoginService {
         map(data => {
           const user= helper.decodeToken(data.token);
           if (data.token) {
-            console.log("içinde")
+         
             // store user details and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('aliceuser', JSON.stringify(data.token));
             localStorage.setItem('userName', JSON.stringify(user.name))
@@ -85,7 +84,7 @@ export class LoginService {
     let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     const object = JSON.stringify(transferObject);
     const self = this;  
-  console.log("burada",transferObject)
+ 
     return this.http
       .post<ResponseModel>(this.valuesUrl+'login/approve',object,{headers: header})
       .pipe( 

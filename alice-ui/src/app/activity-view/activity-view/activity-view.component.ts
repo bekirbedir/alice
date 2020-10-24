@@ -79,7 +79,6 @@ export class ActivityViewComponent implements OnInit {
   }
 
   getApprovedUsers(activityId) {
-    console.log('getApprovedUsers', activityId)
     this.activityService.getApprovedUsers(activityId).subscribe(x => {
       if (x) {
         this.approvedUsers = x;
@@ -108,7 +107,7 @@ export class ActivityViewComponent implements OnInit {
 
   unlikeActivity(item) {
     this.activityService.unlikeActivity(item._id).subscribe((x) => {
-      console.log(x);
+     
       if(x.status){
         this.activityUserStatuses.like= false;
      }
@@ -118,7 +117,7 @@ export class ActivityViewComponent implements OnInit {
 
   likeActivity(item) {
     this.activityService.likeActivity(item._id).subscribe((x) => {
-      console.log(x);
+     
       if(x.status){
         if(this.activityUserStatuses != null)
            this.activityUserStatuses.like= true;
@@ -138,8 +137,7 @@ export class ActivityViewComponent implements OnInit {
 
   joinActivity(item) {
     this.activityService.join(item._id).subscribe((x) => {
-      console.log(x._id);
-
+     
     });
     item.currentUserStatus = 1;
     this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Aktiviteye katılım isteği gönderdiniz' });

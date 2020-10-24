@@ -62,7 +62,7 @@ export class CommunicationService {
   }
 
   const object = JSON.stringify(transferObject);
-  console.log(mail);
+
   return this.httpClient
   .post<ResponseModel>(this.valuesUrl+'communication/createInfo',object,{headers: header})
   .pipe(

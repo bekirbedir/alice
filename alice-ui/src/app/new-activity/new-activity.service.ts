@@ -24,7 +24,7 @@ addActivity(activity:Activity): Observable<Activity> {
     .post<Activity>(this.valuesUrl+"activity/",object,{headers: header})
     .pipe(
       map((res) => res),
-      tap((x) => console.log("aktivite", x)) //bu pipe sadece log icin mi burak? #bb
+      
     );
 } 
 
@@ -32,7 +32,7 @@ addActivity(activity:Activity): Observable<Activity> {
 deleteFile(filename){
   return this._httpClient.get(this.valuesUrl+'activity/deleteFile?filename='+filename )
   .subscribe((response) => {
-       console.log('file deleted ', response);
+      
   })
 }
 

@@ -27,7 +27,7 @@ export class MessageUserComponent implements OnInit {
 
     const aliceuser = JSON.parse(localStorage.getItem('aliceuser'));
     if(aliceuser!=null){
-      console.log("user true oldu")
+     
       this.isActive=true
     }
 

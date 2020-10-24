@@ -47,8 +47,7 @@ export class ProfilService {
     return this._httpClient
       .post<UserModel>(this.valuesUrl + "updateUserPhoto", object, { headers: header })
       .pipe(
-        map((res) => res),
-        tap((x) => console.log("photolar", x))
+        map((res) => res)
       );
   }
   userApprove(user: UserModel): Observable<ResponseModel> {

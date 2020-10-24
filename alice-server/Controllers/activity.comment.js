@@ -58,10 +58,8 @@ saveComment = async function(req,res) {
     activityComment.createdDate = Date.now();
 
     activityComment.save().then(result => {
-        console.log('askjdshdfsldlds',result)
         ActivityComment.find({activityId: activityComment.activityId}).distinct('userId', function(error, ids) {
             if (ids) {
-                console.log('idssss , ' + ids)
                 for(let i = 0 ; i<ids.length ; i++){
                     const notification = new notificationModel();
                     notification.activeUserId = ids[i];
@@ -72,7 +70,7 @@ saveComment = async function(req,res) {
                     notification.activityId = req.body.activityId;
                     notification.userId = req.userId;
                     notification.save().then(result => {
-                        console.log('not kaydedildi')
+                      
                     })
                 }
              }

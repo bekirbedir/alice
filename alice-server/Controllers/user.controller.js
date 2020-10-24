@@ -13,7 +13,6 @@ const multipartMiddleware = multipart({ uploadDir: './public/uploads/profile' })
 
 
 router.post("/updateUserPhoto", (req, res) => {
-  console.log(req.body.userId, "update User photo")
 
   if (!req.body.userId || !req.body.base64) {
     return res.status(404).send({
@@ -47,7 +46,7 @@ router.post("/updateUserPhoto", (req, res) => {
 
 router.get("/userview", (req, res) => {
   let pUsername = req.query.username
-  console.log("pUsername", pUsername);
+  
   if (!pUsername) {
     return res.status(404).send({
       message: 'Email or password can not be empty!',
@@ -73,9 +72,7 @@ router.post("/detail", (req, res) => {
       console.log(err);
     }
     if (response) {
-      console.log("res buldu")
-
-      res.send(response);
+          res.send(response);
     }
 
   }

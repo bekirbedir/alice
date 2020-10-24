@@ -64,7 +64,7 @@ export class NewActivyComponent implements OnInit {
 
   }
   onSelect(e) {
-    console.log("------------- on select");
+    
   }
 
   isValidate() {
@@ -92,7 +92,7 @@ export class NewActivyComponent implements OnInit {
       this.activity.username = localStorage.getItem('userName').replace("\"", "").replace("\"", "") //local store koyup alabilirim veya dedıgım gıbı degısken yaratıp subscribe olurum
       this.activity.userId = localStorage.getItem('userId').replace("\"", "").replace("\"", "")
       this.activity.tagList = this.tags;
-      console.log("activity", this.activity);
+
       this.activityService.addActivity(this.activity).subscribe(x => {
         if (x) {
           this.activity = new Activity();
@@ -109,7 +109,7 @@ export class NewActivyComponent implements OnInit {
     this.fileName = element.originalEvent.body.photoLink
     this.imgHidden = false;
     this.imgSrc = this.baseUrl+"static/uploads/"+this.fileName
-    console.log(this.imgSrc)
+
     this.deleteOld = true;
     this.activity.fileLink = this.fileName;
   }

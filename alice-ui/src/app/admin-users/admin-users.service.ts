@@ -43,7 +43,7 @@ getPendingActivity(): Observable<Activity[]> {
 
 
 activityApprove(activity:Activity): Observable<ResponseModel>{
-  console.log("servise geldi - userApprove")
+
   const transferObject = activity;
   
   let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
@@ -58,7 +58,7 @@ activityApprove(activity:Activity): Observable<ResponseModel>{
 
 
 userApprove(user:UserModel): Observable<ResponseModel>{
-  console.log("servise geldi - userApprove")
+ 
   const transferObject = user;
   
   let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
