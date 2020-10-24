@@ -15,8 +15,6 @@ router.get("/", async (req, response) => {
       
         const activity = await Activity.findOne({status:3,_id:id}, null, { sort: '-createdDate' })
         .populate({path:'user', Model:  '../Models/user' , select:'_id username name email fileLink'}).exec();
-
-        console.log("test-------------------")
         response.json(activity);    
     }
     catch (error) {

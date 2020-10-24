@@ -37,7 +37,7 @@ router.post("/userStateAction", (request, res) => {
         ActivityUser.findOne({ activityId: pActivityId, userId: pUserId }, function (err, actUser) {
             if (actUser) {
                 actUser.status = pStatus;
-                console.log("-----------actUserstatus----", actUser.status)
+               
                 actUser.save().then(result => {
                     if (pStatus == 2) {
                         const notification = new Notification();
@@ -122,7 +122,6 @@ router.post("/userStateAction", (request, res) => {
 
                 })
                     .catch(error => {
-                        console.log("error",error)
                         res.status(200).json({
                             status: false,
                             message: "activity update failed done; " + error 
@@ -199,7 +198,7 @@ router.delete("/", (req, res) => {
 router.put("/updateActivity", (req, res) => {
     console.log(" req.body._id", req.body.activity.context);
     Activity.findOne({ _id: req.body.activity._id }, function (err, activity) {
-        console.log('bulundu')
+        
         activity.context = req.body.activity.context
         activity.tagList = req.body.activity.tagList
         activity.header = req.body.activity.header

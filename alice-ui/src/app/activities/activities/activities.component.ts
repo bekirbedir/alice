@@ -52,7 +52,6 @@ export class ActivitiesComponent implements OnInit {
   ) {
   //  this.store.dispatch(new GetActivities());
     this.activeuser = localStorage.getItem('userId');
-    console.log("activeuser ve öbürü", this.activeuser)
     this.loading = false;
   }
 
@@ -136,7 +135,7 @@ export class ActivitiesComponent implements OnInit {
   }
   joinActivity(item) {
     this.service.join(item._id).subscribe((x) => {
-      console.log(x._id);
+   
 
     });
     item.currentUserStatus = 1;
@@ -145,7 +144,7 @@ export class ActivitiesComponent implements OnInit {
 
   unlikeActivity(item) {
     this.service.unlikeActivity(item._id).subscribe((x) => {
-      console.log(x);
+     
       if(x.status){
         item.currentUserLike = false;
       }
@@ -155,7 +154,7 @@ export class ActivitiesComponent implements OnInit {
 
   likeActivity(item) {
     this.service.likeActivity(item._id).subscribe((x) => {
-      console.log(x);
+    
       if(x.status){
         item.currentUserLike = true;
       }
@@ -226,7 +225,6 @@ export class ActivitiesComponent implements OnInit {
     this.service.getActivityUserStatusList().subscribe(x => {
       if (x) {
         this.activiteUserStatuses = x;
-        console.log("this.activiteUserStatuses11", this.activiteUserStatuses)
         for (var i = 0; i < this.activities.length; i++) {
           const userPricipantStatus = this.isCurrentUserParticipant(this.activities[i]);
           this.activities[i].currentUserStatus = userPricipantStatus;

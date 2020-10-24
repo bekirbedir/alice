@@ -63,8 +63,6 @@ router.get("/activity/getPending",async  (request, response) => {
       
     const activity = await Activity.find({status:1}, null, { sort: '-createdDate' })
     .populate({path:'user', Model:  '../Models/user' , select:'_id username name email fileLink'}).exec();
-
-    console.log("test-------------------")
     response.json(activity);    
   }
 catch (error) {
@@ -108,8 +106,6 @@ router.post("/activity/activityApprove", (req, res) => {
           notification.isShow = false;
           notification.type = 6;
           notification.save();
-
-          console.log("act.user.email" , actUser);
           subject = "ActivityFriend Etkinlik Onayı"
           textHtml = "<H4>Merhaba,<b>"+ act.header + "</b> isimli etkinliğin onaylandı! İyi eğlenceler</H4>"
           mailler.main(actUser.email,subject, textHtml);
