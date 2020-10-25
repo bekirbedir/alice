@@ -31,8 +31,7 @@
     height:5px;
 }
 .act-content{
-    padding-left: 20px !important;
-    padding-right: 77px !important;
+  
 }
 .act-content-btn-signin{
     border-radius: 5px;
@@ -45,8 +44,13 @@
     padding: 9px 0;
     text-align: center;
 }
-
+.tag-list{
+    list-style-type: none;
+    display: contents;
+}
 .profile-tag{
+    width: fit-content;
+    margin-top: 3px;
     margin-right: 5px;
     margin-left: 5px;
    padding: 7px;

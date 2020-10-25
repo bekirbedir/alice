@@ -48,8 +48,10 @@
 
            <div class="h-10"></div>
            <br>
-           <div class="act-content-tags">
-             <span *ngFor="let tag of act.tagList"class="profile-tag">#{{tag}}</span>
+           <div class="p-grid">
+            <ul class="tag-list">
+             <li *ngFor="let tag of act.tagList"class="profile-tag p-col-3">#{{tag}}</li>
+           </ul>
            </div>
            <br>
            <div class="h-5"></div>
