@@ -22,9 +22,9 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of pendingUsers;let i = index"  (click)="routeProfile(user._id)">
+            <tr *ngFor="let user of pendingUsers;let i = index"  >
               <th scope="row">{{i+1}}</th>
-              <td>{{user.username}}</td>
+              <td>{{user.username}} (click)="routeProfile(user._id)" </td>
               <td>{{user.biography}}</td>
               <td>{{user.phone}}</td>
               <td>{{user.email}}</td> 
@@ -101,10 +101,10 @@
       <tbody>
         <tr *ngFor="let user of allUsers;let i = index" (click)="routeProfile(user._id)">
           <th scope="row">{{i+1}}</th>
-          <td>{{user.username}}</td>
+          <td>{{user.username }} (click)="routeProfile(user._id)"</td>
           <td>{{user.biography}}</td>
           <td>{{user.phone}}</td>
-          <td>{{user.email}}</td> 
+          <td>{{user.email}} (click)="routeProfile(user._id)"</td> 
           <td > 
             <button type="button" (click)="userReject(user)"  class="btn btn-danger"> <i class="fa fa-ban" aria-hidden="true"> </i> Sil
             </button>
