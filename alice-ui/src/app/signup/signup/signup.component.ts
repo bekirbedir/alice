@@ -28,10 +28,10 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.tr = {
-      firstDayOfWeek: 0,
-      dayNames: [ "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi","Pazar"],
-      dayNamesShort: ["Paz", "Pzt", "Sal", "ÇRŞ", "PRŞ", "CMA", "CTS"],
-      dayNamesMin: ["PA", "PT", "SA", "ÇA", "PE", "CU", "PZ"],
+      firstDayOfWeek: 1,
+      dayNames: [ "Pazar","Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+      dayNamesShort: ["Pzr","Pzt", "Sal", "Çrş", "Prş", "Cma", "Cts"],
+      dayNamesMin: ["PZ","PT", "SA", "ÇA", "PE", "CU", "CT"],
       monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
       monthNamesShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Temm", "Agu", "Eyl", "Eki", "Kas", "Ara"],
       today: 'Bugün',

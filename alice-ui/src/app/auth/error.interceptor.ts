@@ -10,7 +10,7 @@ export class ErrorInterceptor implements HttpInterceptor {
   constructor(private authenticationService: LoginService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+    console.log('error interceptor')
     return next.handle(request).pipe(catchError(err => {
       if (err.status === 401) {
         // auto logout if 401 response returned from api

@@ -27,7 +27,7 @@ import { ChipsModule } from 'primeng/chips';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import {CaptchaModule} from 'primeng/captcha';
 import {DialogModule} from 'primeng/dialog';
-
+import { AccordionModule } from 'primeng/accordion';
 
 const routes: Routes = [
   {
@@ -62,6 +62,7 @@ const routes: Routes = [
         SelectButtonModule,
         DialogModule,
         CaptchaModule,
+        AccordionModule,
         RouterModule.forChild(routes),
   ],
 

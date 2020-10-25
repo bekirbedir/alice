@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/api';
 import { Activity } from 'src/app/models/activity';
 import { environment } from 'src/environments/environment';
 
+
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
@@ -20,7 +21,7 @@ export class AdminUsersComponent implements OnInit {
   allUsers: UserModel[];
   pendingActivity: Activity[];
 
-  constructor(private userService: UserService, private adminUserService: AdminUsersService, private messageService:MessageService) { }
+  constructor(private userService: UserService, private adminUserService: AdminUsersService, private messageService:MessageService,private router: Router) { }
 
   ngOnInit(): void {
     this.getPendingUser();
@@ -79,6 +80,9 @@ export class AdminUsersComponent implements OnInit {
     this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Yapım aşamasında..' });
   }
 
+  routeProfile(userId){
+    this.router.navigate(['/profile/'+userId])
+   }
   
   photoLinkCreate(link){
     if(link == null || link == "")

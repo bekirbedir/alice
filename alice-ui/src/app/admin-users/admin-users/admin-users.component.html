@@ -22,8 +22,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of pendingUsers">
-              <th scope="row">1</th>
+            <tr *ngFor="let user of pendingUsers;let i = index"  (click)="routeProfile(user._id)">
+              <th scope="row">{{i+1}}</th>
               <td>{{user.username}}</td>
               <td>{{user.biography}}</td>
               <td>{{user.phone}}</td>
@@ -99,8 +99,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of allUsers">
-          <th scope="row">1</th>
+        <tr *ngFor="let user of allUsers;let i = index" (click)="routeProfile(user._id)">
+          <th scope="row">{{i+1}}</th>
           <td>{{user.username}}</td>
           <td>{{user.biography}}</td>
           <td>{{user.phone}}</td>
