@@ -3,6 +3,7 @@ const router = express.Router();
 var bodyParser = require('body-parser')
 var crypto = require('crypto');
 let ActivityComment = require("../Models/activity-comment")
+let Activity = require("../Models/activity")
 let ActivityUser = require("../Models/activity-user-status")
 var jwt = require('jsonwebtoken');
 const user = require("../Models/user");
@@ -58,9 +59,31 @@ saveComment = async function(req,res) {
     activityComment.createdDate = Date.now();
 
     activityComment.save().then(result => {
-        ActivityComment.find({activityId: activityComment.activityId}).distinct('userId', function(error, ids) {
+
+        Activity.findOne({ownerId: '"' +req.userId + '"' },function(err,act){
+            if(act){
+                if(act.ownerId.replace("\"","").replace("\"","") != req.userId){
+                const notification = new notificationModel();
+                notification.activeUserId = act.ownerId.replace("\"","").replace("\"","");
+                notification.type = 3;
+                notification.text = 'Aktivite duvarına yeni mesaj geldi; ' + '"'+ req.body.text + '"';
+                notification.user = req.userId
+                notification.activity = req.body.activityId;
+                notification.activityId = req.body.activityId;
+                notification.userId = req.userId;
+                notification.save().then(result => {
+                  
+                })
+            }
+            }else{
+                console.log('bulunamadiii')
+            }
+        })
+
+        ActivityUser.find({activityId: activityComment.activityId}).distinct('userId', function(error, ids) {
             if (ids) {
                 for(let i = 0 ; i<ids.length ; i++){
+                    if(ids[i] != req.userId){
                     const notification = new notificationModel();
                     notification.activeUserId = ids[i];
                     notification.type = 3;
@@ -72,6 +95,7 @@ saveComment = async function(req,res) {
                     notification.save().then(result => {
                       
                     })
+                }
                 }
              }
              if (error) {
