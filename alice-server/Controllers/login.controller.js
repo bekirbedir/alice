@@ -50,7 +50,7 @@ router.post("/approve", (req, res) => {
 
 router.post("/savePassword", (req, res) => {
   pCode = req.body.code;
-  pUsername = req.body.username.toLowerCase();
+  pUsername = req.body.username.toLowerCase().trim();
   pNewPassword = req.body.newPassword;
 
 
@@ -159,7 +159,7 @@ router.post("/resetPasswordRequest", (req, res) => {
 
 router.post("/signup", (req, res) => {
   let pUsername = req.body.username
-  pUsername = pUsername.toLowerCase();
+  pUsername = pUsername.toLowerCase().trim();
   if (!req.body.username || !req.body.password || !req.body.email ) {
     return res.status(404).send({
       message: 'Email or username or password can not be empty!',
@@ -245,7 +245,7 @@ router.post("/login", (req, res) => {
   }
   else {
 
-    const username = req.body.username.toLowerCase();
+    const username = req.body.username.toLowerCase().trim();
     
     const password = crypto.createHash('md5').update(req.body.password).digest("hex");
     console.log(password)
