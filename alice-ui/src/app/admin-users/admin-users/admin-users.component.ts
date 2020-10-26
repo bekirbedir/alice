@@ -80,9 +80,17 @@ export class AdminUsersComponent implements OnInit {
     this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Yapım aşamasında..' });
   }
 
+  photoUserLinkCreate(link) {
+    if (link == null || link == "")
+      link = "static/uploads/profile/empty_profile128.png";
+
+    return environment.apiBaseUrl + link
+  }
+
   routeProfile(userId){
     this.router.navigate(['/profile/'+userId])
    }
+   
   
   photoLinkCreate(link){
     if(link == null || link == "")
