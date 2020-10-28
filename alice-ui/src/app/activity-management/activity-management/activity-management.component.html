@@ -10,7 +10,7 @@
                    <img class="management-user-photo img-thumbnail"  [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
                 <br>
                 <br>
-                <span  (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b> ( {{actUser.user.email}} )<br> @{{actUser.user.username}} </span>
+                <span  (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b><br> @{{actUser.user.username}} </span>
                 </td>
       
                 <td>
@@ -37,7 +37,7 @@
                   <img class="management-user-photo img-thumbnail"  [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
                <br>
                <br>
-               <span  (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b> ( {{actUser.user.email}} )<br> @{{actUser.user.username}} </span>
+               <span  (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b> <br> @{{actUser.user.username}} </span>
                </td>
                 <td>
                   <div class="btn-group" role="group" aria-label="...">
@@ -62,7 +62,7 @@
               <img class="management-user-photo img-thumbnail"  [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
            <br>
            <br>
-           <span  (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b> ( {{actUser.user.email}} )<br> @{{actUser.user.username}} </span>
+           <span  (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b> <br> @{{actUser.user.username}} </span>
            </td>
             <td>
               <div class="btn-group" role="group" aria-label="...">
@@ -168,7 +168,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let actUser of rejectedUsers">
-            <th>{{actUser.username}} ( {{actUser.user.email}} )</th>
+            <th>{{actUser.username}} </th>
            
           </tr>
 
