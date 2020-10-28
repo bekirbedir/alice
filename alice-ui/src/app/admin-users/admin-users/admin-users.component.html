@@ -24,7 +24,11 @@
           <tbody>
             <tr *ngFor="let user of pendingUsers;let i = index"  >
               <th scope="row">{{i+1}}</th>
-              <td  (click)="routeProfile(user._id)" >{{user.username}}</td>
+              <td  (click)="routeProfile(user._id)" >
+                <p>{{user.username}} </p>
+                <p>{{user.name}} / {{user.gender}}</p>
+                <p>{{ user.birthDate | date:'dd/MM/yyyy'}} </p>
+              </td>
               <td>{{user.biography}}</td>
               <td>{{user.phone}}</td>
               <td>{{user.email}}</td> 
@@ -104,7 +108,11 @@
           <th scope="row">{{i+1}}</th>
           <td colspan="2">  <img (click)="routeProfile(user._id)" class="header-photo img-thumbnail" [src]="photoUserLinkCreate(user.fileLink)" > 
           </td>
-          <td  (click)="routeProfile(user._id)">{{user.username }}</td>
+          <td  (click)="routeProfile(user._id)" >
+            <p>{{user.username}} </p>
+            <p>{{user.name}} / {{user.gender}}</p>
+            <p>{{ user.birthDate | date:'dd/MM/yyyy'}}</p>
+          </td>
           <td>{{user.biography}}</td>
           <td>{{user.phone}}</td>
           <td (click)="routeProfile(user._id)">{{user.email}} </td> 

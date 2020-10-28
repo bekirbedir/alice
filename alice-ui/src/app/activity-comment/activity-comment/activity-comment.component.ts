@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivityCommentService } from 'src/app/activity-comment/activity-comment.service';
 import { ActivityCommentModel } from 'src/app/models/activity.comment.model';
 import { LoginService } from 'src/app/auth/login.service';
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { element } from 'protractor';
 import localeTr from '@angular/common/locales/tr';
 import { registerLocaleData } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 
 registerLocaleData(localeTr, 'tr');
 
@@ -27,7 +28,8 @@ export class ActivityCommentComponent implements OnInit {
 
 
 
-  constructor(private loginService: LoginService, private activityCommentService: ActivityCommentService, private router: Router) {
+  constructor(private loginService: LoginService, private activityCommentService: ActivityCommentService,
+     private router: Router, @Inject(DOCUMENT) private document: Document) {
     this.newComment = new ActivityCommentModel()
     this.Activity.subscribe(x => {
       if (x) {
@@ -55,11 +57,34 @@ export class ActivityCommentComponent implements OnInit {
       //  element.createdDate = element.createdDate.toLocaleString();
       }) */
       this.comments = x
+      this.goToScrollBottom();
     })
   }
 
-  sendComment() {
+  goToScrollBottom(){
+    setTimeout(() => { let scroll = this.document.body.getElementsByClassName("ui-scrollpanel-content")[0]; 
+    if (scroll) { scroll.scrollTop = scroll.scrollHeight; } }, 250);
+  }
+  isValidate() {
+    let isControl = true;
+    try{
+    if (this.newComment.text == null || this.newComment.text == '') {
+      isControl = false;
+    }else{
+      return isControl;
+    }
+  }
+  catch(err)  {
+    console.log('error', err)
+    return false;
+  }
+    
+   
+    
+  }
 
+  sendComment() {
+    if(this.isValidate() ){
     this.newComment.userId = localStorage.getItem('userId')
     this.newComment.username = localStorage.getItem('userName').replace("\"", "").replace("\"", "") //local store koyup alabilirim veya dedıgım gıbı degısken yaratıp subscribe olurum   
     this.newComment.activityId = this.activityStatic._id;
@@ -67,8 +92,9 @@ export class ActivityCommentComponent implements OnInit {
       this.newComment.createdDate = new Date().toLocaleString();
       this.comments.push(this.newComment);
       this.newComment = new ActivityCommentModel();
-    })
-
+      this.goToScrollBottom();
+     })
+  }
 
   }
 

@@ -98,6 +98,10 @@
                     <br>
 
                     <p [hidden]="!(isEditable && !editMode)" class="email"><b><i class="fa fa-envelope" aria-hidden="true"></i> Email :</b>{{User.email}}</p>
+                    <p [hidden]="isEditable" class="email"><a><b><i class="fa fa-phone" aria-hidden="true"></i> Email : </b>*******</a></p>
+                   
+                    <p  class="email"> <small>Kullanıcı gizliliği ve güvenliği için, telefon ve email bilgilerini diğer kullanıcılar göremez</small></p>
+                   
 
                     <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
                         <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email"

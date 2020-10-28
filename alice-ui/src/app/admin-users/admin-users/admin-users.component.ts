@@ -76,7 +76,7 @@ export class AdminUsersComponent implements OnInit {
     this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Yapım aşamasında..' });
   }
 
-  userReject() {
+  userReject(user) {
     this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Yapım aşamasında..' });
   }
 

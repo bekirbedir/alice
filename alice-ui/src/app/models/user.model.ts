@@ -13,5 +13,7 @@ export class UserModel {
     fileLink?:String | null;
     gender?:String | null;
     birthDate?:Date |null;
+    name:string;
+    
   }
   

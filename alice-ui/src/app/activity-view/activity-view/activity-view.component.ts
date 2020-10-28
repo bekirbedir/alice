@@ -92,6 +92,7 @@ export class ActivityViewComponent implements OnInit {
 
   viewComments(item) {
     if (this.isOwner) {
+      this.store.dispatch(new GetActivityDetail(item._id))
       this.router.navigate(['/activity-comment'])
     }
     else {
@@ -100,6 +101,7 @@ export class ActivityViewComponent implements OnInit {
         this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Duvarı, sadece katılımı onaylanan kullanıcılar görebilir..' });
       } else {
         //this.store.dispatch(new GetActivityDetail(item._id))
+        this.store.dispatch(new GetActivityDetail(item._id))
         this.router.navigate(['/activity-comment'])
       }
     }
