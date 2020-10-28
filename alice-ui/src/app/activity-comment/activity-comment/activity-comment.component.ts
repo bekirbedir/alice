@@ -57,9 +57,26 @@ export class ActivityCommentComponent implements OnInit {
       this.comments = x
     })
   }
+  isValidate() {
+    let isControl = true;
+    try{
+    if (this.newComment.text == null || this.newComment.text == '') {
+      isControl = false;
+    }else{
+      return isControl;
+    }
+  }
+  catch(err)  {
+    console.log('error', err)
+    return false;
+  }
+    
+   
+    
+  }
 
   sendComment() {
-
+    if(this.isValidate() ){
     this.newComment.userId = localStorage.getItem('userId')
     this.newComment.username = localStorage.getItem('userName').replace("\"", "").replace("\"", "") //local store koyup alabilirim veya dedıgım gıbı degısken yaratıp subscribe olurum   
     this.newComment.activityId = this.activityStatic._id;
@@ -68,7 +85,7 @@ export class ActivityCommentComponent implements OnInit {
       this.comments.push(this.newComment);
       this.newComment = new ActivityCommentModel();
     })
-
+  }
 
   }
 

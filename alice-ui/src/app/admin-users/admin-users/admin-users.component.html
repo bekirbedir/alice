@@ -27,7 +27,7 @@
               <td  (click)="routeProfile(user._id)" >
                 <p>{{user.username}} </p>
                 <p>{{user.name}} / {{user.gender}}</p>
-                <p>{{user.birthDate}} </p>
+                <p>{{ user.birthDate | date:'dd/MM/yyyy'}} </p>
               </td>
               <td>{{user.biography}}</td>
               <td>{{user.phone}}</td>
@@ -111,7 +111,7 @@
           <td  (click)="routeProfile(user._id)" >
             <p>{{user.username}} </p>
             <p>{{user.name}} / {{user.gender}}</p>
-            <p>{{user.birthDate}} </p>
+            <p>{{ user.birthDate | date:'dd/MM/yyyy'}}</p>
           </td>
           <td>{{user.biography}}</td>
           <td>{{user.phone}}</td>
