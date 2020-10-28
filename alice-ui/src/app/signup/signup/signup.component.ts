@@ -4,6 +4,8 @@ import { User } from 'src/app/auth/user';
 import { UserService } from 'src/app/users/user.service';
 import { MessageService } from 'primeng/api';
 import { SelectItem } from 'primeng/api';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -17,12 +19,17 @@ export class SignupComponent implements OnInit {
   checked: boolean = false;
   mailOnayBilgisi:Boolean = false;
   buttonEnabled:Boolean = true;
+  buttonSmsValid=false;
   user: User
   sozlesmeVisible: Boolean = false;
   tr:any
+  isSendSms=false
   cinsiyetler: SelectItem[];
   captchaCheck: Boolean= false;
-  constructor(private router: Router, private registerservice: UserService, private messageService: MessageService) {
+  code=Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
+  userCode:number
+  constructor(private http: HttpClient,private router: Router, private registerservice: UserService, private messageService: MessageService) {
+    console.log("intial edildi")
     this.user = new User();
   }
 
@@ -60,12 +67,29 @@ export class SignupComponent implements OnInit {
     }) */
 }
 
+sendSms(){
+
+  if(this.user.phone==undefined || null || this.user.phone.length !=14){
+    this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail:'Eksik veya hatalı bir numara' });
+    return
+  }
+  this.registerservice.postSmsCode(this.user.phone,this.code).subscribe(x=>{
+    if(x.status==true){
+      console.log(x)
+      this.isSendSms=true 
+    }
+    else{
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: x.message });
+      this.isSendSms=false
+    }
+  })
+}
   isValidate() {
     let isControl = true;
 
     if(!this.captchaCheck ){
-      isControl = false;
-      return isControl;
+       isControl = false;
+       return isControl;
     }
 
     if (this.user.username == null || this.user.username == "") {
@@ -95,6 +119,10 @@ export class SignupComponent implements OnInit {
     }
     if (this.user.birthDate == null) {
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Doğum günü boş' });
+      isControl = false;
+    }
+    if (this.code*2-1428 != this.userCode ) {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Sms onay kodunuz doğru değil' });
       isControl = false;
     }
     if (this.user.phone == null || this.user.phone == "") {
@@ -127,6 +155,8 @@ export class SignupComponent implements OnInit {
           this.buttonEnabled = false;
           this.captchaCheck = false;
           this.user = new User();
+          this.userCode=null
+          
         }
         else{
           this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: x.message });
@@ -135,5 +165,8 @@ export class SignupComponent implements OnInit {
       })
     }
   }
+
+
+
  
 }

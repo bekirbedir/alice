@@ -167,14 +167,21 @@ router.post("/signup", (req, res) => {
   }
   else {
 
-    User.findOne({  $or:[ {'username':pUsername}, {'email':req.body.email} ]}, function (err, docs) {
+    User.findOne({  $or:[ {'username':pUsername}, {'email':req.body.email},{'phone':req.body.phone} ]}, function (err, docs) {
       if (docs) {
         if(docs.username == pUsername){
           res.status(200).json({
             status: false,
             message: "Bu kullanıcı adı daha önce alınmış."
           })
-        }else{
+        }
+        else if(docs.phone == req.body.phone){
+          res.status(200).json({
+            status: false,
+            message: "Bu numara daha önce alınmış."
+          })
+        }
+        else{
           res.status(200).json({
             status: false,
             message: "Bu email adresi daha önce kullanılmıştır."

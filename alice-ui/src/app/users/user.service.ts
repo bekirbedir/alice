@@ -44,6 +44,19 @@ export class UserService {
       );
   }
 
+  postSmsCode(number,code):Observable<any>
+  {
+    const transferObject = {'number':number , 'code':code};
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    return this._httpClient
+    .post<ResponseModel>(this.valuesUrl+"sms/sendSms",object, { headers: header })
+    .pipe(
+      map((res) => res)
+    );
+    
+   }
+
   
  
   creatUser(user:User):Observable<ResponseModel>{

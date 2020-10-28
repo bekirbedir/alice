@@ -22,6 +22,7 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "nodemon": "^2.0.4",
     "path": "^0.12.7",
+    "request": "^2.88.2",
     "socket.io": "^2.3.0"
   }
 }

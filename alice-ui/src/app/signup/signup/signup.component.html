@@ -36,14 +36,14 @@
             
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
-              <input id="float-input" type="text" size="100" pInputText [(ngModel)]="user.name" class="w-100">
+              <input id="float-input1" type="text" size="100" pInputText [(ngModel)]="user.name" class="w-100">
               <label for="float-input">Ad Soyad</label>
             </span>
           </div>
 
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
-              <input id="float-input" type="text" size="100" pInputText [(ngModel)]="user.email" class="w-100">
+              <input id="float-input2" type="text" size="100" pInputText [(ngModel)]="user.email" class="w-100">
               <label for="float-input">Email adresi girin</label>
             </span>
           </div>
@@ -52,7 +52,7 @@
 
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
-              <input id="float-input" type="text" size="100" pInputText [(ngModel)]="user.username" class="w-100">
+              <input id="float-input3" type="text" size="100" pInputText [(ngModel)]="user.username" class="w-100">
               <label for="float-input">Kullanıcı adı girin</label>
             </span>
           </div>
@@ -63,15 +63,24 @@
 
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
-              <input id="float-input" type="password" size="100" pInputText [(ngModel)]="user.password" class="w-100">
+              <input id="float-input4" type="password" size="100" pInputText [(ngModel)]="user.password" class="w-100">
               <label for="float-input">Parola girin</label>
             </span>
           </div>
 
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
-               <p-inputMask  mask="(999) 999-9999" [(ngModel)]="user.phone"  class="w-100"></p-inputMask>
+               <p-inputMask  mask="(999) 999-9999" [(ngModel)]="user.phone"  class="w-50"></p-inputMask>
               <label for="float-input">Telefon<small> (5xx) 123-4567</small></label>
+            </span>
+
+            <button  style="margin-top:15px !important" pButton type="button" label="Sms Gönder" class="ui-button-raised   login-btn"
+            (click)="sendSms()"></button>
+          </div>
+          <div class="p-col-4" *ngIf="isSendSms">
+            <span class="ui-float-label" style="margin-top:15px !important">
+              <input id="float-input5" type="text" size="100" pInputText [(ngModel)]="userCode" class="w-100">
+              <label for="float-input">Sms Onay Kodunuz</label>
             </span>
           </div>
 

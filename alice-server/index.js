@@ -21,7 +21,7 @@ const loginRouter = require('./Controllers/login.controller');
 const communicationRouter = require("./Controllers/communication.controller");
 const adminRouter = require("./Controllers/admin.controller");
 const notificationRouter = require("./Controllers/notification.controller");
-
+const smsRouter=require("./Controllers/sms.controller");
 
 
 
@@ -36,8 +36,9 @@ app.use('/activity-comment/',auhtguardUser,activityCommentRouter);
 app.use('/activity-management/',activityManagementRouter);
 app.use('/login/',loginRouter)
 app.use('/communication/', communicationRouter);
-
+app.use('/sms/', smsRouter);
 app.use('/admin/', auhtguardAdmin,adminRouter);
+
 //app.use('/activity/',activityRouter);
 
 const port= process.env.PORT || 3000;

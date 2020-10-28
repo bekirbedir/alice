@@ -7,7 +7,7 @@ let mailler = require("../mailler")
 var jwt = require('jsonwebtoken');
 const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart({ uploadDir: './public/uploads/profile' }); //bu calisiyor
-
+var request = require('request')
 
 
 
@@ -78,6 +78,9 @@ router.post("/detail", (req, res) => {
   }
   )
 })
+
+
+
 
 
 
