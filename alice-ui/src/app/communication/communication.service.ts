@@ -22,11 +22,11 @@ export class CommunicationService {
       response:"6LfbtNgZAAAAAHyU44M70pcVFzU360FOLWNfRzPr"
     }
 
-    let header:HttpHeaders = new HttpHeaders().set('Açcess-Control-Allow-Origin', 'application/json');
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     const object = JSON.stringify(transferObject);
     
     return this.httpClient
-    .post<any>("https://www.google.com/recaptcha/api/siteverify",object,{params: transferObject,headers:header})
+    .post<any>("https://www.google.com/recaptcha/api/siteverify",transferObject,{headers:transferObject})
     .pipe(
       map((res) => res),
     );
@@ -43,7 +43,7 @@ export class CommunicationService {
     const object = JSON.stringify(transferObject);
     
     return this.httpClient
-    .post<any>("https://www.google.com/recaptcha/api/siteverify",object,{headers:header})
+    .get<any>("https://www.google.com/recaptcha/api2/userverify?k="+transferObject.secret,{headers: header})
     .pipe(
       map((res) => res),
     );
@@ -62,7 +62,7 @@ export class CommunicationService {
   }
 
   const object = JSON.stringify(transferObject);
-  console.log(mail);
+
   return this.httpClient
   .post<ResponseModel>(this.valuesUrl+'communication/createInfo',object,{headers: header})
   .pipe(
@@ -70,6 +70,5 @@ export class CommunicationService {
   );
   }
 }
-
 
 
