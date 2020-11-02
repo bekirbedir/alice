@@ -19,7 +19,7 @@ router.post("/createInfo",(req,res)=>{
      + " <br>"
      + "  Telefon: " +  req.body.phone
      + "<br>"
-     + "  Email: " +  req.body.mail
+     + "  Email: " +  req.body.eMail
     mailler.main(req.body.mail,subject , text);     
     res.status(200).json({
         status: true,
