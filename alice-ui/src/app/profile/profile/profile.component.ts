@@ -32,6 +32,7 @@ export class ProfileComponent {
   password:String;
   passwordRepeat:String;
   passwordChangeAction:Boolean=false;
+  pictureFullScreen:Boolean=false;
   
   constructor(private service: ProfilService, private _sanitizer: DomSanitizer,
     private imageCompress: NgxImageCompressService,

@@ -17,6 +17,7 @@ import {InputMaskModule} from 'primeng/inputmask';
 import {FileUploadModule} from 'primeng/fileupload';
 
 import { InputTextModule } from 'primeng/inputtext';
+import {DialogModule} from 'primeng/dialog';
 const routes: Routes = [
   { 
     path: '',
@@ -47,6 +48,8 @@ const routes: Routes = [
         InputTextModule,
         FormsModule,
         FileUploadModule,
+        DialogModule,
+        ConfirmDialogModule,
     RouterModule.forChild(routes),
   ],
   providers: [NgxImageCompressService],

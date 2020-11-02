@@ -28,9 +28,9 @@
     text-align: center;
 }
 .header-photo{
-    
-    width: 200px;
-    height: 200px;
+    object-fit: cover;
+    width: 250px;
+    height: 250px;
     border-radius: 50%;
 }
 .rate-buttons>.progress{

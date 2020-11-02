@@ -28,6 +28,7 @@ import {SelectButtonModule} from 'primeng/selectbutton';
 import {CaptchaModule} from 'primeng/captcha';
 import {DialogModule} from 'primeng/dialog';
 import { AccordionModule } from 'primeng/accordion';
+import {StepsModule} from 'primeng/steps';
 
 const routes: Routes = [
   {
@@ -63,6 +64,7 @@ const routes: Routes = [
         DialogModule,
         CaptchaModule,
         AccordionModule,
+        StepsModule,
         RouterModule.forChild(routes),
   ],
 

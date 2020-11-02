@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/auth/user';
 import { UserService } from 'src/app/users/user.service';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { SelectItem } from 'primeng/api';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -30,10 +30,12 @@ export class SignupComponent implements OnInit {
   code=Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
   userCode:number
   phoneOriginal:String="";
+  signupSteps: MenuItem[];
   constructor(private http: HttpClient,private router: Router, private registerservice: UserService, private messageService: MessageService) {
     console.log("intial edildi")
     this.user = new User();
   }
+
 
   ngOnInit(): void {
     this.tr = {
@@ -49,7 +51,11 @@ export class SignupComponent implements OnInit {
       weekHeader: 'Wk'
     };
     this.cinsiyetler = [{label: 'Erkek', value: 'Erkek'}, {label: 'Kadın', value: 'Kadın'}];
-
+  this.signupSteps = [
+            {label: 'Üyelik formunu doldur'},
+            {label: 'Mail onayı'},
+            {label: 'Yönetici onayı'}
+        ];
   }
   routeLogin() {
     this.router.navigate(['/login'])

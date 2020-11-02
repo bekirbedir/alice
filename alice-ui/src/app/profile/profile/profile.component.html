@@ -9,7 +9,7 @@
             <div class="p-grid">
                 <div class="p-col-12 text-align-center">
 
-                    <img class="header-photo img-thumbnail" [src]="photoLinkCreate(User.fileLink)">
+                    <img (click)="pictureFullScreen=true" class="header-photo img-thumbnail" [src]="photoLinkCreate(User.fileLink)">
 
 
                     <p-fileUpload [hidden]="!isEditable" name="photo" multiple="false" [auto]="true"
@@ -179,3 +179,7 @@
             fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
     </div>
 </div>
+
+<p-dialog [(visible)]="pictureFullScreen" [style]="{width: '80vw'}" [baseZIndex]="10000">
+    <img (click)="pictureFullScreen=true" class="img-thumbnail" style="width: '80vw'; height: '80vw'" [src]="photoLinkCreate(User.fileLink)">
+</p-dialog>
