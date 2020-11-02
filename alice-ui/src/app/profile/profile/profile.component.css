@@ -1,19 +1,4 @@
-.profile-tags{
-    padding: 12px;
-    border: 1px solid #ccc;
-    background-color: whitesmoke;
-    align-items: center;
-    text-align: center;
-}
-.profile-tag{
-    margin-right: 5px;
-    margin-left: 5px;
-   padding: 7px;
-   border-radius: 3px;
-   color: white;
-   background: rgb(71,161,25);
-   background: linear-gradient(90deg, rgba(71,161,25,1) 0%, rgba(89,207,23,1) 100%);
-}
+
 .bio-header{
     margin-top: 10px;
     font-weight: 900;
@@ -100,3 +85,18 @@ background: linear-gradient(90deg, rgba(246,10,10,1) 0%, rgba(228,50,50,1) 47%);
   .ui-fileupload-content{
       display: none !important;
   }
+  .tag-list{
+    list-style-type: none;
+    display: contents;
+}
+.profile-tag{
+    width: fit-content;
+    margin-top: 3px;
+    margin-right: 5px;
+    margin-left: 5px;
+   padding: 7px;
+   border-radius: 3px;
+   color: white;
+   background: rgb(71,161,25);
+   background: linear-gradient(90deg, rgba(71,161,25,1) 0%, rgba(89,207,23,1) 100%);
+}

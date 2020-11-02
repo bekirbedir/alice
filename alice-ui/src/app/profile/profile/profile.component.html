@@ -91,7 +91,7 @@
 
 
                     <br>
-                    <p class="username"><a href="#"><b>Kullanıcı Adı: </b>@{{User.username}}</a></p>
+                    <p class="username"><a class=""><b>Kullanıcı Adı: </b>@{{User.username}}</a></p>
                     <br>
                     <p [hidden]="!isEditable" class="username"><a><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>{{User.phone}}</a></p>
                     <p [hidden]="isEditable" class="username"><a><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>*******</a></p>
@@ -121,14 +121,18 @@
                     </span>
 
                 </div>
-                <div class="p-col-12">
-                    <div class="profile-tags">
-                        <span [hidden]="editMode" *ngFor="let tag of User.tagList" class="profile-tag">#{{tag}}</span>
+                <div class="p-grid">
+                  
+                  
+                        <ul  [hidden]="editMode" class="tag-list">
+                            <li *ngFor="let tag of User.tagList" class="profile-tag p-col-3">#{{tag}}</li>
+                          </ul>
                         <div [hidden]="!editMode" class="p-col-12">
                             <p class="input-label" style="font-size: 12px;">Etiket ekle (Enter ile ekleyin)</p>
                             <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="User.tagList" separator=","></p-chips>
                         </div>
-                    </div>
+              
+                    
                 </div>
             </div>
             <hr>
