@@ -75,7 +75,7 @@ sendSms(){
   }
   this.registerservice.postSmsCode(this.user.phone,this.code).subscribe(x=>{
     if(x.status==true){
-      console.log(x)
+      this.messageService.add({ key: 'tc', severity: 'success', summary: 'Harika :)', detail:'Telefonuna gelen sms onay kodunu ilgili alana yaz lütfen' });
       this.isSendSms=true 
     }
     else{
@@ -87,29 +87,29 @@ sendSms(){
   isValidate() {
     let isControl = true;
 
-    if(!this.captchaCheck ){
+  /*  if(!this.captchaCheck ){
        isControl = false;
        return isControl;
-    }
+    } */
 
-    if (this.user.username == null || this.user.username == "") {
+    if (this.user.username == null || this.user.username.trim() == "") {
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Kullanıcı Adı boş olamaz' });
       isControl = false;
     }
-    if (this.user.password == null || this.user.password == "") {
+    if (this.user.password == null || this.user.password.trim() == "") {
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Parola boş olamaz' });
       isControl = false;
     }
 
-    if (this.user.email == null || this.user.email == "") {
+    if (this.user.email == null || this.user.email.trim() == "") {
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Email boş olamaz' });
       isControl = false;
     }
-    if (this.user.biography == null || this.user.biography == "") {
+    if (this.user.biography == null || this.user.biography.trim() == "") {
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Biyograf Alanı boş olamaz' });
       isControl = false;
     }
-    if (this.user.name == null || this.user.name == "") {
+    if (this.user.name == null || this.user.name.trim() == "") {
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Ad boş olamaz' });
       isControl = false;
     }

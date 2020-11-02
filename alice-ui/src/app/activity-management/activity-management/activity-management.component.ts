@@ -84,7 +84,7 @@ export class ActivityManagementComponent implements OnInit {
     this.getWaitingUsers();
   }
   userStateAction(activityId, userId, status) {
-    let selectedTab = localStorage.getItem('selectedManagementTab');
+    let selectedTab = localStorage.getItem('selectedManagementTab').replace("\"","").replace("\"","");;
     this.service.userStateAction(activityId, userId, status).subscribe(x => {
       if (x.status) {
         this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Kaydedildi..' });

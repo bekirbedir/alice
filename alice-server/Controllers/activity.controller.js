@@ -187,7 +187,7 @@ router.put("/", (req, res) => {
         activity.profilUrl = req.body.profilUrl
         activity.activityUrl = req.body.activityUrl
         activity.header = req.body.header
-        activity.participationCount = req.body.participationCount
+        activity.participationLimit = req.body.participationLimit
         activity.like = req.body.like
         activity.save().then(result => {
             res.status(200).json({

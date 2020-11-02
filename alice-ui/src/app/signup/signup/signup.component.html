@@ -74,13 +74,13 @@
               <label for="float-input">Telefon<small> (5xx) 123-4567</small></label>
             </span>
 
-            <button  style="margin-top:15px !important" pButton type="button" label="Sms Gönder" class="ui-button-raised   login-btn"
+            <button  style="margin-top:15px !important" pButton type="button" label="Numaramı doğrula" class="ui-button-raised   login-btn"
             (click)="sendSms()"></button>
           </div>
-          <div class="p-col-4" *ngIf="isSendSms">
+          <div class="p-col-12" *ngIf="isSendSms">
             <span class="ui-float-label" style="margin-top:15px !important">
               <input id="float-input5" type="text" size="100" pInputText [(ngModel)]="userCode" class="w-100">
-              <label for="float-input">Sms Onay Kodunuz</label>
+              <label for="float-input">Telefonunuza gönderdiğimiz onay kodunu girin</label>
             </span>
           </div>
 
