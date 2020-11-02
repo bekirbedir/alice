@@ -76,7 +76,7 @@
             </span>
 
             <button  style="margin-top:15px !important" pButton type="button" label="Numaramı doğrula" class="ui-button-raised   login-btn"
-            (click)="sendSms()"></button>
+            (click)="sendSms()" [disabled]="phoneDisable"></button>
           </div>
           <div class="p-col-12" *ngIf="isSendSms">
             <span class="ui-float-label" style="margin-top:15px !important">
