@@ -70,7 +70,7 @@
 
           <div class="p-col-12">
             <span class="ui-float-label" style="margin-top:15px !important">
-               <p-inputMask  mask="(999) 999-9999" [(ngModel)]="user.phone"  class="w-50"></p-inputMask>
+               <p-inputMask  mask="(999) 999-9999" [(ngModel)]="user.phone"  class="w-100" [disabled]="phoneDisable"></p-inputMask>
               <label for="float-input">Telefon<small> (5xx) 123-4567</small></label>
             </span>
 
@@ -125,6 +125,14 @@
               <div class="p-col-6">
               <button  [disabled]="!checked && buttonEnabled" (click)="createNewUser()" pButton type="button" label="Kayıt Ol »" class="ui-button-raised p-col-12"></button>
               </div>
+          </div>
+
+          <hr>
+          <div class="p-grid text-center">
+            <p  class=" p-col-12 text-center"><b>Yardım & Destek için:</b></p>
+            <div class="p-col-12" ><a><i class="fa fa-envelope-o" aria-hidden="true"></i> info@activityfriend.com.tr</a></div>
+            <div class="p-col-12"  ><a target="_blank" href="https://www.instagram.com/activityfriend"><i class="fa fa-instagram" aria-hidden="true"></i>activityfriend</a> </div>
+           <hr>
           </div>
         </p-card>
         

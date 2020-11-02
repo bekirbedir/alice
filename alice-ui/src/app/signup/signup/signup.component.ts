@@ -26,8 +26,10 @@ export class SignupComponent implements OnInit {
   isSendSms=false
   cinsiyetler: SelectItem[];
   captchaCheck: Boolean= false;
+  phoneDisable:Boolean = false;
   code=Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
   userCode:number
+  phoneOriginal:String="";
   constructor(private http: HttpClient,private router: Router, private registerservice: UserService, private messageService: MessageService) {
     console.log("intial edildi")
     this.user = new User();
@@ -76,6 +78,8 @@ sendSms(){
   this.registerservice.postSmsCode(this.user.phone,this.code).subscribe(x=>{
     if(x.status==true){
       this.messageService.add({ key: 'tc', severity: 'success', summary: 'Harika :)', detail:'Telefonuna gelen sms onay kodunu ilgili alana yaz lütfen' });
+      this.phoneOriginal = this.user.phone;
+      this.phoneDisable = true;
       this.isSendSms=true 
     }
     else{
@@ -147,7 +151,7 @@ sendSms(){
   createNewUser() {
     if (this.isValidate()) {
       this.registerservice.creatUser(this.user).subscribe(x => {
-        
+        this.user.phone = this.phoneOriginal;
         this.checked = false
         if(x.status){
           this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Başarılı', detail: 'Kaydınız alındı. Mail adresinizi onaylayın lütfen' });
@@ -156,6 +160,8 @@ sendSms(){
           this.captchaCheck = false;
           this.user = new User();
           this.userCode=null
+          this.user.tagList = null;
+          this.phoneDisable = true;
           
         }
         else{
