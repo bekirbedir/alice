@@ -49,8 +49,7 @@ const routes: Routes = [
         FormsModule,
         FileUploadModule,
         DialogModule,
-        ConfirmDialogModule,
-    RouterModule.forChild(routes),
+         RouterModule.forChild(routes),
   ],
   providers: [NgxImageCompressService],
 })
