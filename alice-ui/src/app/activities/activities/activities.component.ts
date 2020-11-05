@@ -38,6 +38,8 @@ export class ActivitiesComponent implements OnInit {
   activiteUserStatuses: ActivityUserStatus[]
   loading:Boolean
   searchWord:String;
+  currentDateTime:Number;
+  oldActivities:Boolean=false;
   private isActiveUserId = localStorage.getItem('userId');
 
 //  @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
@@ -75,6 +77,7 @@ export class ActivitiesComponent implements OnInit {
   activeItem1: MenuItem;
 
   ngOnInit() {
+    this.currentDateTime = Date.now()
     this.loading = true;
     this.service.getActivityList('').subscribe(x => {
       this.activities = x;
@@ -100,8 +103,35 @@ export class ActivitiesComponent implements OnInit {
     this.activeItem1 = this.modules[0];
 
   }
+  isShowByCreatedDate(act){
+    if(new Date(act.date).getTime() > this.currentDateTime )
+      return true;
+    else
+      return false;
+  }
 
-
+  oldActivitiesCheckBox(e){
+    this.loading = true
+        if(this.oldActivities){
+          this.service.getOldActivityList('').subscribe(x => {
+            this.activities = x;
+            this.loading = false;
+            if (x) {
+         //     this.getActivityUserStatusList();
+            }
+          });
+        }
+        else{
+          this.service.getActivityList('').subscribe(x => {
+            this.activities = x;
+            this.loading = false;
+            if (x) {
+              this.getActivityUserStatusList();
+      
+            }
+          });
+        }
+  }
   viewDetail(item) {
     localStorage.setItem("currentUserStatus", item.currentUserStatus)
     localStorage.setItem("selectedActivityId", item._id)

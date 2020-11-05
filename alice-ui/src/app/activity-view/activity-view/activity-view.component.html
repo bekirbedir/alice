@@ -49,16 +49,16 @@
             <div class="p-grid">
                 <div (click)="viewComments(activityStatic)" class="p-col-6 act-content-btn-comment"><i class="pi pi-comments"></i> Duvar</div>
            
-                <div [hidden] ="isOwner"  *ngIf="activityStatic.currentUserStatus == 0" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+                <div [hidden] ="isOwner"  *ngIf="activityStatic.currentUserStatus == 0 && isShowByCreatedDate(activityStatic)" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
                   <button type="button" (click)="joinActivity(activityStatic)" class=" btn btn-primary w-100"> <i class="pi pi-sign-in" aria-hidden="true"> </i> Katıl</button>
               </div>
-              <div *ngIf="activityStatic.currentUserStatus == 1" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+              <div *ngIf="activityStatic.currentUserStatus == 1 && isShowByCreatedDate(activityStatic)" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
                <button type="button" (click)="cancelActivityApprove(activityStatic)" class=" btn btn-warning w-100" > <i class="fa fa-spinner" aria-hidden="true" > </i> Beklemede </button>
               </div>
-              <div *ngIf="activityStatic.currentUserStatus == 2" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+              <div *ngIf="activityStatic.currentUserStatus == 2 && isShowByCreatedDate(activityStatic)" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
                <button type="button" (click)="cancelActivityApprove(activityStatic)" class=" btn btn-success w-100" > <i class="fa fa-check" aria-hidden="true"> </i> Kabul edildin</button>
               </div>
-              <div *ngIf="activityStatic.currentUserStatus == 3" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+              <div *ngIf="activityStatic.currentUserStatus == 3 && isShowByCreatedDate(activityStatic)" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
                <button type="button"  class=" btn btn-danger w-100" disabled> <i class="fa fa-times" aria-hidden="true"> </i> Reddedildi</button>
               </div>
            

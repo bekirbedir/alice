@@ -14,7 +14,10 @@
       
         <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12">
           <button type="button" (click)="newActivity()"  class="btn btn-success w-100 font-size-1-5em"> <i class="fa fa-plus-circle" aria-hidden="true"> </i> Etkinlik Oluştur</button>
-        </div>	
+        </div>
+        <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12">
+          <p-checkbox [(ngModel)]="oldActivities" [binary]="true" (onChange)="oldActivitiesCheckBox($event)" label="Biten etkinlikleri göster"></p-checkbox>
+       </div>
       </div>
 
 </div>
@@ -77,22 +80,22 @@
               </div>
 
               <div  class="p-col-6 p-sm-6 p-md-4 p-lg-4 cursor-pointer cursor-pointer ">
-                <div  (click)="viewDetail(act)" class="act-content-btn-comment btn-info">Detaylar <i class="pi pi-angle-double-right"></i></div>
+                <div  (click)="viewDetail(act)"  class="act-content-btn-comment btn-info">Detaylar <i class="pi pi-angle-double-right"></i></div>
               </div>
-              
-              <div [hidden] ="isOwner(act)" *ngIf="act.currentUserStatus == 0" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+             
+              <div [hidden] ="isOwner(act)" *ngIf="act.currentUserStatus == 0 && isShowByCreatedDate(act)" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
                  <button type="button" (click)="joinActivity(act)" class=" btn btn-primary w-100"> <i class="pi pi-sign-in" aria-hidden="true"> </i> Katıl</button>
              </div>
-             <div *ngIf="act.currentUserStatus == 1" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+             <div *ngIf="act.currentUserStatus == 1 && isShowByCreatedDate(act)" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
               <button type="button" (click)="cancelActivityApprove(act)" class=" btn btn-warning w-100" > <i class="fa fa-spinner" aria-hidden="true" > </i> Beklemede </button>
              </div>
-             <div *ngIf="act.currentUserStatus == 2" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+             <div *ngIf="act.currentUserStatus == 2 && isShowByCreatedDate(act)" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
               <button type="button" (click)="cancelActivityApprove(act)" class=" btn btn-success w-100" > <i class="fa fa-check" aria-hidden="true"> </i> Kabul edildin</button>
              </div>
-             <div *ngIf="act.currentUserStatus == 3" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
+             <div *ngIf="act.currentUserStatus == 3 && isShowByCreatedDate(act)" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
               <button type="button" (click)="joinActivity(act)" class=" btn btn-danger w-100" disabled> <i class="fa fa-times" aria-hidden="true"> </i> Reddedildi</button>
              </div>
-
+            <
               
             </div>
 

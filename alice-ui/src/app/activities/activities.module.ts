@@ -12,6 +12,7 @@ import {NgxImageCompressService} from 'ngx-image-compress';
 import { FormsModule } from '@angular/forms';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { InputTextModule } from 'primeng/inputtext';
+import {CheckboxModule} from 'primeng/checkbox';
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
     ProgressSpinnerModule,
     InputTextModule,
     FormsModule,
+    CheckboxModule,
     ToastModule
   ],
   providers: [NgxImageCompressService],

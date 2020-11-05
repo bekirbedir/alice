@@ -30,6 +30,20 @@ export class ActivityService {
       );
   } 
 
+  getOldActivityList(search:String ): Observable<Activity[]> {
+    let link = this.valuesUrl+"getallOld?q="
+     
+    if(search != '')
+    link = this.valuesUrl+"getallOld?q="+search
+ 
+     return this._httpClient
+       .get<Activity[]>(link)
+       .pipe(
+         map((res) => res)
+       );
+   } 
+
+   
   getActivity(id): Observable<Activity> {
     return this._httpClient
       .get<Activity>(this.valuesGetActivityUrl+"?id=" + id)

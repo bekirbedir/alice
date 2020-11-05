@@ -22,15 +22,18 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'messages',
-    loadChildren: () => import('./message-user/message-user.module').then(m => m.MessageUserModule)
+    loadChildren: () => import('./message-user/message-user.module').then(m => m.MessageUserModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'activities',
-    loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule)
+    loadChildren: () => import('./activities/activities.module').then(m => m.ActivitiesModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'communication',
@@ -38,11 +41,13 @@ const routes: Routes = [
   },
   {
     path: 'activity-view',
-    loadChildren: () => import('./activity-view/activity-view.module').then(m => m.ActivityViewModule)
+    loadChildren: () => import('./activity-view/activity-view.module').then(m => m.ActivityViewModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'activity-comment',
-    loadChildren: () => import('./activity-comment/activity-comment.module').then(m => m.ActivityCommentModule)
+    loadChildren: () => import('./activity-comment/activity-comment.module').then(m => m.ActivityCommentModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'signup',
@@ -50,11 +55,13 @@ const routes: Routes = [
   },
   {
     path: 'new-activity',
-    loadChildren: () => import('./new-activity/new-activity.module').then(m => m.NewActivityModule)
+    loadChildren: () => import('./new-activity/new-activity.module').then(m => m.NewActivityModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'activity-management',
-    loadChildren: () => import('./activity-management/activity-management.module').then(m => m.ActivityManagementModule)
+    loadChildren: () => import('./activity-management/activity-management.module').then(m => m.ActivityManagementModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'admin-users',
@@ -62,7 +69,8 @@ const routes: Routes = [
   },
   {
     path: 'notification',
-    loadChildren: () => import('./notification/notification.module').then(m => m.NotificationModule)
+    loadChildren: () => import('./notification/notification.module').then(m => m.NotificationModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'biz-kimiz',

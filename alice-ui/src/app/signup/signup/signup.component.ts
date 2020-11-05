@@ -97,10 +97,10 @@ sendSms(){
   isValidate() {
     let isControl = true;
 
-  /*  if(!this.captchaCheck ){
+    if(!this.captchaCheck ){
        isControl = false;
        return isControl;
-    } */
+    } 
 
     if (this.user.username == null || this.user.username.trim() == "") {
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Kullanıcı Adı boş olamaz' });

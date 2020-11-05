@@ -27,6 +27,7 @@ export class ActivityViewComponent implements OnInit {
   activityId: String;
   approvedUsers: ActivityUserStatus[];
   isOwner: Boolean = false;
+ currentDateTime :Number;
 
   constructor(private store: Store, private router: Router,
     private messageService: MessageService,
@@ -36,9 +37,17 @@ export class ActivityViewComponent implements OnInit {
     this.activityId = localStorage.getItem('selectedActivityId').replace("\"", "").replace("\"", "");
     this.getActivity(this.activityId);
 
+
   }
   ngOnInit(): void {
+    this.currentDateTime = Date.now()
+  }
 
+  isShowByCreatedDate(act){
+    if(new Date(act.date).getTime() > this.currentDateTime )
+      return true;
+    else
+      return false;
   }
 
   getActivity(activityId) {
