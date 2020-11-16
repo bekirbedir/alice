@@ -10,6 +10,7 @@ export class ActivityUserStatus {
   user: User | null;
   imagePath: any | null;
   like: Boolean | false;
+  joined: Boolean | false;
 }
 
 /*

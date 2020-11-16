@@ -56,6 +56,17 @@ userStateAction(activityId,userId ,status): Observable<ResponseModel> {
     );
 } 
 
+userJoinedAction(activityId,userId ,joined): Observable<ResponseModel> {
+  const transferObject = {'activityId':activityId , 'userId':userId, 'joined':joined};
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+  return this._httpClient
+    .post<ResponseModel>(this.valuesUrl+"joined",object, { headers: header })
+    .pipe(
+      map((res) => res)
+    );
+} 
+
 updateActivity(activity:Activity): Observable<ResponseModel> {
   const transferObject = {activity:activity};
     let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');

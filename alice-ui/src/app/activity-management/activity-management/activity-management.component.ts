@@ -28,6 +28,7 @@ export class ActivityManagementComponent implements OnInit {
   activityheader: String;
   tr: any;
   edited:Boolean=false;
+  activityFinish: Boolean = false;
 
   imgHidden: Boolean = true;
   imgSrc: String;
@@ -81,6 +82,7 @@ export class ActivityManagementComponent implements OnInit {
 
   getAllStates() {
     this.selectedActivityId = localStorage.getItem('selectedActivityId').replace("\"", "").replace("\"", "");
+    this.getSelectedActivity();
     this.getWaitingUsers();
   }
   userStateAction(activityId, userId, status) {
@@ -96,9 +98,30 @@ export class ActivityManagementComponent implements OnInit {
     })
   }
 
+  userJoinedAction(activityId, userId, joined) {
+    //joined 2: katıldı , 1:katılmadı
+    let selectedTab = localStorage.getItem('selectedManagementTab').replace("\"","").replace("\"","");;
+    this.service.userJoinedAction(activityId, userId, joined).subscribe(x => {
+      if (x) {
+        this.messageService.add({ key: 'tc', severity: x.toastType, summary: x.summary, detail:x.message });
+        this.callFunctionSelected(Number(selectedTab));
+      }
+    })
+  }
+  
+  isFinished(act){
+
+    if( Date.now() > new Date(act.date).getTime() )
+      this.activityFinish = true;
+    else
+    this.activityFinish = false;
+  }
+
+
   getSelectedActivity() {
     this.service.getSelectedActivity(this.selectedActivityId).subscribe(x => {
       this.activity = x
+      this.isFinished(x);
       this.activity.date=new Date(x.date)
       this.baseUrl = environment.apiBaseUrl
       this.uploadUrl = this.baseUrl + "activity/upload"

@@ -7,6 +7,7 @@ const ActivityUserStatusSchema = new Schema({
     activityId: String,
     userId: String,
     username: String,
+    joined:{type:Boolean, default:false},
     like: {type:Boolean, default:false},
     user: {type:Schema.Types.ObjectId, ref: 'User'},
 }, {

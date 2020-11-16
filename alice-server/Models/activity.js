@@ -33,3 +33,9 @@ const  ActivitySchema = new Schema({
 ActivitySchema.plugin(searchable);
 module.exports = mongoose.model("Activity", ActivitySchema);
 
+/*
+1	beklemede
+2	reddet
+3	onaylandı
+4
+*/

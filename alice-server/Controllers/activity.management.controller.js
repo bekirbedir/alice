@@ -25,6 +25,44 @@ router.post("/getUsers", async (request, response) => {
 
 })
 
+router.post("/joined", (request, res) => {
+
+    pActivityId = request.body.activityId;
+    pUserId = request.body.userId;
+    pJoined = request.body.joined;
+    let joined = false; //2 katıldı , 1 katılmadı
+    if(pJoined == 2)
+        joined = true;    
+
+    ActivityUser.findOne({ activityId: pActivityId, userId: pUserId }, function (err, actUser) {
+
+        if(actUser){
+            actUser.joined = joined;
+            actUser.save().then(result => {
+                let responseMessage = "Kullanıcı KATILDI olarak işaretlendi.";
+                if(!joined)
+                responseMessage = "Kullanıcı KATILMADI olarak işaretlendi.";
+
+                res.status(200).json({
+                    status: true,
+                    toastType: "success" ,
+                    summary: "Başarılı" ,
+                    message: responseMessage
+              })
+            })
+            
+        }else{
+            res.status(200).json({
+                status: false,
+                toastType: "error" ,
+                summary: "Hata" ,
+                message: err
+          })
+        }
+
+    })
+          
+   })
 
 
 router.post("/userStateAction", (request, res) => {
