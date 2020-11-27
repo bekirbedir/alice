@@ -1,7 +1,7 @@
 <div class="route-nav">
   <span><a href="/activities"> <i class="fa fa-home" aria-hidden="true"></i> Anasayfa </a></span> >
   <span><i class="fa fa-comment" aria-hidden="true"></i> Hareketler </span>
-</div> 
+</div>
 <div class="login-panel">
 
   <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
@@ -17,53 +17,112 @@
 
         </div>
         <div class="p-grid p-align-center">
-          <div  *ngFor="let noti of notifications" class="notification-box">
-            <p *ngIf="noti.type == 1" class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
-              <i class="fa fa-spinner" aria-hidden="true"> </i> <span class="notification-text"> {{noti.text}} </span>
-              <small (click)="routeActivity(noti.activity._id)">Aktivite: <b><a>{{noti.activity.header}}</a> </b> </small>
-            </p>
+          <div *ngFor="let noti of notifications" class="notification-box">
 
-            <p *ngIf="noti.type == 2"  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
-              <i class="fa fa-sign-in" aria-hidden="true"> </i> <span class="notification-text"> {{noti.text}} </span>
-              <br>
-              <small (click)="routeActivity(noti.activity._id)" >Aktivite: <b>{{noti.activity.header}} </b> </small>
-              <br>
-            <small>Kullanıcı:<b><a (click)="routeProfile(noti.user._id)"> {{noti.user.username +'( '+ noti.user.name + ' )'}} </a></b></small>
-             </p>
+            <!----------------------------------------------------------------------------------------->
+            <div *ngIf="noti.type == 1" class="p-grid">
+              <div class="p-col-2">
+                <img class="left-photo img-thumbnail" [src]="actPhotoLinkCreate(noti.activity.fileLink)">
+              </div>
 
-             <p *ngIf="noti.type == 3"  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
-              <i class="fa fa-commenting-o" aria-hidden="true"> </i><span class="notification-text"> {{noti.text}} </span>
-               <br>
-               <small (click)="routeActivity(noti.activity._id)">Aktivite: <b>{{noti.activity.header}} </b> </small>
-               <br>
-             <small><b> <a (click)="routeProfile(noti.user._id)" >{{noti.user.username +' ( '+ noti.user.name + ' )'}}</a></b></small>
-              </p>
+              <div class="p-col-10">
+                <p  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
+                  <i class="fa fa-spinner" aria-hidden="true"> </i> <span (click)="routeActivity(noti.activity._id)"
+                    class="notification-text"> {{noti.text}} </span>
+                  <small (click)="routeActivity(noti.activity._id)">Aktivite: <b><a>{{noti.activity.header}}</a> </b>
+                  </small>
+                </p>
+              </div>
+            </div>
+            <!----------------------------------------------------------------------------------------->
+            <div *ngIf="noti.type == 2" class="p-grid">
+              <div class="p-col-2">
+                <img class="left-photo img-thumbnail" [src]="userPhotoLinkCreate(noti.user.fileLink)">
+              </div>
 
-              <p *ngIf="noti.type == 4" class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
-                <i class="fa fa-check" aria-hidden="true"> </i> <span class="notification-text"> {{noti.text}} </span>
-                <small (click)="routeActivity(noti.activity._id)"><br>Aktivite: <b><a>{{noti.activity.header}}</a> </b> </small>
-              </p>
+              <div class="p-col-10">
+                <p  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
+                  <i class="fa fa-sign-in" aria-hidden="true"> </i> <span (click)="routeActivity(noti.activity._id)" class="notification-text"> {{noti.text}}
+                  </span>
+                  <br>
+                  <small (click)="routeActivity(noti.activity._id)">Aktivite: <b>{{noti.activity.header}} </b> </small>
+                  <br>
+                  <small>Kullanıcı:<b><a (click)="routeProfile(noti.user._id)">
+                        {{noti.user.username +'( '+ noti.user.name + ' )'}} </a></b></small>
+                </p>
+              </div>
+            </div>
+            <!----------------------------------------------------------------------------------------->
+            <div *ngIf="noti.type == 3" class="p-grid">
+              <div class="p-col-2">
+                <img class="left-photo img-thumbnail" [src]="userPhotoLinkCreate(noti.user.fileLink)">
+              </div>
 
+              <div class="p-col-10">
+                <p  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
+                  <i class="fa fa-commenting-o" aria-hidden="true"> </i><span (click)="viewComments(noti.activity._id)"
+                    class="notification-text"> {{noti.text}} </span>
+                  <br>
+                  <small (click)="routeActivity(noti.activity._id)">Aktivite: <b>{{noti.activity.header}} </b> </small>
+                  <br>
+                  <small><b> <a
+                        (click)="routeProfile(noti.user._id)">{{noti.user.username +' ( '+ noti.user.name + ' )'}}</a></b></small>
+                </p>
+              </div>
+            </div>
+            <!----------------------------------------------------------------------------------------->
+            <div *ngIf="noti.type == 4" class="p-grid">
+              <div class="p-col-1">
+                <img class="left-photo img-thumbnail" [src]="actPhotoLinkCreate(noti.activity.fileLink)">
+              </div>
 
-              <p *ngIf="noti.type == 5" class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
-                <i class="fa fa-times" aria-hidden="true"> </i> <span class="notification-text"> {{noti.text}} </span>
-                <small (click)="routeActivity(noti.activity._id)"><br>Aktivite: <b><a>{{noti.activity.header}}</a> </b> </small>
-              </p>
+              <div class="p-col-10">
+                <p  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
+                  <i class="fa fa-check" aria-hidden="true"> </i> <span (click)="routeActivity(noti.activity._id)"
+                    class="notification-text"> {{noti.text}} </span>
+                  <small (click)="routeActivity(noti.activity._id)"><br>Aktivite: <b><a>{{noti.activity.header}}</a>
+                    </b> </small>
+                </p>
+              </div>
+            </div>
+            <!----------------------------------------------------------------------------------------->
+            <div *ngIf="noti.type == 5" class="p-grid">
+              <div class="p-col-2">
+                <img class="left-photo img-thumbnail" [src]="actPhotoLinkCreate(noti.activity.fileLink)">
+              </div>
 
-              <p *ngIf="noti.type == 6" class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
-                <i class="fa fa-check" aria-hidden="true"> </i> <span class="notification-text"> {{noti.text}} </span>
-                <small (click)="routeActivity(noti.activity._id)"><br>Aktivite: <b><a>{{noti.activity.header}}</a> </b> </small>
-              </p>
-          
-          
+              <div class="p-col-10">
+                <p  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
+                  <i class="fa fa-times" aria-hidden="true"> </i> <span (click)="routeActivity(noti.activity._id)"
+                    class="notification-text"> {{noti.text}} </span>
+                  <small (click)="routeActivity(noti.activity._id)"><br>Aktivite: <b><a>{{noti.activity.header}}</a>
+                    </b> </small>
+                </p>
+              </div>
+            </div>
+            <!----------------------------------------------------------------------------------------->
+            <div *ngIf="noti.type == 6" class="p-grid">
+              <div class="p-col-2">
+                <img class="left-photo img-thumbnail" [src]="actPhotoLinkCreate(noti.activity.fileLink)">
+              </div>
+
+              <div class="p-col-10">
+                <p  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
+                  <i class="fa fa-check" aria-hidden="true"> </i> <span (click)="routeActivity(noti.activity._id)"
+                    class="notification-text"> {{noti.text}} </span>
+                  <small (click)="routeActivity(noti.activity._id)"><br>Aktivite: <b><a>{{noti.activity.header}}</a>
+                    </b> </small>
+                </p>
+              </div>
+            </div>
+            <!----------------------------------------------------------------------------------------->
           </div>
 
         </div>
-       
+
 
       </p-card>
 
     </div>
   </div>
 </div>
-

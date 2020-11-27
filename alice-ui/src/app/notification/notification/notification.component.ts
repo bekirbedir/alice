@@ -3,6 +3,7 @@ import { NotificationModel } from 'src/app/models/notification.model';
 import { NotificationService } from '../notification.service';
 import { Router } from '@angular/router';
 import { Store, Select } from '@ngxs/store';
+import { environment } from 'src/environments/environment';
 import {
   GetActivities,
   GetActivityDetail,
@@ -28,6 +29,28 @@ export class NotificationComponent implements OnInit {
         this.notifications = x
     });
 
+  }
+  
+  viewComments(id) {
+           //this.store.dispatch(new GetActivityDetail(item._id))
+        this.store.dispatch(new GetActivityDetail(id))
+        this.router.navigate(['/activity-comment'])
+      
+    
+  }
+  userPhotoLinkCreate(link){
+
+    if(link == null || link == "")
+      link = "static/uploads/profile/empty_profile128.png";
+
+    return environment.apiBaseUrl +link
+  }
+  actPhotoLinkCreate(link){
+  
+    if(link == null || link == "")
+      link = "empty_activity.png";
+
+    return environment.apiBaseUrl +"static/uploads/"+ link
   }
 
   routeProfile(userId){
