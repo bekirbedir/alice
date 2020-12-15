@@ -226,7 +226,6 @@ existVote = async function (fromUserId, toUserId){
 
 rateAccept = async function (currentUserId, toUserId) {
 
-  try {
    
     const joinedActivities = await ActivityUserStatus.find({ joined: true, user: currentUserId }, 'activityId').exec();
     var activityIds = [];
@@ -269,14 +268,7 @@ rateAccept = async function (currentUserId, toUserId) {
     });
 
     return x;
-  }
-  catch (error) {
-    return {
-      status: false,
-      toastType: 'success',
-      message: error
-    };
-  }
+
   
 }
 
