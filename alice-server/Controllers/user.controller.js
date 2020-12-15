@@ -225,7 +225,7 @@ existVote = async function (fromUserId, toUserId){
 
 
 rateAccept = async function (currentUserId, toUserId) {
-  let rm  = ResponseModel;
+
    
     const joinedActivities = await ActivityUserStatus.find({ joined: true, user: currentUserId }, 'activityId').exec();
     var activityIds = [];
@@ -237,7 +237,7 @@ rateAccept = async function (currentUserId, toUserId) {
    let x = await ActivityUserStatus.countDocuments({ joined: true, user: toUserId, activityId: { $in: activityIds } }, async function (err, count) {
       if (err) {
         console.log('if err', err)
-        rm= {
+        return {
           status: false,
           toastType: 'error',
           message: err
@@ -247,7 +247,7 @@ rateAccept = async function (currentUserId, toUserId) {
          console.log('else count-----', count);
         if (count > 3) {
            console.log('burassss3')
-          rm = {
+           return {
             status: true,
             toastType: 'success',
             message: "Oy verebilir"
@@ -257,7 +257,7 @@ rateAccept = async function (currentUserId, toUserId) {
         }
         else {
           console.log('burassss3den kucuk')
-          rm = {
+          return {
             status: false,
             toastType: 'success',
             message: "Oy veremez"
@@ -267,7 +267,7 @@ rateAccept = async function (currentUserId, toUserId) {
       }
     });
     console.log('rm7', rm)
-    return rm;
+    return x;
 
   
 }
