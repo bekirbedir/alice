@@ -233,31 +233,31 @@ rateAccept = async function (currentUserId, toUserId) {
 
    let x = await ActivityUserStatus.countDocuments({ joined: true, user: toUserId, activityId: { $in: activityIds } }, async function (err, count) {
       if (err) {
-        rm = {
+        return {
           status: false,
           toastType: 'error',
           message: err
         };
-        return rm;
+        
       } else {
         // console.log('there are %d jungle adventures', count);
         if (count > 3) {
           // console.log('burassss')
-          rm = {
+          return {
             status: true,
             toastType: 'success',
             message: "Oy verebilir"
           };
-          return rm; 
+          
 
         }
         else {
-          rm = {
+          return {
             status: false,
             toastType: 'success',
             message: "Oy veremez"
           };
-          return rm;
+         
         }
       }
     });
