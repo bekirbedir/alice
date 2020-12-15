@@ -221,7 +221,7 @@ existVote = async function (fromUserId, toUserId){
 
 
 rateAccept = async function (currentUserId, toUserId) {
-  let rm = ResponseModel;
+
   try {
  
     const joinedActivities = await ActivityUserStatus.find({ joined: true, user: currentUserId }, 'activityId').exec();
