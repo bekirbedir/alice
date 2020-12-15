@@ -214,7 +214,7 @@ export class ProfileComponent {
   rateUser(oy) {
     /* oy == 1 olumlu , ==2 olumsuz */
     if(!this.rateArea)
-      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Henüz oy verme yetkiniz yok!', detail: 'Oy vermek için birlikte 3 etkinliğe katılmanız gerekir' });
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Henüz oy verme yetkiniz yok!', detail: 'Oy vermek için birlikte 1 etkinliğe katılmanız gerekir' });
     else if(this.yourRate>0){
       this.messageService.add({ key: 'tc', severity: 'error', summary: 'Oy değiştirilemez!', detail: 'Oy değiştirmek için yöneticiye başvurun' });
     }  
