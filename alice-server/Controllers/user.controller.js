@@ -231,7 +231,7 @@ rateAccept = async function (currentUserId, toUserId) {
     });
 
 
-   let rm = await ActivityUserStatus.countDocuments({ joined: true, user: toUserId, activityId: { $in: activityIds } }, async function (err, count) {
+   let x = await ActivityUserStatus.countDocuments({ joined: true, user: toUserId, activityId: { $in: activityIds } }, async function (err, count) {
       if (err) {
         rm = {
           status: false,
@@ -262,16 +262,16 @@ rateAccept = async function (currentUserId, toUserId) {
       }
     });
 
-
+    return x;
   }
   catch (error) {
-    rm = {
+    return {
       status: false,
       toastType: 'success',
       message: error
     };
   }
-  return rm;
+  
 }
 
 
