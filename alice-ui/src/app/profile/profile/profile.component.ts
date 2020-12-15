@@ -99,7 +99,8 @@ export class ProfileComponent {
   rateAccept(){
     this.service.rateAccept(this.userId).subscribe(x => {
      if(x){
-        this.rateArea = true;
+       if(x.status)
+          this.rateArea = true;
         this.yourRate = Number(x.summary);
      }  
      else{
