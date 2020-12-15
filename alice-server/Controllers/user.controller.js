@@ -143,9 +143,9 @@ router.post("/rateAccept", async (req, res) => {
       rm.summary = 0;
     }
     console.log('rm2', rm)
-    res.status(200).send(rm);
+    res.send(rm);
   }else{
-    res.status(200).send(rm);
+    res.send(rm);
   }
   
 
@@ -156,7 +156,7 @@ router.post("/vote", async (req, res) => {
   let fromUserId = req.userId;
   let rate = req.body.rate;
   if(toUserId == fromUserId) {
-    res.status(200).send(false);
+    res.send(false);
   }
 
   let rm = await rateAccept(fromUserId, toUserId);
@@ -169,7 +169,7 @@ router.post("/vote", async (req, res) => {
         summary: "Daha önce oy kullanılmış",
         message: "Oy değiştirme yapılamaz"
       };
-      res.status(200).send(rm);
+      res.send(rm);
      
     }else {
         //oy veriyor
@@ -201,7 +201,7 @@ router.post("/vote", async (req, res) => {
       summary: "Oy veremez",
       message: "Oy değiştirme yapılamaz"
     };
-    res.status(200).send(rm);
+    res.send(rm);
   }
 
   
@@ -225,7 +225,7 @@ existVote = async function (fromUserId, toUserId){
 
 
 rateAccept = async function (currentUserId, toUserId) {
-
+  let rm  = ResponseModel;
    
     const joinedActivities = await ActivityUserStatus.find({ joined: true, user: currentUserId }, 'activityId').exec();
     var activityIds = [];
@@ -237,37 +237,37 @@ rateAccept = async function (currentUserId, toUserId) {
    let x = await ActivityUserStatus.countDocuments({ joined: true, user: toUserId, activityId: { $in: activityIds } }, async function (err, count) {
       if (err) {
         console.log('if err', err)
-        return {
+        rm= {
           status: false,
           toastType: 'error',
           message: err
         };
-        
+        console.log('rm4', rm)
       } else {
          console.log('else count-----', count);
         if (count > 3) {
            console.log('burassss3')
-          return {
+          rm = {
             status: true,
             toastType: 'success',
             message: "Oy verebilir"
           };
-          
+          console.log('rm5', rm)
 
         }
         else {
           console.log('burassss3den kucuk')
-          return {
+          rm = {
             status: false,
             toastType: 'success',
             message: "Oy veremez"
           };
-         
+          console.log('rm6', rm)
         }
       }
     });
-
-    return x;
+    console.log('rm7', rm)
+    return rm;
 
   
 }
