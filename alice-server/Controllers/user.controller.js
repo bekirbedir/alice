@@ -234,7 +234,8 @@ rateAccept = async function (currentUserId, toUserId) {
     });
     console.log('activityIds',activityIds)
 
-   let x = await ActivityUserStatus.countDocuments({ joined: true, user: toUserId, activityId: { $in: activityIds } }, async function (err, count) {
+   let x = await ActivityUserStatus.countDocuments({ joined: true, user: toUserId, activityId: { $in: activityIds } }).exec();
+   /*, async function (err, count) {
       if (err) {
         console.log('if err', err)
         rm =  {
@@ -265,11 +266,22 @@ rateAccept = async function (currentUserId, toUserId) {
           console.log('rm6', rm)
         }
       }
-    });
-    console.log('rm7', rm)
+    }); */
     console.log('x', x)
-    return rm;
-
+    if(x>2){
+      return  {
+        status: true,
+        toastType: 'success',
+        message: "Oy verebilir"
+      };
+    }else{
+      return  {
+        status: false,
+        toastType: 'error',
+        message: "Oy veremez 3 ten az"
+      };
+    }
+  
   
 }
 
