@@ -150,13 +150,14 @@ joinedCountInfos1 = async function(userId,status,joined){
 }
 
 joinedCountInfos = async function(userId,status){
-
+  console.log('status')
   let x = await  ActivityUserStatus.countDocuments({ user: userId, status:status },async function (err, count) {
      if (err) {
      } else {
        return count;
      }
    });
+   console.log('xxx',x)
    return x;
     
  }
