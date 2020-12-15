@@ -101,8 +101,8 @@ router.post("/joinActivityInfos", async (req, res) => {
   let toUserId = req.body.toUserId; //profiline girilen kullanıcı
   let katildi = await joinedCountInfos1(toUserId,2,true);
   let katilmadi = await joinedCountInfos1(toUserId,2,false);
-  let reddedildi = await voteCountInfos(toUserId,3);
-  let istekgeriCekti = await voteCountInfos(toUserId,4);
+  let reddedildi = await joinedCountInfos(toUserId,3);
+  let istekgeriCekti = await joinedCountInfos(toUserId,4);
   let rm = {
     katildi:katildi,
     katilmadi:katilmadi,
@@ -150,14 +150,14 @@ joinedCountInfos1 = async function(userId,status,joined){
 }
 
 joinedCountInfos = async function(userId,status){
-  console.log('status')
+ 
   let x = await  ActivityUserStatus.countDocuments({ user: userId, status:status },async function (err, count) {
      if (err) {
      } else {
        return count;
      }
    });
-   console.log('xxx',x)
+ 
    return x;
     
  }
