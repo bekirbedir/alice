@@ -124,7 +124,9 @@ voteCountInfos = async function(userId,rate){
 router.post("/rateAccept", async (req, res) => {
   let toUserId = req.body.Id; //profiline girilen kullanıcı
   let currentUserId = req.userId;
+ 
   if(toUserId == currentUserId) {
+    console.log('aynıı')
     res.status(200).send(false);
   }
 
