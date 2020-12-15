@@ -116,6 +116,37 @@
               </div>
             </div>
             <!----------------------------------------------------------------------------------------->
+               <!----------------------------------------------------------------------------------------->
+               <div *ngIf="noti.type == 8" class="p-grid">
+                <div class="p-col-2">
+                  <img class="left-photo img-thumbnail" src="assets/vote.png">
+                </div>
+  
+                <div class="p-col-10">
+                  <p  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
+                    <i class="fa fa-smile-o" aria-hidden="true"> </i> <span (click)="routeProfile(noti.activeUserId)"
+                      class="notification-text"> {{noti.text}} </span>
+                   
+                  </p>
+                </div>
+              </div>
+              <!----------------------------------------------------------------------------------------->
+
+                   <!----------------------------------------------------------------------------------------->
+            <div *ngIf="noti.type == 9" class="p-grid">
+              <div class="p-col-2">
+                <img class="left-photo img-thumbnail" src="assets/vote.png">
+              </div>
+
+              <div class="p-col-10">
+                <p  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
+                  <i class="fa fa-frown-o" aria-hidden="true"> </i> <span (click)="routeProfile(noti.activeUserId)"
+                    class="notification-text"> {{noti.text}} </span>
+                
+                </p>
+              </div>
+            </div>
+            <!----------------------------------------------------------------------------------------->
           </div>
 
         </div>

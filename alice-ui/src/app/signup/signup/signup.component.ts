@@ -99,6 +99,7 @@ sendSms(){
 
     if(!this.captchaCheck ){
        isControl = false;
+       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Captcha işaretleyin' });
        return isControl;
     } 
 

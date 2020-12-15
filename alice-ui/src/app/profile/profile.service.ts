@@ -35,6 +35,47 @@ export class ProfilService {
       );
   }
 
+  rateAccept(id): Observable<ResponseModel> {
+    console.log("servise geldi - userApprove")
+    const transferObject = {
+      Id: id
+    }
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    return this._httpClient
+      .post<ResponseModel>(this.valuesUrl + "rateAccept", object, { headers: header })
+      .pipe(
+        map((res) => res)
+      );
+  }
+  voteInfos(id): Observable<any> {
+    console.log("servise geldi - userApprove")
+    const transferObject = {
+      toUserId: id
+    }
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    return this._httpClient
+      .post<any>(this.valuesUrl + "voteInfos", object, { headers: header })
+      .pipe(
+        map((res) => res)
+      );
+  }
+  vote(toUserId,rate): Observable<ResponseModel> {
+    console.log("servise geldi - userApprove")
+    const transferObject = {
+      toUserId: toUserId,
+      rate:rate
+    }
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    return this._httpClient
+      .post<ResponseModel>(this.valuesUrl + "vote", object, { headers: header })
+      .pipe(
+        map((res) => res)
+      );
+  }
+
 
   updateUserPhoto(userId, photo) {
     console.log("servise geldi - updateUser")

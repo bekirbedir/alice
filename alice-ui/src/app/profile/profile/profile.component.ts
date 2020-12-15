@@ -33,6 +33,14 @@ export class ProfileComponent {
   passwordRepeat:String;
   passwordChangeAction:Boolean=false;
   pictureFullScreen:Boolean=false;
+  rateArea:Boolean=false;
+  yourRate:number=0;
+  positiveRateCount:number=0;
+  negativeRateCount:number=0;
+  totalRateCount:number=0;
+  negativeRatePercent:any = "0"
+  positiveRatePercent:any = "0"
+  
   
   constructor(private service: ProfilService, private _sanitizer: DomSanitizer,
     private imageCompress: NgxImageCompressService,
@@ -47,7 +55,7 @@ export class ProfileComponent {
         }
              
       });
-
+      this.yourRate =0 ;
       this.baseUrl = environment.apiBaseUrl
       this.uploadUrl = this.baseUrl + "users/upload"
 
@@ -56,13 +64,20 @@ export class ProfileComponent {
     this.service.getMyProfil(this.userId).subscribe(x => {
       if(localStorage.getItem('userId').replace("\"", "").replace("\"", "") == x._id){
         this.isEditable = true;
+      }else{
+        this.rateAccept();
       }
-
+      this.votesInfos();
       this.sellersPermitString = x.userPhoto
       this.User = x
       this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
-        + this.sellersPermitString);
+      + this.sellersPermitString);
     })
+ 
+
+   
+
+    
     this.loading = false;
   }
   imageSrc;
@@ -80,6 +95,54 @@ export class ProfileComponent {
   imgResultBeforeCompress: string;
   imgResultAfterCompress: string;
   currentId: number = 0;
+
+  rateAccept(){
+    this.service.rateAccept(this.userId).subscribe(x => {
+     if(x){
+        this.rateArea = true;
+        this.yourRate = Number(x.summary);
+     }  
+     else{
+       this.rateArea = false;
+     }
+    })
+  }
+  votesInfos(){
+    this.service.voteInfos(this.userId).subscribe(x => {
+     if(x){
+      this.positiveRateCount=Number(x.positiveRateCount)
+      this.negativeRateCount=Number(x.negativeRateCount)
+      this.totalRateCount=Number(x.totalRateCount)
+      this.voteGraphUpdate();
+    
+
+
+     }  
+   
+    })
+  }
+
+  voteGraphUpdate(){
+    if(this.totalRateCount>0){
+      //negative button ayarı
+      if(this.negativeRateCount != 0){
+       let percent = ((this.negativeRateCount/this.totalRateCount)*100).toFixed()
+       this.negativeRatePercent = percent;
+       document.getElementById('negative-bar').setAttribute('style','width:'+Number(percent)+'%');
+      }else{
+        document.getElementById('negative-bar').setAttribute('style','width:'+Number(0)+'%');
+      }
+
+      //positive button ayarı
+      if(this.positiveRateCount != 0){
+        let percent = ((this.positiveRateCount/this.totalRateCount)*100).toFixed()
+        this.positiveRatePercent = percent;
+        document.getElementById('positive-bar').setAttribute('style','width:'+Number(percent)+'%');
+      }else{
+        document.getElementById('positive-bar').setAttribute('style','width:'+Number(0)+'%');
+      }
+    }
+  }
 
   addPictures() {
     this.finalJson = {
@@ -149,7 +212,27 @@ export class ProfileComponent {
 
   rateUser(oy) {
     /* oy == 1 olumlu , ==2 olumsuz */
-    this.messageService.add({ key: 'tc', severity: 'error', summary: 'Şimdi olmaz!', detail: 'Henüz oy verme yetkiniz yok' });
+    if(!this.rateArea)
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Henüz oy verme yetkiniz yok!', detail: 'Oy vermek için birlikte 3 etkinliğe katılmanız gerekir' });
+    else if(this.yourRate>0){
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Oy değiştirilemez!', detail: 'Oy değiştirmek için yöneticiye başvurun' });
+    }  
+    else{
+      this.service.vote(this.userId,oy).subscribe(x=>{
+        if(x){
+          this.yourRate = oy;
+          this.totalRateCount = this.negativeRateCount + 1;
+          if(oy == 1){
+            this.positiveRateCount = this.positiveRateCount + 1;
+          }else{
+            this.negativeRateCount = this.negativeRateCount + 1;
+          }
+          this.voteGraphUpdate();
+          this.messageService.add({ key: 'tc', severity: x.toastType, summary: x.summary, detail: x.message });
+        }
+      })
+    }
+  
   }
 
   updateUser() {

@@ -31,5 +31,7 @@ typeler;
 5- aktiviteye katılım isteğin reddedildi
 6- Aktiviten onaylandı
 7- Aktiviten Reddedildi
+8 - Olumlu oy verdiniz
+9 - Olumsuz oy verdi
 
 */

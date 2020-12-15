@@ -109,7 +109,7 @@ router.post("/savePassword", (req, res) => {
 
 router.post("/resetPasswordRequest", (req, res) => {
 
-  pUsername = req.body.username;
+  pUsername = req.body.username.toLowerCase();
 
   User.findOne({$or:[ {'username':pUsername}, {'email':pUsername} ]}, function (err, user) {
     if (user) {
@@ -167,7 +167,7 @@ router.post("/signup", (req, res) => {
   }
   else {
 
-    User.findOne({  $or:[ {'username':pUsername}, {'email':req.body.email},{'phone':req.body.phone} ]}, function (err, docs) {
+    User.findOne({  $or:[ {'username':pUsername}, {'email':req.body.email.toLowerCase().trim()},{'phone':req.body.phone} ]}, function (err, docs) {
       if (docs) {
         if(docs.username == pUsername){
           res.status(200).json({
@@ -197,7 +197,7 @@ router.post("/signup", (req, res) => {
         user.isActive = false,
           user.biography = req.body.biography,
           user.name = req.body.name
-        user.email = req.body.email
+        user.email = req.body.email.toLowerCase().trim();
         user.phone = req.body.phone
         user.birthDate = req.body.birthDate
         user.gender = req.body.gender
