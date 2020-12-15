@@ -129,9 +129,10 @@ router.post("/rateAccept", async (req, res) => {
   }
 
   let rm = await rateAccept(currentUserId, toUserId);
- 
+ console.log('rm11', rm)
   if(rm.status){
     let vote = await existVote(currentUserId, toUserId);
+    console.log('vote', vote)
     if(vote){
       rm.summary = vote.rate;
       rm.status = false;
@@ -139,6 +140,7 @@ router.post("/rateAccept", async (req, res) => {
     }else{
       rm.summary = 0;
     }
+    console.log('rm2', rm)
     res.status(200).send(rm);
   }else{
     res.status(200).send(rm);
@@ -223,16 +225,17 @@ existVote = async function (fromUserId, toUserId){
 rateAccept = async function (currentUserId, toUserId) {
 
   try {
- 
+   
     const joinedActivities = await ActivityUserStatus.find({ joined: true, user: currentUserId }, 'activityId').exec();
     var activityIds = [];
     joinedActivities.forEach(function (as) {
       activityIds.push(as.activityId); // activityIdleri toplanır
     });
-
+    console.log('activityIds',activityIds)
 
    let x = await ActivityUserStatus.countDocuments({ joined: true, user: toUserId, activityId: { $in: activityIds } }, async function (err, count) {
       if (err) {
+        console.log('if err', err)
         return {
           status: false,
           toastType: 'error',
@@ -240,9 +243,9 @@ rateAccept = async function (currentUserId, toUserId) {
         };
         
       } else {
-        // console.log('there are %d jungle adventures', count);
+         console.log('else count-----', count);
         if (count > 3) {
-          // console.log('burassss')
+           console.log('burassss3')
           return {
             status: true,
             toastType: 'success',
@@ -252,6 +255,7 @@ rateAccept = async function (currentUserId, toUserId) {
 
         }
         else {
+          console.log('burassss3den kucuk')
           return {
             status: false,
             toastType: 'success',

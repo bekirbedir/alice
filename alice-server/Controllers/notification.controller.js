@@ -32,7 +32,7 @@ router.post("/count", async (request, response) => {
 
     try {
 
-        const notificationList = await NotificationSchema.count({ activeUserId: userId, isShow: false }, function (err, count) {
+        const notificationList = await NotificationSchema.countDocuments({ activeUserId: userId, isShow: false }, function (err, count) {
             if (err)
                 response.json(0);
             else
