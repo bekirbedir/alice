@@ -142,7 +142,7 @@ router.post("/rateAccept", async (req, res) => {
     }else{
       rm.summary = 0;
     }
-    console.log('rm2', rm)
+  
     res.send(rm);
   }else{
     res.send(rm);
@@ -232,7 +232,7 @@ rateAccept = async function (currentUserId, toUserId) {
     joinedActivities.forEach(function (as) {
       activityIds.push(as.activityId); // activityIdleri toplanır
     });
-    console.log('activityIds',activityIds)
+  
 
    let x = await ActivityUserStatus.countDocuments({ joined: true, user: toUserId, activityId: { $in: activityIds } }).exec();
    /*, async function (err, count) {
@@ -268,7 +268,7 @@ rateAccept = async function (currentUserId, toUserId) {
       }
     }); */
     console.log('x', x)
-    if(x>2){
+    if(x>0){
       return  {
         status: true,
         toastType: 'success',
