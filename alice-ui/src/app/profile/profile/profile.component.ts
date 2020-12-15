@@ -40,14 +40,14 @@ export class ProfileComponent {
   totalRateCount:number=0;
   negativeRatePercent:any = "0"
   positiveRatePercent:any = "0"
-  
+  data:any
   
   constructor(private service: ProfilService, private _sanitizer: DomSanitizer,
     private imageCompress: NgxImageCompressService,
     private messageService: MessageService,
     private router: Router,
     private actRoute: ActivatedRoute) {
-   
+     
       this.actRoute.paramMap.subscribe(params => {
      
         if(params.get('id')){
@@ -68,6 +68,7 @@ export class ProfileComponent {
         this.rateAccept();
       }
       this.votesInfos();
+      this.joinActivityInfos();
       this.sellersPermitString = x.userPhoto
       this.User = x
       this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
@@ -75,7 +76,6 @@ export class ProfileComponent {
     })
  
 
-   
 
     
     this.loading = false;
@@ -115,12 +115,45 @@ export class ProfileComponent {
       this.negativeRateCount=Number(x.negativeRateCount)
       this.totalRateCount=Number(x.totalRateCount)
       this.voteGraphUpdate();
-    
-
-
-     }  
+      }  
    
     })
+  }
+  joinActivityInfos(){
+    /*
+    katildi:katildi,
+    katilmadi:katilmadi,
+    reddedildi:reddedildi,
+    istekgeriCekti:istekgeriCekti
+
+    */
+    
+   this.service.joinActivityInfos(this.userId).subscribe(x => {
+    if(x){
+      this.data = {
+        labels: ['Katıldı','Katılmadı','Reddedildi','Vazgeçti'],
+        datasets: [
+            {
+                data: [ x.katildi, x.katilmadi , x.reddedildi , x.istekgeriCekti ],
+                backgroundColor: [
+                  "#36A2EB",
+                    "#FF6384",
+                    "#000000",
+                    "#FFCE56"                   
+                ],
+                hoverBackgroundColor: [
+                  "#36A2EB",  
+                  "#FF6384",
+                  "#000000",
+                  "#FFCE56",
+                ]
+            }]    
+        };
+     }  
+  
+   })
+
+    
   }
 
   voteGraphUpdate(){
@@ -209,7 +242,9 @@ export class ProfileComponent {
 
     })
   }
-
+  update(event: Event) {
+  //  this.data = //create new data
+  }
 
   rateUser(oy) {
     /* oy == 1 olumlu , ==2 olumsuz */

@@ -61,6 +61,21 @@ export class ProfilService {
         map((res) => res)
       );
   }
+  joinActivityInfos(id): Observable<any> {
+
+    const transferObject = {
+      toUserId: id
+    }
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    return this._httpClient
+      .post<any>(this.valuesUrl + "joinActivityInfos", object, { headers: header })
+      .pipe(
+        map((res) => res)
+      );
+  }
+
+  
   vote(toUserId,rate): Observable<ResponseModel> {
     console.log("servise geldi - userApprove")
     const transferObject = {

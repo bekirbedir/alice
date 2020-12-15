@@ -139,6 +139,12 @@
             <div class="h-10"></div>
 
             <div class="rate-buttons">
+                <p class="bio-header">Etkinliklere Katılım</p>
+                  <p-chart type="doughnut" [data]="data"></p-chart>
+                  <small class="label">*Etkinlik sonrası katılımcıların onaylanması gerekir</small>
+            </div>
+
+            <div class="rate-buttons">
                 <p class="bio-header">Toplam oy sayısı: {{totalRateCount}} </p>
                 <div class="progress ">
                     <div id ="positive-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
@@ -149,6 +155,9 @@
                         <i class="pi pi-thumbs-down"> %{{negativeRatePercent}} ({{negativeRateCount}} oy) </i></div>
                 </div>
             </div>
+
+            
+
             <div class="h-10"></div>
             <!-------Bu alan ngFor ile yapilacak-------------->
             <div [hidden]="isEditable" class="p-grid">

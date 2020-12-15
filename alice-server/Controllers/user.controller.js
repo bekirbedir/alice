@@ -97,6 +97,22 @@ router.post("/voteInfos", async (req, res) => {
   
 })
 
+router.post("/joinActivityInfos", async (req, res) => {
+  let toUserId = req.body.toUserId; //profiline girilen kullanıcı
+  let katildi = await joinedCountInfos1(toUserId,2,true);
+  let katilmadi = await joinedCountInfos1(toUserId,2,false);
+  let reddedildi = await voteCountInfos(toUserId,3);
+  let istekgeriCekti = await voteCountInfos(toUserId,4);
+  let rm = {
+    katildi:katildi,
+    katilmadi:katilmadi,
+    reddedildi:reddedildi,
+    istekgeriCekti:istekgeriCekti
+  }
+  res.send(rm);
+  
+})
+
 voteCountInfos = async function(userId,rate){
   if(rate>0){
  let x = await  UserRate.countDocuments({ toUser: userId, rate:rate },async function (err, count) {
@@ -120,6 +136,31 @@ voteCountInfos = async function(userId,rate){
  
 }
 
+joinedCountInfos1 = async function(userId,status,joined){
+
+ let x = await  ActivityUserStatus.countDocuments({ user: userId, joined:joined,status:status },async function (err, count) {
+    if (err) {
+    } else {
+      return count;
+    }
+  });
+
+  return x;
+   
+}
+
+joinedCountInfos = async function(userId,status){
+
+  let x = await  ActivityUserStatus.countDocuments({ user: userId, status:status },async function (err, count) {
+     if (err) {
+     } else {
+       return count;
+     }
+   });
+   return x;
+    
+ }
+
 
 router.post("/rateAccept", async (req, res) => {
   let toUserId = req.body.Id; //profiline girilen kullanıcı
@@ -131,10 +172,10 @@ router.post("/rateAccept", async (req, res) => {
   }
 
   let rm = await rateAccept(currentUserId, toUserId);
- console.log('rm11', rm)
+
   if(rm.status){
     let vote = await existVote(currentUserId, toUserId);
-    console.log('vote', vote)
+    
     if(vote){
       rm.summary = vote.rate;
       rm.status = false;
@@ -267,7 +308,7 @@ rateAccept = async function (currentUserId, toUserId) {
         }
       }
     }); */
-    console.log('x', x)
+   
     if(x>0){
       return  {
         status: true,
