@@ -134,10 +134,11 @@ router.post("/", (req, res) => {
             activity.activityUrl = req.body.activityUrl
             activity.header = req.body.header
             activity.participationLimit = req.body.participationLimit
-            activity.participationCount = 0
+            activity.participationCount = 1
             activity.like = req.body.like
             activity.date = req.body.date
             activity.context = req.body.context
+            
             if(req.body.fileLink)
                  activity.fileLink = req.body.fileLink
             else{
@@ -145,6 +146,23 @@ router.post("/", (req, res) => {
             }
             activity.status = 1;
             activity.save().then(result => {
+
+                 //activite sahibini activityuser tablosuna katılımcı olarak ekleme
+                
+                 const activityUser = new ActivityUser();
+                 activityUser.status = 2;
+                 activityUser.date = Date.now();
+                 activityUser.activityId = result._id;
+                 activityUser.userId = user._id;
+                 activityUser.username = user.username;
+                 activityUser.joined = true;
+                 activityUser.user = user;
+                 activityUser.save();
+
+                //activite sahibini activityuser tablosuna katılımcı olarak ekleme
+                
+
+
                 res.status(200).json({
                     status: true,
                     message: "activity added successfully done"
