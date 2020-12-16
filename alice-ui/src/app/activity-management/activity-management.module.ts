@@ -15,6 +15,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CardModule } from 'primeng/card';
 import {FileUploadModule} from 'primeng/fileupload';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 const routes: Routes = [
   {
     path: '',
@@ -38,6 +39,7 @@ const routes: Routes = [
     CheckboxModule,
     CardModule,
     FileUploadModule,
+    ProgressSpinnerModule,
     RouterModule.forChild(routes),
   ],
   providers: [NgxImageCompressService],

@@ -131,21 +131,19 @@ export class ProfileComponent {
    this.service.joinActivityInfos(this.userId).subscribe(x => {
     if(x){
       this.data = {
-        labels: ['Katıldı','Katılmadı','Reddedildi','Vazgeçti'],
+        labels: ['Katıldı','Katılmadı','Reddedildi'],
         datasets: [
             {
-                data: [ x.katildi, x.katilmadi , x.reddedildi , x.istekgeriCekti ],
+                data: [ x.katildi, x.katilmadi , x.reddedildi  ],
                 backgroundColor: [
                   "#36A2EB",
                     "#FF6384",
-                    "#000000",
-                    "#FFCE56"                   
+                    "#000000"              
                 ],
                 hoverBackgroundColor: [
                   "#36A2EB",  
                   "#FF6384",
-                  "#000000",
-                  "#FFCE56",
+                  "#000000"
                 ]
             }]    
         };

@@ -89,19 +89,23 @@ router.post("/userStateAction", (request, res) => {
                             //----- activite katılımcı sayısı------------------------------
                             ActivityUser.count({ activityId: pActivityId, status:2 }, function (errCount, count) {
                                 if (err){
-                                    res.status(200).json({
+                                    let rm = {
                                         status: false,
                                         message: "error" + errCount 
-                                    })
+                                    }
+                                    res.send(rm);
+                                   
                                 } else{
 
                                     Activity.findOne({ _id: pActivityId }, function (err, activity) {
                                         activity.participationCount = count
                                         activity.save().then(result => {
-                                            res.status(200).json({
+                                          
+                                            
+                                            res.send({
                                                 status: true,
                                                 message: "activity join request  done1"
-                                            })
+                                            });
                                         })
                                     })
 
@@ -125,19 +129,25 @@ router.post("/userStateAction", (request, res) => {
                             //----- activite katılımcı sayısı------------------------------
                             ActivityUser.count({ activityId: pActivityId, status:2 }, function (errCount, count) {
                                 if (err){
-                                    res.status(200).json({
+                                  
+                                    let rm = {
                                         status: false,
                                         message: "error" + errCount 
-                                    })
+                                    }
+                                    res.send(rm);
                                 } else{
 
                                     Activity.findOne({ _id: pActivityId }, function (err, activity) {
                                         activity.participationCount = count
                                         activity.save().then(result => {
-                                            res.status(200).json({
+
+                                            let rm = {
                                                 status: true,
                                                 message: "activity rejected request  done1"
-                                            })
+                                            }
+                                            res.send(rm);
+
+                                            
                                         })
                                     })
 
@@ -149,21 +159,23 @@ router.post("/userStateAction", (request, res) => {
                         });
                     }
                     else {
-
-                        res.status(200).json({
+                        let rm = {
                             status: true,
                             message: "activity join request  done1"
-                        })
+                        }
+                        res.send(rm);
 
                     }
 
 
                 })
                     .catch(error => {
-                        res.status(200).json({
+                
+                        let rm = {
                             status: false,
                             message: "activity update failed done; " + error 
-                        })
+                        }
+                        res.send(rm);
                     });
             }
             if (err) {
@@ -173,10 +185,12 @@ router.post("/userStateAction", (request, res) => {
         )
     }
     catch (error) {
-        res.status(200).json({
+       
+        let rm = {
             status: false,
             message: "activity update failed done" + error
-        })
+        }
+        res.send(rm);
     }
 
 
@@ -200,10 +214,12 @@ router.post("/", (req, res) => {
     activity.like = req.body.like
     activity.context = req.body.context
     activity.save().then(result => {
-        res.status(200).json({
+        let rm = {
             status: true,
             message: "activity added successfully done"
-        })
+        }
+        res.send(rm);
+       
     })
         .catch(error => {
             debugger

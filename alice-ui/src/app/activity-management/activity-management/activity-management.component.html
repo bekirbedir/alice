@@ -44,7 +44,7 @@
                   <img class="management-user-photo img-thumbnail"  [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
                <br>
                <br>
-               <span  (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b> <br> @{{actUser.user.username}} </span>
+               <span (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b> <br> @{{actUser.user.username}} </span>
                </td>
                <td *ngIf="activityFinish" style="vertical-align: middle">
 
@@ -54,7 +54,7 @@
                </td>
                 <td style="vertical-align: middle"> 
                   <div class="btn-group" role="group" *ngIf="!activityFinish" aria-label="...">
-                      <button (click)="userStateAction(actUser.activityId , actUser.user._id,3)" type="button" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i>Reddet </button>
+                      <button [disabled]="isOwner(actUser.user._id)"  (click)="userStateAction(actUser.activityId , actUser.user._id,3)" type="button" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i>Reddet </button>
                  </div>
                  <div class="btn-group" role="group" *ngIf="activityFinish" aria-label="...">
                   <button (click)="userJoinedAction(actUser.activityId , actUser.user._id,2)" type="button" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>Katıldı </button>
@@ -199,7 +199,12 @@
       </table>
     </p-tabPanel>
 </p-tabView>
-
+<div [hidden]="!loading" class="full-area">
+  <div class="centered">
+      <p-progressSpinner [style]="{width: '100px', height: '100px'}" styleClass="custom-spinner" strokeWidth="8"
+          fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+  </div>
+</div>
 <p-toast position="top-center" key="tc"></p-toast>
 <p-toast position="top-center" key="c" (onClose)="onReject()" [baseZIndex]="5000">
   <ng-template let-message pTemplate="message">

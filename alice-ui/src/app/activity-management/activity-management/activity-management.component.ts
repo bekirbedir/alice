@@ -36,6 +36,7 @@ export class ActivityManagementComponent implements OnInit {
   fileName:String;
   baseUrl: String;
   uploadUrl: String;
+  loading: Boolean=false;
 
   constructor(private service: ActivityManagementService, 
     private messageService: MessageService, 
@@ -65,27 +66,32 @@ export class ActivityManagementComponent implements OnInit {
   getWaitingUsers() {
 
     this.service.getUsers(this.selectedActivityId, 1).subscribe(x => {
-      this.waitingUsers = x
+      this.waitingUsers = x;
+      this.loading = false;
     })
 
   }
   getApprovedUsers() {
     this.service.getUsers(this.selectedActivityId, 2).subscribe(x => {
       this.approveUsers = x
+      this.loading = false;
     })
   }
   getRejectedUsers() {
     this.service.getUsers(this.selectedActivityId, 3).subscribe(x => {
       this.rejectedUsers = x
+      this.loading = false;
     })
   }
 
   getAllStates() {
+    this.loading = true;
     this.selectedActivityId = localStorage.getItem('selectedActivityId').replace("\"", "").replace("\"", "");
     this.getSelectedActivity();
     this.getWaitingUsers();
   }
   userStateAction(activityId, userId, status) {
+    this.loading = true;
     let selectedTab = localStorage.getItem('selectedManagementTab').replace("\"","").replace("\"","");;
     this.service.userStateAction(activityId, userId, status).subscribe(x => {
       if (x.status) {
@@ -206,7 +212,14 @@ export class ActivityManagementComponent implements OnInit {
     this.deleteActivity();
     this.messageService.clear('c');
   }
-
+  isOwner(actUserId){
+    console.log("actUserId" , actUserId)
+    console.log(this.activity.user)
+    if(actUserId== this.activity.user)
+      return true;
+    else
+     return false;
+  }
 
   /*
 1	Katılım isteği
