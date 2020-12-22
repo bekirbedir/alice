@@ -1,10 +1,12 @@
 const db = require("./db")();
 const express = require("express");
 var cors = require('cors')
-
 const app = express();
 var path = require('path');
 var bodyParser = require('body-parser')
+
+var cronUtils = require('./util/cronExec');
+
 var auhtguardAdmin=require('./Controllers/authguard.admin')
 var auhtguardUser=require('./Controllers/authguard.user')
 app.use(bodyParser.json({limit: '50mb'}));
@@ -23,7 +25,12 @@ const adminRouter = require("./Controllers/admin.controller");
 const notificationRouter = require("./Controllers/notification.controller");
 const smsRouter=require("./Controllers/sms.controller");
 
+var CronJob = require('cron').CronJob;
 
+var job = new CronJob('40 * * * *', function() {
+   cronUtils.activityFinish()
+}, null, true, 'America/Los_Angeles');
+job.start();
 
 
 var router = express.Router(); 
@@ -44,6 +51,7 @@ app.use('/admin/', auhtguardAdmin,adminRouter);
 const port= process.env.PORT || 3000;
 var server =app.listen(port, () => {
   console.log(`localhost:${port} -> api working !!! `);
+ // cronUtils.activityFinish()
 });
 /*
 app.get('/captchaControl', recaptcha.middleware.render, function(req, res){

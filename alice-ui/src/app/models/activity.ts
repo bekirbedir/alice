@@ -3,10 +3,13 @@ import { User } from '../auth/user';
 export class Activity {
     __v: number;
     _id:string | null;
-    id:Number
+    id:Number;
     userId?:String | null
     username?: String  | null;
     createdDate?: String  | null;
+    isUpdate: Boolean | null;
+    isFinished:  Boolean;
+    finishDate: Date;
     profilUrl?: String  | null;
     activityUrl?: String  | null;
     isActive?: Boolean  | null;
@@ -24,6 +27,7 @@ export class Activity {
     date?: Date;
     user: User | null;
     fileLink:String;
+    
     
   }
   

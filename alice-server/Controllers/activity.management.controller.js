@@ -78,102 +78,24 @@ router.post("/userStateAction", (request, res) => {
                
                 actUser.save().then(result => {
                     if (pStatus == 2) {
-                        const notification = new Notification();
-                        notification.activeUserId = pUserId
-                        notification.activity = pActivityId;
-                        notification.user = null;
-                        notification.text = "Katılım isteğin onaylandı";
-                        notification.isShow = false;
-                        notification.type = 4;
-                        notification.save().then(result => {
-                            //----- activite katılımcı sayısı------------------------------
-                            ActivityUser.count({ activityId: pActivityId, status:2 }, function (errCount, count) {
-                                if (err){
-                                    let rm = {
-                                        status: false,
-                                        message: "error" + errCount 
-                                    }
-                                    res.send(rm);
-                                   
-                                } else{
-
-                                    Activity.findOne({ _id: pActivityId }, function (err, activity) {
-                                        activity.participationCount = count
-                                        activity.save().then(result => {
-                                          
-                                            
-                                            res.send({
-                                                status: true,
-                                                message: "activity join request  done1"
-                                            });
-                                        })
-                                    })
-
-                        
-                                }
-                                
-                              });
-                             //----- activite katılımcı sayısı------------------------------
-                           
-                        });
+                        saveNotification(pUserId, null ,pActivityId, 4, "Katılım isteğin onaylandı")
                     }
                     if (pStatus == 3) {
-                        const notification = new Notification();
-                        notification.activeUserId = pUserId
-                        notification.activity = pActivityId;
-                        notification.user = null;
-                        notification.text = "Katılım isteğin reddedildi";
-                        notification.isShow = false;
-                        notification.type = 5;
-                        notification.save().then(result => {
-                            //----- activite katılımcı sayısı------------------------------
-                            ActivityUser.count({ activityId: pActivityId, status:2 }, function (errCount, count) {
-                                if (err){
-                                  
-                                    let rm = {
-                                        status: false,
-                                        message: "error" + errCount 
-                                    }
-                                    res.send(rm);
-                                } else{
-
-                                    Activity.findOne({ _id: pActivityId }, function (err, activity) {
-                                        activity.participationCount = count
-                                        activity.save().then(result => {
-
-                                            let rm = {
-                                                status: true,
-                                                message: "activity rejected request  done1"
-                                            }
-                                            res.send(rm);
-
-                                            
-                                        })
-                                    })
-
-                        
-                                }
-                                
-                              });
-                             //----- activite katılımcı sayısı------------------------------
-                        });
+                        saveNotification(pUserId, null ,pActivityId, 5, "Katılım isteğin reddedildi")           
                     }
-                    else {
-                        let rm = {
-                            status: true,
-                            message: "activity join request  done1"
-                        }
-                        res.send(rm);
-
+                    updatAactivityParticipantCount(pActivityId);   
+                    let rm = {
+                        status: true,
+                        message: "kaydedildi" + pStatus
                     }
+                    res.send(rm);
 
 
                 })
                     .catch(error => {
-                
                         let rm = {
                             status: false,
-                            message: "activity update failed done; " + error 
+                            message: "activity user update failed done; " + error 
                         }
                         res.send(rm);
                     });
@@ -188,13 +110,43 @@ router.post("/userStateAction", (request, res) => {
        
         let rm = {
             status: false,
-            message: "activity update failed done" + error
+            message: "activity user 2 update failed done" + error
         }
         res.send(rm);
     }
 
 
 })
+
+saveNotification =function(toUserId, fromUserId ,activityId, type, text){
+    const notification = new Notification();
+    notification.activeUserId = toUserId;
+    notification.user = fromUserId;
+    notification.activity = activityId;
+    notification.text = text;
+    notification.isShow = false;
+    notification.type = type;
+    notification.save()
+  }
+
+updatAactivityParticipantCount = function(pActivityId){
+    
+        
+     ActivityUser.countDocuments({ activityId: pActivityId, status:2 }, function (errCount, count) {
+        if (errCount){
+             console.log('updateActivityParticipant',err)
+           } else{
+
+           Activity.findOne({ _id: pActivityId }, function (err, activity) {
+                 activity.participationCount = count
+                   activity.save();
+                   })
+            }
+                                
+     });
+                      
+}
+
 
 router.post("/", (req, res) => {
 

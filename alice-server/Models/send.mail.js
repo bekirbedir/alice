@@ -18,4 +18,5 @@ yenimesaj: 4
 yenigrupmesaj:5
 şifresıfırlama: 6
 şifrenizdegisti:7
+katılımcı onayka:8
 */

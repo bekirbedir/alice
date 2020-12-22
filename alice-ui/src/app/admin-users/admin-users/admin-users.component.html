@@ -26,7 +26,7 @@
               <th scope="row">{{i+1}}</th>
               <td  (click)="routeProfile(user._id)" >
                 <p>{{user.username}} </p>
-                <p>{{user.name}} / {{user.gender}}</p>
+                <p>{{user.name}} / {{user.gender}}</p>biography
                 <p>{{ user.birthDate | date:'dd/MM/yyyy'}} </p>
               </td>
               <td>{{user.biography}}</td>
@@ -55,9 +55,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let act of pendingActivity">
-          <th scope="row">1</th>
+          <tr *ngFor="let act of pendingActivity;let i = index" >
+            <th scope="row">{{i+1}}</th>
           <td>
+            <p class="text-danger" >{{act.isUpdate ? 'GÜNCELLEME' : 'YENİ ETKİNLİK'}}</p>
             <p><b>Etkinlik sahibi:</b> {{act.user.name}} ( @{{act.user.username}} ) </p>
             <p><b>Etkinlik adı:</b> {{act.header}} </p>
             <br>

@@ -11,6 +11,9 @@ var userStatus = new Schema({
 const  ActivitySchema = new Schema({
   username: String,
   createdDate: {type: Date, default: Date.now},
+  isUpdate: {type: Boolean, default: false},
+  isFinished: {type: Boolean, default: false},
+  finishDate:Date,
   profilUrl:String,
   activityUrl:String,
   isActive:Boolean,
