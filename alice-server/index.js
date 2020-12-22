@@ -29,6 +29,7 @@ var CronJob = require('cron').CronJob;
 
 var job = new CronJob('40 * * * *', function() {
    cronUtils.activityFinish()
+   console.log('cron job calisti')
 }, null, true, 'America/Los_Angeles');
 job.start();
 

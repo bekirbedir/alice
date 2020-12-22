@@ -26,7 +26,7 @@ router.get("/getall", async (request, response, next) => {
     try {
       
       //  const activityList = await Activity.find({ status: 3, date: { "$gt": Date.now() } }, null, { sort: 'date' }).
-        const activityList = await Activity.search(search,{ status: 3, isFinished:false, date: { "$gt": Date.now() - 12*60*60*1000 } }, null).sort('date').
+        const activityList = await Activity.search(search,{ status: 3,  date: { "$gt": Date.now() - 12*60*60*1000 } }, null).sort('date').
         populate({ path: 'user', Model: '../Models/user' ,select:'_id username name email fileLink' }).exec();
 
     
