@@ -33,5 +33,6 @@ typeler;
 7- Aktiviten Reddedildi
 8 - Olumlu oy verdiniz
 9 - Olumsuz oy verdi
+10 - Etkinliğe katılanları onayla
 
 */

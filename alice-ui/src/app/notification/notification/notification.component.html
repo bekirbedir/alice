@@ -147,6 +147,23 @@
               </div>
             </div>
             <!----------------------------------------------------------------------------------------->
+
+                <!-----------------------------------etkinlige katilanları onaylama-------------------------------------------->
+                <div *ngIf="noti.type == 10" class="p-grid">
+                  <div class="p-col-2">
+                    <img class="left-photo img-thumbnail" src="assets/confirm.png">
+                  </div>
+    
+                  <div class="p-col-10">
+                    <p  class="notification-row" [ngClass]="(!noti.isShow)?'bg-green':'my-class2'">
+                      <i class="fa fa-check" aria-hidden="true"> </i> <span (click)="routeActivity(noti.activity._id)"
+                        class="notification-text"> {{noti.text}} </span>
+                      <small (click)="routeActivity(noti.activity._id)"><br>Aktivite: <b><a>{{noti.activity.header}}</a>
+                        </b> </small>
+                    </p>
+                  </div>
+                </div>
+                <!----------------------------------------------------------------------------------------->
           </div>
 
         </div>

@@ -1,13 +1,12 @@
 let Activity = require("../Models/activity")
 let mailler = require("../mailler")
 let SendMail = require("../Models/send.mail")
+const Notification = require("../Models/notification")
 
 module.exports = {
 
     activityFinish: async function () {
      
-
-
       const activityList = await Activity.search('',{ status: 3,$or:[ {'isFinished':false}, {'isFinished':null} ] ,date: { "$lt": Date.now()  } }, null).populate({ path: 'user', Model: '../Models/user' ,select:'_id username name email fileLink' }).exec();
       activityList.forEach(
         (element) => {
@@ -26,6 +25,7 @@ module.exports = {
           sendMail.receivedMail = element.user.email;
           sendMail.type = 8;
           sendMail.createdDate = new Date();
+          saveNotification(element.user._id, null ,element._id, 10, "Etkinliğe onayladığın kullanıcıların katılım durumu onayla")
           sendMail.save();
 
         }
@@ -39,3 +39,14 @@ module.exports = {
 
 
 };
+
+saveNotification =function(toUserId, fromUserId ,activityId, type, text){
+  const notification = new Notification();
+  notification.activeUserId = toUserId;
+  notification.user = fromUserId;
+  notification.activity = activityId;
+  notification.text = text;
+  notification.isShow = false;
+  notification.type = type;
+  notification.save()
+}
