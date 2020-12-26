@@ -41,7 +41,7 @@ app.use('/activity-view/',activityViewRouter)
 app.use('/activity/',auhtguardUser,activityRouter); //auth controlu yapiliyor
 app.use('/notification/',auhtguardUser,notificationRouter); //auth controlu yapiliyor
 app.use('/activity-comment/',auhtguardUser,activityCommentRouter); 
-app.use('/activity-management/',activityManagementRouter);
+app.use('/activity-management/',auhtguardUser,activityManagementRouter);
 app.use('/login/',loginRouter)
 app.use('/communication/', communicationRouter);
 app.use('/sms/', smsRouter);

@@ -30,7 +30,7 @@ export class IndexComponent implements   OnInit{
     loginservice.notificationCount().subscribe(x=>{
       this.notificationCount = x;
     });
-   },15000)
+   },60000)
   }
 
 

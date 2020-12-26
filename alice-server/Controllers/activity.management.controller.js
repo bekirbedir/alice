@@ -6,12 +6,39 @@ let ActivityUser = require("../Models/activity-user-status")
 let Activity = require("../Models/activity")
 var jwt = require('jsonwebtoken');
 const Notification = require("../Models/notification")
+var genericFunction = require('../util/genericFunction');
+
+isAdminOrOwner = async function(userId,activityId){
+    if(userId == null || userId == 0 || userId == undefined || userId == "" 
+    || activityId == null || activityId == 0 || activityId == undefined || activityId == "" )
+        return false;
+
+    let isAdmin = await genericFunction.isAdmin(userId);
+    if(isAdmin){
+        return true;
+    }else{
+        let isOwner = await genericFunction.isActivityOwner(userId,activityId);
+        if(isOwner)
+            return true;
+        else
+            return false;
+    }
+}
 
 router.post("/getUsers", async (request, response) => {
 
+    
     //buraya yonetici mi kontrolu eklenmeli
     pActivityId = request.body.activityId;
     pStatus = request.body.status;
+
+    let grantControl = await isAdminOrOwner(request.userId , pActivityId )
+    if(!grantControl){
+        return response.json({
+            status: false,
+            message: "Yetkisiz erişim "
+        })
+    }
 
     try {
         const users = await ActivityUser.find({ status: pStatus, activityId: pActivityId }, null, { sort: 'date' }).
@@ -65,11 +92,20 @@ router.post("/joined", (request, res) => {
    })
 
 
-router.post("/userStateAction", (request, res) => {
+router.post("/userStateAction", async (request, res) => {
 
     pActivityId = request.body.activityId;
     pUserId = request.body.userId;
     pStatus = request.body.status;
+
+    let grantControl = await isAdminOrOwner(request.userId , pActivityId )
+    if(!grantControl){
+        return res.json({
+            status: false,
+            message: "Yetkisiz erişim "
+        })
+    }
+
 
     try {
         ActivityUser.findOne({ activityId: pActivityId, userId: pUserId }, function (err, actUser) {
@@ -182,7 +218,17 @@ router.post("/", (req, res) => {
 })
 
 
-router.delete("/", (req, res) => {
+router.delete("/", async (req, res) => {
+
+
+    let grantControl = await isAdminOrOwner(req.userId , req.body.Id )
+    console.log('grantControl',grantControl)
+    if(!grantControl){
+        return res.json({
+            status: false,
+            message: "Yetkisiz erişim "
+        })
+    }
 
     Activity.findOneAndRemove({ Id: req.body.Id }, function (err) {
         if (!err) {
@@ -201,8 +247,18 @@ router.delete("/", (req, res) => {
 
 })
 
-router.put("/updateActivity", (req, res) => {
-    console.log(" req.body._id", req.body.activity.context);
+router.put("/updateActivity", async (req, res) => {
+  
+
+    let grantControl = await isAdminOrOwner(req.userId , req.body.activity._id  )
+    console.log('grantControl',grantControl)
+    if(!grantControl){
+        return res.json({
+            status: false,
+            message: "Yetkisiz erişim "
+        })
+    }
+
     Activity.findOne({ _id: req.body.activity._id }, function (err, activity) {
         
         activity.context = req.body.activity.context
@@ -228,8 +284,18 @@ router.put("/updateActivity", (req, res) => {
     })
 })
 
-router.put("/deleteActivity", (req, res) => {
-    console.log(" req.body._id", req.body.activity._id);
+router.put("/deleteActivity", async (req, res) => {
+  
+    
+    let grantControl = await isAdminOrOwner(req.userId , req.body.activity._id  )
+    console.log('grantControl',grantControl)
+    if(!grantControl){
+        return res.json({
+            status: false,
+            message: "Yetkisiz erişim "
+        })
+    }
+
     Activity.findOne({ _id: req.body.activity._id }, function (err, activity) {
         console.log('bulundu')
         activity.status = 4;
@@ -251,6 +317,15 @@ router.put("/deleteActivity", (req, res) => {
 router.post("/getActivity", async (request, response) => {
     pActivityId = request.body.activityId;
 
+    
+    let grantControl = await isAdminOrOwner(request.userId , pActivityId )
+    console.log('grantControl',grantControl)
+    if(!grantControl){
+        return response.json({
+            status: false,
+            message: "Yetkisiz erişim "
+        })
+    }
 
     try {
         Activity.findOne({ _id: pActivityId }, function (err, res) {
