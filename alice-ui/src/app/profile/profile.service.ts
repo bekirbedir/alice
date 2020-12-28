@@ -35,6 +35,33 @@ export class ProfilService {
       );
   }
 
+  getMyActivities(id): Observable<Activity[]> {
+
+    const transferObject = {
+      Id: id
+    }
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    return this._httpClient
+      .post<Activity[]>(this.valuesUrl + "myActivities", object, { headers: header })
+      .pipe(
+        map((res) => res)
+      );
+  }
+
+  getMyJoinedActivities(id): Observable<Activity[]> {
+    const transferObject = {
+      Id: id
+    }
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    return this._httpClient
+      .post<Activity[]>(this.valuesUrl + "IJoinedActivities", object, { headers: header })
+      .pipe(
+        map((res) => res)
+      );
+  }
+
   rateAccept(id): Observable<ResponseModel> {
     console.log("servise geldi - userApprove")
     const transferObject = {

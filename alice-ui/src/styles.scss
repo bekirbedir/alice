@@ -119,3 +119,7 @@ body .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link {
   .text-danger{
       color:red !important
   }
+
+  :host ::ng-deep .tabHeader-custom {
+    background-color: red;
+}

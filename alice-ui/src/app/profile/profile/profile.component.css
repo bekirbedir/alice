@@ -100,3 +100,22 @@ background: linear-gradient(90deg, rgba(246,10,10,1) 0%, rgba(228,50,50,1) 47%);
    background: rgb(71,161,25);
    background: linear-gradient(90deg, rgba(71,161,25,1) 0%, rgba(89,207,23,1) 100%);
 }
+
+.tabpanelCustom {
+  background-color: red !important;
+  color:gray !important;
+}
+
+.activity-header{
+    font-size: 0.8em;
+    color:blue;
+    text-decoration: underline;
+}
+.activity-context{
+    font-size:0.75em
+}
+
+:host ::ng-deep .tabHeader-custom {
+    background-color: red;
+}
+

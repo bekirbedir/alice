@@ -19,6 +19,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import {DialogModule} from 'primeng/dialog';
 import {ChartModule} from 'primeng/chart';
+import {TabViewModule} from 'primeng/tabview';
 const routes: Routes = [
   { 
     path: '',
@@ -51,6 +52,7 @@ const routes: Routes = [
         FileUploadModule,
         DialogModule,
         ChartModule,
+        TabViewModule,
          RouterModule.forChild(routes),
   ],
   providers: [NgxImageCompressService],

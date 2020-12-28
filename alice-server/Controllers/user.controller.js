@@ -9,9 +9,12 @@ const multipart = require('connect-multiparty');
 const multipartMiddleware = multipart({ uploadDir: './public/uploads/profile' }); //bu calisiyor
 var request = require('request')
 const ActivityUserStatus = require("../Models/activity-user-status");
+const Activity = require("../Models/activity");
 const UserRate = require("../Models/user-rate");
 const Notification = require("../Models/notification")
 const ResponseModel = require("../Models/response-model");
+var genericFunction = require('../util/genericFunction');
+
 
 
 
@@ -67,8 +70,9 @@ router.get("/userview", (req, res) => {
   })
 })
 
-router.post("/detail", (req, res) => {
+router.post("/detail", async (req, res) => {
   let id = req.body.Id;
+  
 
   User.findOne({ _id: id }, function (err, response) {
     if (err) {
@@ -81,6 +85,83 @@ router.post("/detail", (req, res) => {
 
   }
   )
+})
+
+router.get("/userview", (req, res) => {
+  let pUsername = req.query.username
+
+  if (!pUsername) {
+    return res.status(404).send({
+      message: 'Email or password can not be empty!',
+    });
+  }
+  User.findOne({ username: pUsername }, function (err, docs) {
+    if (docs) {
+
+      return res.status(200).send(docs)
+    }
+    else {
+      return res.status(200).send({ message: "user not find" })
+    }
+  })
+})
+
+router.post("/myActivities", (req, res) => {
+  let id = req.body.Id;
+/*
+  let grantControl = await genericFunction.isSelfRequest(req.userId , id )
+  if(!grantControl){
+      return res.json({
+          status: false,
+          message: "Yetkisiz erişim "
+      })
+  }*/
+  Activity.find({ user: id }, '_id header context', function (err, response) {
+    if (err) {
+      res.send(err)
+    }
+    if (response) {
+      res.send(response);
+    }
+  }
+  )
+})
+
+router.post("/IJoinedActivities", async (req, res) => {
+  let id = req.body.Id;
+
+  /*
+  let grantControl = await genericFunction.isSelfRequest(req.userId , id )
+  if(!grantControl){
+      return res.json({
+          status: false,
+          message: "Yetkisiz erişim "
+      })
+  } */
+
+  /*
+  const activity = await ActivityUserStatus.find({user: req.userId ,joined:true}, null, { sort: '-date' })
+  .populate({path:'user', Model:  '../Models/user' , select:'_id username name email fileLink'}).exec();
+  response.json(activity);   */
+
+//'_id header context'
+
+
+
+ let joinedActivities = await ActivityUserStatus.find({ user: id , joined:true },'activityId' ).distinct('activityId').exec();
+
+ if (joinedActivities) {
+  let x = await Activity.find().
+   where('_id').in(joinedActivities).
+  sort('-date').
+   select('_id header context').
+   exec(); 
+//   let x = await Activity.find({  _id: { $in: joinedActivities } }).select('_id header context').exec(); bu da kullanılabilir
+   res.send(x); 
+}
+else{
+  res.send(false); 
+}
 })
 
 router.post("/voteInfos", async (req, res) => {

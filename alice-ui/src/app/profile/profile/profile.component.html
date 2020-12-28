@@ -142,6 +142,26 @@
                 <p class="bio-header">Etkinliklere Katılım</p>
                   <p-chart type="doughnut" [data]="data"></p-chart>
                   <small class="label">*Etkinlik sonrası katılımcıların onaylanması gerekir</small>
+                  <p-tabView >
+                    <p-tabPanel  header="Açılan etkinlikler" leftIcon="pi pi-globe" styleClass="tabHeader-custom">
+                        <div *ngIf="myActivities.length == 0"><small><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Henüz hiç etkinlik açmadı</small></div>
+                        <div class="activity-view" *ngFor="let act of myActivities;let i = index" >
+                           <p class="activity-header" (click)="routeActivity(act._id)"><i class="fa fa-circle-thin" aria-hidden="true"></i> {{act.header}}</p>
+                           <small class="activity-context">{{act.context}}</small>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Katıldığı etkinlikler" leftIcon="pi pi-users" headerStyleClass="tabHeader-custom">
+                        <div *ngIf="myActivities.length == 0"><small><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Henüz hiç bir etkinliğe katılmadı</small></div>
+                        <div class="activity-view" *ngFor="let act of joinedActivities;let i = index" >
+                           <p class="activity-header" (click)="routeActivity(act._id)"><i class="fa fa-circle-thin" aria-hidden="true"></i> {{act.header}}</p>
+                           <small class="activity-context">{{act.context}}</small>
+                        </div>
+                    </p-tabPanel>
+                </p-tabView>
+
+            
+
+
             </div>
 
             <div class="rate-buttons">

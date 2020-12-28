@@ -33,7 +33,20 @@ module.exports = {
         return true;
       else
         return false;
+     },
+     clearSpaceWord: async function(word){
+       return toLowerCase().trim().replace(/ /g,"")
+     },
+     clearquote: async function(word){
+      return toLowerCase().trim().replace(/"/g,"")
+    },
+     isSelfRequest: async function(currentUserId, toUserId){
+        if(currentUserId.trim() == toUserId.trim())
+          return true;
+        else
+          return false;
      }
+     
 
 
 };

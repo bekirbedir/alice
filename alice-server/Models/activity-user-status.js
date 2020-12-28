@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const User = require("../Models/user")
+const Activity = require("../Models/activity")
 const ActivityUserStatusSchema = new Schema({
     status: Number,
     date: Date,
@@ -10,6 +11,7 @@ const ActivityUserStatusSchema = new Schema({
     joined:Boolean,
     like: {type:Boolean, default:false},
     user: {type:Schema.Types.ObjectId, ref: 'User'},
+    activity: {type:Schema.Types.ObjectId, ref: 'Activity'}
 }, {
     versionKey: false // You should be aware of the outcome after set to false
 });

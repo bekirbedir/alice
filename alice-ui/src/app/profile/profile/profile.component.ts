@@ -3,11 +3,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { ProfilService } from '../profile.service';
 import { UserModel } from 'src/app/models/user.model';
+import { Activity } from 'src/app/models/activity';
 import { take } from 'rxjs/operators';
 import { MessageService } from 'primeng/api';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
-
+import { Store, Select } from '@ngxs/store';
+import {
+  GetActivityDetail,
+} from 'src/app/store/actions/activity.action';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -40,13 +44,16 @@ export class ProfileComponent {
   totalRateCount:number=0;
   negativeRatePercent:any = "0"
   positiveRatePercent:any = "0"
-  data:any
+  data:any;
+  myActivities:Activity[];
+  joinedActivities:Activity[];
   
   constructor(private service: ProfilService, private _sanitizer: DomSanitizer,
     private imageCompress: NgxImageCompressService,
     private messageService: MessageService,
     private router: Router,
-    private actRoute: ActivatedRoute) {
+    private actRoute: ActivatedRoute, 
+    private store: Store) {
      
       this.actRoute.paramMap.subscribe(params => {
      
@@ -73,6 +80,13 @@ export class ProfileComponent {
       this.User = x
       this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
       + this.sellersPermitString);
+    })
+
+    this.service.getMyActivities(this.userId).subscribe(x => {
+      this.myActivities = x;
+    })
+    this.service.getMyJoinedActivities(this.userId).subscribe(x => {
+      this.joinedActivities = x;
     })
  
 
@@ -154,6 +168,12 @@ export class ProfileComponent {
     
   }
 
+  routeActivity(activityId) {
+    this.store.dispatch(new GetActivityDetail(activityId))
+    localStorage.setItem("selectedActivityId",activityId)
+  //  this.store.dispatch(new GetActivityDetail(item._id))
+    this.router.navigate(['/activity-view'])
+  }
   voteGraphUpdate(){
     if(this.totalRateCount>0){
       //negative button ayarı
