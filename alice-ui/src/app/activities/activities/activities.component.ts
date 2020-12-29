@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { CardModule } from 'primeng/card';
 import { MenuItem } from 'primeng/api';
 import { Activity } from 'src/app/models/activity';
+import { UserModel } from 'src/app/models/user.model';
 
 import { Store, Select } from '@ngxs/store';
 import {
@@ -40,6 +41,7 @@ export class ActivitiesComponent implements OnInit {
   searchWord:String;
   currentDateTime:Number;
   oldActivities:Boolean=false;
+  randomUsers:UserModel[];
   private isActiveUserId = localStorage.getItem('userId');
 
 //  @Select(ActivityState.GetActivities) Activities: Observable<Activity[]>;
@@ -79,6 +81,7 @@ export class ActivitiesComponent implements OnInit {
   ngOnInit() {
     this.currentDateTime = Date.now()
     this.loading = true;
+    this.getRandomUsers();
     this.service.getActivityList('').subscribe(x => {
       this.activities = x;
       if (x) {
@@ -103,6 +106,15 @@ export class ActivitiesComponent implements OnInit {
     this.activeItem1 = this.modules[0];
 
   }
+  
+  getRandomUsers() {
+    this.service.getRandomUsers().subscribe((x) => {
+      this.randomUsers = x;
+    });
+   }
+
+   
+
   isShowByCreatedDate(act){
     if(new Date(act.date).getTime() > this.currentDateTime )
       return true;

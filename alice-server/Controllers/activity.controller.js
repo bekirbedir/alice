@@ -13,10 +13,38 @@ const fs = require('fs')
 var path = require('path');
 const multipartMiddleware = multipart({ uploadDir: './public/uploads' }); //bu calisiyor
 
+
 //const multipartMiddleware = multipart({ uploadDir: '../' });
 
 
+router.get("/getRandomUsers", async (request, response, next) => {
+    let search = request.query.q;
+  
+   
+    try {
+        var filter = { $and:[  {fileLink:{$ne:'static/uploads/profile/empty_profile128.png'}}, {fileLink:{$ne:null} } , {fileLink:{$ne:''} } ] };
+        var fields = { _id:1, fileLink:2 , username:3 };
+        var options = { skip: 10, limit: 10 };
+        User.findRandom(filter, fields, options, function(err, results) {
+        if (!err) {
+            response.json(results);
+        }
+        });
+       
 
+        /*
+        const randomUserList = await User.find({
+            $and:[  {fileLink:{$ne:'static/uploads/profile/empty_profile128.png'}}, {fileLink:{$ne:null} } , {fileLink:{$ne:''} } ]
+         } ).select('_id username fileLink').limit(10).exec();
+        response.json(randomUserList); */
+        
+    }
+    catch (error) {
+        console.log(error);
+        return response.json(error);
+    } 
+
+})
 
 
 router.get("/getall", async (request, response, next) => {

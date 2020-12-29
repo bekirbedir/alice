@@ -281,6 +281,26 @@ router.post("/login", (req, res) => {
   }
 })
 
+router.get("/getRandomUsers", async (request, response, next) => {
+  let search = request.query.q;
+
+ 
+  try {
+      var filter = { $and:[  {fileLink:{$ne:'static/uploads/profile/empty_profile128.png'}}, {fileLink:{$ne:null} } , {fileLink:{$ne:''} } ] };
+      var fields = { _id:1, fileLink:2 , username:3 };
+      var options = { skip: 10, limit: 10 };
+      User.findRandom(filter, fields, options, function(err, results) {
+      if (!err) {
+          response.json(results);
+      }
+      });      
+  }
+  catch (error) {
+      return response.json('hata');
+  } 
+
+})
+
 function randomString(length, chars) {
   var result = '';
   for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];

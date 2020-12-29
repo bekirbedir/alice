@@ -21,6 +21,12 @@
             <div class="p-col">
               <img src="assets/logo22.svg" class="login-logo">
             </div>
+            <div class="p-col-12" style="max-height: 68px;overflow-y: hidden;  text-align: center;">
+              <div  class="random-users-pic-div" *ngFor="let randomUser of randomUsers">
+                <img class="random-users-pic-img img-thumbnail-custom" [src]="photoLinkCreate(randomUser.fileLink)" alt="bekirbedir"  > 
+              </div>
+            
+            </div>
             <div class="p-col-12">
               <div class="ui-inputgroup">
                 <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>

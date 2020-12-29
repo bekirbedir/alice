@@ -51,6 +51,13 @@ export class ActivityService {
         map((res) => res)
       );
   } 
+  getRandomUsers(): Observable<UserModel[]> {
+    return this._httpClient
+      .get<UserModel[]>(this.valuesUrl+"getRandomUsers")
+      .pipe(
+        map((res) => res)
+      );
+  } 
 
   getApprovedUsers(id): Observable<ActivityUserStatus[]> {
     return this._httpClient

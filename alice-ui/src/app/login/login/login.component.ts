@@ -5,6 +5,7 @@ import { LoginService } from 'src/app/auth/login.service';
 import { IndexComponent } from 'src/app/index/index.component';
 import { Router, ActivatedRoute  } from '@angular/router';
 import {MessageService} from 'primeng/api';
+import {User} from 'src/app/auth/user';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
   approveCode= "";
   isApprove = false;
   isApproveOk = false;
+  randomUsers: User[]
 
   constructor(private loginservice:LoginService,private router:Router , 
     private actRoute:ActivatedRoute , private messageService: MessageService ) { 
@@ -43,11 +45,25 @@ export class LoginComponent implements OnInit {
 
     this.userName=""
     this.password=""
-
+    this.getRandomUsers();
   }
 
   ngOnDestroy(){
   window.location.reload()
+  }
+
+  getRandomUsers() {
+    this.loginservice.getRandomUsers().subscribe((x) => {
+      this.randomUsers = x;
+    });
+   }
+
+   photoLinkCreate(link){
+console.log(link)
+    if(link == null || link == "")
+      link = "static/uploads/profile/empty_profile128.png";
+
+    return environment.apiBaseUrl +link
   }
 
   isValidate() {

@@ -5,6 +5,7 @@ import { environment } from "../../environments/environment";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Router } from '@angular/router';
 import { User } from './user';
+
 import { Observable, of, Subject, BehaviorSubject } from 'rxjs';
 import { ResponseModel } from '../models/response.model';
 
@@ -132,6 +133,16 @@ export class LoginService {
        map((res) => res)
       );
   }
+
+  getRandomUsers(): Observable<User[]> {
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const self = this;  
+    return this.http
+      .get<User[]>(this.valuesUrl+"login/getRandomUsers")
+      .pipe(
+        map((res) => res)
+      );
+  } 
 
 
 }

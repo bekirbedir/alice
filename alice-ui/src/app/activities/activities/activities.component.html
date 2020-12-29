@@ -7,6 +7,14 @@
 <div   class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
   <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12">
       <div class="p-grid">
+        <div class="p-col-12" style="max-height: 68px;overflow-y: hidden;    text-align: center;">
+          
+            <div (click)="routeProfile(randomUser._id)" class="random-users-pic-div" *ngFor="let randomUser of randomUsers">
+              <img class="random-users-pic-img img-thumbnail-custom" [src]="photoLinkCreate(randomUser.fileLink)" alt="bekirbedir"  > 
+           
+            </div>
+          
+        </div>
         <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12">
          <!-- <button type="button" (click)="filter()" class="btn btn-info w-100 font-size-1-5em"><i class="fa fa-filter" aria-hidden="true"> </i> Filtrele</button> -->
          <input type="text"  [(ngModel)]="searchWord" (change)="searchFilter($event)" placeholder="Ara.." class="btn search-button w-100 font-size-1-5em">

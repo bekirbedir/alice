@@ -79,3 +79,24 @@
     border: 1px solid !important;
     background-color: white !important;
   }
+
+  .random-users-pic-div{
+      display: inline;
+      margin-right: 2px;
+      
+
+  }
+  
+  .random-users-pic-img{
+        object-fit: cover;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+  }
+
+  .img-thumbnail-custom {
+    padding: .1rem;
+    background-color: #fff;
+    border: 2px solid #cd486b;
+    max-width: 100%;
+}
