@@ -3,7 +3,7 @@ import { Store, Select } from '@ngxs/store';
 import { ActivityState } from 'src/app/store/states/activity.state';
 import { Observable } from 'rxjs';
 import { Activity } from 'src/app/models/activity';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { GetActivityDetail } from 'src/app/store/actions/activity.action';
 import { ActivityService } from 'src/app/activities/activity.service';
@@ -33,7 +33,19 @@ export class ActivityViewComponent implements OnInit {
     private messageService: MessageService,
     private activityService: ActivityService,
     private _sanitizer: DomSanitizer,
+    private actRoute: ActivatedRoute, 
     private imageCompress: NgxImageCompressService) {
+
+
+      this.actRoute.paramMap.subscribe(params => {
+     
+        if(params.get('id')){
+       //   this.activityId = params.get('id');
+          localStorage.setItem('selectedActivityId',params.get('id'))
+        }
+             
+      }); 
+    
     this.activityId = localStorage.getItem('selectedActivityId').replace("\"", "").replace("\"", "");
     this.getActivity(this.activityId);
 

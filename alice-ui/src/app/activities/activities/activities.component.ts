@@ -148,7 +148,7 @@ export class ActivitiesComponent implements OnInit {
     localStorage.setItem("currentUserStatus", item.currentUserStatus)
     localStorage.setItem("selectedActivityId", item._id)
   //  this.store.dispatch(new GetActivityDetail(item._id))
-    this.router.navigate(['/activity-view'])
+    this.router.navigate(['/activity-view/'+item._id])
   }
 
   viewComments(item) {

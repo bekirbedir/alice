@@ -172,7 +172,7 @@ export class ProfileComponent {
     this.store.dispatch(new GetActivityDetail(activityId))
     localStorage.setItem("selectedActivityId",activityId)
   //  this.store.dispatch(new GetActivityDetail(item._id))
-    this.router.navigate(['/activity-view'])
+    this.router.navigate(['/activity-view/'+activityId]);
   }
   voteGraphUpdate(){
     if(this.totalRateCount>0){

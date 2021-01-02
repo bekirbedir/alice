@@ -11,7 +11,11 @@ const routes: Routes = [
   {
     path: '',
     component: ActivityViewComponent
-  }
+  },
+  {
+    path: ':id',
+    component: ActivityViewComponent
+  },
 ];
 
 @NgModule({

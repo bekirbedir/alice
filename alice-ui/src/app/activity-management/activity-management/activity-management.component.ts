@@ -90,19 +90,33 @@ export class ActivityManagementComponent implements OnInit {
     this.getSelectedActivity();
     this.getWaitingUsers();
   }
-  userStateAction(activityId, userId, status) {
-    this.loading = true;
+  userStateAction(data,activityId, userId, status) {
+   this.loading = true;
     let selectedTab = localStorage.getItem('selectedManagementTab').replace("\"","").replace("\"","");;
-    this.service.userStateAction(activityId, userId, status).subscribe(x => {
+   
+      this.service.userStateAction(activityId, userId, status).subscribe(x => {
       if (x.status) {
         this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Kaydedildi..' });
-        this.callFunctionSelected(Number(selectedTab));
+       //    this.callFunctionSelected(Number(selectedTab));
+        this.deleteRow(data,userId)
       }
       else {
 
       }
-    })
+      this.loading = false;
+    }) 
+    this.loading = false;
   }
+
+  deleteRow(data,id){
+ //   console.log(data,id)
+    for(let i = 0; i < data.length; ++i){
+        if (data[i].user._id === id) {
+      //    console.log('aaa',data[i])
+            data.splice(i,1);
+        }
+    }
+}
 
   userJoinedAction(activityId, userId, joined) {
     //joined 2: katıldı , 1:katılmadı
@@ -213,8 +227,8 @@ export class ActivityManagementComponent implements OnInit {
     this.messageService.clear('c');
   }
   isOwner(actUserId){
-    console.log("actUserId" , actUserId)
-    console.log(this.activity.user)
+   // console.log("actUserId" , actUserId)
+  //  console.log(this.activity.user)
     if(actUserId== this.activity.user)
       return true;
     else
