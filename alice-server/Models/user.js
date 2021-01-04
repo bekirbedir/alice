@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   Id:String,
   username: { type: String, searchable: true },
-  name:String,
+  name:{ type: String, searchable: true },
   createdDate: String,
   updatedDate: String,
   password:String,
