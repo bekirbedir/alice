@@ -14,6 +14,7 @@ export class UserModel {
     gender?:String | null;
     birthDate?:Date |null;
     name:string;
+    tagList:[String];
     
   }
   

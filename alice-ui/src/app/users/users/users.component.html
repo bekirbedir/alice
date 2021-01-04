@@ -22,6 +22,13 @@
              <span class="approved-user">  @{{user.name}}  ({{user.username}})  </span>
              <br>
              <span><small>{{user.biography}}</small></span>
+             
+              <div class="p-grid">
+              <ul  class="tag-list">
+                <li *ngFor="let tag of user.tagList" class="profile-tag "><small> #{{tag}} </small></li>
+              </ul>
+            </div>
+           
            </div>
           </div>
           </div>
