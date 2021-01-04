@@ -22,7 +22,7 @@ export class ProfilService {
   constructor(private _httpClient: HttpClient) { }
 
   getMyProfil(id): Observable<UserModel> {
-    console.log("servise geldi - userApprove")
+  
     const transferObject = {
       Id: id
     }
@@ -63,7 +63,7 @@ export class ProfilService {
   }
 
   rateAccept(id): Observable<ResponseModel> {
-    console.log("servise geldi - userApprove")
+  
     const transferObject = {
       Id: id
     }
@@ -76,7 +76,7 @@ export class ProfilService {
       );
   }
   voteInfos(id): Observable<any> {
-    console.log("servise geldi - userApprove")
+   
     const transferObject = {
       toUserId: id
     }
@@ -104,7 +104,7 @@ export class ProfilService {
 
   
   vote(toUserId,rate): Observable<ResponseModel> {
-    console.log("servise geldi - userApprove")
+ 
     const transferObject = {
       toUserId: toUserId,
       rate:rate
@@ -120,7 +120,7 @@ export class ProfilService {
 
 
   updateUserPhoto(userId, photo) {
-    console.log("servise geldi - updateUser")
+   
     const transferObject = {
       userId: userId,
       base64: photo

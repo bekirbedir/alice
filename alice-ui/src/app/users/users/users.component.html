@@ -1,12 +1,32 @@
 <div class="route-nav">
   <span><a href="/activities"> <i class="fa fa-home" aria-hidden="true"></i> Anasayfa </a></span> >
-  <span><i class="fa fa-user" aria-hidden="true"></i> Arkadaş </span>
-</div>  
-<p-listbox [options]="users" [(ngModel)]="users" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="userName">
-    <p-header>
-      Users
-    </p-header>
-  </p-listbox>
-  <p>Selected users: <span *ngFor="let c of users" style="margin-right: 10px">{{c.userName}}</span></p>
+  <span><i class="fa fa-search" aria-hidden="true"></i> Kullanıcı ara </span>
+</div>
 
-
+<div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+  <div class="p-xl-6 p-lg-6 p-md-8 p-sm-12">
+    <p-card>
+      <div class="p-grid">
+       
+    
+          <input type="text"  [(ngModel)]="search" (change)="searchFilter($event)" placeholder="Aramak için enter'a basın" class="btn search-button w-100">
+            
+        
+     
+          <div (click)="routeProfile(user._id)" class="p-col-12 profile-div" *ngFor="let user of users">
+        <div class="p-grid">
+          <div class="p-col-2">   
+            <img  class="header-photo img-thumbnail" [src]="photoLinkCreate(user.fileLink)" alt="bekirbedir"  > 
+          </div>
+          <div class="p-col-10"> 
+             <span class="approved-user">  @{{user.name}}  ({{user.username}})  </span>
+             <br>
+             <span><small>{{user.biography}}</small></span>
+           </div>
+          </div>
+          </div>
+       
+      </div>
+    </p-card>
+  </div>
+</div>

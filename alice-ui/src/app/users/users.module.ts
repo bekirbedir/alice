@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {ListboxModule} from 'primeng/listbox';
 import {ButtonModule} from 'primeng/button';
 import { FormsModule } from '@angular/forms';
+import { CardModule } from 'primeng/card';
 const routes: Routes = [
   { 
     path: '',
@@ -22,6 +23,7 @@ const routes: Routes = [
     ButtonModule,
     FormsModule,
     ListboxModule,
+    CardModule,
     RouterModule.forChild(routes),
   ]
 })

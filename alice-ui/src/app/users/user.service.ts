@@ -71,6 +71,25 @@ export class UserService {
       map((res) => res),
     );
 }
+
+
+allUsers(search): Observable<UserModel[]> {
+  
+  const transferObject = {
+    search: search
+  }
+  let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+  const object = JSON.stringify(transferObject);
+  return this._httpClient
+    .post<UserModel[]>(this.valuesUrl + "users/allUsers", object, { headers: header })
+    .pipe(
+      map((res) => res)
+    );
+}
+
+
+
+
   }
 
 

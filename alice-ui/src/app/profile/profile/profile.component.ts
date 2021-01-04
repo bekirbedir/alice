@@ -24,74 +24,77 @@ export class ProfileComponent {
   files: any
   loading: Boolean
   editMode: Boolean
-  isEditable: Boolean=false;
+  isEditable: Boolean = false;
   userId: String = '';
-  fileName:String;
+  fileName: String;
   baseUrl: String;
   uploadUrl: String;
   imgHidden: Boolean = true;
   imgSrc: String;
-  deleteOld:Boolean = false;
-  currentPassword:String;
-  password:String;
-  passwordRepeat:String;
-  passwordChangeAction:Boolean=false;
-  pictureFullScreen:Boolean=false;
-  rateArea:Boolean=false;
-  yourRate:number=0;
-  positiveRateCount:number=0;
-  negativeRateCount:number=0;
-  totalRateCount:number=0;
-  negativeRatePercent:any = "0"
-  positiveRatePercent:any = "0"
-  data:any;
-  myActivities:Activity[];
-  joinedActivities:Activity[];
-  
+  deleteOld: Boolean = false;
+  currentPassword: String;
+  password: String;
+  passwordRepeat: String;
+  passwordChangeAction: Boolean = false;
+  pictureFullScreen: Boolean = false;
+  rateArea: Boolean = false;
+  yourRate: number = 0;
+  positiveRateCount: number = 0;
+  negativeRateCount: number = 0;
+  totalRateCount: number = 0;
+  negativeRatePercent: any = "0"
+  positiveRatePercent: any = "0"
+  data: any;
+  myActivities: Activity[];
+  joinedActivities: Activity[];
+
   constructor(private service: ProfilService, private _sanitizer: DomSanitizer,
     private imageCompress: NgxImageCompressService,
     private messageService: MessageService,
     private router: Router,
-    private actRoute: ActivatedRoute, 
+    private actRoute: ActivatedRoute,
     private store: Store) {
-     
-      this.actRoute.paramMap.subscribe(params => {
-     
-        if(params.get('id')){
-          this.userId = params.get('id');
-        }
-             
-      });
-      this.yourRate =0 ;
-      this.baseUrl = environment.apiBaseUrl
-      this.uploadUrl = this.baseUrl + "users/upload"
+
+    this.yourRate = 0;
+    this.baseUrl = environment.apiBaseUrl
+    this.uploadUrl = this.baseUrl + "users/upload"
 
     this.User = new UserModel()
     this.editMode = false;
-    this.service.getMyProfil(this.userId).subscribe(x => {
-      if(localStorage.getItem('userId').replace("\"", "").replace("\"", "") == x._id){
-        this.isEditable = true;
-      }else{
-        this.rateAccept();
+
+    this.actRoute.paramMap.subscribe(params => {
+
+      if (params.get('id')) {
+        this.userId = params.get('id');
+        this.service.getMyProfil(this.userId).subscribe(x => {
+          if (localStorage.getItem('userId').replace("\"", "").replace("\"", "") == x._id) {
+            this.isEditable = true;
+          } else {
+            this.rateAccept();
+          }
+          this.votesInfos();
+          this.joinActivityInfos();
+          this.sellersPermitString = x.userPhoto
+          this.User = x
+          this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
+            + this.sellersPermitString);
+        })
+
+        this.service.getMyActivities(this.userId).subscribe(x => {
+          this.myActivities = x;
+        })
+        this.service.getMyJoinedActivities(this.userId).subscribe(x => {
+          this.joinedActivities = x;
+        })
       }
-      this.votesInfos();
-      this.joinActivityInfos();
-      this.sellersPermitString = x.userPhoto
-      this.User = x
-      this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
-      + this.sellersPermitString);
-    })
 
-    this.service.getMyActivities(this.userId).subscribe(x => {
-      this.myActivities = x;
-    })
-    this.service.getMyJoinedActivities(this.userId).subscribe(x => {
-      this.joinedActivities = x;
-    })
- 
+    });
 
 
-    
+
+
+
+
     this.loading = false;
   }
   imageSrc;
@@ -110,30 +113,30 @@ export class ProfileComponent {
   imgResultAfterCompress: string;
   currentId: number = 0;
 
-  rateAccept(){
+  rateAccept() {
     this.service.rateAccept(this.userId).subscribe(x => {
-     if(x){
-       if(x.status)
+      if (x) {
+        if (x.status)
           this.rateArea = true;
         this.yourRate = Number(x.summary);
-     }  
-     else{
-       this.rateArea = false;
-     }
+      }
+      else {
+        this.rateArea = false;
+      }
     })
   }
-  votesInfos(){
+  votesInfos() {
     this.service.voteInfos(this.userId).subscribe(x => {
-     if(x){
-      this.positiveRateCount=Number(x.positiveRateCount)
-      this.negativeRateCount=Number(x.negativeRateCount)
-      this.totalRateCount=Number(x.totalRateCount)
-      this.voteGraphUpdate();
-      }  
-   
+      if (x) {
+        this.positiveRateCount = Number(x.positiveRateCount)
+        this.negativeRateCount = Number(x.negativeRateCount)
+        this.totalRateCount = Number(x.totalRateCount)
+        this.voteGraphUpdate();
+      }
+
     })
   }
-  joinActivityInfos(){
+  joinActivityInfos() {
     /*
     katildi:katildi,
     katilmadi:katilmadi,
@@ -141,57 +144,57 @@ export class ProfileComponent {
     istekgeriCekti:istekgeriCekti
 
     */
-    
-   this.service.joinActivityInfos(this.userId).subscribe(x => {
-    if(x){
-      this.data = {
-        labels: ['Katıldı','Katılmadı','Reddedildi'],
-        datasets: [
-            {
-                data: [ x.katildi, x.katilmadi , x.reddedildi  ],
-                backgroundColor: [
-                  "#36A2EB",
-                    "#FF6384",
-                    "#000000"              
-                ],
-                hoverBackgroundColor: [
-                  "#36A2EB",  
-                  "#FF6384",
-                  "#000000"
-                ]
-            }]    
-        };
-     }  
-  
-   })
 
-    
+    this.service.joinActivityInfos(this.userId).subscribe(x => {
+      if (x) {
+        this.data = {
+          labels: ['Katıldı', 'Katılmadı', 'Reddedildi'],
+          datasets: [
+            {
+              data: [x.katildi, x.katilmadi, x.reddedildi],
+              backgroundColor: [
+                "#36A2EB",
+                "#FF6384",
+                "#000000"
+              ],
+              hoverBackgroundColor: [
+                "#36A2EB",
+                "#FF6384",
+                "#000000"
+              ]
+            }]
+        };
+      }
+
+    })
+
+
   }
 
   routeActivity(activityId) {
     this.store.dispatch(new GetActivityDetail(activityId))
-    localStorage.setItem("selectedActivityId",activityId)
-  //  this.store.dispatch(new GetActivityDetail(item._id))
-    this.router.navigate(['/activity-view/'+activityId]);
+    localStorage.setItem("selectedActivityId", activityId)
+    //  this.store.dispatch(new GetActivityDetail(item._id))
+    this.router.navigate(['/activity-view/' + activityId]);
   }
-  voteGraphUpdate(){
-    if(this.totalRateCount>0){
+  voteGraphUpdate() {
+    if (this.totalRateCount > 0) {
       //negative button ayarı
-      if(this.negativeRateCount != 0){
-       let percent = ((this.negativeRateCount/this.totalRateCount)*100).toFixed()
-       this.negativeRatePercent = percent;
-       document.getElementById('negative-bar').setAttribute('style','width:'+Number(percent)+'%');
-      }else{
-        document.getElementById('negative-bar').setAttribute('style','width:'+Number(0)+'%');
+      if (this.negativeRateCount != 0) {
+        let percent = ((this.negativeRateCount / this.totalRateCount) * 100).toFixed()
+        this.negativeRatePercent = percent;
+        document.getElementById('negative-bar').setAttribute('style', 'width:' + Number(percent) + '%');
+      } else {
+        document.getElementById('negative-bar').setAttribute('style', 'width:' + Number(0) + '%');
       }
 
       //positive button ayarı
-      if(this.positiveRateCount != 0){
-        let percent = ((this.positiveRateCount/this.totalRateCount)*100).toFixed()
+      if (this.positiveRateCount != 0) {
+        let percent = ((this.positiveRateCount / this.totalRateCount) * 100).toFixed()
         this.positiveRatePercent = percent;
-        document.getElementById('positive-bar').setAttribute('style','width:'+Number(percent)+'%');
-      }else{
-        document.getElementById('positive-bar').setAttribute('style','width:'+Number(0)+'%');
+        document.getElementById('positive-bar').setAttribute('style', 'width:' + Number(percent) + '%');
+      } else {
+        document.getElementById('positive-bar').setAttribute('style', 'width:' + Number(0) + '%');
       }
     }
   }
@@ -261,25 +264,25 @@ export class ProfileComponent {
     })
   }
   update(event: Event) {
-  //  this.data = //create new data
+    //  this.data = //create new data
   }
 
   rateUser(oy) {
     /* oy == 1 olumlu , ==2 olumsuz */
-    if(this.yourRate>0){
+    if (this.yourRate > 0) {
       this.messageService.add({ key: 'tc', severity: 'error', summary: 'Oy değiştirilemez!', detail: 'Oy değiştirmek için yöneticiye başvurun' });
-    }  
-    else if(!this.rateArea)
+    }
+    else if (!this.rateArea)
       this.messageService.add({ key: 'tc', severity: 'error', summary: 'Henüz oy verme yetkiniz yok!', detail: 'Oy vermek için birlikte 1 etkinliğe katılmanız gerekir' });
-  
-    else{
-      this.service.vote(this.userId,oy).subscribe(x=>{
-        if(x){
+
+    else {
+      this.service.vote(this.userId, oy).subscribe(x => {
+        if (x) {
           this.yourRate = oy;
           this.totalRateCount = this.negativeRateCount + 1;
-          if(oy == 1){
+          if (oy == 1) {
             this.positiveRateCount = this.positiveRateCount + 1;
-          }else{
+          } else {
             this.negativeRateCount = this.negativeRateCount + 1;
           }
           this.voteGraphUpdate();
@@ -287,7 +290,7 @@ export class ProfileComponent {
         }
       })
     }
-  
+
   }
 
   updateUser() {
@@ -300,58 +303,58 @@ export class ProfileComponent {
 
   }
 
-  isPasswordValidation(){
+  isPasswordValidation() {
     let isValid = true;
-    if(this.currentPassword == null || this.currentPassword == "" ){
-      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şuanki şifre boş olamaz'  });
+    if (this.currentPassword == null || this.currentPassword == "") {
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şuanki şifre boş olamaz' });
       isValid = false;
     }
-    if(this.password == null || this.password == "" ){
-      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şifre boş olamaz'  });
+    if (this.password == null || this.password == "") {
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şifre boş olamaz' });
       isValid = false;
     }
-    if(this.passwordRepeat == null || this.passwordRepeat == "" ){
-      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şifre tekrarı boş olamaz'  });
+    if (this.passwordRepeat == null || this.passwordRepeat == "") {
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şifre tekrarı boş olamaz' });
       isValid = false;
     }
-    if(this.passwordRepeat.trim() != this.password.trim()){
-      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şifreler eşleşmiyor'  });
+    if (this.passwordRepeat.trim() != this.password.trim()) {
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şifreler eşleşmiyor' });
       isValid = false;
     }
 
     return isValid
   }
-  
 
-  passwordChange(){
-    if(this.isPasswordValidation()){
-      this.service.savePassword(this.User.username,this.currentPassword,this.password,this.passwordRepeat).subscribe(x => {
-        if (x){
-          if(x.status)
+
+  passwordChange() {
+    if (this.isPasswordValidation()) {
+      this.service.savePassword(this.User.username, this.currentPassword, this.password, this.passwordRepeat).subscribe(x => {
+        if (x) {
+          if (x.status)
             this.passwordChangeAction = false
 
-          this.messageService.add({ key: 'tc', severity: x.toastType, summary: x.summary, detail:x.message });
-        
+          this.messageService.add({ key: 'tc', severity: x.toastType, summary: x.summary, detail: x.message });
+
         }
       })
-    
+
     }
-   
+
   }
 
-  photoLinkCreate(link){
-    if(link == null || link == "")
+  photoLinkCreate(link) {
+    if (link == null || link == "")
       link = "static/uploads/profile/empty_profile128.png";
 
-    return this.baseUrl +link
+    return this.baseUrl + link
   }
-  onBasicUpload(element){
-    if( this.deleteOld ){
-   //   this.activityService.deleteFile(this.fileName);
+  onBasicUpload(element) {
+    if (this.deleteOld) {
+      //   this.activityService.deleteFile(this.fileName);
     }
     this.fileName = element.originalEvent.body.photoLink
     this.imgHidden = false;
-    this.imgSrc = "static/uploads/profile/"+this.fileName
+    this.imgSrc = "static/uploads/profile/" + this.fileName
     console.log(this.imgSrc)
     this.deleteOld = true;
     this.User.fileLink = this.imgSrc;

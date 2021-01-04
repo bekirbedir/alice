@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 var random = require('mongoose-simple-random');
+const searchable = require('mongoose-regex-search');
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   Id:String,
-  username: String,
+  username: { type: String, searchable: true },
   name:String,
   createdDate: String,
   updatedDate: String,
@@ -11,10 +12,10 @@ const UserSchema = new Schema({
   isActive:Boolean,
   role:String,
   resetPasswordCode:String,
-  tagList:[String],
+  tagList:{ type: [String], searchable: true },
   email:String,
   phone: String,
-  biography: String,
+  biography: { type: String, searchable: true },
   status: {type: Number, default: 1},
   mailOnayCode: String,
   userPhoto:String,
@@ -24,6 +25,7 @@ const UserSchema = new Schema({
 
 });
 UserSchema.plugin(random);
+UserSchema.plugin(searchable);
 module.exports = mongoose.model("User", UserSchema);
 /*
 1	mail onay bekliyor

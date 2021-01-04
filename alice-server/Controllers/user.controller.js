@@ -17,94 +17,47 @@ var genericFunction = require('../util/genericFunction');
 
 
 
-
-
-router.post("/updateUserPhoto", (req, res) => {
-
-  if (!req.body.userId || !req.body.base64) {
-    return res.status(404).send({
-      message: 'Photo or userId can not be empty!',
-    });
-  }
-  else {
-
-
-    User.findOne({ _id: req.body.userId }, function (err, user) {
-      user.userPhoto = req.body.base64
-      user.save().then(result => {
-        res.status(200).json({
-          status: true,
-          message: "user update successfully done"
-        })
-      })
-        .catch(error => {
-          res.status(200).json({
-            status: false,
-            message: "user update failed done"
-          })
-        });
-    })
-
-  }
-
+router.post("/allUsers", async (req, res,next) => {
+  let search = req.body.search;
+    const userList = await User.search(search,{ status: 3}, '_id fileLink biography username name tagList').sort('createdDate').limit(20).exec();
+   res.json(userList);
+      
 })
 
 
-
-router.get("/userview", (req, res) => {
-  let pUsername = req.query.username
-
-  if (!pUsername) {
-    return res.status(404).send({
-      message: 'Email or password can not be empty!',
-    });
-  }
-  User.findOne({ username: pUsername }, function (err, docs) {
-    if (docs) {
-
-      return res.status(200).send(docs)
-    }
-    else {
-      return res.status(200).send({ message: "user not find" })
-    }
-  })
-})
 
 router.post("/detail", async (req, res) => {
   let id = req.body.Id;
+
+  if(await genericFunction.isSelfRequest(id,req.userId)){
+
+    User.findOne({ _id: id }, function (err, response) {
+      if (err) {
+         console.log(err);
+      }
+      if (response) {
+        res.send(response);
+      }
+    }
+    )
+  }else{
+    User.findOne({ _id: id },'_id username name tagList biography fileLink gender birthDate', function (err, response) {
+      if (err) {
+         console.log(err);
+      }
+      if (response) {
+        res.send(response);
+      }
+  
+    }
+    )
+  }
   
 
-  User.findOne({ _id: id }, function (err, response) {
-    if (err) {
 
-      // console.log(err);
-    }
-    if (response) {
-      res.send(response);
-    }
-
-  }
-  )
 })
 
-router.get("/userview", (req, res) => {
-  let pUsername = req.query.username
 
-  if (!pUsername) {
-    return res.status(404).send({
-      message: 'Email or password can not be empty!',
-    });
-  }
-  User.findOne({ username: pUsername }, function (err, docs) {
-    if (docs) {
-
-      return res.status(200).send(docs)
-    }
-    else {
-      return res.status(200).send({ message: "user not find" })
-    }
-  })
-})
 
 router.post("/myActivities", (req, res) => {
   let id = req.body.Id;
@@ -412,10 +365,9 @@ rateAccept = async function (currentUserId, toUserId) {
 
 
 
-router.put("/updateUser", (req, res) => {
-
-  User.findOne({ _id: req.body._id }, function (err, user) {
-
+router.put("/updateUser", async (req, res) => {
+if(await genericFunction.isSelfRequest(req.userId,req.body._id)){
+  User.findOne({ _id: req.userId }, function (err, user) {
     user.name = req.body.name
     user.tagList = req.body.tagList
     user.biography = req.body.biography
@@ -435,6 +387,7 @@ router.put("/updateUser", (req, res) => {
         })
       });
   })
+}
 })
 
 
