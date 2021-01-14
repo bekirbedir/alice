@@ -19,7 +19,7 @@ var genericFunction = require('../util/genericFunction');
 
 router.post("/allUsers", async (req, res,next) => {
   let search = req.body.search;
-    const userList = await User.search(search,{ status: 3}, '_id fileLink biography username name tagList').sort('createdDate').limit(20).exec();
+    const userList = await User.search(search,{ status: 3}).select('_id fileLink biography username name tagList').sort('createdDate').limit(20).exec();
    res.json(userList);
       
 })
