@@ -21,7 +21,8 @@ const UserSchema = new Schema({
   userPhoto:String,
   fileLink:String,
   gender:String,
-  birthDate:Date
+  birthDate:Date,
+  oneSignalId:String
 
 });
 UserSchema.plugin(random);
