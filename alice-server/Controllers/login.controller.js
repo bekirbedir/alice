@@ -9,7 +9,7 @@ let mailler = require("../mailler")
 var jwt = require('jsonwebtoken');
 const sendMail = require("../Models/send.mail");
 
-const OneSignal = require('onesignal-node');
+
 
 router.post("/approve", (req, res) => {
   pCode = req.body.code;
@@ -265,29 +265,7 @@ router.post("/login", async (req, res) => {
             error: 'User not found. Authentication failed...!'
           });
         }
-        if (!user.oneSignalId) {
-          const client = new OneSignal.Client('94c353b0-0e62-49f7-aa76-791e2cb85410', 'MDgxYzM1NWItYmZkYi00ZTE0LTg0NzAtYTk5N2QyOGNkMWJi');
-          const deviceResponse = await client.addDevice({
-            device_type: '0',
-            identifier: 'id1',
-          });
-          console.log(deviceResponse.body);
-          user.oneSignalId = deviceResponse.body.id;
-          user.save()
-          const token = jwt.sign({
-            name: user.username,
-            id: user.id
-          },
-            'Act1234SecretKey',
-            {
-              expiresIn: "500h"
-            }
-          )
-          console.log({ message: 'success', token: token, oneSignalId: user.oneSignalId })
-          return res.status(200).send({ message: 'success', token: token, oneSignalId: user.oneSignalId });
-        }
-        else {
-          console.log('elsee signal id var')
+    
           const token = jwt.sign({
             name: user.username,
             id: user.id
@@ -298,7 +276,7 @@ router.post("/login", async (req, res) => {
             }
           )
           return res.status(200).send({ message: 'success', token: token, oneSignalId: user.oneSignalId });
-        }
+        
       })
   }
 })

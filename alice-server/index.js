@@ -6,7 +6,46 @@ var path = require('path');
 var bodyParser = require('body-parser')
 
 var cronUtils = require('./util/cronExec');
+//////
 
+var admin = require("firebase-admin");
+
+var serviceAccount = require("./alice-firebase.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://alice-bb.firebaseio.com"
+});
+
+const notification_options = {
+  priority: "high",
+  timeToLive: 60 * 60 * 24
+};
+
+  const  registrationToken = 'dVlPJraDRxabhFwP8EgcxF:APA91bHWIYC9XLnA12eEgwEeD2TvywAdffcbOgk6pSyBGfUhSNtoFFQtIN340hZ4ERVzwqZrJ9hQoMHXms0Zi_kU4ejSdy7pK_lx8gqcGuXGQPc6wO91PUdWNNRw2vshj_k9DmKH9RCt';
+  const options =  notification_options
+  const message_notification = {
+    notification: {
+       title: 'harun test',
+       body: 'enter_message_here'
+       }
+    };
+
+    admin.messaging().sendToDevice(registrationToken, message_notification, options)
+    .then( response => {
+      console.log('response:', response)
+  console.log('OKOKOKOK')
+     
+    })
+    .catch( error => {
+      console.log('ERRRRORRR')
+        console.log(error);
+    });
+
+
+
+
+//////
 var auhtguardAdmin=require('./Controllers/authguard.admin')
 var auhtguardUser=require('./Controllers/authguard.user')
 app.use(bodyParser.json({limit: '50mb'}));
