@@ -22,6 +22,7 @@ export class SignupComponent implements OnInit {
   buttonSmsValid=false;
   user: User
   sozlesmeVisible: Boolean = false;
+  sozlesmeGizlilikVisible: Boolean = false;
   tr:any
   isSendSms=false
   cinsiyetler: SelectItem[];
@@ -62,6 +63,9 @@ export class SignupComponent implements OnInit {
   }
   showDialog() {
     this.sozlesmeVisible = true;
+}
+showGizlilikDialog() {
+  this.sozlesmeGizlilikVisible = true;
 }
   showResponse(response) {
     //call to a backend to verify against recaptcha with private key

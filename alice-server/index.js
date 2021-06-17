@@ -7,8 +7,9 @@ var bodyParser = require('body-parser')
 
 var cronUtils = require('./util/cronExec');
 //////
-
+/*
 var admin = require("firebase-admin");
+
 
 var serviceAccount = require("./alice-firebase.json");
 
@@ -22,7 +23,7 @@ const notification_options = {
   timeToLive: 60 * 60 * 24
 };
 
-  const  registrationToken = 'dVlPJraDRxabhFwP8EgcxF:APA91bHWIYC9XLnA12eEgwEeD2TvywAdffcbOgk6pSyBGfUhSNtoFFQtIN340hZ4ERVzwqZrJ9hQoMHXms0Zi_kU4ejSdy7pK_lx8gqcGuXGQPc6wO91PUdWNNRw2vshj_k9DmKH9RCt';
+  const  registrationToken = 'dh5LcgV1QfSeMlqJtBkmaO:APA91bEISOAVVmHJT8iSMOmff_9rWbD1ZmBYNSrccM48IiB4MU93HoPbBU6wd-X8D9rGe0_rkNZpy6sEa5xtE8Hjp41XEtvWHPeSdE-3eVZ66wr599UuAw2it5o5jFGK4WgG0FtvbXLg';
   const options =  notification_options
   const message_notification = {
     notification: {
@@ -42,7 +43,7 @@ const notification_options = {
         console.log(error);
     });
 
-
+*/
 
 
 //////

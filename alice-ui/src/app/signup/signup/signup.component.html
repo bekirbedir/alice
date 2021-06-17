@@ -114,7 +114,16 @@
           <p></p>
         </div>
 
-        <div class="p-col-12"><p-checkbox [(ngModel)]="checked" (click)="showDialog()" label="Sözleşmeyi okudum ve kabul ediyorum." binary="true"></p-checkbox></div>
+        <div class="p-col-12"><p-checkbox [(ngModel)]="checked"  binary="true"></p-checkbox>
+          <a (click)="showDialog()" style="
+          font-style: italic;
+          text-decoration: underline;
+          font-weight: bolder;" > Üyelik sözleşmesi</a> ve 
+          <a (click)="showGizlilikDialog()" style="
+          font-style: italic;
+          text-decoration: underline;
+          font-weight: bolder;"> Gizlilik Politikası</a>'nı okudum, kabul ediyorum.
+          </div>
       
       </div>
           <div class="p-grid" >
@@ -212,6 +221,58 @@
  
 </p> 
 <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (click)="sozlesmeVisible=false" label="Tamam" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-check" (click)="sozlesmeGizlilikVisible=false" label="Tamam" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-dialog>
+
+<p-dialog header="Gizlilik Politikası" [(visible)]="sozlesmeGizlilikVisible" [style]="{width: '80vw'}" [baseZIndex]="10000">
+
+
+  <p> Gizlilik Politikası</p>
+   <p>
+
+    Activity Friend sizlere daha iyi hizmet sunmak adına bazı kişisel verilerinizi (ad soyad, e-posta adresi, adres, cinsiyet, cep telefonu numarası da dahil fakat bunlarla sınırlı olmamak kaydıyla elde edilmiş tüm kişisel veriler) talep etmektedir. Söz konusu kişisel verileriniz açık rızanıza istinaden işbu kişisel verilerin korunması bildiriminde belirtilen amaçlar ve kapsam dışında kullanılmamak kaydıyla halka açık olmayan bir ortama işleyecek ve bu ortamda muhafaza edecektir.
+
+    KİŞİSEL VERİLERİN İŞLENME AMACI
+                  Kişisel verileriniz, üye kaydınızın oluşturulmasında, profilinizin oluşturulmasında, üye istatistiklerinin oluşturulmasında, “sınıflandırma” çalışmalarında ve bunlarla sınırlı olmamak kaydıyla sizlere daha iyi hizmet sunabilmek adına gerekli görülen işlemlerde kullanılacaktır.
+    
+    Kişisel verileriniz tamamen veya kısmen, otomatik olan veya olmayan yollarla elde etme, kaydetme, depolama, muhafaza etme, değiştirme, yeniden düzenleme vb. işlemler aracılığıyla işlenebilir. Toplanılan bilgiler, haberiniz ya da aksi bir talimatınız olmaksızın, üçüncü şahıslarla kesinlikle paylaşılmamakta, faaliyet dışı hiçbir nedenle ticari amaçla kullanılmamakta ve de satılmamaktadır. 
+    
+    KİŞİSEL VERİLERİN AKTARILMASI
+                  Tarafınızdan edinilmiş olan kişisel veriler mevzuat hükümlerinin izin verdiği ya da zorunlu tuttuğu kişi veya kuruluşlarla, Gümrük ve Ticaret Bakanlığı, BDDK, SPK, TCMB gibi kamu tüzel kişileriyle, resmi mercilerin talepleri üzerine resmi mercilerle paylaşılabilecektir.
+    
+              
+    
+    KİŞİSEL VERİLERİN TOPLANMA YÖNTEMİ
+    İnternet sitesi, uygulama, gibi kanallarla kişisel verileriniz yazılı, sözlü veya elektronik ortamda toplanabilir.
+    
+    KİŞİSEL VERİLERİN KORUNMASI KANUNU’NDAN DOĞAN HAKLARINIZ
+    
+              Kanun’un 11. Maddesine göre kişisel veri sahibi olarak müşteriler;
+    
+    -        Kişisel veri işlenip işlenmediğini öğrenme,
+    
+    -        Kişisel veriler işlenmişse buna ilişkin bilgi talep etme,
+    
+    -        Kişisel verilerin işlenme amacını ve bunların amacına uygun kullanıp kullanılmadığını öğrenme,
+    
+    -        Yurt içinde veya yurt dışında kişisel verilerin aktarıldığı üçüncü kişileri bilme,
+    
+    -        Kişisel verilerin eksik ya da yanlış işlenmiş olması halinde bunların düzeltilmesini isteme,
+    
+    -        Kişisel verilerin silinmesini, anonim hale getirilmesini veya yok edilmesini isteme,
+    
+    -        Düzeltilme, silinme, anonim hale getirme veya yok edilmesi halinde bunun üçüncü kişilere bildirilmesini isteme,
+    
+    -        İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle kişinin kendisi aleyhine bir sonucun ortaya çıkmasına itiraz etme,
+    
+    -        Kişisel verilerin kanuna aykırı olarak işlenmesi sebebiyle zarar uğraması halinde zararın giderilmesini talep etme
+    
+    haklarına sahiptir. Söz konusu haklarınızı kullanmak için sistem üzerinden moderatorlere mesaj atabilirsiniz.
+      
+  
+ </p> 
+ <ng-template pTemplate="footer">
+         <p-button icon="pi pi-check" (click)="sozlesmeGizlilikVisible=false" label="Tamam" styleClass="p-button-text"></p-button>
+     </ng-template>
+ </p-dialog>
