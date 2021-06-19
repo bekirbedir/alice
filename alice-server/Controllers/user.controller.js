@@ -19,9 +19,21 @@ var genericFunction = require('../util/genericFunction');
 
 router.post("/allUsers", async (req, res,next) => {
   let search = req.body.search;
-    const userList = await User.search(search,{ status: 3}).select('_id fileLink biography username name tagList').sort('createdDate').limit(10).exec();
+  if(search == "" || search == null){
+    var filter = { $and: [ { status: 3}]  };
+    var fields = { _id:1, fileLink:2, biography:3, username:4, name:5 ,tagList:6 };
+    var options = { skip: 10, limit: 5 };
+    User.findRandom(filter, fields, options, function (err, results) {
+      if (!err) {
+        res.json(results);
+      }
+    });
+    
+  }else
+  {
+  const userList = await User.search(search,{ status: 3}).select('_id fileLink biography username name tagList').sort('createdDate').limit(10).exec();
    res.json(userList);
-      
+  }
 })
 
 router.post("/birthdayUsers", async (req, res,next) => {
