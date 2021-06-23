@@ -22,7 +22,9 @@ const UserSchema = new Schema({
   fileLink:String,
   gender:String,
   birthDate:Date,
-  oneSignalId:String
+  oneSignalId:String,
+  firebaseToken:String,
+  deviceType: String
 
 });
 UserSchema.plugin(random);

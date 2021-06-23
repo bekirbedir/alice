@@ -281,6 +281,55 @@ router.post("/login", async (req, res) => {
   }
 })
 
+router.post("/loginMobile", async (req, res) => {
+
+  if (!req.body.username || !req.body.password) {
+    return res.status(404).send({
+      message: 'Email or password can not be empty!',
+    });
+  }
+  else {
+
+    const username = req.body.username.toLowerCase().trim();
+
+    const password = crypto.createHash('md5').update(req.body.password).digest("hex");
+    //  console.log(password)
+    const potentialUser = { $or: [{ 'username': username }, { 'email': username }], password: password, status: 3 };
+    User.findOne(potentialUser)
+      .then( (user) => {
+        if (!user) {
+          return res.status(200).send({
+            message: 'fail',
+            error: 'User not found. Authentication failed...!'
+          });
+        }
+        if(req.body.deviceType && req.body.deviceType == "ANDROID"){
+          console.log('ANDROID')
+          user.deviceType = "ANDROID"
+        }
+        if(req.body.deviceType && req.body.deviceType == "IOS"){
+          console.log('ANDROID')
+          user.deviceType = "IOS"
+        }
+        if(req.body.firebaseToken){
+          console.log('FIREBASE')
+          user.firebaseToken = req.body.firebaseToken
+          user.save();
+        }
+          const token = jwt.sign({
+            name: user.username,
+            id: user.id
+          },
+            'Act1234SecretKey',
+            {
+              expiresIn: "500h"
+            }
+          )
+          return res.status(200).send({ message: 'success', token: token });
+        
+      })
+  }
+})
 router.get("/getRandomUsers", async (request, response, next) => {
   let search = request.query.q;
 
