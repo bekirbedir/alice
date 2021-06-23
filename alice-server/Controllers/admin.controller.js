@@ -7,6 +7,9 @@ let Activity = require("../Models/activity")
 let mailler = require("../mailler")
 var jwt = require('jsonwebtoken');
 const Notification = require("../Models/notification")
+const firebaseNotification = require('../util/firebaseNotification');
+
+
 
 router.get("/users/getall", (request, response) => {
 
@@ -109,12 +112,13 @@ router.post("/activity/activityApprove", (req, res) => {
           subject = "ActivityFriend Etkinlik Onayı"
           textHtml = "<H4>Merhaba,<b>"+ act.header + "</b> isimli etkinliğin onaylandı! İyi eğlenceler</H4>"
           mailler.main(actUser.email,subject, textHtml);
+          firebaseNotification.notificationSend(actUser._id,'Aktiviten Onaylandı',act.header +' isimli etkinliğin onaylandı! İyi eğlenceler')
           res.status(200).json({
             status: true,
             message: "Aktivite onaylandı"
           })
         })
-        
+     
       })
         .catch(error => {
           res.status(200).json({
