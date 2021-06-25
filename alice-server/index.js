@@ -6,6 +6,27 @@ var path = require('path');
 var bodyParser = require('body-parser')
 
 var cronUtils = require('./util/cronExec');
+
+
+let User = require("./Models/user")
+try {
+
+User.find({day:null}).then(users=>{
+  console.log('yeni uye')
+  for(var i = 0 ; i<users.length ; i++){
+
+   var month1 = new Date(users[i].birthDate).getUTCMonth()+1 ;
+   var day1 = new Date(users[i].birthDate).getUTCDate() ;
+   users[i].day= day1;
+   users[i].month = month1;
+   users[i].save();
+  }
+})
+
+}
+catch (error) {
+  console.log('---hataa-----')
+}
 //////
 /*
 var admin = require("firebase-admin");

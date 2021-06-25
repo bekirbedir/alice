@@ -15,3 +15,27 @@
     margin-left: 5px;
 
 }
+
+.birthday-header{
+    margin-top: 10px;
+    font-weight: 900;
+    width: 100%;
+    text-align: center;
+    color: limegreen;
+    padding-bottom:5px ;
+    border-bottom: 0.5px solid #ccc;
+    margin-bottom: 5px;
+}
+
+.birthday-users-pic-img{
+    object-fit: cover;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.img-thumbnail-custom {
+padding: .1rem;
+background-color: #fff;
+border: 2px solid #cd486b;
+}

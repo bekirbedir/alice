@@ -22,6 +22,8 @@ const UserSchema = new Schema({
   fileLink:String,
   gender:String,
   birthDate:Date,
+  day:String,
+  month:String,
   oneSignalId:String,
   firebaseToken:String,
   deviceType: String

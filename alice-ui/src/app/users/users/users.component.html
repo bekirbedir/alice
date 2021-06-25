@@ -4,6 +4,34 @@
 </div>
 
 <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+    <div class="p-xl-6 p-lg-6 p-md-8 p-sm-12">
+      <p-card>
+        <div class="p-grid">
+            
+           
+        
+            <p class="birthday-header">
+                <i class="fa fa-birthday-cake" aria-hidden="true"></i>   Mutlu Yıllar   <i class="fa fa-birthday-cake" aria-hidden="true"></i>
+            </p>
+            
+          <div [hidden]="birthDayUsersHidden" class="p-grid p-col-12">
+            <div class="profile-div  p-col-4 " (click)="routeProfile(user._id)" *ngFor="let user of birthDayUsers">   
+              <div><img  class="birthday-users-pic-img img-thumbnail-custom " [src]="photoLinkCreate(user.fileLink)" alt="bekirbedir"  > </div>
+              <div> @{{user.name}}</div>
+            </div>
+            </div>
+
+            <div [hidden]="!birthDayUsersHidden" class="alert alert-warning w-100" role="alert">
+                <p style="text-align:center">Bugün kimsenin doğum günü değilmiş <i class="fa fa-frown-o" aria-hidden="true"></i></p>
+              </div>
+            
+         
+        </div>
+      </p-card>
+    </div>
+  </div>
+
+<div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
   <div class="p-xl-6 p-lg-6 p-md-8 p-sm-12">
     <p-card>
       <div class="p-grid">
@@ -37,3 +65,5 @@
     </p-card>
   </div>
 </div>
+
+

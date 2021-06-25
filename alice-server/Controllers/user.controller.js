@@ -37,12 +37,13 @@ router.post("/allUsers", async (req, res,next) => {
 })
 
 router.post("/birthdayUsers", async (req, res,next) => {
+
+var day = new Date().getUTCDate();
+var month = new Date().getUTCMonth()+1;
   let search = req.body.search;
     const userList = await User.search(search,{ status: 3,
-      birthDate: {
-        $gte: new Date(), 
-        $lt: new Date()
-    }
+     day:day,
+     month:month
   }).select('_id fileLink biography username name tagList').sort('createdDate').limit(10).exec();
    res.json(userList);
       

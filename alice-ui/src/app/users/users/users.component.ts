@@ -13,7 +13,9 @@ import { environment } from 'src/environments/environment';
 export class UsersComponent implements OnInit {
 
   users:UserModel[]
+  birthDayUsers:UserModel[]
   search:string = "";
+  birthDayUsersHidden: Boolean = true;
 
   constructor(private store:Store,private router: Router, private service: UserService ) { 
     
@@ -22,6 +24,8 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchUser('')
+    this.getBirthDayUsers();
+
   }
 
   routeProfile(userId) {
@@ -32,6 +36,18 @@ export class UsersComponent implements OnInit {
     this.service.allUsers(word).subscribe(x => {
       if (x) {
        this.users = x;
+      }
+
+    })
+  }
+  
+  getBirthDayUsers() {
+    this.service.birthdayUsers().subscribe(x => {
+      if (x) {
+       this.birthDayUsers = x;
+       if(x && x.length>0){
+          this.birthDayUsersHidden = false;
+       }
       }
 
     })
