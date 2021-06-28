@@ -38,7 +38,7 @@ router.post("/allUsers", async (req, res,next) => {
 
 router.post("/birthdayUsers", async (req, res,next) => {
 
-var day = new Date().getUTCDate();
+var day = new Date().getUTCDate()-1;
 var month = new Date().getUTCMonth()+1;
   let search = req.body.search;
     const userList = await User.search(search,{ status: 3,
