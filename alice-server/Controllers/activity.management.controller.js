@@ -7,7 +7,7 @@ let Activity = require("../Models/activity")
 var jwt = require('jsonwebtoken');
 const Notification = require("../Models/notification")
 var genericFunction = require('../util/genericFunction');
-
+const firebaseNotification = require('../util/firebaseNotification');
 isAdminOrOwner = async function(userId,activityId){
     if(userId == null || userId == 0 || userId == undefined || userId == "" 
     || activityId == null || activityId == 0 || activityId == undefined || activityId == "" )
@@ -115,6 +115,7 @@ router.post("/userStateAction", async (request, res) => {
                 actUser.save().then(result => {
                     if (pStatus == 2) {
                         saveNotification(pUserId, null ,pActivityId, 4, "Katılım isteğin onaylandı")
+                      
                     }
                     if (pStatus == 3) {
                         saveNotification(pUserId, null ,pActivityId, 5, "Katılım isteğin reddedildi")           
@@ -163,6 +164,8 @@ saveNotification =function(toUserId, fromUserId ,activityId, type, text){
     notification.isShow = false;
     notification.type = type;
     notification.save()
+    firebaseNotification.notificationSend(toUserId,text,'')
+         
   }
 
 updatAactivityParticipantCount = function(pActivityId){

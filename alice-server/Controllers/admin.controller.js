@@ -73,20 +73,7 @@ catch (error) {
     return response.json(error);
   }
 
-/*
-  Activity.find({status: 1}, '_id , header , status , context , fileLink', function (err, res) {
 
-    if (err) {
-      console.log(err);
-    }
-    if (res) {
-      response.send(res);
-    }
-  }
-
-
-  
-  ) */
 
 })
 

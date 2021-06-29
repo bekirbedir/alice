@@ -14,7 +14,7 @@ const UserRate = require("../Models/user-rate");
 const Notification = require("../Models/notification")
 const ResponseModel = require("../Models/response-model");
 var genericFunction = require('../util/genericFunction');
-
+const firebaseNotification = require('../util/firebaseNotification');
 
 
 router.post("/allUsers", async (req, res,next) => {
@@ -36,10 +36,15 @@ router.post("/allUsers", async (req, res,next) => {
   }
 })
 
+Date.prototype.addHours = function(h) {
+  this.setTime(this.getTime() + (h*60*60*1000));
+  return this;
+}
 router.post("/birthdayUsers", async (req, res,next) => {
 
-var day = new Date().getUTCDate()-1;
-var month = new Date().getUTCMonth()+1;
+var dateCurrent = new Date().addHours(3);
+var day = dateCurrent.getUTCDate();
+var month = dateCurrent.getUTCMonth()+1;
   let search = req.body.search;
     const userList = await User.search(search,{ status: 3,
      day:day,
@@ -258,7 +263,7 @@ router.post("/vote", async (req, res) => {
   if(toUserId == fromUserId) {
     res.send(false);
   }
-
+  console.log('aaaa')
   let rm = await rateAccept(fromUserId, toUserId);
   if(rm.status){ //oy verebilir mi kontrol 
     let vote = await existVote(fromUserId, toUserId);
@@ -273,16 +278,18 @@ router.post("/vote", async (req, res) => {
      
     }else {
         //oy veriyor
-        
+        console.log('bbbbb')
         const vote = new UserRate();
         vote.toUser = toUserId
         vote.fromUser = fromUserId;
         vote.rate = rate;
         vote.save();
+        console.log('ccccc')
         if(rate == 1){
-          saveNotification(toUserId, fromUserId , 8, "Bir kullanıcı sana OLUMLU oy verdi")
+          console.log('dddd')
+          saveNotificationFunc(toUserId, fromUserId , 8, 'Bir kullanıcı sana OLUMLU oy verdi')
         }else{
-          saveNotification(toUserId, fromUserId , 9, "Bir kullanıcı sana OLUMSUZ oy verdi")
+          saveNotificationFunc(toUserId, fromUserId , 9, 'Bir kullanıcı sana OLUMSUZ oy verdi')
         }
         let rm = {
           status: true,
@@ -308,14 +315,19 @@ router.post("/vote", async (req, res) => {
 
 })
 
-saveNotification =function(toUserId, fromUserId , type, text){
+saveNotificationFunc =function(toUserId, fromUserId , type, text){
+  console.log('testst',type)
+  console.log('testst12222',text)
   const notification = new Notification();
   notification.activeUserId = toUserId;
   notification.user = fromUserId;
   notification.text = text;
   notification.isShow = false;
   notification.type = type;
+  notification.activity = null;
   notification.save()
+  console.log('text',text)
+  firebaseNotification.notificationSend(toUserId,text,'')
 }
 
 existVote = async function (fromUserId, toUserId){

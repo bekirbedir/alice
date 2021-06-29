@@ -18,6 +18,7 @@
     "express": "^4.17.1",
     "firebase-admin": "^9.9.0",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.9.27",
     "mongoose-regex-search": "^0.8.30",
     "mongoose-simple-random": "^0.4.1",

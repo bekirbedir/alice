@@ -2,7 +2,7 @@ let Activity = require("../Models/activity")
 let mailler = require("../mailler")
 let SendMail = require("../Models/send.mail")
 const Notification = require("../Models/notification")
-
+const firebaseNotification = require('./firebaseNotification');
 module.exports = {
 
     activityFinish: async function () {
@@ -22,7 +22,7 @@ module.exports = {
           sendMail.receivedMail = element.user.email;
           sendMail.type = 8;
           sendMail.createdDate = new Date();
-          saveNotification(element.user._id, null ,element._id, 10, "Etkinliğe onayladığın kullanıcıların katılım durumu onayla")
+          saveNotification(element.user._id, null ,element._id, 10, "Etkinliğe onayladığın kullanıcıların katılım durumu onaylama zamanı :)")
           sendMail.save();
           element.isFinished = true;
           element.finishDate = Date.now();
@@ -49,4 +49,5 @@ saveNotification =function(toUserId, fromUserId ,activityId, type, text){
   notification.isShow = false;
   notification.type = type;
   notification.save()
+  firebaseNotification.notificationSend(toUserId,text,'')
 }

@@ -8,6 +8,7 @@ let ActivityUser = require("../Models/activity-user-status")
 var jwt = require('jsonwebtoken');
 const user = require("../Models/user");
 const notificationModel = require("../Models/notification");
+const firebaseNotification = require('../util/firebaseNotification');
 
 router.get("/getComments", (req, response) => {
 
@@ -71,9 +72,8 @@ saveComment = async function(req,res) {
                 notification.activity = req.body.activityId;
                 notification.activityId = req.body.activityId;
                 notification.userId = req.userId;
-                notification.save().then(result => {
-              
-                })
+                notification.save();
+                firebaseNotification.notificationSend(notification.activeUserId,'Aktivite duvarına yeni mesaj geldi',req.body.text)
            }
             }else{
                 console.log('bulunamadiii')
@@ -92,9 +92,9 @@ saveComment = async function(req,res) {
                     notification.activity = req.body.activityId;
                     notification.activityId = req.body.activityId;
                     notification.userId = req.userId;
-                    notification.save().then(result => {
-                      
-                    })
+                    notification.save();
+                    firebaseNotification.notificationSend(notification.activeUserId,'Aktivite duvarına yeni mesaj geldi',req.body.text)
+         
                 }
                 }
              }
