@@ -335,7 +335,7 @@ router.get("/getRandomUsers", async (request, response, next) => {
 
 
   try {
-    var filter = { $and: [{ fileLink: { $ne: 'static/uploads/profile/empty_profile128.png' } }, { fileLink: { $ne: null } }, { fileLink: { $ne: '' } }] };
+    var filter = { $and: [{ status: 3},{ fileLink: { $ne: 'static/uploads/profile/empty_profile128.png' } }, { fileLink: { $ne: null } }, { fileLink: { $ne: '' } }] };
     var fields = { _id: 1, fileLink: 2, username: 3 };
     var options = { skip: 10, limit: 10 };
     User.findRandom(filter, fields, options, function (err, results) {

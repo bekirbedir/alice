@@ -20,7 +20,9 @@ const firebaseNotification = require('../util/firebaseNotification');
 router.post("/allUsers", async (req, res,next) => {
   let search = req.body.search;
   if(search == "" || search == null){
-    var filter = { $and: [ { status: 3}]  };
+  //  var filter = { $and: [ { status: 3}]  };
+    var filter = { $and: [{ status: 3},{ fileLink: { $ne: 'static/uploads/profile/empty_profile128.png' } }, { fileLink: { $ne: null } }, { fileLink: { $ne: '' } }] };
+    
     var fields = { _id:1, fileLink:2, biography:3, username:4, name:5 ,tagList:6 };
     var options = { skip: 10, limit: 5 };
     User.findRandom(filter, fields, options, function (err, results) {
