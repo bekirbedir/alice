@@ -43,7 +43,7 @@ Date.prototype.addHours = function(h) {
 router.post("/birthdayUsers", async (req, res,next) => {
 
 var dateCurrent = new Date().addHours(3);
-var day = dateCurrent.getUTCDate();
+var day = dateCurrent.getUTCDate()-1;
 var month = dateCurrent.getUTCMonth()+1;
   let search = req.body.search;
     const userList = await User.search(search,{ status: 3,
