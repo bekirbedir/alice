@@ -88,7 +88,8 @@
 
           <div class="p-col-12">
             <p>Doğum günü</p>
-            <p-calendar [(ngModel)]="user.birthDate"   class="w-100" [yearNavigator]="true" yearRange="1975:2002" [showIcon]="true" inputId="icon" [locale]="tr"></p-calendar>
+            <p-calendar [(ngModel)]="user.birthDate" onSelect="onSelect()" showTime="false" hourFormat="24" showButtonBar="true"   class="w-100"  [yearNavigator]="true" yearRange="1975:2002"   dateFormat="dd.mm.yy"   [locale]="tr" [showIcon]="true" inputId="icon"></p-calendar>
+                
           </div>
 
           <div class="p-col-12">

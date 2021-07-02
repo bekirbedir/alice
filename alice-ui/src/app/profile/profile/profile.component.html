@@ -83,7 +83,12 @@
                     <br>
                     <p [hidden]="editMode" class="name"><b><i class="fa fa-user" aria-hidden="true"></i> {{User.name}}</b></p>
                     <p [hidden]="editMode" class="name"><i class="fa fa-birthday-cake" aria-hidden="true"></i> {{ User.birthDate | date:'dd/MM/yyyy'}} - {{User.gender}} </p>
-                    
+                    <div [hidden]="!editMode" >
+                        <p>Doğum günü</p>
+                        <p-calendar [(ngModel)]="User.birthDate"  showTime="false" hourFormat="24" showButtonBar="false"   class="w-100"  [yearNavigator]="true" yearRange="1975:2002"   dateFormat="dd.mm.yy"   [locale]="tr" [showIcon]="true" inputId="icon"></p-calendar>
+                            
+                      </div>
+
                     <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
                         <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.name" class="w-100">
                         <label for="float-input">Ad Soyad</label>

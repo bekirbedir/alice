@@ -9,13 +9,12 @@ import {ChipsModule} from 'primeng/chips';
 import { MessagesModule } from 'primeng/messages';
 import { ToastModule } from 'primeng/toast';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
-
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 import {InputMaskModule} from 'primeng/inputmask';
 import {FileUploadModule} from 'primeng/fileupload';
-
+import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import {DialogModule} from 'primeng/dialog';
 import {ChartModule} from 'primeng/chart';
@@ -53,6 +52,7 @@ const routes: Routes = [
         DialogModule,
         ChartModule,
         TabViewModule,
+        CalendarModule,
          RouterModule.forChild(routes),
   ],
   providers: [NgxImageCompressService],

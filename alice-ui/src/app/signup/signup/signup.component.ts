@@ -39,24 +39,31 @@ export class SignupComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.tr = {
-      firstDayOfWeek: 1,
-      dayNames: [ "Pazar","Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
-      dayNamesShort: ["Pzr","Pzt", "Sal", "Çrş", "Prş", "Cma", "Cts"],
-      dayNamesMin: ["PZ","PT", "SA", "ÇA", "PE", "CU", "CT"],
-      monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-      monthNamesShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Temm", "Agu", "Eyl", "Eki", "Kas", "Ara"],
-      today: 'Bugün',
-      clear: 'Temizle',
-      dateFormat: 'dd.mm.yy',
-      weekHeader: 'Wk'
-    };
+    
+      this.tr = {
+        firstDayOfWeek: 1,
+        dayNames: [ "Pazar","Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+        dayNamesShort: ["Pzr","Pzt", "Sal", "Çrş", "Prş", "Cma", "Cts"],
+        dayNamesMin: ["PZ","PT", "SA", "ÇA", "PE", "CU", "CT"],
+        monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+        monthNamesShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Temm", "Agu", "Eyl", "Eki", "Kas", "Ara"],
+        today: 'Bugün',
+        clear: 'Temizle',
+        dateFormat: 'dd.mm.yy',
+        weekHeader: 'Wk'
+      };
+     
+  
+
     this.cinsiyetler = [{label: 'Erkek', value: 'Erkek'}, {label: 'Kadın', value: 'Kadın'}];
   this.signupSteps = [
             {label: 'Üyelik formunu doldur'},
             {label: 'Mail onayı'},
             {label: 'Yönetici onayı'}
         ];
+  }
+  onSelect(e) {
+    
   }
   routeLogin() {
     this.router.navigate(['/login'])

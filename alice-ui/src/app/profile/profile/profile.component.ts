@@ -34,6 +34,7 @@ export class ProfileComponent {
   deleteOld: Boolean = false;
   currentPassword: String;
   password: String;
+  tr:any;
   passwordRepeat: String;
   passwordChangeAction: Boolean = false;
   pictureFullScreen: Boolean = false;
@@ -44,6 +45,7 @@ export class ProfileComponent {
   totalRateCount: number = 0;
   negativeRatePercent: any = "0"
   positiveRatePercent: any = "0"
+  tempBirthDate:any;
   data: any;
   myActivities: Activity[];
   joinedActivities: Activity[];
@@ -62,6 +64,19 @@ export class ProfileComponent {
     this.User = new UserModel()
     this.editMode = false;
 
+    this.tr = {
+      firstDayOfWeek: 1,
+      dayNames: [ "Pazar","Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+      dayNamesShort: ["Pzr","Pzt", "Sal", "Çrş", "Prş", "Cma", "Cts"],
+      dayNamesMin: ["PZ","PT", "SA", "ÇA", "PE", "CU", "CT"],
+      monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+      monthNamesShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Temm", "Agu", "Eyl", "Eki", "Kas", "Ara"],
+      today: 'Bugün',
+      clear: 'Temizle',
+      dateFormat: 'dd.mm.yy',
+      weekHeader: 'Wk'
+    };
+
     this.actRoute.paramMap.subscribe(params => {
 
       if (params.get('id')) {
@@ -69,6 +84,8 @@ export class ProfileComponent {
         this.service.getMyProfil(this.userId).subscribe(x => {
           if (localStorage.getItem('userId').replace("\"", "").replace("\"", "") == x._id) {
             this.isEditable = true;
+            console.log('bird', x.birthDate)
+          
           } else {
             this.rateAccept();
           }
@@ -76,6 +93,7 @@ export class ProfileComponent {
           this.joinActivityInfos();
           this.sellersPermitString = x.userPhoto
           this.User = x
+          this.User.birthDate = new Date(x.birthDate);
           this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
             + this.sellersPermitString);
         })
@@ -112,7 +130,7 @@ export class ProfileComponent {
   imgResultBeforeCompress: string;
   imgResultAfterCompress: string;
   currentId: number = 0;
-
+ 
   rateAccept() {
     this.service.rateAccept(this.userId).subscribe(x => {
       if (x) {
@@ -295,6 +313,7 @@ export class ProfileComponent {
 
   updateUser() {
     this.editMode = false;
+    
     this.service.updateUser(this.User).subscribe(x => {
       if (x.status)
         this.messageService.add({ key: 'tc', severity: 'success', summary: 'Profiliniz Güncellendi!' });
