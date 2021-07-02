@@ -11,6 +11,7 @@ const Notification = require("../Models/notification")
 const multipart = require('connect-multiparty');
 const fs = require('fs')
 var path = require('path');
+const firebaseNotification = require('../util/firebaseNotification');
 const multipartMiddleware = multipart({ uploadDir: './public/uploads' }); //bu calisiyor
 
 
@@ -459,6 +460,7 @@ router.post("/join", (req, res) => {
                                 notification2.text = "Aktivitene katılım isteği geldi";
                                 notification2.type = 2;
                                 notification2.save();
+                                firebaseNotification.notificationSend(notification2.activeUserId,notification2.text,user.name)
                             });
                         });
         
