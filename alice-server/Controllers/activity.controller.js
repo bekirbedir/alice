@@ -428,12 +428,6 @@ router.post("/join", (req, res) => {
     const decodedToken = jwt.verify(token, 'Act1234SecretKey');
 
     Activity.findOne({ _id: req.body.activityId }, function (err, activity) {
-
-        var index = activity.userList.findIndex(x => x.userId == decodedToken.id)
-        // here you can check specific property for an object whether it exist in your array or not
-        //   if (index === -1) 
-        //   activity.userList.push({ status: 1, date: Date.now(), userId: decodedToken.id }) //eklenip eklenmeme
-
         User.findOne({ _id: decodedToken.id }, function (err, user) {
             if (user) {
                 ActivityUser.findOne({ activityId: req.body.activityId, userId: decodedToken.id  }, function (err, activityUser) {
@@ -444,55 +438,28 @@ router.post("/join", (req, res) => {
                         activityUser.userId = decodedToken.id;
                         activityUser.username = user.username;
                         activityUser.user = user;
-                        activityUser.save().then(result => {
-                            const notification = new Notification();
-                            notification.activeUserId = user._id;
-                            notification.activity = activity;
-                            notification.user = null;
-                            notification.text = "Aktiviteye katılım isteği gönderdin";
-                            notification.isShow = true;
-                            notification.type = 1;
-                            notification.save().then(result => {
-                                const notification2 = new Notification();
-                                notification2.activeUserId = activity.ownerId.replace("\"", "").replace("\"", "");
-                                notification2.activity = activity;
-                                notification2.user = user;
-                                notification2.text = "Aktivitene katılım isteği geldi";
-                                notification2.type = 2;
-                                notification2.save();
-                                firebaseNotification.notificationSend(notification2.activeUserId,notification2.text,user.name)
-                            });
-                        });
+                        activityUser.save();
+                        saveNotificationFunc(user._id, null ,activity, 1, 'Aktiviteye katılım isteği gönderdin',true)
+
+                        var activeUserId2 = activity.ownerId.replace("\"", "").replace("\"", "");
+                        saveNotificationFunc(activeUserId2, user , activity , 2, 'Aktivitene katılım isteği geldi',false);
+                        firebaseNotification.notificationSend(activeUserId2,'Aktivitene katılım isteği geldi',user.name)
+
         
-                        activity.actUser.push(activityUser);
+                      //  activity.actUser.push(activityUser);
                     }else{
-                         activityUser = new ActivityUser();
+                        activityUser = new ActivityUser();
                         activityUser.status = 1;
                         activityUser.date = Date.now();
                         activityUser.activityId = activity._id;
                         activityUser.userId = decodedToken.id;
                         activityUser.username = user.username;
                         activityUser.user = user;
-                        activityUser.save().then(result => {
-                            const notification = new Notification();
-                            notification.activeUserId = user._id;
-                            notification.activity = activity;
-                            notification.user = null;
-                            notification.text = "Aktiviteye katılım isteği gönderdin";
-                            notification.isShow = true;
-                            notification.type = 1;
-                            notification.save().then(result => {
-                                const notification2 = new Notification();
-                                notification2.activeUserId = activity.ownerId.replace("\"", "").replace("\"", "");
-                                notification2.activity = activity;
-                                notification2.user = user;
-                                notification2.text = "Aktivitene katılım isteği geldi";
-                                notification2.type = 2;
-                                notification2.save();
-                            });
-                        });
-        
-                        activity.actUser.push(activityUser);
+                        activityUser.save();
+                        saveNotificationFunc(user._id, null ,activity, 1, 'Aktiviteye katılım isteği gönderdin',true)                            
+                        var activeUserId2 = activity.ownerId.replace("\"", "").replace("\"", "");
+                        saveNotificationFunc(activeUserId2, user , activity , 2, 'Aktivitene katılım isteği geldi',false);
+                        firebaseNotification.notificationSend(activeUserId2,'Aktivitene katılım isteği geldi',user.name)
                     }
                 })
               
@@ -527,7 +494,17 @@ router.post("/join", (req, res) => {
 
 })
 
-
+saveNotificationFunc =function(toUserId, fromUserId ,activity, type, text,isShow){
+    const notification = new Notification();
+    notification.activeUserId = toUserId;
+    notification.user = fromUserId;
+    notification.text = text;
+    notification.isShow = isShow;
+    notification.type = type;
+    notification.activity = activity;
+    notification.save()
+    firebaseNotification.notificationSend(toUserId,text,'')
+  }
 
 module.exports = router;
 

@@ -113,14 +113,15 @@ router.post("/userStateAction", async (request, res) => {
                 actUser.status = pStatus;
                
                 actUser.save().then(result => {
-                    if (pStatus == 2) {
+                    updatAactivityParticipantCount(pActivityId);  
+                    if (pStatus == 2) { 
                         saveNotification(pUserId, null ,pActivityId, 4, "Katılım isteğin onaylandı")
                       
                     }
                     if (pStatus == 3) {
                         saveNotification(pUserId, null ,pActivityId, 5, "Katılım isteğin reddedildi")           
                     }
-                    updatAactivityParticipantCount(pActivityId);   
+                     
                     let rm = {
                         status: true,
                         message: "kaydedildi" + pStatus
@@ -136,9 +137,16 @@ router.post("/userStateAction", async (request, res) => {
                         }
                         res.send(rm);
                     });
+
+                
             }
             if (err) {
                 console.log(err)
+                let rm = {
+                    status: false,
+                    message: "activity user update failed done; " + err 
+                }
+                res.send(rm);
             }
         }
         )
@@ -174,6 +182,7 @@ updatAactivityParticipantCount = function(pActivityId){
      ActivityUser.countDocuments({ activityId: pActivityId, status:2 }, function (errCount, count) {
         if (errCount){
              console.log('updateActivityParticipant',err)
+             return false;
            } else{
 
            Activity.findOne({ _id: pActivityId }, function (err, activity) {

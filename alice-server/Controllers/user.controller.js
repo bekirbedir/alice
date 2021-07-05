@@ -318,8 +318,6 @@ router.post("/vote", async (req, res) => {
 })
 
 saveNotificationFunc =function(toUserId, fromUserId , type, text){
-  console.log('testst',type)
-  console.log('testst12222',text)
   const notification = new Notification();
   notification.activeUserId = toUserId;
   notification.user = fromUserId;
