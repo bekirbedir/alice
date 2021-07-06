@@ -42,6 +42,23 @@ router.get("/users/getPending", (request, response) => {
   )
 
 })
+
+router.get("/users/getPendingMailApproveUsers", (request, response) => {
+  //buraya admin mi kontrolu eklenmeli
+  User.find({status:1}, function (err, res) {
+
+    if (err) {
+      console.log(err);
+      response.send(err);
+    }
+    if (res) {
+      response.send(res);
+    }
+  }
+  )
+
+})
+
 router.get("/users/getAllUsers", (request, response) => {
   //buraya admin mi kontrolu eklenmeli
   User.find({status:3}, function (err, res) {

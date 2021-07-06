@@ -24,6 +24,14 @@ getPendingUsers(): Observable<UserModel[]> {
     );
 } 
 
+getPendingMailApproveUsers(): Observable<UserModel[]> {
+  return this._httpClient
+    .get<UserModel[]>(this.valuesUrl+"users/getPendingMailApproveUsers")
+    .pipe(
+      map((res) => res),
+    );
+} 
+
 getAllUsers(): Observable<UserModel[]> {
   return this._httpClient
     .get<UserModel[]>(this.valuesUrl+"users/getAllUsers")
