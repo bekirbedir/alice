@@ -45,7 +45,7 @@ export class AdminUsersComponent implements OnInit {
   }
    getPendingMailApproveUsers() {
     this.adminUserService.getPendingMailApproveUsers().subscribe(x => {
-      this.pendingUsers = x
+      this.pendingMailApproveUsers = x
     })
   }
   userApprove(user: UserModel) {
