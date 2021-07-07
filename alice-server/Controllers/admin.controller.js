@@ -164,6 +164,10 @@ router.post("/activity/activityReject", (req, res) => {
       act.status = 2;
       act.updatedDate = Date.now();
       act.save().then(result => {
+        res.status(200).json({
+          status: true,
+          message: "Aktivite reddedildi"
+        })
       /*  User.findOne({_id:act.user},function(err,actUser){
           const notification = new Notification();
           notification.activeUserId = actUser._id;
