@@ -24,6 +24,14 @@ getPendingUsers(): Observable<UserModel[]> {
     );
 } 
 
+getRejectedUsers(): Observable<UserModel[]> {
+  return this._httpClient
+    .get<UserModel[]>(this.valuesUrl+"users/getRejectedUsers")
+    .pipe(
+      map((res) => res),
+    );
+} 
+
 getPendingMailApproveUsers(): Observable<UserModel[]> {
   return this._httpClient
     .get<UserModel[]>(this.valuesUrl+"users/getPendingMailApproveUsers")
@@ -59,6 +67,20 @@ activityApprove(activity:Activity): Observable<ResponseModel>{
   const self = this;  
   return this._httpClient
   .post<ResponseModel>(this.valuesUrl+"activity/activityApprove",object,{headers: header})
+  .pipe(
+    map((res) => res),
+  );
+}
+
+activityReject(activity:Activity): Observable<ResponseModel>{
+
+  const transferObject = activity;
+  
+  let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+  const object = JSON.stringify(transferObject);
+  const self = this;  
+  return this._httpClient
+  .post<ResponseModel>(this.valuesUrl+"activity/activityReject",object,{headers: header})
   .pipe(
     map((res) => res),
   );

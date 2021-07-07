@@ -43,6 +43,22 @@ router.get("/users/getPending", (request, response) => {
 
 })
 
+router.get("/users/getRejectedUsers", (request, response) => {
+  //buraya admin mi kontrolu eklenmeli
+  User.find({status:4}, function (err, res) {
+
+    if (err) {
+      console.log(err);
+      response.send(err);
+    }
+    if (res) {
+      response.send(res);
+    }
+  }
+  )
+
+})
+
 router.get("/users/getPendingMailApproveUsers", (request, response) => {
   //buraya admin mi kontrolu eklenmeli
   User.find({status:1}, function (err, res) {
@@ -138,6 +154,49 @@ router.post("/activity/activityApprove", (req, res) => {
 
 })
 
+router.post("/activity/activityReject", (req, res) => {
+  //buraya admin mi kontrolu eklenmeli
+ 
+ let pActivityId = req.body._id
+
+  Activity.findOne({ _id: pActivityId }, function (err, act) {
+    if (act) {
+      act.status = 2;
+      act.updatedDate = Date.now();
+      act.save().then(result => {
+      /*  User.findOne({_id:act.user},function(err,actUser){
+          const notification = new Notification();
+          notification.activeUserId = actUser._id;
+          notification.activity = act._id;
+          notification.user = null;
+          notification.text = "Aktiviten Onaylandı";
+          notification.isShow = false;
+          notification.type = 6;
+          notification.save();
+          subject = "ActivityFriend Etkinlik Onayı"
+          textHtml = "<H4>Merhaba,<b>"+ act.header + "</b> isimli etkinliğin onaylandı! İyi eğlenceler</H4>"
+          mailler.main(actUser.email,subject, textHtml);
+          firebaseNotification.notificationSend(actUser._id,'Aktiviten Onaylandı',act.header +' isimli etkinliğin onaylandı! İyi eğlenceler')
+          res.status(200).json({
+            status: true,
+            message: "Aktivite onaylandı"
+          })
+        }) */
+     
+      })
+        .catch(error => {
+          res.status(200).json({
+            status: false,
+            message: "Hata oluştu; " + error
+          })
+        });
+    }
+    else {
+      console.log("bulamadik");
+    }
+  })
+
+})
 
 router.post("/users/userApprove", (req, res) => {
   //buraya admin mi kontrolu eklenmeli
@@ -186,7 +245,7 @@ router.post("/users/userReject", (req, res) => {
       user.save().then(result => {
         res.status(200).json({
           status: true,
-          message: "Kullanıcı onaylandı"
+          message: "Kullanıcı reddedildi"
         })
       })
         .catch(error => {

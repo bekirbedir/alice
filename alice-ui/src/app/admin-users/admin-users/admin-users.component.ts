@@ -20,6 +20,7 @@ export class AdminUsersComponent implements OnInit {
   pendingUsers: UserModel[];
   pendingMailApproveUsers: UserModel[];
   allUsers: UserModel[];
+  rejectedUsers: UserModel[];
   pendingActivity: Activity[];
 
   constructor(private userService: UserService, private adminUserService: AdminUsersService, private messageService:MessageService,private router: Router) { }
@@ -43,6 +44,11 @@ export class AdminUsersComponent implements OnInit {
       this.pendingActivity = x
     })
   }
+  getRejectedUsers() {
+    this.adminUserService.getRejectedUsers().subscribe(x => {
+      this.rejectedUsers = x
+    })
+  }
    getPendingMailApproveUsers() {
     this.adminUserService.getPendingMailApproveUsers().subscribe(x => {
       this.pendingMailApproveUsers = x
@@ -64,9 +70,11 @@ export class AdminUsersComponent implements OnInit {
       this.getPendingUser();
     if (index == 1)
       this.getPendingActivity();
+    if (index == 2)
+      this.getRejectedUsers();
     if (index == 3)
       this.getAllUsers();
-      if (index == 4)
+    if (index == 4)
       this.getPendingMailApproveUsers();
   }
 
@@ -81,11 +89,23 @@ export class AdminUsersComponent implements OnInit {
   }
 
   activityReject(activity: Activity) {
-    this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Yapım aşamasında..' });
+    this.adminUserService.activityReject(activity).subscribe(x => {
+      if (x.status){
+        this.messageService.add({ key: 'tc', severity: 'success', summary: 'Başarılı', detail: 'Aktivite reddedildi.' });
+        this.getPendingActivity();
+      }
+       
+    })
   }
 
   userReject(user) {
-    this.messageService.add({ key: 'tc', severity: 'info', summary: 'Yetkisiz erişim', detail: 'Yapım aşamasında..' });
+    this.adminUserService.userReject(user).subscribe(x => {
+      if (x.status){
+        this.messageService.add({ key: 'tc', severity: 'success', summary: 'Başarılı', detail: 'Kullanıcı reddedildi' });
+        this.getPendingUser();
+      }
+        
+    })
   }
 
   photoUserLinkCreate(link) {
