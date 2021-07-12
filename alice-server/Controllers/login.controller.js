@@ -275,7 +275,7 @@ router.post("/login", async (req, res) => {
               expiresIn: "500h"
             }
           )
-          return res.status(200).send({ message: 'success', token: token, oneSignalId: user.oneSignalId });
+          return res.status(200).send({ message: 'success', token: token, email: user.email });
         
       })
   }
