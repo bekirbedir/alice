@@ -304,9 +304,9 @@ router.post("/vote", async (req, res) => {
         vote.rate = rate;
         vote.save();
         if(rate == 1){
-          saveNotificationFunc(toUserId, fromUserId , 8, 'Bir kullanıcı sana OLUMLU oy verdi')
+          saveNotificationFunction(toUserId, fromUserId , 8, 'Bir kullanıcı sana OLUMLU oy verdi')
         }else{
-          saveNotificationFunc(toUserId, fromUserId , 9, 'Bir kullanıcı sana OLUMSUZ oy verdi')
+          saveNotificationFunction(toUserId, fromUserId , 9, 'Bir kullanıcı sana OLUMSUZ oy verdi')
         }
         let rm = {
           status: true,
@@ -332,7 +332,8 @@ router.post("/vote", async (req, res) => {
 
 })
 
-saveNotificationFunc =function(toUserId, fromUserId , type, text){
+saveNotificationFunction =function(toUserId, fromUserId , type, text){
+  console.log('oy verildi')
   const notification = new Notification();
   notification.activeUserId = toUserId;
   notification.user = fromUserId;
