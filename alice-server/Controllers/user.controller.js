@@ -270,25 +270,40 @@ router.post("/vote", async (req, res) => {
   if(rm.status){ //oy verebilir mi kontrol 
     let vote = await existVote(fromUserId, toUserId);
     if(vote){ //oy degismez
-      let rm = {
+      /*let rm = {
         status: false,
         toastType: "error",
         summary: "Daha önce oy kullanılmış",
         message: "Oy değiştirme yapılamaz"
       };
-      res.send(rm);
+      res.send(rm); */
+
+      vote.toUser = toUserId
+      vote.fromUser = fromUserId;
+      vote.rate = rate;
+      vote.save();
+      if(rate == 1){
+        saveNotificationFunc(toUserId, fromUserId , 8, 'Bir kullanıcı sana OLUMLU oy verdi')
+      }else{
+        saveNotificationFunc(toUserId, fromUserId , 9, 'Bir kullanıcı sana OLUMSUZ oy verdi')
+      }
+      let rm = {
+        status: true,
+        toastType: "success",
+        summary: "Başarılı",
+        message: "Oy kaydedildi."
+      };
+
+      res.status(200).send(rm);
      
     }else {
         //oy veriyor
-        console.log('bbbbb')
         const vote = new UserRate();
         vote.toUser = toUserId
         vote.fromUser = fromUserId;
         vote.rate = rate;
         vote.save();
-        console.log('ccccc')
         if(rate == 1){
-          console.log('dddd')
           saveNotificationFunc(toUserId, fromUserId , 8, 'Bir kullanıcı sana OLUMLU oy verdi')
         }else{
           saveNotificationFunc(toUserId, fromUserId , 9, 'Bir kullanıcı sana OLUMSUZ oy verdi')
@@ -380,7 +395,7 @@ rateAccept = async function (currentUserId, toUserId) {
       }
     }); */
    
-    if(x>0){
+    if(x>2){
       return  {
         status: true,
         toastType: 'success',
