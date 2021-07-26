@@ -396,7 +396,7 @@ rateAccept = async function (currentUserId, toUserId) {
       }
     }); */
    
-    if(x>2){
+    if(x>0){
       return  {
         status: true,
         toastType: 'success',
