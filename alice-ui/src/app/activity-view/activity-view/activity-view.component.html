@@ -77,10 +77,11 @@
       <p-header>
         Katılımcılar
       </p-header>
-      <div [hidden]="activityStatic.currentUserStatus == 2 || isOwner " class="alert alert-warning" role="alert">
+       <!-- <div [hidden]="activityStatic.currentUserStatus == 2 || isOwner " class="alert alert-warning" role="alert">
         <p> <i class="fa fa-times" aria-hidden="true"> </i> Katılımcıları yalnızca onaylanan kullanıcılar görebilir.</p>
-      </div>
-      <div [hidden]= "!(activityStatic.currentUserStatus == 2 || isOwner )">
+      </div> -->
+       <!--  <div [hidden]= "!(activityStatic.currentUserStatus == 2 || isOwner )"> -->
+         <div>
         <div *ngFor="let actUser of approvedUsers">
           <img (click)="routeProfile(actUser.user._id)" class="header-photo img-thumbnail" [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source"  > 
            <span  (click)="routeProfile(actUser.user._id)" class="approved-user"> - {{actUser.user.name}} ( @{{actUser.user.username}} ) </span>
