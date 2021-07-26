@@ -244,7 +244,7 @@ router.post("/rateAccept", async (req, res) => {
     
     if(vote){
       rm.summary = vote.rate;
-      rm.status = false;
+      rm.status = true;
       rm.message = "Daha önce oy verdiniz, oy değiştirmek için yönetici ile iletişime geçin."
     }else{
       rm.summary = 0;
