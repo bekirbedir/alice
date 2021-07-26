@@ -75,18 +75,19 @@ export class ActivityViewComponent implements OnInit {
   }
 
   getActivityUserStatus(activity) {
+      this.getApprovedUsers(activity._id);
     if (localStorage.getItem("userId").replace("\"", "").replace("\"", "") == activity.ownerId.replace("\"", "").replace("\"", "")) {
 
       this.isOwner = true;
-      this.getApprovedUsers(activity._id);
+    //  this.getApprovedUsers(activity._id);
     }
     this.activityService.getActivityAndUserStatus(activity._id).subscribe(x => {
       if (x) {
         try {
           this.activityUserStatuses = x[0];
           this.activityStatic.currentUserStatus = x[0].status;
-          if (x[0].status == 2)
-            this.getApprovedUsers(activity._id);
+     //     if (x[0].status == 2)
+      //      this.getApprovedUsers(activity._id);
         }
         catch (error) {
           this.activityStatic.currentUserStatus = 0;
