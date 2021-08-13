@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Activity } from '../models/activity';
 import { ActivityCommentModel } from '../models/activity.comment.model';
 import { map, tap } from 'rxjs/operators';
+import { ResponseModel } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +16,13 @@ constructor(private _httpClient:HttpClient) { }
 
 
 
-addActivity(activity:Activity): Observable<Activity> {
+addActivity(activity:Activity): Observable<ResponseModel> {
  
   let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
 
   const object = JSON.stringify(activity);
   return this._httpClient
-    .post<Activity>(this.valuesUrl+"activity/",object,{headers: header})
+    .post<ResponseModel>(this.valuesUrl+"activity/",object,{headers: header})
     .pipe(
       map((res) => res),
       

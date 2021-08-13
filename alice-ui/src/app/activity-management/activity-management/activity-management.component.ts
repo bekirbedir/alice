@@ -152,8 +152,12 @@ export class ActivityManagementComponent implements OnInit {
     this.service.updateActivity(this.activity).subscribe(x => {
       this.response = x
       if (x.status) {
-        this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Aktivite kaydedildi,yönetici onayından sonra yeniden yayınlanacaktır..' });
-      this.edited = true;
+        this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Aktivite güncellendi..' });
+         this.edited = true;
+         if(x.activityId){
+          localStorage.setItem("selectedActivityId", x.activityId)
+          this.router.navigate(['/activity-view/'+x.activityId])
+        }
       }
       else {
         this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: x.message });

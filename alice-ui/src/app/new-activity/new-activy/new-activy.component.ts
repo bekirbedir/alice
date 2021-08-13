@@ -96,7 +96,11 @@ export class NewActivyComponent implements OnInit {
       this.activityService.addActivity(this.activity).subscribe(x => {
         if (x) {
           this.activity = new Activity();
-          this.messageService.add({ key: 'tc', severity: 'success', summary: 'Başarılı!', detail: 'Aktivite başarı ile oluşturuldu. Admin onayından sonra yayına alınacaktır. İyi eğlenceler' });
+          this.messageService.add({ key: 'tc', severity: 'success', summary: 'Başarılı!', detail: 'Aktivite başarı ile oluşturuldu. İyi eğlenceler' });
+          if(x.activityId){
+            localStorage.setItem("selectedActivityId", x.activityId)
+            this.router.navigate(['/activity-view/'+x.activityId])
+          }
         }
       })
     }

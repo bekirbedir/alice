@@ -280,11 +280,12 @@ router.put("/updateActivity", async (req, res) => {
         activity.like = req.body.activity.like
         activity.date = req.body.activity.date
         activity.fileLink = req.body.activity.fileLink
-        activity.status = 1;
+        activity.status = 3;
         activity.save().then(result => {
             res.status(200).json({
                 status: true,
-                message: "activity update successfully done"
+                message: "activity update successfully done",
+                activityId: result._id
             })
         })
             .catch(error => {

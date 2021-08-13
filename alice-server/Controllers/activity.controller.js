@@ -173,7 +173,7 @@ router.post("/", (req, res) => {
             else{
                 activity.fileLink = req.body.fileLink
             }
-            activity.status = 1;
+            activity.status = 3;
             activity.save().then(result => {
 
                  //activite sahibini activityuser tablosuna katılımcı olarak ekleme
@@ -194,7 +194,8 @@ router.post("/", (req, res) => {
 
                 res.status(200).json({
                     status: true,
-                    message: "activity added successfully done"
+                    message: "activity added successfully done",
+                    activityId: result._id
                 })
             })
                 .catch(error => {
@@ -256,6 +257,7 @@ router.put("/", (req, res) => {
         activity.header = req.body.header
         activity.participationLimit = req.body.participationLimit
         activity.like = req.body.like
+        activity.status = 3;
         activity.isUpdate = true;
         activity.save().then(result => {
             res.status(200).json({
