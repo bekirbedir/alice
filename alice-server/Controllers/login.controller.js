@@ -20,7 +20,8 @@ router.post("/approve", (req, res) => {
   User.findOne({ mailOnayCode: pCode, username: pUsername }, function (err, user) {
     if (user) {
       console.log('userstatus:', user.status)
-      user.status = 2;
+      //user.status = 2;
+      user.status = 3; //ios icin gecici
       console.log('usertatus: ' + user.status)
       user.updatedDate = Date.now();
       user.mailOnayCode = '';
