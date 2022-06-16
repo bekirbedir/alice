@@ -17,7 +17,7 @@ static async  main(mailaddres ,subject, textHtml) {
       host: "smtp.gmail.com",
       auth: {
         user: "info@activityfriend.com.tr",
-        pass:  "1234bekir",
+        pass:  "Activity_1xY",
       }
     })
   );
