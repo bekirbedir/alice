@@ -22,7 +22,7 @@ router.post("/sendSms", (req, res) => {
             })
           }
           else{
-            var myXMLText = '<smspack ka="temelbugra" pwd="123bugra123" org="ACTV.FRIEND" ><mesaj><metin>Sms onay kodunuz:'+code+'</metin><nums>'+number+'</nums></mesaj></smspack>'
+            var myXMLText = '<smspack ka="temelbugra" pwd="123.Bugra" org="ACTV.FRIEND" ><mesaj><metin>Sms onay kodunuz:'+code+'</metin><nums>'+number+'</nums></mesaj></smspack>'
             request({
                 url: "https://smsgw.mutlucell.com/smsgw-ws/sndblkex",
                 method: "POST",
