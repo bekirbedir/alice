@@ -1,21 +1,28 @@
 .act-photo{
     max-width: 100% !important;
     width: 100%;
+    border-radius: 0.5em;
 }
 .act-header{
     height: 100px;
     padding: 5px;
 }
 .act-header-name{
-    font-size: 1.5em;
-    font-weight: 800;
-    color:darkturquoise;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.act-header-user-name{
+    font-weight: normal;
+    opacity: 0.7;
+    font-size: 1.1em;
+    margin-left: 0.3125em;
 }
 
 .act-header-photo{
     object-fit: cover;
-    width: 150px;
-    height: 150px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
 }
 .h-10{
@@ -40,8 +47,10 @@
     text-align: center;
 }
 .tag-list{
+    display: flex;
+    gap: 0.5em;
     list-style-type: none;
-    display: contents;
+    padding-left: 0px;
 }
 .profile-tag{
     width: fit-content;
@@ -51,8 +60,7 @@
    padding: 7px;
    border-radius: 3px;
    color: white;
-   background: rgb(71,161,25);
-   background: linear-gradient(90deg, rgba(71,161,25,1) 0%, rgba(89,207,23,1) 100%);
+   background: var(--theme-color);
 }
 .full-area{
     position: fixed;
@@ -64,8 +72,8 @@
     transform: -webkit-translate(-50%, -50%);
     transform: -moz-translate(-50%, -50%);
     transform: -ms-translate(-50%, -50%);
-  }
-  .centered {
+}
+.centered {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -74,29 +82,36 @@
     transform: -moz-translate(-50%, -50%);
     transform: -ms-translate(-50%, -50%);
     color:darkred;
-  }
-  .search-button{
-    border: 1px solid !important;
+}
+.search-button{
+    border: 1px solid gray !important;
     background-color: white !important;
-  }
+    line-height: 2.3;
+    padding-left: 10px !important;
+    border-radius: 0.7em !important;
+}
 
-  .random-users-pic-div{
-      display: inline;
-      margin-right: 2px;
-      
-
-  }
+.random-users-pic-div{
+    display: inline;
+    margin-right: 2px;
+}
   
-  .random-users-pic-img{
-        object-fit: cover;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-  }
+.random-users-pic-img{
+    object-fit: cover;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
 
-  .img-thumbnail-custom {
+.img-thumbnail-custom {
     padding: .1rem;
     background-color: #fff;
     border: 2px solid #cd486b;
     max-width: 100%;
+}
+
+.activity-tag{
+    color: var(--theme-blue);
+    font-size: 1.1em;
+    font-weight: 500;
 }

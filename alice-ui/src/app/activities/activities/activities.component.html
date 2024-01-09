@@ -1,125 +1,83 @@
 <div class="route-nav">
   <span><a href="/activities"> <i class="fa fa-home" aria-hidden="true"></i> Anasayfa </a></span> 
 </div>  
+<div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
+  <div class="p-col-12 p-xl-5 p-lg-5 p-md-12 p-sm-12" style="padding: 0 3em !important">
+    <div class="p-grid flex flex-col">
+      <div class="p-col-12" style="max-height: 68px;overflow-y: hidden; text-align: center;">
+        <div (click)="routeProfile(randomUser._id)" class="random-users-pic-div" *ngFor="let randomUser of randomUsers">
+          <img class="random-users-pic-img img-thumbnail-custom" [src]="photoLinkCreate(randomUser.fileLink)" alt="bekirbedir"  > 
+        </div>
+      </div>
+      <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12">
+        <!-- <button type="button" (click)="filter()" class="btn btn-info w-100 font-size-1-5em"><i class="fa fa-filter" aria-hidden="true"> </i> Filtrele</button> -->
+        <input type="text" [(ngModel)]="searchWord" (change)="searchFilter($event)" placeholder="Ara.." class="search-button w-100 rounded">
+      </div>
+      <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12 flex flex-row justify-between align-items-end">  
+        <button type="button" (click)="newActivity()"  class="primary-button w-100 col-4"> <i class="fa fa-plus-circle" aria-hidden="true"> </i> Etkinlik Oluştur</button>
+        <p-checkbox [(ngModel)]="oldActivities" [binary]="true" (onChange)="oldActivitiesCheckBox($event)" label="Biten etkinlikleri göster"></p-checkbox>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-<div class="h-10"></div>
-<div   class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
-  <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12">
-      <div class="p-grid">
-        <div class="p-col-12" style="max-height: 68px;overflow-y: hidden;    text-align: center;">
-          
-            <div (click)="routeProfile(randomUser._id)" class="random-users-pic-div" *ngFor="let randomUser of randomUsers">
-              <img class="random-users-pic-img img-thumbnail-custom" [src]="photoLinkCreate(randomUser.fileLink)" alt="bekirbedir"  > 
-           
+<div  *ngFor="let act of activities" class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%;">
+  <div class="p-col-12 p-xl-5 p-lg-5 p-md-12 p-sm-12" style="border-radius: 20px; padding: 0.5em 3em !important">
+    <p-card>
+      <div class="flex justify-between">
+        <div class="flex">
+          <img (click)="routeProfile(act.user._id)" *ngIf="act.user" class="act-header-photo img-thumbnail mr-10" [src]="photoLinkCreate(act.user.fileLink)" alt="Aktivite sahibi resmi" >
+          <div class="flex flex-col justify-between" style="margin: 0.3em 0">
+            <div class="flex">
+              <p (click)="routeProfile(act.user._id)" class="act-header-name text-3xl font-bold underline" style="text-transform: capitalize;">{{act.user.name}}</p>
+              <span class="act-header-user-name">@{{act.user.username}}</span>
             </div>
-          
+            <div class="flex p-align-center" style="opacity: 0.7;">
+              <i class="pi pi-clock" style="font-size: 0.9em; margin-top: 2px;"></i>
+              <span style="margin-left: 5px"> {{ act.date | date:'dd/MM/yyyy HH:mm':null:'tr'}}</span>
+            </div>
+          </div>          
         </div>
-        <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12">
-         <!-- <button type="button" (click)="filter()" class="btn btn-info w-100 font-size-1-5em"><i class="fa fa-filter" aria-hidden="true"> </i> Filtrele</button> -->
-         <input type="text"  [(ngModel)]="searchWord" (change)="searchFilter($event)" placeholder="Ara.." class="btn search-button w-100 font-size-1-5em">
+        <div *ngIf="activeuser==act.ownerId" class="">
+          <i class="fa fa-cogs cursor-pointer" style="font-size: 1.2em; opacity: 0.6;" (click)="activityManagement(act)" aria-hidden="true"> </i>
         </div>
-      
-        <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12">
-          <button type="button" (click)="newActivity()"  class="btn btn-success w-100 font-size-1-5em"> <i class="fa fa-plus-circle" aria-hidden="true"> </i> Etkinlik Oluştur</button>
-        </div>
-        <div class="p-col-12 p-xl-12 p-lg-12 p-md-12 p-sm-12">
-          <p-checkbox [(ngModel)]="oldActivities" [binary]="true" (onChange)="oldActivitiesCheckBox($event)" label="Biten etkinlikleri göster"></p-checkbox>
-       </div>
+      </div>
+      <div class="flex flex-col mt-10">
+        <img  class="act-photo" [src]="createActPhotoLink(act.fileLink)">
+        <div class="flex mt-10" style="gap: 5em; opacity: 0.7;">
+          <div [hidden]="act.currentUserLike" (click)="likeActivity(act)" class="cursor-pointer"><i class="fa fa-heart-o fa-x" aria-hidden="true" style="font-size: 1.5em;"></i> {{act.like}}</div>
+          <div [hidden]="!act.currentUserLike" (click)="unlikeActivity(act)" class="cursor-pointer"><i class="fa fa-heart fa-x" aria-hidden="true" style="font-size: 1.5em;"></i> {{act.like}}</div>
+          <div class="flex align-center justify-center"><i class="pi pi-users mr-3" style="font-size: 1.5em;"></i> {{act.participationCount}}/{{act.participationLimit ? act.participationLimit : '∞'  }} </div>
+        </div> 
+      </div>
+      <div class="mt-10 flex flex-col" style="gap: 1em">
+        <p (click)="viewDetail(act)"  class="act-header-name">{{act.header}}</p>
+        <div class="act-content-text">{{act.context}}</div>
       </div>
 
-</div>
-</div>
-
-
-
-<div  *ngFor="let act of activities" class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%; margin-top:10px">
-    <div class="p-col-12 p-xl-6 p-lg-6 p-md-12 p-sm-12">
-    <p-card>
-    
-        <div class="p-grid">
-         
-          
-        <div class="p-col-12 text-align-center">
-          <img (click)="routeProfile(act.user._id)" *ngIf="act.user"  class="act-header-photo img-thumbnail" [src]="photoLinkCreate(act.user.fileLink)" alt="Aktivite sahibi resmi" >
-         </div>
-      
-        
-        <div class="p-col-12"  style="border-top:1px solid #ccc">
-          <div *ngIf="activeuser==act.ownerId" class="p-col-12 font-size-1-5em">
-            <button (click)="activityManagement(act)" type="button" class="btn btn-secondary cursor-pointer p-col-12"> <i class="fa fa-cogs" aria-hidden="true"> </i> Yönet</button>
-          </div>
-
-            <p (click)="routeProfile(act.user._id)" class="act-header-user-name"><b>Etkinlik Sahibi: </b> {{act.user.name.toLocaleUpperCase()}} ( @{{act.user.username}} )</p>
-           <p (click)="viewDetail(act)"  class="act-header-name">{{act.header}}</p>
-           <div class="h-10"></div>
-           <div class="act-content-text">
-            {{act.context}}
-           </div>
-
-           <div class="h-10"></div>
-           <br>
-           <div class="p-grid">
-            <ul class="tag-list">
-             <li *ngFor="let tag of act.tagList"class="profile-tag p-col-3">#{{tag}}</li>
-           </ul>
-           </div>
-           <br>
-           <div class="h-5"></div>
-           <div>
-            <img  class="act-photo  img-thumbnail" [src]="createActPhotoLink(act.fileLink)" > 
-          </div>
-          <div class="h-5"></div>
+      <div class="p-grid">          
+        <div class="p-col-12">
+          <ul class="tag-list mt-10">
+            <li *ngFor="let tag of act.tagList"class="activity-tag">#{{tag}}</li>
+          </ul>
           <div class="act-content-footer">
-            <div class="p-grid text-center">
-                <div class="p-col "><i class="pi pi-users"></i> {{act.participationCount}}/{{act.participationLimit ? act.participationLimit : '∞'  }} </div>
-                <div [hidden]="act.currentUserLike" (click)="likeActivity(act)" class="p-col cursor-pointer"><i class="fa fa-heart-o  text-danger fa-2x" aria-hidden="true"></i> {{act.like}}</div>
-                <div [hidden]="!act.currentUserLike" (click)="unlikeActivity(act)" class="p-col cursor-pointer"><i class="fa fa-heart text-danger fa-2x" aria-hidden="true"></i> {{act.like}}</div>
-              <div class="p-col"><i class="pi pi-clock"></i> {{ act.date | date:'dd/MM/yyyy HH:mm':null:'tr'}}</div>
+            <div class="flex" style="gap:1em">
+              <button *ngIf="act.currentUserStatus == 2" (click)="viewComments(act)" class="btn secondary-button flex align-center justify-center"><i class="pi pi-comments"></i>Duvar</button>
+              <button *ngIf="act.currentUserStatus != 2" (click)="viewComments(act)" class="btn secondary-button flex align-center justify-center"><i class="pi pi-comments"></i> Duvar</button>
+              <button (click)="viewDetail(act)" class="btn secondary-button">Detaylar</button>
+              <button [hidden] ="isOwner(act)" *ngIf="act.currentUserStatus == 0 && isShowByCreatedDate(act)" class="flex align-center" (click)="joinActivity(act)" class="btn primary-button">Katıl</button>
+              <button *ngIf="act.currentUserStatus == 1 && isShowByCreatedDate(act)" (click)="cancelActivityApprove(act)" class="btn primary-button w-100" > <i class="fa fa-spinner" aria-hidden="true" > </i> Beklemede </button>
+              <button *ngIf="act.currentUserStatus == 2 && isShowByCreatedDate(act) && !isOwner(act)" (click)="cancelActivityApprove(act)" class="btn success-button w-100" > <i class="fa fa-check" aria-hidden="true"> </i> Kabul edildin</button>
+              <button *ngIf="act.currentUserStatus == 3 && isShowByCreatedDate(act)" (click)="joinActivity(act)" class="danger-button w-100" disabled> <i class="fa fa-times" aria-hidden="true"> </i> Reddedildi</button>
             </div>
-            <hr>
-            <div class="p-grid">
-              
-              <div *ngIf="act.currentUserStatus == 2" class="p-col-6 p-sm-6 p-md-4 p-lg-4 cursor-pointer cursor-pointer ">
-                <div  (click)="viewComments(act)" class="act-content-btn-comment btn-light"><i class="pi pi-comments"></i> Duvar</div>
-              </div>
-              <div *ngIf="act.currentUserStatus != 2" class="p-col-6 p-sm-6 p-md-4 p-lg-4 cursor-pointer cursor-pointer ">
-                <div  (click)="viewComments(act)" class="act-content-btn-comment btn-light"><i class="pi pi-comments"></i> Duvar</div>
-              </div>
-
-              <div  class="p-col-6 p-sm-6 p-md-4 p-lg-4 cursor-pointer cursor-pointer ">
-                <div  (click)="viewDetail(act)"  class="act-content-btn-comment btn-info">Detaylar <i class="pi pi-angle-double-right"></i></div>
-              </div>
-             
-              <div [hidden] ="isOwner(act)" *ngIf="act.currentUserStatus == 0 && isShowByCreatedDate(act)" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
-                 <button type="button" (click)="joinActivity(act)" class=" btn btn-primary w-100"> <i class="pi pi-sign-in" aria-hidden="true"> </i> Katıl</button>
-             </div>
-             <div *ngIf="act.currentUserStatus == 1 && isShowByCreatedDate(act)" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
-              <button type="button" (click)="cancelActivityApprove(act)" class=" btn btn-warning w-100" > <i class="fa fa-spinner" aria-hidden="true" > </i> Beklemede </button>
-             </div>
-             <div *ngIf="act.currentUserStatus == 2 && isShowByCreatedDate(act) && !isOwner(act)" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
-              <button type="button" (click)="cancelActivityApprove(act)" class=" btn btn-success w-100" > <i class="fa fa-check" aria-hidden="true"> </i> Kabul edildin</button>
-             </div>
-             <div *ngIf="act.currentUserStatus == 3 && isShowByCreatedDate(act)" class="p-col-12 p-sm-12 p-md-12 p-lg-4 cursor-pointer">
-              <button type="button" (click)="joinActivity(act)" class=" btn btn-danger w-100" disabled> <i class="fa fa-times" aria-hidden="true"> </i> Reddedildi</button>
-             </div>
-                          
-            </div>
-
-            
           </div>
-           
-        </div>
-       
-    </div>
+        </div>    
+      </div>
     </p-card>
   </div>
-
 </div>
 
 <!--Repeat area-->
-
-
 
 <p-toast position="top-center" key="tc"></p-toast>
 
