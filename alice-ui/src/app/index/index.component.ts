@@ -4,7 +4,8 @@ import {MenuItem} from 'primeng/api'
 import {MenubarModule} from 'primeng/menubar';
 import { LoginService } from '../auth/login.service';
 import { Router } from '@angular/router';
-
+import { ProfilService } from '../profile/profile.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-index',
@@ -16,12 +17,24 @@ export class IndexComponent implements   OnInit{
   currentUserName:string;
   isLogin : Boolean;
   notificationCount: any =0;
-  constructor(private loginservice:LoginService,private router:Router){
+  User: any;
+  userId: any = '';
+  baseUrl: String;
+
+  constructor(private loginservice:LoginService,private profileService: ProfilService,private router:Router){
    this.isLogin = false;
 
   this.isActiveUser=localStorage.getItem("aliceuser")
   this.currentUserName=JSON.parse(localStorage.getItem("userName"));
-  
+  this.baseUrl = environment.apiBaseUrl
+  this.userId = JSON.parse(localStorage.getItem("userId"));
+
+  // if (this.userId.length) {
+  //   this.profileService.getMyProfil(this.userId).subscribe(x => {
+  //     this.User = x
+  //   })
+  // }
+
   if(this.isActiveUser){
     loginservice.notificationCount().subscribe(x=>{
       this.notificationCount = x;
@@ -42,7 +55,14 @@ export class IndexComponent implements   OnInit{
   closeItem(event, index) {
     this.items = this.items.filter((item, i) => i !== index);
     event.preventDefault();
-}
+  }
+  
+  // photoLinkCreate(link) {
+  //   if (link == null || link == "")
+  //     link = "static/uploads/profile/empty_profile128.png";
+
+  //   return this.baseUrl + link
+  // }
     
   items: MenuItem[];
     

@@ -1,55 +1,70 @@
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white" >
-  <a class="navbar-brand" style="font-family: monospace;" href="/activities">ActivityFriend</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="badge badge-info">{{notificationCount}} Bildirim</span> <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li *ngIf="isActiveUser" class="nav-item active">
-        <a class="nav-link" href="/activities"> <i class="pi pi-fw pi-home"></i> Aktiviteler<span class="sr-only">(current)</span></a>
+<nav *ngIf="isActiveUser" class="navbar navbar-expand-lg navbar-light bg-white flex p-align-center justify-between full-navbar">
+  <a class="navbar-brand col-md-3" style="margin-right: 0;" href="/activities">
+    <img src="assets/activity-friend-text-logo.png" style="height: 45px; margin-right: 10px;">
+  </a>
+  <div class="collapse navbar-collapse flex p-justify-center col-md-6" >
+    <ul class="navbar-nav flex" style="gap: 2em">
+      <li class="nav-item">
+        <a class="nav-link" href="/activities"><i class="pi pi-home"></i><span class="sr-only">(current)</span></a>
       </li>
-      
-      <li *ngIf="!isActiveUser" class="nav-item ">
-        <a class="nav-link" href="/activities"> <i class="pi pi-fw pi-home"></i> Anasayfa </a>
+      <li  class="nav-item">
+        <a class="nav-link" href="/communication"><i class="pi pi-comments"></i></a>
       </li>
-
-      <li  class="nav-item active">
-        <a class="nav-link" href="/communication"> <i class="pi pi-fw pi-pencil"></i> İletişim </a>
-      </li>
-
-     <!--  <li  class="nav-item active">
+      <!--  <li  class="nav-item active">
         <a class="nav-link" href="/messages"> <i class="pi pi-comments"></i> Sohbetler </a>
       </li> -->
-
-      <li  *ngIf="isActiveUser"  class="nav-item ">
-        <a class="nav-link" href="/users"> <i class="pi pi-search"></i> Kullanıcılar </a>
+      <li class="nav-item ">
+        <a class="nav-link" href="/users"><i class="pi pi-users"></i></a>
+      </li>    
+      <li class="nav-item ">
+        <a class="nav-link" href="/notification"> <i class="pi pi-bell"></i><span class="badge badge-info">{{notificationCount}}</span></a>
       </li>
-      
-      <li  *ngIf="isActiveUser"  class="nav-item ">
-        <a class="nav-link" href="/notification"> <i class="pi pi-bell"></i> Hareketler <span class="badge badge-info">{{notificationCount}}</span></a>
-      </li>
-
-
-      <li  *ngIf="!isActiveUser"  class="nav-item ">
-        <a class="nav-link" href="/login"> <i class="pi pi-sign-in"></i> Giriş Yap </a>
-      </li>
-
-   
-
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Ara" aria-label="Ara">
-      <button *ngIf="isActiveUser" (click)="routeProfile()" style="margin-left: 5px !important;" class="btn btn-primary my-2 my-sm-0" type="button">
-        <i class="pi pi-user"> </i>
-        {{currentUserName}}
-      </button>
-      <button *ngIf="isLogin" (click)="LogOut()" style="margin-left: 5px !important;" class="btn btn-secondary my-2 my-sm-0" type="button">
-        <i class="pi pi-power-off"> </i>
-        Çıkış Yap
-      </button>
+  </div>
+  <div class="collapse navbar-collapse flex p-align-center col-md-3 p-justify-end">
+    <!-- <input class="primary-input" placeholder="Ara..." aria-label="Ara" style="width: 250px;"> -->
+    <ul class="navbar-nav flex" style="gap: 0.5em">
+      <li (click)="routeProfile()" class="nav-item">
+        <div class="nav-link cursor-pointer"><i class="pi pi-user"></i></div>
+        <!-- <img class="navbar-photo" [src]="photoLinkCreate(User.fileLink)"> -->
+      </li>
+      <li *ngIf="isLogin" (click)="LogOut()" class="nav-item">
+        <div class="nav-link cursor-pointer"><i class="pi pi-sign-out"> </i></div>
+      </li>
+    </ul>
+  </div>
+</nav>
 
-    </form>
+
+<nav *ngIf="isActiveUser" class="navbar navbar-expand-lg navbar-light bg-white flex p-align-center justify-between collapse-navbar">
+  <a class="navbar-brand col-md-3" style="margin-right: 0;" href="/activities">
+    <img src="assets/activity-friend-text-logo.png" style="height: 45px; margin-right: 10px;">
+  </a>
+  <button class="fa fa-bars" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"></button>
+  <div class="collapse navbar-collapse flex p-justify-center col-md-12" id="navbarSupportedContent">
+    <ul class="flex flex-col nav-item-list">
+      <li class="nav-item active">
+        <a class="nav-link" href="/activities">Ana Sayfa</a>
+      </li>    
+      <li  class="nav-item">
+        <a class="nav-link" href="/communication">İletişim</a>
+      </li>
+      <!--  <li  class="nav-item active">
+        <a class="nav-link" href="/messages"> <i class="pi pi-comments"></i> Sohbetler </a>
+      </li> -->
+      <li class="nav-item">
+        <a class="nav-link" href="/users">Kullanıcılar</a>
+      </li>    
+      <li class="nav-item ">
+        <a class="nav-link" href="/notification">Bildirimler<span class="badge badge-info">{{notificationCount}}</span></a>
+      </li>
+      <li class="nav-item">
+        <div (click)="routeProfile()" class="nav-link" >Profil</div>
+      </li>
+      <li class="nav-item">
+        <div (click)="LogOut()" class="nav-link" >Çıkış Yap</div>
+      </li>
+    </ul>
   </div>
 </nav>
