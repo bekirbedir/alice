@@ -1,148 +1,106 @@
-<div class="route-nav">
+<!-- <div class="route-nav">
     <span><a href="/activities"> <i class="fa fa-home" aria-hidden="true"></i> Anasayfa </a></span> >
     <span><i class="fa fa-user" aria-hidden="true"></i> Profil </span>
-</div>
+</div> -->
 
-<div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
-    <div class="p-xl-6 p-lg-6 p-md-8 p-sm-12">
-        <p-card>
-            <div class="p-grid">
-                <div class="p-col-12 text-align-center">
+<div class="flex p-justify-center p-align-center page-container">
+    <div class="p-col-12 p-xl-5 p-lg-7 p-md-10 p-sm-12 page-content">
+        <div class="theme-card">
+            <div style="position: relative;" class="w-100 flex justify-center">
+                <img class="header-photo img-thumbnail" [src]="photoLinkCreate(User.fileLink)">
+                <p-fileUpload [hidden]="!isEditable" name="photo" multiple="false" [auto]="true"
+                    invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
+                    invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB" maxFileSize="3145728"
+                    uploadLabel="Yükle" chooseLabel="" cancelIcon="Vazgeç"
+                    (onUpload)="onBasicUpload($event)"
+                    invalidFileTypeMessageDetail="Geçersiz dosya tipi, lütfen resim yükleyin" accept="image/*"
+                    [url]='uploadUrl'>
+                </p-fileUpload>                        
+            </div>
+            <div class="username">@{{User.username}} </div>
 
-                    <img (click)="pictureFullScreen=true" class="header-photo img-thumbnail" [src]="photoLinkCreate(User.fileLink)">
-
-
-                    <p-fileUpload [hidden]="!isEditable" name="photo" multiple="false" [auto]="true"
-                        invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
-                        invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB" maxFileSize="3145728"
-                        uploadLabel="Yükle" chooseLabel="Profil Resmi Yükle" cancelIcon="Vazgeç"
-                        (onUpload)="onBasicUpload($event)"
-                        invalidFileTypeMessageDetail="Geçersiz dosya tipi, lütfen resim yükleyin" accept="image/*"
-                        [url]='uploadUrl'></p-fileUpload>
-
-
-                    <p [hidden]="!(isEditable && !passwordChangeAction)" >
-                        <label (click)="passwordChangeAction = true" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
-                                aria-hidden="true"></i> Şifre Değiştir</label>
-                    </p>
-                    <div [hidden]="!(isEditable && passwordChangeAction)">
-                        <!--  -->
-
-                        <div class="p-field w-100">
-                            <label for="current-pass">Şuanki şifre</label>
-                            <br>
-                            <input id="current-pass" type="password" aria-describedby="username1-help" class="w-100"
-                                pInputText [(ngModel)]="currentPassword" />
-
-                        </div>
-
-                        <div class="p-field w-100">
-                            <label for="new-pass">Yeni şifre</label>
-                            <br>
-                            <input id="new-pass" type="password" aria-describedby="username1-help" class="w-100"
-                                pInputText [(ngModel)]="password" />
-
-                        </div>
-
-                        <div class="p-field w-100">
-                            <label for="new-pass">Yeni şifre tekrar</label>
-                            <br>
-                            <input id="new-pass" type="password" aria-describedby="username1-help" class="w-100"
-                                pInputText [(ngModel)]="passwordRepeat" />
-
-                        </div>
-
-                        <p class="p-col-12">
-                            <label class="p-col-6" (click)="passwordChange()" class="upload-photo-btn"> <i class="fa fa-unlock-alt"
-                                    aria-hidden="true"></i> Şifreyi kaydet</label>
-                             <label class="p-col-6" (click)="passwordChangeAction = false" class="cancel-btn"> <i class="fa fa-unlock-alt"
-                                        aria-hidden="true"></i> Vazgeç</label>
-                        </p>
-
-                        <!--  -->
-                    </div>
-
-                    <span [hidden]="!isEditable">
-                        <p [hidden]="editMode">
-                            <label (click)="editMode=true" class="upload-photo-btn"> <i class="fa fa-edit"
-                                    aria-hidden="true"></i> Profili Düzenle</label>
-                        </p>
-                    </span>
-                    <p [hidden]="!editMode">
-                        <label (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-save"
-                                aria-hidden="true"></i> Kaydet</label>
-                    </p>
-                    <p [hidden]="!editMode">
-                        <label (click)="editMode = false" class="cancel-btn"> <i class="fa fa-times"
-                                aria-hidden="true"></i> Vazgeç</label>
-                    </p>
-
+            <button [hidden]="!(isEditable && !passwordChangeAction)" (click)="passwordChangeAction=true" class="btn primary-button">Şifre Değiştir</button>
+            <div [hidden]="!(isEditable && passwordChangeAction)" class="flex flex-col" >
+                <div class="w-100">
+                    <label for="current-pass">Şuanki şifre</label>
+                    <input id="current-pass" type="password" aria-describedby="username1-help" class="w-100"pInputText [(ngModel)]="currentPassword" />
                 </div>
-
-                <div class="p-col-12">
-                    <br>
-                    <p [hidden]="editMode" class="name"><b><i class="fa fa-user" aria-hidden="true"></i> {{User.name}}</b></p>
-                    <p [hidden]="editMode" class="name"><i class="fa fa-birthday-cake" aria-hidden="true"></i> {{ User.birthDate | date:'dd/MM/yyyy'}} - {{User.gender}} </p>
-                    <div [hidden]="!editMode" >
-                        <p>Doğum günü</p>
-                        <p-calendar [(ngModel)]="User.birthDate"  showTime="false" hourFormat="24" showButtonBar="false"   class="w-100"  [yearNavigator]="true" yearRange="1975:2002"   dateFormat="dd.mm.yy"   [locale]="tr" [showIcon]="true" inputId="icon"></p-calendar>
-                            
-                      </div>
-
-                    <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
-                        <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.name" class="w-100">
-                        <label for="float-input">Ad Soyad</label>
-                    </span>
-
-
-                    <br>
-                    <p class="username"><a class=""><b>Kullanıcı Adı: </b>@{{User.username}}</a></p>
-                    <br>
-                    <p [hidden]="!isEditable" class="username"><a><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>{{User.phone}}</a></p>
-                    <p [hidden]="isEditable" class="username"><a><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>*******</a></p>
-                    <br>
-
-                    <p [hidden]="!(isEditable && !editMode)" class="email"><b><i class="fa fa-envelope" aria-hidden="true"></i> Email :</b>{{User.email}}</p>
-                    <p [hidden]="isEditable" class="email"><a><b><i class="fa fa-phone" aria-hidden="true"></i> Email : </b>*******</a></p>
-                   
-                    <p  class="email"> <small>Kullanıcı gizliliği ve güvenliği için, telefon ve email bilgilerini diğer kullanıcılar göremez</small></p>
-                   
-                    <!--
-                    <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
-                        <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email"
-                            class="w-100">
-                        <label for="float-input">Email</label>
-                    </span>
-                    -->
+                <div class="w-100">
+                    <label for="new-pass">Yeni şifre</label>
+                    <input id="new-pass" type="password" aria-describedby="username1-help" class="w-100" pInputText [(ngModel)]="password" />
                 </div>
-
-                <div class="p-col-12 mt-50">
-                    <p class="bio-header">Biyografi </p>
-                    <p [hidden]="editMode" class="bio-context">{{User.biography}}</p>
-
-                    <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
-                        <textarea id="input-bio" [rows]="10" class="w-100" pInputTextarea
-                            [(ngModel)]="User.biography"></textarea>
-                        <label for="float-input">Seni tanıyabilmemiz için biraz kendinden bahseder misin?</label>
-                    </span>
-
+                <div class="w-100">
+                    <label for="new-pass">Yeni şifre tekrar</label>
+                    <input id="new-pass" type="password" aria-describedby="username1-help" class="w-100"pInputText [(ngModel)]="passwordRepeat" />
                 </div>
-                <div class="p-grid">
-                  
-                  
-                        <ul  [hidden]="editMode" class="tag-list">
-                            <li *ngFor="let tag of User.tagList" class="profile-tag p-col-3">#{{tag}}</li>
-                          </ul>
-                        <div [hidden]="!editMode" class="p-col-12">
-                            <p class="input-label" style="font-size: 12px;">Etiket ekle (Enter ile ekleyin)</p>
-                            <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="User.tagList" separator=","></p-chips>
-                        </div>
-              
-                    
+                <div class="flex flex-row mt-15" style="gap: 0.5em">
+                    <button class="btn success-button" (click)="passwordChange()">Şifreyi kaydet</button>
+                    <button class="btn danger-button" (click)="passwordChangeAction = false">Vazgeç</button>
                 </div>
             </div>
-            <hr>
-            <div class="h-10"></div>
+
+            <span [hidden]="!isEditable">
+                <button [hidden]="editMode" (click)="editMode=true" class="btn primary-button">Profili Düzenle</button>
+            </span>
+
+            <div [hidden]="!editMode" class="flex flex-row" style="gap: 0.5em">
+                <button class="btn success-button" (click)="updateUser()">Kaydet</button>
+                <button class="btn danger-button" (click)="editMode = false">Vazgeç</button>
+            </div>
+
+            <div class="mt-10">
+                <p [hidden]="editMode" class="name"><i class="fa fa-user" aria-hidden="true"></i> {{User.name}}</p>
+                <p [hidden]="editMode" class="name"><i class="fa fa-birthday-cake" aria-hidden="true"></i> {{ User.birthDate | date:'dd/MM/yyyy'}} - {{User.gender}} </p>
+                <div [hidden]="!editMode" >
+                    <div>Doğum günü</div>
+                    <p-calendar [(ngModel)]="User.birthDate" showTime="false" hourFormat="24" showButtonBar="false" class="w-100" [yearNavigator]="true" yearRange="1975:2002" dateFormat="dd.mm.yy" [locale]="tr" [showIcon]="true" inputId="icon"></p-calendar>              
+                </div>
+                <div [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
+                    <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.name" class="w-100">
+                    <label for="float-input">Ad Soyad</label>
+                </div>
+                <!-- <div [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
+                    <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email" class="w-100">
+                    <label for="float-input">Email</label>
+                </div>
+                <div [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
+                    <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email" class="w-100">
+                    <label for="float-input">Telefon</label>
+                </div> -->
+                <p [hidden]="!isEditable" class=""><a><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>{{User.phone}}</a></p>
+                <p [hidden]="isEditable" class=""><a><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>*******</a></p>
+                <p [hidden]="!isEditable" class="email"><b><i class="fa fa-envelope" aria-hidden="true"></i> Email: </b>{{User.email}}</p>
+                <p [hidden]="isEditable" class="email"><a><b><i class="fa fa-phone" aria-hidden="true"></i> Email: </b>*******</a></p>
+                
+                <div class="email"> <small>Kullanıcı gizliliği ve güvenliği için, telefon ve email bilgilerini diğer kullanıcılar göremez</small></div>
+                <!--
+                <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
+                    <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email"
+                        class="w-100">
+                    <label for="float-input">Email</label>
+                </span>
+                -->
+            </div>
+
+            <div class="text-left">
+                <p class="bio-header">Biyografi </p>
+                <p [hidden]="editMode" class="bio-context">{{User.biography}}</p>
+                <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
+                    <textarea id="input-bio" [rows]="10" class="w-100" pInputTextarea
+                        [(ngModel)]="User.biography"></textarea>
+                    <label for="float-input">Seni tanıyabilmemiz için biraz kendinden bahseder misin?</label>
+                </span>
+            </div>
+            <div>
+                <p class="bio-header">Etiketler</p>
+                <ul [hidden]="editMode" class="tag-list">
+                    <li *ngFor="let tag of User.tagList" class="profile-tag p-col-3">#{{tag}}</li>
+                </ul>
+                <div [hidden]="!editMode">
+                    <p class="input-label" style="font-size: 12px;">Etiket ekle (Enter ile ekleyin)</p>
+                    <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="User.tagList" separator=","></p-chips>
+                </div>
+            </div>
 
             <div class="rate-buttons">
                 <p class="bio-header">Etkinliklere Katılım</p>
@@ -164,14 +122,10 @@
                         </div>
                     </p-tabPanel>
                 </p-tabView>
-
-            
-
-
             </div>
 
-            <div class="rate-buttons">
-                <p class="bio-header">Toplam oy sayısı: {{totalRateCount}} </p>
+            <div class="rate-buttons mb-10">
+                <p class="bio-header">Profil Oylaması ({{totalRateCount || "henüz oylanmadı"}}) </p>
                 <div class="progress ">
                     <div id ="positive-bar" class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
                         aria-valuemin="0" aria-valuemax="100" style="width: 50%">
@@ -181,40 +135,23 @@
                         <i class="pi pi-thumbs-down"> %{{negativeRatePercent}} ({{negativeRateCount}} oy) </i></div>
                 </div>
             </div>
-
-            
-
-            <div class="h-10"></div>
             <!-------Bu alan ngFor ile yapilacak-------------->
-            <div [hidden]="isEditable" class="p-grid">
-                <p class="bio-header">Bu kişiye sen de oy ver! </p>
-
-                <hr>
-                <div class="p-col-6">
-                    <button type="button" (click)="(rateUser(1))" class="btn btn-success w-100 " [disabled]="yourRate == 1"> 
-                        Olumlu {{ yourRate == 1 ? 'oy verdiniz' : ''}} <i
-                            class="fa fa-smile-o" aria-hidden="true"  ></i></button>
-                </div>
-                <div class="p-col-6">
-                    <button type="button" (click)="(rateUser(2))" class="btn btn-danger w-100 " [disabled]="yourRate == 2">
-                         Olumsuz {{ yourRate == 2 ? 'oy verdiniz' : ''}} <i
-                            class="fa fa-frown-o" aria-hidden="true"  ></i> </button>
+            <div [hidden]="isEditable" class="flex flex-col mb-10">
+                <div class="bio-header">Bu kullanıcıyı oyla!</div>
+                <div class="flex mt-15" style="gap: 1em">
+                    <button type="button" (click)="(rateUser(1))" class="btn success-button w-100 " [disabled]="yourRate == 1"> Olumlu {{ yourRate == 1 ? 'oy verdiniz' : ''}}<i class="fa fa-smile-o" aria-hidden="true"></i></button>
+                    <button type="button" (click)="(rateUser(2))" class="btn danger-button w-100 " [disabled]="yourRate == 2">Olumsuz {{ yourRate == 2 ? 'oy verdiniz' : ''}}<i class="fa fa-frown-o" aria-hidden="true"></i> </button>
                 </div>
                 <small class="label">*Oy verebilmek için birlikte en az 3 etkinliğe katılmak gerekir</small>
             </div>
-
-            <p [hidden]="!editMode">
-                <label (click)="updateUser()" class="upload-photo-btn"> <i class="fa fa-cloud-upload"
-                        aria-hidden="true"></i> Kaydet</label>
-            </p>
-            <p [hidden]="!editMode">
-                <label (click)="editMode = false" class="cancel-btn"> <i class="fa fa-times" aria-hidden="true"></i>
-                    Vazgeç</label>
-            </p>
-
-        </p-card>
+            <div [hidden]="!editMode" class="flex flex-row" style="gap: 0.5em">
+                <button class="btn success-button" (click)="updateUser()">Kaydet</button>
+                <button class="btn danger-button" (click)="editMode = false">Vazgeç</button>
+            </div>
+        </div>
     </div>
 </div>
+
 <p-toast position="top-center" key="tc"></p-toast>
 <div [hidden]="!loading" class="full-area">
     <div class="centered">

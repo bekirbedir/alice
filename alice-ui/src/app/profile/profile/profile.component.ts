@@ -78,7 +78,6 @@ export class ProfileComponent {
     };
 
     this.actRoute.paramMap.subscribe(params => {
-
       if (params.get('id')) {
         this.userId = params.get('id');
         this.service.getMyProfil(this.userId).subscribe(x => {
@@ -171,14 +170,14 @@ export class ProfileComponent {
             {
               data: [x.katildi, x.katilmadi, x.reddedildi],
               backgroundColor: [
-                "#36A2EB",
-                "#FF6384",
-                "#000000"
+                "#109e10",
+                "#ec4634",
+                "#198293"
               ],
               hoverBackgroundColor: [
-                "#36A2EB",
-                "#FF6384",
-                "#000000"
+                "#109e10",
+                "#ec4634",
+                "#198293"
               ]
             }]
         };

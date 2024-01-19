@@ -1,16 +1,14 @@
 
 .bio-header{
-    margin-top: 10px;
-    font-weight: 900;
+    font-weight: 700;
     width: 100%;
-    text-align: center;
     color: #117b8c;
-    padding-bottom:5px ;
-    border-bottom: 1px solid #ccc;
+    padding-bottom:5px;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 0;
 }
 .bio-context{
-    margin-top: 5px;
-    text-align: center;
+    margin-bottom: 0;
 }
 .header-photo{
     object-fit: cover;
@@ -22,22 +20,20 @@
     height: 35px;
 }
 .positive-button{
-   
     border-radius: 5px;
     font-size: 1em;
     color: white;
     text-align: center;
-    background: rgb(85,190,31);
-background: linear-gradient(90deg, rgba(85,190,31,1) 0%, rgba(89,207,23,1) 72%);
+    border: 1px solid var(--theme-green);
+    background-image: linear-gradient(90deg,#54c454,#109e10);
 }
 .negative-button{
-  
     border-radius: 5px;
     font-size: 1em;
     color: white;
     text-align: center;
-    background: rgb(246,10,10);
-background: linear-gradient(90deg, rgba(246,10,10,1) 0%, rgba(228,50,50,1) 47%);
+    border: 1px solid var(--theme-red);
+    background-image: linear-gradient(90deg,#ee8176,#ec4634);
 }
 .upload-photo-btn{
     background-color: #117b8c;
@@ -71,8 +67,8 @@ background: linear-gradient(90deg, rgba(246,10,10,1) 0%, rgba(228,50,50,1) 47%);
     transform: -webkit-translate(-50%, -50%);
     transform: -moz-translate(-50%, -50%);
     transform: -ms-translate(-50%, -50%);
-  }
-  .centered {
+}
+.centered {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -81,24 +77,6 @@ background: linear-gradient(90deg, rgba(246,10,10,1) 0%, rgba(228,50,50,1) 47%);
     transform: -moz-translate(-50%, -50%);
     transform: -ms-translate(-50%, -50%);
     color:darkred;
-  }
-  .ui-fileupload-content{
-      display: none !important;
-  }
-  .tag-list{
-    list-style-type: none;
-    display: contents;
-}
-.profile-tag{
-    width: fit-content;
-    margin-top: 3px;
-    margin-right: 5px;
-    margin-left: 5px;
-   padding: 7px;
-   border-radius: 3px;
-   color: white;
-   background: rgb(71,161,25);
-   background: linear-gradient(90deg, rgba(71,161,25,1) 0%, rgba(89,207,23,1) 100%);
 }
 
 .tabpanelCustom {
@@ -108,7 +86,7 @@ background: linear-gradient(90deg, rgba(246,10,10,1) 0%, rgba(228,50,50,1) 47%);
 
 .activity-header{
     font-size: 0.8em;
-    color:blue;
+    cursor: pointer;
     text-decoration: underline;
 }
 .activity-context{
@@ -119,3 +97,36 @@ background: linear-gradient(90deg, rgba(246,10,10,1) 0%, rgba(228,50,50,1) 47%);
     background-color: red;
 }
 
+:host::ng-deep .ui-fileupload{
+    position: absolute;
+    top: 0;
+    right: 120;
+    border-radius: 50%;
+}
+
+:host::ng-deep .ui-fileupload-choose{
+    border-radius: 50% !important;
+}
+
+.username{
+    text-align: center;
+    font-weight: 500;
+    opacity: 0.7;
+    font-size: 1.2em;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 10px;
+}
+
+.name{
+    text-transform: capitalize;
+}
+
+:host::ng-deep .tabHeader-custom{
+    background-image: var(--theme-grad-gray) !important;
+    border-color: var(--theme-color-gray);
+}
+
+:host::ng-deep .ui-state-active{
+    background-image: var(--theme-color) !important;
+    border-color: var(--theme-color-primary);
+}

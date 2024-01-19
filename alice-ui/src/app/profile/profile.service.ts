@@ -22,7 +22,6 @@ export class ProfilService {
   constructor(private _httpClient: HttpClient) { }
 
   getMyProfil(id): Observable<UserModel> {
-  
     const transferObject = {
       Id: id
     }
