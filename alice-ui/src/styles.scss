@@ -7,10 +7,16 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 :root {
     --theme-color: linear-gradient(90deg,#198293,#2b365c);
+    --theme-grad-gray: linear-gradient(90deg,#f2f3f4,#c0c0c0);
+    --theme-grad-red: linear-gradient(90deg,#ee8176,#ec4634);
+    --theme-grad-green: linear-gradient(90deg,#54c454,#109e10);
+    --theme-grad-orange: linear-gradient(90deg,#eeb076,#eb8627);
     --theme-color-primary: #2b365c;
     --theme-blue:  #198293;
     --theme-green: #109e10;
     --theme-red: #ec4634;
+    --theme-gray: #c0c0c0;
+    --theme-orange: #eb8627;
 }
 
 body{
@@ -20,52 +26,68 @@ body{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
-.primary-button{
-    background-image: var(--theme-color);
-    line-height: 2.5;
-    border: 1px solid var(--theme-color);
-    color: #fff;
+.primary-button, .secondary-button, .danger-button, .success-button, .gray-button, .orange-button{
+    display: flex;
+    gap: 0.3em;
+    align-items: center;
+    justify-content: center;
+    line-height: 2;
     border-radius: 0.625em;
     width: 100%;
-    text-align: center;
     font-size: 1em;
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.big-button{
+    line-height: 2.5 !important;
+}
+
+.primary-button{
+    background-image: var(--theme-color);
+    border: 1px solid var(--theme-color);
+    color: #fff;
 }
 
 .secondary-button{
     background-color: #fff;
-    line-height: 2.5;
     border: 1px solid var(--theme-blue);
     color: var(--theme-blue);
-    border-radius: 0.625em;
-    width: 100%;
-    text-align: center;
-    font-size: 1em;
-    font-weight: 500;
 }
 
 .danger-button{
-    background-image: linear-gradient(90deg,#ee8176,#ec4634);
-    line-height: 2.5;
-    border: 1px solid #ec4634;
+    background-image: var(--theme-grad-red);
+    border: 1px solid var(--theme-red);
     color: #fff;
-    border-radius: 0.625em;
-    width: 100%;
-    text-align: center;
-    font-size: 1em;
-    font-weight: 500;
 }
 
 .success-button{
-    background-image: linear-gradient(90deg,#54c454,#109e10);
-    line-height: 2.5;
-    border: 1px solid #107e3e;
+    background-image: var(--theme-grad-green);
+    border: 1px solid var(--theme-green);
     color: #fff;
-    border-radius: 0.625em;
+}
+
+.gray-button{
+    background-image: var(--theme-grad-gray);
+    border: 1px solid var(--theme-gray);
+    color: #000;
+}
+
+.orange-button{
+    background-image: var(--theme-grad-orange);
+    border: 1px solid var(--theme-orange);
+    color: #fff;
+}
+
+.primary-input{
+    border: 1px solid lightgray !important;
+    background-color: white !important;
+    line-height: 2.3;
+    padding-left: 10px !important;
+    border-radius: 0.7em !important;
     width: 100%;
-    text-align: center;
-    font-size: 1em;
-    font-weight: 500;
 }
 
 .flex{
@@ -306,3 +328,266 @@ body .ui-menubar .ui-menubar-root-list > .ui-menuitem > .ui-menuitem-link {
   :host ::ng-deep .tabHeader-custom {
     background-color: red;
 }
+
+.login-panel{
+    height: calc(100vh - 70px);
+}
+
+.login-panel .text-center{
+    font-size: 1em;
+}
+
+.login-panel a{
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.theme-card, .login-card{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    background-color: #fff;
+    padding: 1em 2em;
+    border-radius: 1em;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+
+.theme-card{
+    padding: 1.8em;
+}
+
+.login-logo{
+    height: 150px;
+    padding: 0.5em;
+}
+
+.act-photo{
+    max-width: 100% !important;
+    width: 100%;
+    border-radius: 0.5em;
+}
+
+.ui-fileupload-content{
+    display: none !important;
+}
+
+.ui-fileupload-buttonbar{
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
+}
+
+.ui-inputtext{
+    border-radius: 0.5em !important;
+    line-height: 2;
+}
+
+.ui-calendar .ui-inputtext, .ui-inputnumber-input{
+    border-bottom-right-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+
+.ui-fileupload-choose{
+    border-radius: 0.5em !important;
+}
+
+.ui-button{
+    font-size: 1em !important;
+    line-height: 2 !important;
+    background-image: var(--theme-color);
+    border: 1px solid var(--theme-primary-color) !important;
+}
+
+.ui-button-icon-left{
+    font-size: 1em !important;
+}
+
+.ui-calendar{
+    display: flex;
+}
+
+.ui-calendar-button{
+    font-size: 1.2em !important;
+}
+
+.ui-chkbox-box{
+    background-image: var(--theme-primary-color) !important;
+}
+
+.ui-button-text{
+    color: #fff;
+}
+.page-header{
+    padding: 0 0.5em 0.5em 0.5em;
+    border-bottom: 1px solid lightgray;
+    font-size: 2em;
+    font-weight: 500;
+}
+
+.activity-tag{
+    color: var(--theme-blue);
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.tag-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style-type: none;
+    gap: 0.5em;
+    list-style-type: none;
+    padding: 0.5em 0 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile-tag{
+    width: fit-content;
+    border-radius: 0.5em;
+    display: inline;
+    color: white;
+    border: 1px solid var(--theme-color-primary);
+    background-image: var(--theme-color);
+}
+
+.act-header{
+    height: 100px;
+    padding: 5px;
+}
+.act-header-name{
+    font-size: 1.2em !important;
+    font-weight: 500;
+    margin-bottom: 0.8em !important;
+}
+.act-header-photo{
+    object-fit: cover;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.act-header-user-name{
+    font-weight: normal;
+    opacity: 0.7;
+    font-size: 1.1em;
+    margin-left: 0.3125em;
+}
+.ui-chips-token{
+    margin: 0.25em 0.5em 0.25em 0 !important;
+    border-radius: 0.5em !important;
+    border: 1px solid var(--theme-color-primary) !important;
+    background-image: var(--theme-color) !important;
+}
+
+.ui-chips-token-icon{
+    margin-left: 0 !important;
+    font-size: 1em !important;
+}
+
+.ui-chips-token-label{
+    margin-right: 1.5em !important;
+}
+
+.ui-chkbox-box {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.ui-chkbox .ui-chkbox-box.ui-state-active {
+    border-color: var(--theme-color-primary) !important;
+    background-image: var(--theme-color) !important;
+}
+
+.ui-chkbox-icon{
+    font-size: 0.9em !important;
+}
+
+.ui-selectbutton .ui-state-default{
+    background-image: var(--theme-grad-gray) !important;
+    border: 1px solid var(--theme-gray) !important;
+}
+
+.ui-selectbutton .ui-state-active{
+    background-image: var(--theme-color) !important;
+    border: 1px solid var(--theme-color-primary) !important;
+}
+
+.ui-selectbutton .ui-state-default .ui-button-text{
+    color: #000 !important;
+}
+
+.ui-selectbutton .ui-state-active .ui-button-text{
+    color: #fff !important;
+}
+
+.page-container{
+    height:100%;
+    padding: 0 0.5em;
+}
+
+.page-content{
+    padding: 0 !important;
+    margin: 2em 0;
+}
+
+.act-content{
+    border-radius: 2em;
+    padding: 10px 0 !important;
+}
+
+.act-container{
+    padding: 2em 2em 1.6em 2em !important;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    color: #333333;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 2px 1px -1px rgba(0, 0, 0, 0.12);
+    border-radius: 0.5em;
+    line-height: 1.2;
+    text-align: left;
+    font-size: 14px;
+}
+
+.icon-group{
+    gap: 5em;
+    opacity: 0.7;
+}
+
+.act-context{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+@media only screen and (max-width: 768px){
+    .act-btn{
+        margin-bottom: 0.5em !important;
+    }
+    .page-content{
+        margin: 0.5em 0 0.5em 0 !important;
+    }
+    .act-container{
+        padding: 1em 1em 0.5em 1em !important;
+    }
+    .theme-card{
+        padding: 1em 1em 0.5em 1em !important;
+    }
+    .icon-group{
+        justify-content: space-between;
+        gap: 0;
+    }
+    .act-content-footer .flex{
+        gap: 0.5em !important;
+    }
+    .big-button{
+        line-height: 2 !important;
+    }
+    .page-header{
+        padding: 0 0 0.5em 0;
+    }
+}
+
