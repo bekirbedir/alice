@@ -1,211 +1,176 @@
-<p-tabView (onChange)="handleChange($event)">
-    <p-tabPanel header="Onay Bekleyenler" [selected]="true" rightIcon="pi pi-pause">
+<div class="flex p-justify-center p-align-center page-container">
+  <div class="p-col-12 p-xl-5 p-lg-7 p-md-10 p-sm-12 page-content">
+    <p-tabView (onChange)="handleChange($event)">
+      <p-tabPanel header="Onay Bekleyenler" [selected]="true">
         <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Kullanıcı</th>
-                <th scope="col">Aksiyon</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let actUser of waitingUsers">
-                <td>
-                   <img class="management-user-photo img-thumbnail"  [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
-                <br>
-                <br>
-                <span  (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b><br> @{{actUser.user.username}} </span>
-                </td>
-      
-                  <td *ngIf="!activityFinish" style="vertical-align: middle">
-                    <div class="btn-group" role="group" *ngIf="!activityFinish" aria-label="...">
-                        <button (click)="userStateAction(waitingUsers, actUser.activityId , actUser.user._id,2)" type="button" class="btn btn-success">Onayla <i class="pi pi-play"></i></button>
-                        <button (click)="userStateAction(waitingUsers, actUser.activityId , actUser.user._id,3)" type="button" class="btn btn-danger">Reddet <i class="pi pi-times"></i> </button>
-                      </div>
-                </td>
-              </tr>
+          <thead>
+            <tr>
+              <th scope="col">Kullanıcı</th>
+              <th scope="col">Aksiyon</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let actUser of waitingUsers">
+              <td class="flex align-center" style="gap: 1em">
+                <img class="management-user-photo img-thumbnail" [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
+                <div class="flex flex-col cursor-pointer" (click)="routeProfile(actUser.user._id)">
+                  <div style="text-transform: capitalize; font-size: 1.2em; font-weight: 600;">{{actUser.user.name}}</div>
+                  <div style="opacity: 0.7;">@{{actUser.user.username}}</div>
+                </div>
+              </td>
+              <td *ngIf="!activityFinish" style="vertical-align: middle">
+                <div class="flex table-button-group" style="gap: 1em" *ngIf="!activityFinish" aria-label="...">
+                  <button (click)="userStateAction(waitingUsers, actUser.activityId , actUser.user._id,2)" class="btn success-button big-button">
+                    <i class="fa fa-check" aria-hidden="true"></i>Onayla</button>
+                  <button (click)="userStateAction(waitingUsers, actUser.activityId , actUser.user._id,3)" class="btn danger-button">
+                    <i class="fa fa-times" aria-hidden="true"></i>Reddet</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </p-tabPanel>
 
-            </tbody>
-          </table>
-        
-    </p-tabPanel>
-    <p-tabPanel header="Onaylananlar" rightIcon="pi pi-play" >
-
+      <p-tabPanel header="Onaylananlar">
         <table class="table table-striped">
-            <thead>
-               <tr>
-                
-                <th scope="col">Kullanıcı</th>
-                <th *ngIf="activityFinish" scope="col">Durum</th>
-                <th scope="col">Aksiyon</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let actUser of approveUsers">
-                <td>
-                  <img class="management-user-photo img-thumbnail"  [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
-               <br>
-               <br>
-               <span (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b> <br> @{{actUser.user.username}} </span>
-               </td>
-               <td *ngIf="activityFinish" style="vertical-align: middle">
-
+          <thead>
+            <tr>
+              <th scope="col">Kullanıcı</th>
+              <th *ngIf="activityFinish" scope="col">Durum</th>
+              <th scope="col">Aksiyon</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let actUser of approveUsers">
+              <td class="flex align-center" style="gap: 1em">
+                <img class="management-user-photo img-thumbnail" [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
+                <div class="flex flex-col cursor-pointer" (click)="routeProfile(actUser.user._id)">
+                  <div style="text-transform: capitalize; font-size: 1.2em; font-weight: 600;">{{actUser.user.name}}</div>
+                  <div style="opacity: 0.7;">@{{actUser.user.username}}</div>
+                </div>
+              </td>
+              <td *ngIf="activityFinish" style="vertical-align: middle">
                   <span style="color: green;" *ngIf="actUser.joined"><i class="fa fa-check" aria-hidden="true"></i>Katıldı</span>
                   <span  style="color: red;" *ngIf="!actUser.joined"><i class="fa fa-times" aria-hidden="true"></i>Katılmadı</span>
-        
-               </td>
-                <td style="vertical-align: middle"> 
-                  <div class="btn-group" role="group" *ngIf="!activityFinish" aria-label="...">
-                      <button [disabled]="isOwner(actUser.user._id)"  (click)="userStateAction(approveUsers,actUser.activityId , actUser.user._id,3)" type="button" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i>Reddet </button>
-                 </div>
-                 <div class="btn-group" role="group" *ngIf="activityFinish" aria-label="...">
-                  <button (click)="userJoinedAction(actUser.activityId , actUser.user._id,2)" type="button" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i>Katıldı </button>
-                  <button (click)="userJoinedAction(actUser.activityId , actUser.user._id,1)" type="button" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i>Katılmadı</button>
-                </div>   
-
-                </td>
-              </tr>
-
-            </tbody>
-          </table>
-        
-
-    </p-tabPanel>
-    <p-tabPanel header="Reddedilenler" rightIcon="pi pi-times">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-      
-            <th scope="col">Kullanıcı</th>
-            <th scope="col">Aksiyon</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let actUser of rejectedUsers">
-           
-            <td>
-              <img class="management-user-photo img-thumbnail"  [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
-           <br>
-           <br>
-           <span  (click)="routeProfile(actUser.user._id)"> <b>{{actUser.user.name}}</b> <br> @{{actUser.user.username}} </span>
-           </td>
-           <td *ngIf="!activityFinish" style="vertical-align: middle">
-              <div class="btn-group" role="group" *ngIf="!activityFinish" aria-label="...">
-                  <button (click)="userStateAction(rejectedUsers, actUser.activityId , actUser.user._id,2)" type="button" class="btn btn-success"><i class="fa fa-check" aria-hidden="true"></i> Onayla </button>
+              </td>
+              <td style="vertical-align: middle"> 
+                <div class="flex" role="group" *ngIf="!activityFinish" aria-label="...">
+                  <button [disabled]="isOwner(actUser.user._id)"  (click)="userStateAction(approveUsers,actUser.activityId , actUser.user._id,3)" class="btn danger-button">
+                    <i class="fa fa-times" aria-hidden="true"></i>Reddet
+                  </button>
                 </div>
-          </td>
-          </tr>
+                <div *ngIf="activityFinish" class="flex" style="gap: 1em" aria-label="...">
+                  <button (click)="userJoinedAction(actUser.activityId , actUser.user._id,2)" type="button" class="btn success-button"><i class="fa fa-check" aria-hidden="true"></i>Katıldı </button>
+                  <button (click)="userJoinedAction(actUser.activityId , actUser.user._id,1)" type="button" class="btn danger-button"><i class="fa fa-times" aria-hidden="true"></i>Katılmadı</button>
+                </div>   
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </p-tabPanel>
 
-        </tbody>
-      </table>
-    </p-tabPanel>
-
-    
-
-    <p-tabPanel header="Etkinliği düzenle " rightIcon="pi pi-times">
-      <table class="table table-striped">
-        <thead>
-          <div class="login-panel">
-
-            <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
-          
-              <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
-          
-          
-                <p-card>
-                  <p-header>
-                    Düzenle
-                  </p-header>
-                  <div class="p-col-12">
-          
+      <p-tabPanel header="Reddedilenler">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Kullanıcı</th>
+              <th scope="col">Aksiyon</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let actUser of rejectedUsers">         
+              <td class="flex align-center" style="gap: 1em">
+                <img class="management-user-photo img-thumbnail" [src]="photoLinkCreate(actUser.user.fileLink)" alt="Image Source" width="100px" height="100px" >
+                <div class="flex flex-col cursor-pointer" (click)="routeProfile(actUser.user._id)">
+                  <div style="text-transform: capitalize; font-size: 1.2em; font-weight: 600;">{{actUser.user.name}}</div>
+                  <div style="opacity: 0.7;">@{{actUser.user.username}}</div>
+                </div>
+              </td>
+              <td *ngIf="!activityFinish" style="vertical-align: middle">
+                  <div class="flex" *ngIf="!activityFinish" aria-label="...">
+                    <button (click)="userStateAction(rejectedUsers, actUser.activityId , actUser.user._id,2)" type="button" class="btn success-button">
+                      <i class="fa fa-check" aria-hidden="true"></i>Onayla
+                    </button>
                   </div>
-                  <div class="p-grid p-align-center">
-          
-                    <div class="p-col-12">
-                      <h5 class="input-label">Ne yapmak istiyorsun?</h5>
-                      <span class="ui-float-label" style="margin-top:15px !important">
-                        <input id="float-input" type="text" size="100" pInputText [(ngModel)]="activity.header" class="w-100">
-                        <label for="float-input">Etkinliğine bir başlık ver</label>
-                      </span>
-                    </div>
-          
-                    <div class="p-col-12">
-                      <h5 class="input-label">Biraz detaylandıralım</h5>
-                      <span class="ui-float-label" style="margin-top:15px !important">
-                          <textarea class="w-100" id="float-input" [rows]="10" [cols]="30" pInputTextarea autoResize="autoResize" [(ngModel)]="activity.context"></textarea>
-                        <label for="float-input">Etkinliği daha detaylı şekilde açıklayalım</label>
-                      </span>
-                    </div>
-          
-                    <div class="p-col-12">
-                      <h5 class="input-label">Tarih Seç</h5>
-                      <p-calendar [(ngModel)]="activity.date" onSelect="onSelect()" dateFormat="dd.mm.yy" showTime="true" hourFormat="24" showButtonBar="true" [showIcon]="true" inputId="icon" [locale]="tr"></p-calendar>
-                    </div>
+              </td>
+            </tr>
 
-                    
-                    <div class="p-col-12">
-                      <h5 class="input-label">Etiketler (Enter ile ekleyin)</h5>
-                      <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="activity.tagList" separator=","></p-chips>
-                    </div>
-          
-                    <div class="p-col-12">
-                      <p-checkbox [(ngModel)]="limitedParticipant" label="Katılımcı sınırlı mı?" binary="true"></p-checkbox>
-                    </div>
-          
-          
-                    <div class="p-col-12" *ngIf="limitedParticipant">
-                      <p-inputNumber [(ngModel)]="activity.participationCount" label="Katılımcı sayısı" [min]="0" [max]="1000"
-                        mode="decimal" [showButtons]="true"></p-inputNumber>
-                    </div>
-          
-                    <img class="img-thumbnail" [src]='imgSrc' >
+          </tbody>
+        </table>
+      </p-tabPanel>
 
-                    <p></p>
-                    
-                  <p-fileUpload name="photo" multiple="false" 
-                  [auto]="true"
-                  invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
-                  invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB"
-                  maxFileSize="3145728"
-                  uploadLabel="Yükle"
-                  chooseLabel="Aktiviteye Resim Yükle"
-                  cancelIcon="Vazgeç"
-                  (onUpload)="onBasicUpload($event)" 
-                  invalidFileTypeMessageDetail="Geçersiz dosya tipi, lütfen resim yükleyin"
-                   accept="image/*" [url]='uploadUrl'></p-fileUpload>
-          
-                  </div>
-                  <div class="p-grid">
-                    <div class="p-col-12">
-                      <button type="button" (click)="updateActivity()" class="btn btn-success w-100 " [disabled]="edited"><i class="fa fa-paper-plane-o"
-                          aria-hidden="true"> </i> Güncelle </button>
-                    </div>
-                    <br>
-                    <div class="p-col-12">
-                      <button type="button" (click)="deleteActivityApprove()" class="btn btn-danger w-100 "><i class="fa fa-ban"
-                          aria-hidden="true"> </i> Sil </button>
-                    </div>
-                  </div>
-          
-                </p-card>
-          
+      <p-tabPanel header="Etkinliği düzenle ">
+        <table class="table table-striped" style="margin: 0;">
+          <thead>
+            <div class="flex flex-col p-justify-center p-align-center" style="height:100%">        
+              <div class="flex flex-col" style="gap:1em; height: 100%;">
+                <div>
+                  <h5 class="input-label">Ne yapmak istiyorsun?</h5>
+                  <span class="ui-float-label" style="margin-top:15px !important">
+                    <input id="float-input" type="text" size="100" pInputText [(ngModel)]="activity.header" class="w-100">
+                    <label for="float-input">Etkinliğine bir başlık ver</label>
+                  </span>
+                </div>
+                <div>
+                  <h5 class="input-label">Biraz detaylandıralım</h5>
+                  <span class="ui-float-label" style="margin-top:15px !important">
+                      <textarea class="w-100" id="float-input" [rows]="10" [cols]="30" pInputTextarea autoResize="autoResize" [(ngModel)]="activity.context"></textarea>
+                    <label for="float-input">Etkinliği daha detaylı şekilde açıklayalım</label>
+                  </span>
+                </div>
+      
+                <div>
+                  <h5 class="input-label">Tarih Seç</h5>
+                  <p-calendar [(ngModel)]="activity.date" onSelect="onSelect()" dateFormat="dd.mm.yy" showTime="true" hourFormat="24" showButtonBar="true" [showIcon]="true" inputId="icon" [locale]="tr"></p-calendar>
+                </div>
+
+                <div>
+                  <h5 class="input-label">Etiketler (Enter ile ekleyin)</h5>
+                  <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="activity.tagList" separator=","></p-chips>
+                </div>
+      
+                <div>
+                  <p-checkbox [(ngModel)]="limitedParticipant" label="Katılımcı sınırlı mı?" binary="true"></p-checkbox>
+                </div>
+      
+                <div *ngIf="limitedParticipant">
+                  <p-inputNumber [(ngModel)]="activity.participationCount" label="Katılımcı sayısı" [min]="0" [max]="1000"
+                    mode="decimal" [showButtons]="true"></p-inputNumber>
+                </div>                
+                <p-fileUpload name="photo" multiple="false" 
+                [auto]="true"
+                invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
+                invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB"
+                maxFileSize="3145728"
+                uploadLabel="Yükle"
+                chooseLabel="Aktiviteye Resim Yükle"
+                cancelIcon="Vazgeç"
+                (onUpload)="onBasicUpload($event)" 
+                invalidFileTypeMessageDetail="Geçersiz dosya tipi, lütfen resim yükleyin"
+                accept="image/*" [url]='uploadUrl'>
+                </p-fileUpload>
+                <img class="act-photo" [src]='imgSrc'>
+              </div>
+              <div class="flex flex-row w-100 mt-15" style="gap: 0.5em">
+                <button class="btn success-button" (click)="updateActivity()">Güncelle</button>
+                <button class="btn danger-button" (click)="deleteActivityApprove()">Sil</button>
               </div>
             </div>
-          </div>
-        </thead>
-        <tbody>
-          <tr *ngFor="let actUser of rejectedUsers">
-            <th>{{actUser.username}} </th>
-           
-          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let actUser of rejectedUsers">
+              <th>{{actUser.username}} </th>
+            </tr>
+          </tbody>
+        </table>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>
 
-        </tbody>
-      </table>
-    </p-tabPanel>
-</p-tabView>
 <div [hidden]="!loading" class="full-area">
   <div class="centered">
-      <p-progressSpinner [style]="{width: '100px', height: '100px'}" styleClass="custom-spinner" strokeWidth="8"
-          fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+    <p-progressSpinner [style]="{width: '100px', height: '100px'}" styleClass="custom-spinner" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
   </div>
 </div>
 <p-toast position="top-center" key="tc"></p-toast>
@@ -213,21 +178,17 @@
   <ng-template let-message pTemplate="message">
       <div class="p-flex p-flex-column" style="flex: 1">
           <div class="p-text-center">
-              <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
-              <h4>{{message.summary}}</h4>
-              <p>{{message.detail}}</p>
+            <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+            <h4>{{message.summary}}</h4>
+            <p>{{message.detail}}</p>
           </div>
           <div class="p-grid p-fluid">
-            
-              <div class="p-col-6">
-         
-                  <button type="button" (click)="onConfirm()"   class="btn btn-success w-100"> <i class="fa fa-check" aria-hidden="true"> </i> Onayla
-                  </button>
-              </div>
-              <div class="p-col-6">
-                <button type="button" (click)="onReject()"   class="btn btn-info w-100 "> <i class="fa fa-times" aria-hidden="true"> </i> İptal
-                </button>
-              </div>
+            <div class="p-col-6">
+              <button type="button" (click)="onConfirm()"   class="btn btn-success w-100"> <i class="fa fa-check" aria-hidden="true"> </i> Onayla</button>
+            </div>
+            <div class="p-col-6">
+              <button type="button" (click)="onReject()"   class="btn btn-info w-100 "> <i class="fa fa-times" aria-hidden="true"> </i> İptal</button>
+            </div>
           </div>
       </div>
   </ng-template>

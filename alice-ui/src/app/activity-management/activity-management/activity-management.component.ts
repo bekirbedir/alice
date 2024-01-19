@@ -239,11 +239,5 @@ export class ActivityManagementComponent implements OnInit {
      return false;
   }
 
-  /*
-1	Katılım isteği
-2	onaylandı
-3	reddedildi
-4	katılmadı
-*/
 
 }

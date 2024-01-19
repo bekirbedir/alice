@@ -1,4 +1,50 @@
 .management-user-photo{
+    object-fit: cover;
     width: 100px;
     height: 100px;
+    border-radius: 50%;
+}
+
+:host::ng-deep .ui-fileupload-content{
+    display: none !important;
+}
+
+:host::ng-deep .ui-fileupload-buttonbar{
+    padding: 0 !important;
+    border: none !important;
+    background: none !important;
+}
+
+:host::ng-deep .ui-tabview-panels{
+    border-radius: 1em;
+    border-top-left-radius: 0;
+    padding: 2em !important;
+}
+
+:host::ng-deep .ui-tabview-nav .ui-state-default a{
+    background-image: var(--theme-grad-gray) !important;
+    border-color: var(--theme-color-gray);
+}
+
+:host::ng-deep .ui-tabview-nav .ui-state-active a{
+    background-image: var(--theme-color) !important;
+    border-color: var(--theme-color-primary);
+}
+
+:host::ng-deep .ui-calendar-button{
+    font-size: 1.4em !important;
+}
+
+@media only screen and (max-width: 768px){
+    :host::ng-deep .ui-tabview-panels{
+        padding: 1em 1em 0.5em 1em !important;
+    }
+    .management-user-photo{
+        width: 75px;
+        height: 75px;
+    }
+    .table-button-group{
+        flex-direction: column;
+        gap: 0.5em !important;
+    }
 }
