@@ -1,61 +1,35 @@
-.act-photo{
-    width: 100%;
+.header-name{
+    font-size: 1.05em !important;
+    font-weight: 500;
+    text-transform: capitalize;
 }
-.act-header{
-    height: 100px;
-    padding: 5px;
+
+.header-user-name{
+    font-weight: normal;
+    opacity: 0.7;
+    font-size: 1em;
+    margin-left: 0.3125em;
 }
-.act-header-name{
-    font-size: 1.5em;
-    font-weight: 800;
-    color:darkturquoise;
+
+.user-card{
+    cursor: pointer;
+    border: 1px solid lightgray;
+    padding: 0.5em;
+    border-radius: 0.5em;
 }
-.act-header-user-name{
-    font-weight: 700;
+
+.user-card:hover{
+    background-color: lightgray;
 }
-.act-header-photo{
-    object-fit: cover;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+
+.users{
+    flex-wrap: wrap;
+    gap: 0.5em;
 }
-.header-photo{
-    object-fit: cover;
-    width: 80px;
-    height: 80px;
- }
-.h-10{
-    height:10px;
-}
-.h-5{
-    height:5px;
-}
-.act-content{
-  
-}
-.act-content-btn-signin{
-    border-radius: 5px;
-    text-align: center;
-    color: #ffffff;
-    background-color: #007ad9;
-}
-.act-content-btn-comment{
-    border-radius: 7px;
-    padding: 9px 0;
-    text-align: center;
-}
-.tag-list{
-    list-style-type: none;
-    display: contents;
-}
-.profile-tag{
-    width: fit-content;
-    margin-top: 3px;
-    margin-right: 5px;
-    margin-left: 5px;
-   padding: 7px;
-   border-radius: 3px;
-   color: white;
-   background: rgb(71,161,25);
-   background: linear-gradient(90deg, rgba(71,161,25,1) 0%, rgba(89,207,23,1) 100%);
+
+@media only screen and (max-width: 768px){
+    .users{
+        flex-direction: column;
+        margin-bottom: 0.5em;
+    }
 }
