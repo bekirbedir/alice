@@ -42,8 +42,7 @@ export class NewActivyComponent implements OnInit {
     this.baseUrl = environment.apiBaseUrl
     this.uploadUrl = this.baseUrl + "activity/upload"
     this.activity.fileLink =  "empty_activity.jpg";
-    this.imgSrc = this.baseUrl+"static/uploads/"+this.activity.fileLink
-
+    this.imgSrc = "";
   }
 
 
