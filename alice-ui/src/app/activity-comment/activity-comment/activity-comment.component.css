@@ -1,6 +1,4 @@
 .comment-box{
-   
-   
     display: block;
     width: 100%;
     padding:10px 0px;
@@ -8,7 +6,6 @@
     border-radius: 3px;
     margin-top:3px;
     border-bottom: 1px solid #ccc;
-
 }
 .comment-username{
     display: block;
@@ -25,18 +22,18 @@
     font-weight: 100;
 }
 .comments{
-    margin: 10px 0;
-    padding: 10px 5px;
+    margin-bottom: 0.1em;
+    padding: 0.1em 0.3125em;
     border:1px solid #ccc;
     width: 100%;
-    
+    border-radius: 0.5em;
 }
 .odd-border {
-    border-left:7px solid #2ff5af;
+    border-left: 0.5em solid var(--theme-color-primary);
 
 }
 .even-border {
-    border-left:7px solid #ff9029;
+    border-left: 0.5em solid var(--theme-blue);
 }
 
 .send-message-button{
