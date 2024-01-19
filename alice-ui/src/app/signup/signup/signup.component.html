@@ -1,151 +1,117 @@
 <div class="login-panel">
   <p-toast position="top-center" key="tc"></p-toast>
     <div class="p-grid p-nogutter p-justify-center p-align-center" style="height:100%">
-  
       <div class="p-xl-4 p-lg-6 p-md-8 p-sm-10">
-
         <div [hidden]="!mailOnayBilgisi">
-          
           <div class="alert alert-success" role="alert">
             <h5><i class="fa fa-check" aria-hidden="true"> </i> Kaydınız alındı. Mail adresinizi onaylayın lütfen.</h5>
           </div>
         </div>
-  
-
-        <p-card  >
-          <p-header>
-           Kayıt Ol
-        </p-header>
-       
-          <div class="p-grid p-align-center">
-          
-            <div class="p-col-12">
-              
+        <div class="login-card">
+          <div class="p-col flex p-justify-center">
+            <img src="assets/activity-friend-logo-alt.png" class="login-logo">
+          </div>
+          <div class="flex flex-col" style="gap: 0.3em">
+            <!-- <div class="p-col-12">
               <p-accordion>
-                  <p-accordionTab header="Nasıl üye olunur?" [selected]="false">
-                      <p> 1 - Aşağıdaki formu doldurarak <b>üye kaydı</b> oluşturun.</p>
-                      <p> 2 - Size göndereceğimiz <b>onay mailine tıklayarak</b> hesabınızı onaylayın (Mail, spam veya junk klasörlerine düşebilir kontrol edin)</p>
-                      <p> 3 - Mail adresi onaylanan hesap, <b>yönetici onayına</b> gider </p>
-                      <p> 4 - Yönetici onayından sonra, <b>üyeliğiniz onaylandığında</b> mail ile bilgilendirilirsiniz </p>
-                      <p> - ve artık sisteme <b>giriş yapabilirsiniz..</b></p>
-                  </p-accordionTab>
+                <p-accordionTab header="Nasıl üye olunur?" [selected]="false">
+                    <p> 1 - Aşağıdaki formu doldurarak <b>üye kaydı</b> oluşturun.</p>
+                    <p> 2 - Size göndereceğimiz <b>onay mailine tıklayarak</b> hesabınızı onaylayın (Mail, spam veya junk klasörlerine düşebilir kontrol edin)</p>
+                    <p> 3 - Mail adresi onaylanan hesap, <b>yönetici onayına</b> gider </p>
+                    <p> 4 - Yönetici onayından sonra, <b>üyeliğiniz onaylandığında</b> mail ile bilgilendirilirsiniz </p>
+                    <p> - ve artık sisteme <b>giriş yapabilirsiniz..</b></p>
+                </p-accordionTab>
               </p-accordion>
               <p-steps [model]="signupSteps"></p-steps>
-
+            </div> -->
+                      
+            <div>
+              <span class="ui-float-label" style="margin-top:15px !important">
+                <input id="float-input1" type="text" size="100" pInputText [(ngModel)]="user.name" class="w-100">
+                <label for="float-input">Ad Soyad</label>
+              </span>
             </div>
-            
-            
-          <div class="p-col-12">
-            <span class="ui-float-label" style="margin-top:15px !important">
-              <input id="float-input1" type="text" size="100" pInputText [(ngModel)]="user.name" class="w-100">
-              <label for="float-input">Ad Soyad</label>
-            </span>
-          </div>
 
-          <div class="p-col-12">
-            <span class="ui-float-label" style="margin-top:15px !important">
-              <input id="float-input2" type="text" size="100" pInputText [(ngModel)]="user.email" class="w-100">
-              <label for="float-input">Email adresi girin</label>
-            </span>
-          </div>
+            <div>
+              <span class="ui-float-label" style="margin-top:15px !important">
+                <input id="float-input2" type="text" size="100" pInputText [(ngModel)]="user.email" class="w-100">
+                <label for="float-input">Email adresi girin</label>
+              </span>
+            </div>
        
-         
+            <div>
+              <span class="ui-float-label" style="margin-top:15px !important">
+                <input id="float-input3" type="text" size="100" pInputText [(ngModel)]="user.username" class="w-100">
+                <label for="float-input">Kullanıcı adı girin</label>
+              </span>
+            </div>
 
-          <div class="p-col-12">
-            <span class="ui-float-label" style="margin-top:15px !important">
-              <input id="float-input3" type="text" size="100" pInputText [(ngModel)]="user.username" class="w-100">
-              <label for="float-input">Kullanıcı adı girin</label>
-            </span>
-          </div>
+            <div>
+              <span class="ui-float-label" style="margin-top:15px !important">
+                <input id="float-input4" type="password" size="100" pInputText [(ngModel)]="user.password" class="w-100">
+                <label for="float-input">Parola girin</label>
+              </span>
+            </div>
 
+            <div class="w-100 flex mt-15">
+              <span class="ui-float-label">
+                <p-inputMask  mask="(999) 999-9999" [(ngModel)]="user.phone"  class="w-100" [disabled]="phoneDisable"></p-inputMask>
+                <label for="float-input">Telefon<small> (5xx) 123-4567</small></label>
+              </span>
+              <button pButton label="Doğrula" (click)="sendSms()" [disabled]="phoneDisable"></button>
+            </div>
 
+            <div class="w-100" *ngIf="isSendSms">
+              <span class="ui-float-label" style="margin-top:15px !important">
+                <input id="float-input5" type="text" size="100" pInputText [(ngModel)]="userCode" class="w-100">
+                <label for="float-input">Telefonunuza gönderdiğimiz onay kodunu girin</label>
+              </span>
+            </div>
+
+            <div class="w-100">
+              <div>Doğum günü</div>
+              <p-calendar [(ngModel)]="user.birthDate" onSelect="onSelect()" showTime="false" hourFormat="24" showButtonBar="true" class="w-100" [yearNavigator]="true" yearRange="1975:2006" dateFormat="dd.mm.yy" [locale]="tr" [showIcon]="true" inputId="icon"></p-calendar>
+            </div>
+
+            <div class="w-100">
+              <div>Cinsiyet</div>
+              <p-selectButton [options]="cinsiyetler"   [(ngModel)]="user.gender"></p-selectButton>
+            </div>
+
+            <div class="w-100">
+              <div class="input-label">Etiket ekle (Virgül ile ayırın)</div>
+              <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="user.tagList" separator=","></p-chips>
+            </div>
+
+            <div class="w-100">
+              <span class="ui-float-label" style="margin-top:10px !important">
+                <textarea  id="input-bio" [rows]="6" class="w-100" pInputTextarea autoResize="autoResize" [(ngModel)]="user.biography"  ></textarea>
+                <label for="float-input">Seni tanıyabilmemiz için biraz kendinden bahseder misin?</label>
+              </span>
+            </div>
           
-      
+            <div class="w-100">
+              <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=initRecaptcha" async defer></script>
+              <p-captcha siteKey="6LfbtNgZAAAAAHyU44M70pcVFzU360FOLWNfRzPr" (onResponse)="showResponse($event)"></p-captcha>
+              <p></p>
+            </div>
 
-          <div class="p-col-12">
-            <span class="ui-float-label" style="margin-top:15px !important">
-              <input id="float-input4" type="password" size="100" pInputText [(ngModel)]="user.password" class="w-100">
-              <label for="float-input">Parola girin</label>
-            </span>
-          </div>
-
-          <div class="p-col-12">
-            <span class="ui-float-label" style="margin-top:15px !important">
-               <p-inputMask  mask="(999) 999-9999" [(ngModel)]="user.phone"  class="w-100" [disabled]="phoneDisable"></p-inputMask>
-              <label for="float-input">Telefon<small> (5xx) 123-4567</small></label>
-            </span>
-
-            <button  style="margin-top:15px !important" pButton type="button" label="Numaramı doğrula" class="ui-button-raised   login-btn"
-            (click)="sendSms()" [disabled]="phoneDisable"></button>
-          </div>
-          <div class="p-col-12" *ngIf="isSendSms">
-            <span class="ui-float-label" style="margin-top:15px !important">
-              <input id="float-input5" type="text" size="100" pInputText [(ngModel)]="userCode" class="w-100">
-              <label for="float-input">Telefonunuza gönderdiğimiz onay kodunu girin</label>
-            </span>
-          </div>
-
-
-          <div class="p-col-12">
-            <p>Doğum günü</p>
-            <p-calendar [(ngModel)]="user.birthDate" onSelect="onSelect()" showTime="false" hourFormat="24" showButtonBar="true"   class="w-100"  [yearNavigator]="true" yearRange="1975:2002"   dateFormat="dd.mm.yy"   [locale]="tr" [showIcon]="true" inputId="icon"></p-calendar>
-                
-          </div>
-
-          <div class="p-col-12">
-            <p>Cinsiyet</p>
-            <p-selectButton [options]="cinsiyetler"   [(ngModel)]="user.gender"></p-selectButton>
-          </div>
-          <div class="p-col-12">
-            <p class="input-label" style="font-size: 12px;">Etiket ekle (Virgül ile ayırın)</p>
-            <p-chips class="w-100" [allowDuplicate]="false" [(ngModel)]="user.tagList" separator=","></p-chips>
-        </div>
-
-          <div class="p-col-12">
-            <span class="ui-float-label" style="margin-top:15px !important">
-              <textarea  id="input-bio" [rows]="6" class="w-100" pInputTextarea autoResize="autoResize" [(ngModel)]="user.biography"  ></textarea>
-              <label for="float-input">Seni tanıyabilmemiz için biraz kendinden bahseder misin?</label>
-            </span>
-          </div>
-       
-          
-        <div class="p-col-12">
-          <script src="https://www.google.com/recaptcha/api.js?render=explicit&onload=initRecaptcha" async defer></script>
-          <p-captcha siteKey="6LfbtNgZAAAAAHyU44M70pcVFzU360FOLWNfRzPr" (onResponse)="showResponse($event)"></p-captcha>
-          <p></p>
-        </div>
-
-        <div class="p-col-12"><p-checkbox [(ngModel)]="checked"  binary="true"></p-checkbox>
-          <a (click)="showDialog()" style="
-          font-style: italic;
-          text-decoration: underline;
-          font-weight: bolder;" > Üyelik sözleşmesi</a> ve 
-          <a (click)="showGizlilikDialog()" style="
-          font-style: italic;
-          text-decoration: underline;
-          font-weight: bolder;"> Gizlilik Politikası</a>'nı okudum, kabul ediyorum.
-          </div>
-      
-      </div>
-          <div class="p-grid" >
-           
-            <div class="p-col-6">
-              <button pButton type="button" label="Zaten üye misin ?" class="ui-button-raised  p-col-12 login-btn"
-                (click)="routeLogin()"></button>
+            <div class="flex">
+              <p-checkbox [(ngModel)]="checked" binary="true"></p-checkbox>
+              <div style="font-style: italic;text-decoration: underline;font-weight: bolder;margin: 2px 4px;">
+                <a (click)="showDialog()">Üyelik sözleşmesi</a> ve 
+                <a (click)="showGizlilikDialog()"> Gizlilik Politikası</a>'nı okudum, kabul ediyorum.
               </div>
-              <div class="p-col-6">
-              <button  [disabled]="!checked && buttonEnabled" (click)="createNewUser()" pButton type="button" label="Kayıt Ol »" class="ui-button-raised p-col-12"></button>
-              </div>
+            </div>
           </div>
-
-          <hr>
-          <div class="p-grid text-center">
-            <p  class=" p-col-12 text-center"><b>Yardım & Destek için:</b></p>
-            <div class="p-col-12" ><a><i class="fa fa-envelope-o" aria-hidden="true"></i> info@activityfriend.com.tr</a></div>
-            <div class="p-col-12"  ><a target="_blank" href="https://www.instagram.com/activityfriend"><i class="fa fa-instagram" aria-hidden="true"></i>activityfriend</a> </div>
-           <hr>
+          <button [disabled]="!checked && buttonEnabled" (click)="createNewUser()" class="btn primary-button w-100" style="height: 50px;">Kayıt Ol</button>
+          <div class="text-center mt-10">Zaten üye misin? <a (click)="routeLogin()" class="color-primary">Buradan</a> giriş yap</div>
+          <div class="p-grid text-center mt-15">
+            <div class="w-100"><b>Bize Ulaşın</b></div>
+            <div class="w-100"><a><i class="fa fa-envelope-o" aria-hidden="true"></i> info@activityfriend.com.tr</a></div>
+            <div class="w-100"><i class="fa fa-instagram" aria-hidden="true"></i><a target="_blank" href="https://www.instagram.com/activityfriend"> activityfriend</a> </div>
           </div>
-        </p-card>
+        </div>
         
       </div>
     </div>
@@ -221,9 +187,9 @@
  
  
 </p> 
-<ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (click)="sozlesmeGizlilikVisible=false" label="Tamam" styleClass="p-button-text"></p-button>
-    </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="sozlesmeGizlilikVisible=false" label="Tamam" styleClass="p-button-text"></p-button>
+  </ng-template>
 </p-dialog>
 
 <p-dialog header="Gizlilik Politikası" [(visible)]="sozlesmeGizlilikVisible" [style]="{width: '80vw'}" [baseZIndex]="10000">
@@ -273,7 +239,7 @@
       
   
  </p> 
- <ng-template pTemplate="footer">
-         <p-button icon="pi pi-check" (click)="sozlesmeGizlilikVisible=false" label="Tamam" styleClass="p-button-text"></p-button>
-     </ng-template>
+    <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="sozlesmeGizlilikVisible=false" label="Tamam" styleClass="p-button-text"></p-button>
+    </ng-template>
  </p-dialog>
