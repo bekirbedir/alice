@@ -3,10 +3,7 @@
     right: 0px;
     padding: 10px;
 }
-.login-logo{
-    height: 250px;
-    width: 100%
-}
+
 .login-button{
     background: rgb(71,161,25) !important; 
     background: linear-gradient(90deg, rgba(71,161,25,1) 0%, rgba(29,189,50,0.9920343137254902) 41%, rgba(89,207,23,1) 100%) !important;
