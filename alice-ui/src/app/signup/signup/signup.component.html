@@ -70,7 +70,7 @@
 
             <div class="w-100">
               <div>Doğum günü</div>
-              <p-calendar [(ngModel)]="user.birthDate" onSelect="onSelect()" showTime="false" hourFormat="24" showButtonBar="true" class="w-100" [yearNavigator]="true" yearRange="1975:2006" dateFormat="dd.mm.yy" [locale]="tr" [showIcon]="true" inputId="icon"></p-calendar>
+              <p-calendar [(ngModel)]="user.birthDate" [showTime]="false" onSelect="onSelect()" showTime="false" hourFormat="24" showButtonBar="true" class="w-100" [yearNavigator]="true" yearRange="1975:2006" dateFormat="dd.mm.yy" [locale]="tr" [showIcon]="true" inputId="icon"></p-calendar>
             </div>
 
             <div class="w-100">

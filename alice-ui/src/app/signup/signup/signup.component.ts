@@ -118,6 +118,14 @@ sendSms(){
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Kullanıcı Adı boş olamaz' });
       isControl = false;
     }
+    if (this.user.username !== null && this.user.username.trim().indexOf(" ") !== -1) {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Kullanıcı adında boşluk kullanamazsın' });
+      isControl = false;
+    }
+    if (this.user.username !== null && this.user.username.trim().length < 3) {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Kullanıcı adı en az 3 karakter olmalıdır' });
+      isControl = false;
+    }
     if (this.user.password == null || this.user.password.trim() == "") {
       this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Parola boş olamaz' });
       isControl = false;
