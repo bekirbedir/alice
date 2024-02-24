@@ -13,7 +13,6 @@ import { Observable } from 'rxjs';
   providers: [MessageService]
 })
 export class SignupComponent implements OnInit {
-
   version: string;
   msgs: any[];
   checked: boolean = false;
@@ -32,35 +31,34 @@ export class SignupComponent implements OnInit {
   userCode:number
   phoneOriginal:String="";
   signupSteps: MenuItem[];
+  yearRange: String;
   constructor(private http: HttpClient,private router: Router, private registerservice: UserService, private messageService: MessageService) {
-    console.log("intial edildi")
     this.user = new User();
   }
 
-
   ngOnInit(): void {
-    
-      this.tr = {
-        firstDayOfWeek: 1,
-        dayNames: [ "Pazar","Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
-        dayNamesShort: ["Pzr","Pzt", "Sal", "Çrş", "Prş", "Cma", "Cts"],
-        dayNamesMin: ["PZ","PT", "SA", "ÇA", "PE", "CU", "CT"],
-        monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
-        monthNamesShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Temm", "Agu", "Eyl", "Eki", "Kas", "Ara"],
-        today: 'Bugün',
-        clear: 'Temizle',
-        dateFormat: 'dd.mm.yy',
-        weekHeader: 'Wk'
-      };
+    let minDate = new Date(new Date().setFullYear(1975))
+    let maxDate = new Date().getFullYear() - 18;
+    this.yearRange = minDate.getFullYear()+":"+maxDate;
+    this.tr = {
+      firstDayOfWeek: 1,
+      dayNames: [ "Pazar","Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+      dayNamesShort: ["Pzr","Pzt", "Sal", "Çrş", "Prş", "Cma", "Cts"],
+      dayNamesMin: ["PZ","PT", "SA", "ÇA", "PE", "CU", "CT"],
+      monthNames: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+      monthNamesShort: ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Temm", "Agu", "Eyl", "Eki", "Kas", "Ara"],
+      today: 'Bugün',
+      clear: 'Temizle',
+      dateFormat: 'dd.mm.yy',
+      weekHeader: 'Wk'
+    };
      
-  
-
     this.cinsiyetler = [{label: 'Erkek', value: 'Erkek'}, {label: 'Kadın', value: 'Kadın'}];
-  this.signupSteps = [
-            {label: 'Üyelik formunu doldur'},
-            {label: 'Mail onayı'},
-            {label: 'Yönetici onayı'}
-        ];
+    this.signupSteps = [
+      {label: 'Üyelik formunu doldur'},
+      {label: 'Mail onayı'},
+      {label: 'Yönetici onayı'}
+    ];
   }
   onSelect(e) {
     
