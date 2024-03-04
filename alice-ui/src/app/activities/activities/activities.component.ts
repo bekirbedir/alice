@@ -176,12 +176,14 @@ export class ActivitiesComponent implements OnInit {
     this.router.navigate(['/new-activity']);
   }
   joinActivity(item) {
-    this.service.join(item._id).subscribe((x) => {
-   
-
-    });
-    item.currentUserStatus = 1;
-    this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Aktiviteye katılım isteği gönderdiniz' });
+    if(item.participationCount/item.participationLimit == 1) {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'İşlem Başarısız', detail: 'Aktivite kontenjanı doldu' });
+    }else{
+      this.service.join(item._id).subscribe((x) => {
+      });
+      item.currentUserStatus = 1;
+      this.messageService.add({ key: 'tc', severity: 'info', summary: 'Başarılı', detail: 'Aktiviteye katılım isteği gönderdiniz' });
+    }
   }
 
   unlikeActivity(item) {
