@@ -90,7 +90,11 @@
     text-decoration: underline;
 }
 .activity-context{
-    font-size:0.75em
+    font-size:0.75em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 :host ::ng-deep .tabHeader-custom {
@@ -129,4 +133,15 @@
 :host::ng-deep .ui-state-active{
     background-image: var(--theme-color) !important;
     border-color: var(--theme-color-primary);
+}
+
+
+:host::ng-deep .ui-tabview-panels{
+    max-height: 150px;
+    overflow-x: auto;
+    width: 100%;
+}
+
+.profile-tag{
+    font-size: 0.8em;
 }
