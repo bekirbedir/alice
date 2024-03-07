@@ -117,7 +117,8 @@ export class IndexComponent implements   OnInit{
   }
   routeProfile(){
     const userId = localStorage.getItem('userId').replace("\"", "").replace("\"", "");
-    this.router.navigate(['/profile/'+userId])
+    this.router.navigate(['/profile/'+userId]);
+    document.getElementById("navbarSupportedContent").classList.remove("show")
    }
   
 }
