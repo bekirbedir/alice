@@ -37,6 +37,10 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (localStorage.getItem('aliceuser')) {
+      this.router.navigate(['/activities'])
+    }
+    
     let minDate = new Date(new Date().setFullYear(1975))
     let maxDate = new Date().getFullYear() - 18;
     this.yearRange = minDate.getFullYear()+":"+maxDate;

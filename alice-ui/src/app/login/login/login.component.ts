@@ -29,27 +29,27 @@ export class LoginComponent implements OnInit {
   constructor(private loginservice:LoginService,private router:Router , 
     private actRoute:ActivatedRoute , private messageService: MessageService ) { 
         
-    this.actRoute.paramMap.subscribe(params => {
-     
+    this.actRoute.paramMap.subscribe(params => { 
       if(params.get('code')){
         this.approveCode = params.get('code');
         this.approveUsername = params.get('username');
         this.isApprove= true;
         this.approve(this.approveCode,this.approveUsername);
-      }
-           
-    });
+      }});
     }
 
   ngOnInit() {
+    if (localStorage.getItem('aliceuser')) {
+      this.router.navigate(['/activities'])
+    }
 
     this.userName=""
     this.password=""
-    this.getRandomUsers();
+    // this.getRandomUsers();
   }
 
   ngOnDestroy(){
-  window.location.reload()
+    window.location.reload();
   }
 
   getRandomUsers() {
@@ -59,7 +59,6 @@ export class LoginComponent implements OnInit {
    }
 
    photoLinkCreate(link){
-console.log(link)
     if(link == null || link == "")
       link = "static/uploads/profile/empty_profile128.png";
 
@@ -82,7 +81,6 @@ console.log(link)
 
 
   onClickLogin() {
-
     if(this.isValidate()){
     this.loginservice.login(this.userName,this.password).subscribe(x=>{
        if(x != null){

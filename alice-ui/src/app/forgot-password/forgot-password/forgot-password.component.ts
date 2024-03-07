@@ -37,6 +37,9 @@ export class ForgotPasswordComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if (localStorage.getItem('aliceuser')) {
+      this.router.navigate(['/activities'])
+    }
   }
 
   resetPasswordRequest(){
