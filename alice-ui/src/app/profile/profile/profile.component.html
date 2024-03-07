@@ -8,7 +8,7 @@
         <div class="theme-card">
             <div style="position: relative;" class="w-100 flex justify-center">
                 <img class="header-photo img-thumbnail" [src]="photoLinkCreate(User.fileLink)">
-                <p-fileUpload [hidden]="!isEditable" name="photo" multiple="false" [auto]="true"
+                <p-fileUpload [hidden]="!isEditable" name="photo" [multiple]="false" [auto]="true"
                     invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
                     invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB" maxFileSize="3145728"
                     uploadLabel="Yükle" chooseLabel="" cancelIcon="Vazgeç"
