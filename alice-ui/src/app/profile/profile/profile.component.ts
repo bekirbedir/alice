@@ -376,6 +376,7 @@ export class ProfileComponent {
     console.log(this.imgSrc)
     this.deleteOld = true;
     this.User.fileLink = this.imgSrc;
+    this.messageService.add({ key: 'tc', severity: 'success', summary: 'Profil Fotoğrafı Güncellendi!' });
   }
 
 }

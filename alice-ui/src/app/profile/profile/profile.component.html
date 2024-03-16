@@ -10,8 +10,8 @@
                 <img class="header-photo img-thumbnail" [src]="photoLinkCreate(User.fileLink)">
                 <p-fileUpload [hidden]="!isEditable" name="photo" [multiple]="false" [auto]="true"
                     invalidFileSizeMessageSummary="Dosya boyutu çok büyük"
-                    invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB" maxFileSize="3145728"
-                    uploadLabel="Yükle" chooseLabel="" cancelIcon="Vazgeç"
+                    invalidFileSizeMessageDetail="Maksimum dosya boyutu 3 MB'ı geçemez"
+                    maxFileSize="3145728" chooseLabel=""
                     (onUpload)="onBasicUpload($event)"
                     invalidFileTypeMessageDetail="Geçersiz dosya tipi, lütfen resim yükleyin" accept="image/*"
                     [url]='uploadUrl'>
