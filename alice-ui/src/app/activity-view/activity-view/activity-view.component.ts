@@ -74,6 +74,11 @@ export class ActivityViewComponent implements OnInit {
     })
   }
 
+  shareActivity(item){
+    navigator.clipboard.writeText('https://www.activityfriend.com.tr/activity-view/'+item._id)
+    this.messageService.add({ key: 'tc', severity: 'success', summary: 'Başarılı', detail: 'Aktivite panoya kopyalandı' });
+  }
+
   getActivityUserStatus(activity) {
       this.getApprovedUsers(activity._id);
     if (localStorage.getItem("userId").replace("\"", "").replace("\"", "") == activity.ownerId.replace("\"", "").replace("\"", "")) {

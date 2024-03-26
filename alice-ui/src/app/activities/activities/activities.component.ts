@@ -151,6 +151,11 @@ export class ActivitiesComponent implements OnInit {
     this.router.navigate(['/activity-view/'+item._id])
   }
 
+  shareActivity(item){
+    navigator.clipboard.writeText('https://www.activityfriend.com.tr/activity-view/'+item._id)
+    this.messageService.add({ key: 'tc', severity: 'success', summary: 'Başarılı', detail: 'Aktivite panoya kopyalandı' });
+  }
+
   viewComments(item) {
    
     if (item.currentUserStatus != 2 ) {

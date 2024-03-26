@@ -25,11 +25,12 @@
       </div>
       <div class="flex flex-col mt-10">
         <img  class="act-photo" [src]="createActPhotoLink(activityStatic.fileLink)">
-        <div class="flex mt-10" style="gap: 5em; opacity: 0.7; font-size: 0.9em;">
+        <div class="flex mt-10 icon-group">
           <div [hidden]="activityStatic.currentUserLike" (click)="likeActivity(activityStatic)" class="cursor-pointer"><i class="fa fa-heart-o fa-x" aria-hidden="true" style="font-size: 1.5em;"></i> {{activityStatic.like}}</div>
           <div [hidden]="!activityStatic.currentUserLike" (click)="unlikeActivity(activityStatic)" class="cursor-pointer"><i class="fa fa-heart fa-x" aria-hidden="true" style="font-size: 1.5em;"></i> {{activityStatic.like}}</div>
           <div class="flex align-center justify-center"><i class="pi pi-users mr-2" style="font-size: 1.5em;"></i> {{activityStatic.participationCount}}/{{activityStatic.participationLimit ? activityStatic.participationLimit : '∞'  }} </div>
           <div class="flex align-center justify-center"><i class="pi pi-calendar-times mr-2" style="font-size: 1.5em;"></i>{{ activityStatic.date | date:'dd/MM/yyyy HH:mm':null:'tr'}}</div>
+          <div (click)="shareActivity(act)" class="cursor-pointer"><i class="pi pi-share-alt mr-2" style="font-size: 1.3em;"></i></div>
         </div> 
       </div>
       <div class="mt-10 flex flex-col">
