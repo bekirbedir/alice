@@ -50,15 +50,17 @@
 
             <div class="mt-10">
                 <p [hidden]="editMode" class="name"><i class="fa fa-user" aria-hidden="true"></i> {{User.name}}</p>
-                <p [hidden]="editMode" class="name"><i class="fa fa-birthday-cake" aria-hidden="true"></i> {{ User.birthDate | date:'dd/MM/yyyy'}} - {{User.gender}} </p>
-                <div [hidden]="!editMode" >
-                    <div>Doğum günü</div>
-                    <p-calendar [(ngModel)]="User.birthDate" [showTime]="false" hourFormat="24" showButtonBar="false" class="w-100" [yearNavigator]="true" yearRange="1975:2002" dateFormat="dd.mm.yy" [locale]="tr" [showIcon]="true" inputId="icon"></p-calendar>              
-                </div>
+                <p [hidden]="editMode" class="name"><i class="fa fa-birthday-cake" aria-hidden="true"></i> {{ User.birthDate | date:'dd/MM/yyyy'}} </p>
+                <!-- <p [hidden]="editMode" class="name"><i class="fa fa-venus-mars" aria-hidden="true"></i> {{User.gender}} </p>              -->
                 <div [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
                     <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.name" class="w-100">
                     <label for="float-input">Ad Soyad</label>
                 </div>
+                <div [hidden]="!editMode" >
+                    <div>Doğum günü</div>
+                    <p-calendar [(ngModel)]="User.birthDate" [showTime]="false" hourFormat="24" showButtonBar="false" class="w-100" [yearNavigator]="true" yearRange="1975:2002" dateFormat="dd.mm.yy" [locale]="tr" [showIcon]="true" inputId="icon"></p-calendar>              
+                </div>
+
                 <!-- <div [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
                     <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email" class="w-100">
                     <label for="float-input">Email</label>
@@ -70,7 +72,7 @@
                 <p [hidden]="!isEditable" class=""><a><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>{{User.phone}}</a></p>
                 <p [hidden]="isEditable" class=""><a><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>*******</a></p>
                 <p [hidden]="!isEditable" class="email"><b><i class="fa fa-envelope" aria-hidden="true"></i> Email: </b>{{User.email}}</p>
-                <p [hidden]="isEditable" class="email"><a><b><i class="fa fa-phone" aria-hidden="true"></i> Email: </b>*******</a></p>
+                <p [hidden]="isEditable" class="email"><a><b><i class="fa fa-envelope" aria-hidden="true"></i> Email: </b>*******</a></p>
                 
                 <div class="email"> <small>Kullanıcı gizliliği ve güvenliği için, telefon ve email bilgilerini diğer kullanıcılar göremez</small></div>
                 <!--

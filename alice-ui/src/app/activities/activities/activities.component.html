@@ -38,13 +38,13 @@
         </div>
       </div>
       <div class="flex flex-col mt-10">
-        <img  class="act-photo" [src]="createActPhotoLink(act.fileLink)">
+        <img  class="act-photo cursor-pointer" [src]="createActPhotoLink(act.fileLink)" (click)="viewDetail(act)">
         <div class="flex mt-10 icon-group">
           <div [hidden]="act.currentUserLike" (click)="likeActivity(act)" class="cursor-pointer"><i class="fa fa-heart-o fa-x" aria-hidden="true" style="font-size: 1.5em;"></i> {{act.like}}</div>
           <div [hidden]="!act.currentUserLike" (click)="unlikeActivity(act)" class="cursor-pointer"><i class="fa fa-heart fa-x" aria-hidden="true" style="font-size: 1.5em;"></i> {{act.like}}</div>
           <div class="flex align-center justify-center"><i class="pi pi-users mr-2" style="font-size: 1.5em;"></i> {{act.participationCount}}/{{act.participationLimit ? act.participationLimit : '∞'  }} </div>
           <div class="flex align-center justify-center"><i class="pi pi-calendar-times mr-2" style="font-size: 1.5em;"></i>{{ act.date | date:'dd/MM/yyyy HH:mm':null:'tr'}}</div>
-          <div (click)="shareActivity(act)" class="cursor-pointer"><i class="pi pi-share-alt mr-2" style="font-size: 1.3em;"></i></div>
+          <div (click)="shareActivity(act)" class="cursor-pointer"><i class="pi pi-share-alt" style="font-size: 1.3em;"></i></div>
         </div> 
       </div>
       <div class="mt-10 flex flex-col">

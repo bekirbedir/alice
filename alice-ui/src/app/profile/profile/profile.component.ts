@@ -106,14 +106,9 @@ export class ProfileComponent {
       }
 
     });
-
-
-
-
-
-
     this.loading = false;
   }
+
   imageSrc;
   sellersPermitFile: any;
   DriversLicenseFile: any;
@@ -142,26 +137,75 @@ export class ProfileComponent {
       }
     })
   }
+
   votesInfos() {
     this.service.voteInfos(this.userId).subscribe(x => {
       if (x) {
         this.positiveRateCount = Number(x.positiveRateCount)
         this.negativeRateCount = Number(x.negativeRateCount)
         this.totalRateCount = Number(x.totalRateCount)
-        this.voteGraphUpdate();
+        this.voteGraphUpdate(this.yourRate);
       }
-
     })
   }
+
+  voteGraphUpdate(votedBefore) {
+    if (this.totalRateCount > 0) {
+      //negative button ayarı
+      if (this.negativeRateCount != 0 || isNaN(votedBefore) || votedBefore == 0) {
+        let percent = ((this.negativeRateCount / this.totalRateCount) * 100).toFixed()
+        this.negativeRatePercent = percent;
+        document.getElementById('negative-bar').setAttribute('style', 'width:' + Number(percent) + '%');
+      } else {
+        document.getElementById('negative-bar').setAttribute('style', 'width:' + Number(0) + '%');
+      }
+      //positive button ayarı
+      if (this.positiveRateCount != 0 || isNaN(votedBefore) || votedBefore == 0) {
+        let percent = ((this.positiveRateCount / this.totalRateCount) * 100).toFixed()
+        this.positiveRatePercent = percent;
+        document.getElementById('positive-bar').setAttribute('style', 'width:' + Number(percent) + '%');
+      } else {
+        document.getElementById('positive-bar').setAttribute('style', 'width:' + Number(0) + '%');
+      }
+    }
+  }
+
+  rateUser(oy) {
+    /* oy == 1 olumlu , ==2 olumsuz */
+   /* if (this.yourRate > 0) {
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Oy değiştirilemez!', detail: 'Oy değiştirmek için yöneticiye başvurun' });
+    } */
+    var votedBefore = this.yourRate;
+    if (!this.rateArea){
+      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Henüz oy verme yetkiniz yok!', detail: 'Oy vermek için birlikte 3 etkinliğe katılmanız gerekir' });
+    }
+    else {
+      this.service.vote(this.userId, oy).subscribe(x => {
+        if (x) {
+          this.yourRate = oy;
+          if(isNaN(votedBefore) || votedBefore == 0) this.totalRateCount++;
+          if (oy == 1) {
+            this.positiveRateCount++;
+            if(votedBefore == 2 && this.negativeRateCount > 0) this.negativeRateCount--;
+          } else {
+            this.negativeRateCount++;
+            if(votedBefore == 1 && this.positiveRateCount > 0) this.positiveRateCount--;
+          }
+          console.log(this.totalRateCount, this.positiveRateCount, this.negativeRateCount)
+          this.voteGraphUpdate(votedBefore);
+          this.messageService.add({ key: 'tc', severity: x.toastType, summary: x.summary, detail: x.message });
+        }
+      })
+    }
+  }
+
   joinActivityInfos() {
     /*
     katildi:katildi,
     katilmadi:katilmadi,
     reddedildi:reddedildi,
     istekgeriCekti:istekgeriCekti
-
     */
-
     this.service.joinActivityInfos(this.userId).subscribe(x => {
       if (x) {
         this.data = {
@@ -182,38 +226,13 @@ export class ProfileComponent {
             }]
         };
       }
-
     })
-
-
   }
 
   routeActivity(activityId) {
     this.store.dispatch(new GetActivityDetail(activityId))
     localStorage.setItem("selectedActivityId", activityId)
-    //  this.store.dispatch(new GetActivityDetail(item._id))
     this.router.navigate(['/activity-view/' + activityId]);
-  }
-  voteGraphUpdate() {
-    if (this.totalRateCount > 0) {
-      //negative button ayarı
-      if (this.negativeRateCount != 0) {
-        let percent = ((this.negativeRateCount / this.totalRateCount) * 100).toFixed()
-        this.negativeRatePercent = percent;
-        document.getElementById('negative-bar').setAttribute('style', 'width:' + Number(percent) + '%');
-      } else {
-        document.getElementById('negative-bar').setAttribute('style', 'width:' + Number(0) + '%');
-      }
-
-      //positive button ayarı
-      if (this.positiveRateCount != 0) {
-        let percent = ((this.positiveRateCount / this.totalRateCount) * 100).toFixed()
-        this.positiveRatePercent = percent;
-        document.getElementById('positive-bar').setAttribute('style', 'width:' + Number(percent) + '%');
-      } else {
-        document.getElementById('positive-bar').setAttribute('style', 'width:' + Number(0) + '%');
-      }
-    }
   }
 
   addPictures() {
@@ -237,22 +256,15 @@ export class ProfileComponent {
     }
   }
 
-
   handleInputChange(files) {
-
-
     this.service.compress(files)
       .pipe(take(1))
       .subscribe(compressedImage => {
         console.log(`Image size after compressed: ${compressedImage.size} bytes.`)
         this.files = compressedImage;
-        console.log("com:", compressedImage)
-
         var file = compressedImage
-        console.log("files:", file)
         var pattern = /image-*/;
         var reader = new FileReader();
-        console.log("type:  ", file)
         if (!file.type.match(pattern)) {
           alert('invalid format');
           return;
@@ -260,11 +272,9 @@ export class ProfileComponent {
         reader.onloadend = this._handleReaderLoaded.bind(this);
         reader.readAsDataURL(file);
       })
-
-
   }
-  _handleReaderLoaded(e) {
 
+  _handleReaderLoaded(e) {
     let reader = e.target;
     var base64result = reader.result.substr(reader.result.indexOf(',') + 1);
     //this.imageSrc = base64result;
@@ -274,40 +284,12 @@ export class ProfileComponent {
       if (x.status) {
         this.loading = false;
         this.messageService.add({ key: 'tc', severity: 'success', summary: 'Başarılı!', detail: 'Profil resmi değiştirildi.' });
-        this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
-          + this.sellersPermitString);
+        this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'+ this.sellersPermitString);
       }
-
     })
   }
   update(event: Event) {
     //  this.data = //create new data
-  }
-
-  rateUser(oy) {
-    /* oy == 1 olumlu , ==2 olumsuz */
-   /* if (this.yourRate > 0) {
-      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Oy değiştirilemez!', detail: 'Oy değiştirmek için yöneticiye başvurun' });
-    } */
-   if (!this.rateArea)
-      this.messageService.add({ key: 'tc', severity: 'error', summary: 'Henüz oy verme yetkiniz yok!', detail: 'Oy vermek için birlikte 3 etkinliğe katılmanız gerekir' });
-
-    else {
-      this.service.vote(this.userId, oy).subscribe(x => {
-        if (x) {
-          this.yourRate = oy;
-          this.totalRateCount = this.negativeRateCount + 1;
-          if (oy == 1) {
-            this.positiveRateCount = this.positiveRateCount + 1;
-          } else {
-            this.negativeRateCount = this.negativeRateCount + 1;
-          }
-          this.voteGraphUpdate();
-          this.messageService.add({ key: 'tc', severity: x.toastType, summary: x.summary, detail: x.message });
-        }
-      })
-    }
-
   }
 
   updateUser() {
@@ -316,9 +298,7 @@ export class ProfileComponent {
     this.service.updateUser(this.User).subscribe(x => {
       if (x.status)
         this.messageService.add({ key: 'tc', severity: 'success', summary: 'Profiliniz Güncellendi!' });
-
     })
-
   }
 
   isPasswordValidation() {
@@ -339,10 +319,8 @@ export class ProfileComponent {
       this.messageService.add({ key: 'tc', severity: 'error', summary: 'Hata', detail: 'Şifreler eşleşmiyor' });
       isValid = false;
     }
-
     return isValid
   }
-
 
   passwordChange() {
     if (this.isPasswordValidation()) {
@@ -352,12 +330,9 @@ export class ProfileComponent {
             this.passwordChangeAction = false
 
           this.messageService.add({ key: 'tc', severity: x.toastType, summary: x.summary, detail: x.message });
-
         }
       })
-
     }
-
   }
 
   photoLinkCreate(link) {
@@ -366,6 +341,7 @@ export class ProfileComponent {
 
     return this.baseUrl + link
   }
+
   onBasicUpload(element) {
     if (this.deleteOld) {
       //   this.activityService.deleteFile(this.fileName);
@@ -378,5 +354,4 @@ export class ProfileComponent {
     this.User.fileLink = this.imgSrc;
     this.messageService.add({ key: 'tc', severity: 'success', summary: 'Profil Fotoğrafı Güncellendi!' });
   }
-
 }
