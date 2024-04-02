@@ -58,7 +58,7 @@
           </ul>
           <div class="act-content-footer">
             <div class="flex" style="gap:1em">
-              <button *ngIf="act.currentUserStatus == 2" (click)="viewComments(act)" class="btn secondary-button big-button flex align-center justify-center"><i class="pi pi-comments"></i>Duvar</button>
+              <button *ngIf="act.currentUserStatus == 2" (click)="viewComments(act)" class="btn secondary-button big-button flex align-center justify-center"><i class="pi pi-comments"></i>Duvar<span *ngIf="act.commentCount">({{act.commentCount}})</span></button>
               <button *ngIf="act.currentUserStatus != 2" (click)="viewComments(act)" class="btn secondary-button big-button flex align-center justify-center"><i class="pi pi-comments"></i> Duvar</button>
               <button (click)="viewDetail(act)" class="btn secondary-button">Detaylar</button>
               <button [hidden] ="isOwner(act)" *ngIf="act.currentUserStatus == 0 && isShowByCreatedDate(act)" class="flex align-center" (click)="joinActivity(act)" class="btn primary-button">Katıl</button>

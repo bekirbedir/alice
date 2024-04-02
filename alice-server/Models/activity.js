@@ -27,6 +27,7 @@ const  ActivitySchema = new Schema({
   date:Date,
   status:Number,
   fileLink:String,
+  commentCount: { type: Number, default: 0},
   user: {type:Schema.Types.ObjectId, ref: 'User'},
   userList:[userStatus],
   actUser: [ActivityUser.schema]

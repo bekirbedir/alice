@@ -63,18 +63,21 @@ saveComment = async function(req,res) {
 
         Activity.findOne({_id: req.body.activityId },function(err,act){
             if(act){
-               if(act.ownerId.replace("\"","").replace("\"","") != req.userId){
-                const notification = new notificationModel();
-                notification.activeUserId = act.ownerId.replace("\"","").replace("\"","");
-                notification.type = 3;
-                notification.text = 'Aktivite duvarına yeni mesaj geldi; ' + '"'+ req.body.text + '"';
-                notification.user = req.userId
-                notification.activity = req.body.activityId;
-                notification.activityId = req.body.activityId;
-                notification.userId = req.userId;
-                notification.save();
-                firebaseNotification.notificationSend(notification.activeUserId,'Aktivite duvarına yeni mesaj geldi',req.body.text)
-           }
+                act.commentCount++;
+                act.save();
+                if(act.ownerId.replace("\"","").replace("\"","") != req.userId){
+                    const notification = new notificationModel();
+                    notification.activeUserId = act.ownerId.replace("\"","").replace("\"","");
+                    notification.type = 3;
+                    notification.text = 'Aktivite duvarına yeni mesaj geldi; ' + '"'+ req.body.text + '"';
+                    notification.user = req.userId
+                    notification.activity = req.body.activityId;
+                    notification.activityId = req.body.activityId;
+                    notification.userId = req.userId;
+                    notification.save();
+
+                    firebaseNotification.notificationSend(notification.activeUserId,'Aktivite duvarına yeni mesaj geldi',req.body.text)
+                }
             }else{
                 console.log('bulunamadiii')
             }

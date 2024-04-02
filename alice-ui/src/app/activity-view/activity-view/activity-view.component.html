@@ -45,7 +45,7 @@
           </ul>
           <div class="act-content-footer">
             <div class="flex" style="gap:1em">
-              <button (click)="viewComments(activityStatic)" class="btn secondary-button big-button flex align-center justify-center"><i class="pi pi-comments"></i> Duvar</button>
+              <button (click)="viewComments(activityStatic)" class="btn secondary-button big-button flex align-center justify-center"><i class="pi pi-comments"></i> Duvar<span *ngIf="activityStatic.commentCount">({{activityStatic.commentCount}})</span></button>
               <button [hidden] ="isOwner"  *ngIf="activityStatic.currentUserStatus == 0 && isShowByCreatedDate(activityStatic)" class="flex align-center" (click)="joinActivity(activityStatic)" class="btn primary-button">Katıl</button>
               <button *ngIf="activityStatic.currentUserStatus == 1 && isShowByCreatedDate(activityStatic)" (click)="cancelActivityApprove(activityStatic)" class="btn orange-button w-100" > <i class="fa fa-spinner" aria-hidden="true" > </i> Beklemede </button>
               <button *ngIf="activityStatic.currentUserStatus == 2 && isShowByCreatedDate(activityStatic) && !isOwner" (click)="cancelActivityApprove(activityStatic)" class="btn success-button w-100" > <i class="fa fa-check" aria-hidden="true"> </i> Kabul edildin</button>
