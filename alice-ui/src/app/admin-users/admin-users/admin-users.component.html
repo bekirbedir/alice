@@ -9,7 +9,7 @@
 <!--tab viewvvwwwwwwwwwwwwwwwww-->
 
 <p-tabView (onChange)="handleChange($event)">
-  <p-tabPanel header="Bekleyen Kullanıcılar" [selected]="true" rightIcon="pi pi-pause">
+  <p-tabPanel header="Bekleyen Kullanıcılar" [selected]="true">
       <table class="table table-striped table-responsive">
           <thead>
             <tr>
@@ -45,8 +45,8 @@
       
   </p-tabPanel>
 
-  <p-tabPanel header="Bekleyen Aktiviteler" rightIcon="pi pi-times">
-    <table class="table table-striped table-responsiv">
+  <p-tabPanel header="Bekleyen Aktiviteler">
+    <table class="table table-striped table-responsive">
       <thead>
         <tr>
           <th scope="col">#</th>
@@ -79,7 +79,7 @@
     </table>
   </p-tabPanel>
 
-  <p-tabPanel header="Reddedilen kullanıcılar" rightIcon="pi pi-times">
+  <p-tabPanel header="Reddedilen kullanıcılar">
     <table class="table table-striped table-responsive">
       <thead>
         <tr>
@@ -114,12 +114,13 @@
     </table>
   </p-tabPanel>
 
-  <p-tabPanel header="Tüm kullanıcılar" rightIcon="pi pi-times">
+  <p-tabPanel header="Tüm kullanıcılar">
     <table class="table table-striped table-responsive">
       <thead>
         <tr>
           <th scope="col">#</th>
           <th></th>
+          <th scope="col">Fotoğraf</th>
           <th scope="col">Kullanıcı</th>
           <th scope="col">Biyografi</th>
           <th scope="col">Telefon</th>
@@ -130,7 +131,7 @@
       <tbody>
         <tr *ngFor="let user of allUsers;let i = index" >
           <th scope="row">{{i+1}}</th>
-          <td colspan="2">  <img (click)="routeProfile(user._id)" class="header-photo img-thumbnail" [src]="photoUserLinkCreate(user.fileLink)" > 
+          <td colspan="2">  <img (click)="routeProfile(user._id)" class="header-photo img-thumbnail cursor-pointer" [src]="photoUserLinkCreate(user.fileLink)" > 
           </td>
           <td  (click)="routeProfile(user._id)" >
             <p>{{user.username}} </p>
@@ -151,7 +152,7 @@
   </p-tabPanel>
 
 
-  <p-tabPanel header="Mail Onayı Bekleyen Kullanıcılar"  rightIcon="pi pi-pause">
+  <p-tabPanel header="Mail Onayı Bekleyen Kullanıcılar">
     <table class="table table-striped table-responsive">
         <thead>
           <tr>
@@ -189,7 +190,7 @@
  
 </p-tabView>
 
-<p-tabPanel header="Reddedilen Aktiviteler" rightIcon="pi pi-times">
+<p-tabPanel header="Reddedilen Aktiviteler">
   <table class="table table-striped">
     <thead>
     
