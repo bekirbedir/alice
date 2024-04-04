@@ -66,13 +66,37 @@
                     <label for="float-input">Email</label>
                 </div>
                 <div [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
-                    <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email" class="w-100">
+                    <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.phone" class="w-100">
                     <label for="float-input">Telefon</label>
                 </div> -->
-                <p [hidden]="!isEditable" class=""><a><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>{{User.phone}}</a></p>
-                <p [hidden]="isEditable" class=""><a><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>*******</a></p>
-                <p [hidden]="!isEditable" class="email"><b><i class="fa fa-envelope" aria-hidden="true"></i> Email: </b>{{User.email}}</p>
-                <p [hidden]="isEditable" class="email"><a><b><i class="fa fa-envelope" aria-hidden="true"></i> Email: </b>*******</a></p>
+
+                <div [hidden]="!editPhone" class="w-100 flex mt-15">
+                    <span class="ui-float-label">
+                      <p-inputMask  mask="(999) 999-9999" [(ngModel)]="User.phone"  class="phone-input" [disabled]="phoneDisable"></p-inputMask>
+                      <label for="float-input">Telefon<small> (5xx) 123-4567</small></label>
+                    </span>
+                    <button pButton label="Doğrula" (click)="sendSms()" [disabled]="phoneDisable" class="verify-button"></button>
+                    <i class="fa fa-times" aria-hidden="true" title="Vazgeç" (click)="handleCancel()"></i>
+                </div>
+
+                <div *ngIf="isSendSms && editPhone" class="w-100 flex mt-15">
+                    <span class="ui-float-label">
+                      <p-inputMask  mask="9999999" [(ngModel)]="userCode"  class="phone-input"></p-inputMask>
+                      <label for="float-input">Sms onay kodu</label>
+                    </span>
+                    <button pButton label="Güncelle" (click)="savePhone()" class="verify-button"></button>
+                </div>
+
+                <p [hidden]="!isEditable || editPhone" class="">
+                    <b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>{{User.phone}}
+                    <i class="fa fa-pencil" aria-hidden="true" title="Telefonu düzenle" (click)="editPhone=true"></i>
+                </p>
+                <p [hidden]="isEditable" class=""><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>*******</p>
+
+                <p [hidden]="!isEditable" class="email">
+                    <b><i class="fa fa-envelope" aria-hidden="true"></i> Email: </b>{{User.email}}
+                </p>
+                <p [hidden]="isEditable" class="email"><b><i class="fa fa-envelope" aria-hidden="true"></i> Email: </b>*******</p>
                 
                 <div class="email"> <small>Kullanıcı gizliliği ve güvenliği için, telefon ve email bilgilerini diğer kullanıcılar göremez</small></div>
                 <!--

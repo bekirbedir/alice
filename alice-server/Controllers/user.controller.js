@@ -425,7 +425,7 @@ if(await genericFunction.isSelfRequest(req.userId,req.body._id)){
     user.biography = req.body.biography
     user.email = req.body.email
     user.birthDate = req.body.birthDate
-    //    user.phone = req.body.phone
+    user.phone = req.body.phone
 
     user.save().then(result => {
       res.status(200).json({

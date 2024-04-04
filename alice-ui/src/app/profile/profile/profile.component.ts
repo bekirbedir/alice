@@ -12,6 +12,7 @@ import { Store, Select } from '@ngxs/store';
 import {
   GetActivityDetail,
 } from 'src/app/store/actions/activity.action';
+import { UserService } from 'src/app/users/user.service';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -24,6 +25,11 @@ export class ProfileComponent {
   files: any
   loading: Boolean
   editMode: Boolean
+  editPhone: Boolean
+  isSendSms=false
+  phoneDisable:Boolean = false;
+  code=Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
+  userCode:number
   isEditable: Boolean = false;
   userId: String = '';
   fileName: String;
@@ -50,7 +56,7 @@ export class ProfileComponent {
   myActivities: Activity[];
   joinedActivities: Activity[];
 
-  constructor(private service: ProfilService, private _sanitizer: DomSanitizer,
+  constructor(private service: ProfilService, private userService: UserService, private _sanitizer: DomSanitizer,
     private imageCompress: NgxImageCompressService,
     private messageService: MessageService,
     private router: Router,
@@ -63,6 +69,7 @@ export class ProfileComponent {
 
     this.User = new UserModel()
     this.editMode = false;
+    this.editPhone = false;
 
     this.tr = {
       firstDayOfWeek: 1,
@@ -82,16 +89,14 @@ export class ProfileComponent {
         this.userId = params.get('id');
         this.service.getMyProfil(this.userId).subscribe(x => {
           if (localStorage.getItem('userId').replace("\"", "").replace("\"", "") == x._id) {
-            this.isEditable = true;
-            console.log('bird', x.birthDate)
-          
+            this.isEditable = true;         
           } else {
             this.rateAccept();
           }
           this.votesInfos();
           this.joinActivityInfos();
-          this.sellersPermitString = x.userPhoto
-          this.User = x
+          this.sellersPermitString = x.userPhoto;
+          this.User = x;
           this.User.birthDate = new Date(x.birthDate);
           this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'
             + this.sellersPermitString);
@@ -333,6 +338,40 @@ export class ProfileComponent {
         }
       })
     }
+  }
+
+  sendSms(){
+    if(this.User.phone==undefined || null || this.User.phone.length !=14){
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail:'Eksik veya hatalı bir numara' });
+      return
+    }
+    this.userService.postSmsCode(this.User.phone,this.code).subscribe(x=>{
+      if(x.status==true){
+        this.messageService.add({ key: 'tc', severity: 'success', summary: 'Sms Gönderildi', detail:'Telefonuna gelen sms onay kodunu ilgili alana yaz lütfen' });
+        this.phoneDisable = true;
+        this.isSendSms=true 
+      }
+      else{
+        this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: x.message });
+        this.isSendSms=false
+      }
+    })
+  }
+
+  savePhone(){
+    if (this.code*2-1428 != this.userCode ) {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Sms onay kodunuz doğru değil' });
+    } else{
+      this.service.updateUser(this.User).subscribe(x => {
+        if (x.status)
+          this.messageService.add({ key: 'tc', severity: 'success', summary: 'Telefon Numaranız Güncellendi!' });
+          this.editPhone = false;
+      })
+    }
+  }
+
+  handleCancel(){
+    this.editPhone=false;
   }
 
   photoLinkCreate(link) {

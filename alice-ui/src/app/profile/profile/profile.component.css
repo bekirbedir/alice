@@ -144,4 +144,32 @@
 
 .profile-tag{
     font-size: 0.8em;
+    padding: 0.3rem 0.5rem;
+}
+
+:host ::ng-deep .phone-input input{
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+.verify-button, :host ::ng-deep .ui-calendar-button{
+    border-top-right-radius: 0.5em ;
+    border-bottom-right-radius: 0.5em;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.fa-pencil, .fa-times{
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.fa-times{
+    height: inherit;
+    display: flex;
+    align-items: center;
+}
+
+.fa-pencil:hover, .fa-times:hover{
+    transform: scale(1.1);
 }

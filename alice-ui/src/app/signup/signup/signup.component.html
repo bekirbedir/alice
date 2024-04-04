@@ -55,10 +55,10 @@
 
             <div class="w-100 flex mt-15">
               <span class="ui-float-label">
-                <p-inputMask  mask="(999) 999-9999" [(ngModel)]="user.phone"  class="w-100" [disabled]="phoneDisable"></p-inputMask>
+                <p-inputMask  mask="(999) 999-9999" [(ngModel)]="user.phone"  class="phone-input" [disabled]="phoneDisable"></p-inputMask>
                 <label for="float-input">Telefon<small> (5xx) 123-4567</small></label>
               </span>
-              <button pButton label="Doğrula" (click)="sendSms()" [disabled]="phoneDisable"></button>
+              <button pButton label="Doğrula" (click)="sendSms()" [disabled]="phoneDisable" class="verify-button"></button>
             </div>
 
             <div class="w-100" *ngIf="isSendSms">

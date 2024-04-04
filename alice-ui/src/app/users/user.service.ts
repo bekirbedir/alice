@@ -17,35 +17,31 @@ export class UserService {
   constructor(private _httpClient:HttpClient) { }
   getFriendList(): Observable<Friend[]> {
     return this._httpClient
-      .get<Friend[]>(this.valuesUrl+"admin/users/getall")
-      .pipe(
-        map((res) => res)
-      );
-  } 
+    .get<Friend[]>(this.valuesUrl+"admin/users/getall")
+    .pipe(
+      map((res) => res)
+    );
+  }
 
   getProfile(): Observable<UserModel> {
     return this._httpClient
-      .get<UserModel>(this.valuesUrl)
-      .pipe(
-        map((res) => res),
-      );
+    .get<UserModel>(this.valuesUrl)
+    .pipe(
+      map((res) => res),
+    );
   } 
 
   captchaControl(responseStr):Observable<any>{
-
     let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-  
     const object = JSON.stringify({recaptcha:responseStr});
-  
-      return this._httpClient
-      .get<any>(this.valuesUrl+"captchaControl")
-      .pipe(
-        map((res) => res),
-      );
+    return this._httpClient
+    .get<any>(this.valuesUrl+"captchaControl")
+    .pipe(
+      map((res) => res),
+    );
   }
 
-  postSmsCode(number,code):Observable<any>
-  {
+  postSmsCode(number,code):Observable<any>{
     const transferObject = {'number':number , 'code':code};
     let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     const object = JSON.stringify(transferObject);
@@ -53,58 +49,40 @@ export class UserService {
     .post<ResponseModel>(this.valuesUrl+"sms/sendSms",object, { headers: header })
     .pipe(
       map((res) => res)
-    );
-    
-   }
-
-  
+    );  
+  }
  
   creatUser(user:User):Observable<ResponseModel>{
-
-  let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-
-  const object = JSON.stringify(user);
-
+    let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(user);
     return this._httpClient
     .post<ResponseModel>(this.valuesUrl+"login/signup",object,{headers: header})
     .pipe(
       map((res) => res),
     );
-}
-
-
-allUsers(search): Observable<UserModel[]> {
-  
-  const transferObject = {
-    search: search
   }
-  let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-  const object = JSON.stringify(transferObject);
-  return this._httpClient
+
+  allUsers(search): Observable<UserModel[]> {
+    const transferObject = {
+      search: search
+    }
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    return this._httpClient
     .post<UserModel[]>(this.valuesUrl + "users/allUsers", object, { headers: header })
     .pipe(
       map((res) => res)
     );
-}
-
-
-birthdayUsers(): Observable<UserModel[]> {
-  
-  const transferObject = {
   }
-  let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-  const object = JSON.stringify(transferObject);
-  return this._httpClient
+
+  birthdayUsers(): Observable<UserModel[]> { 
+    const transferObject = {}
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    return this._httpClient
     .post<UserModel[]>(this.valuesUrl + "users/birthdayUsers", object, { headers: header })
     .pipe(
       map((res) => res)
     );
-}
-
-
-
-
   }
-
-
-
+}
