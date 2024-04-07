@@ -19,7 +19,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import {DialogModule} from 'primeng/dialog';
 import {ChartModule} from 'primeng/chart';
 import {TabViewModule} from 'primeng/tabview';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 const routes: Routes = [
   { 
@@ -56,7 +55,6 @@ const routes: Routes = [
     TabViewModule,
     CalendarModule,
     RouterModule.forChild(routes),
-    InputNumberModule
   ],
   providers: [NgxImageCompressService],
 })

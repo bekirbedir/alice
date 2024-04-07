@@ -51,6 +51,17 @@ export class UserService {
       map((res) => res)
     );  
   }
+
+  postEmailCode(email,newEmail,code):Observable<any>{  
+    const transferObject = {email, newEmail, code};
+    let header: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    const object = JSON.stringify(transferObject);
+    return this._httpClient
+    .post<ResponseModel>(this.valuesUrl+"users/sendEmail",object, { headers: header })
+    .pipe(
+      map((res) => res)
+    );  
+  }
  
   creatUser(user:User):Observable<ResponseModel>{
     let header:HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');

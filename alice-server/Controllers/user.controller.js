@@ -505,8 +505,28 @@ router.post("/savePassword", (req, res) => {
 
 })
 
+router.post("/sendEmail", (req, res) => {
+  let code=Math.floor((req.body.code)*1.75-2345)
+  User.findOne({ email: req.body.newEmail}, function (err, user) {
+    if(user){
+      res.status(200).json({
+        status: false,
+        message: "Bu mail adresi daha önce kullanılmıştır."
+      })
+    }
+    else{
+      textHtml = "<b>Email onay kodunuz: "+ code +"</b>"
+      subject = "ActivityFriend email onay kodu"
+      mailler.main(req.body.email, subject, textHtml);
+    
+      res.status(200).json({
+        status: true,
+        toastType: 'success',
+        message: "Sistemde kayıtlı olan mail adresinize, onay kodu gönderildi."
+      })
+    }     
+  })
+})
 
 
 module.exports = router;
-
-

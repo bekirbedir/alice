@@ -22,12 +22,16 @@ import { UserService } from 'src/app/users/user.service';
 export class ProfileComponent {
   imagePath: any
   User: any
+  originalUser: any
   files: any
   loading: Boolean
   editMode: Boolean
   editPhone: Boolean
-  isSendSms=false
+  editEmail: Boolean
+  isSendSms: Boolean=false
+  isSendEmail: Boolean =false
   phoneDisable:Boolean = false;
+  emailDisable:Boolean = false;
   code=Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
   userCode:number
   isEditable: Boolean = false;
@@ -67,9 +71,12 @@ export class ProfileComponent {
     this.baseUrl = environment.apiBaseUrl
     this.uploadUrl = this.baseUrl + "users/upload"
 
-    this.User = new UserModel()
+    this.User = new UserModel();
+    this.originalUser = new UserModel();
+
     this.editMode = false;
     this.editPhone = false;
+    this.editEmail = false;
 
     this.tr = {
       firstDayOfWeek: 1,
@@ -102,6 +109,10 @@ export class ProfileComponent {
             + this.sellersPermitString);
         })
 
+        this.service.getMyProfil(this.userId).subscribe(x => {
+          this.originalUser = x;
+          this.originalUser.birthDate = new Date(x.birthDate);
+        })
         this.service.getMyActivities(this.userId).subscribe(x => {
           this.myActivities = x;
         })
@@ -365,13 +376,71 @@ export class ProfileComponent {
       this.service.updateUser(this.User).subscribe(x => {
         if (x.status)
           this.messageService.add({ key: 'tc', severity: 'success', summary: 'Telefon Numaranız Güncellendi!' });
+          this.originalUser.phone = this.User.phone;
+          this.phoneDisable = false;
+          this.isSendSms = false;
+          this.userCode = null;
           this.editPhone = false;
       })
     }
   }
 
-  handleCancel(){
-    this.editPhone=false;
+  sendEmail(){
+    if(this.User.email==undefined || null || this.User.email.length < 5 || !this.User.email.includes('@')){
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail:'Eksik veya hatalı bir email' });
+      return
+    }
+    this.userService.postEmailCode(this.originalUser.email, this.User.email, this.code).subscribe(x=>{
+      if(x.status==true){
+        this.messageService.add({ key: 'tc', severity: 'success', summary: 'Email Gönderildi', detail:'Mail adresine gelen onay kodunu ilgili alana yaz lütfen' });
+        this.emailDisable = true;
+        this.isSendEmail = true 
+      }
+      else{
+        this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: x.message });
+        this.isSendEmail=false
+      }
+    })
+  }
+
+  saveEmail(){
+    if (Math.floor(this.code*1.75-2345) != this.userCode ) {
+      this.messageService.add({ key: 'tc', severity: 'warn', summary: 'Hata', detail: 'Email onay kodunuz doğru değil' });
+    } else{
+      this.service.updateUser(this.User).subscribe(x => {
+        if (x.status)
+          this.messageService.add({ key: 'tc', severity: 'success', summary: 'Mail Adresiniz Güncellendi!' });
+          this.originalUser.email = this.User.email;
+          this.emailDisable = false;
+          this.isSendEmail = false;
+          this.userCode = null;
+          this.editEmail = false;
+      })
+    }
+  }
+
+  handleCancel(item){
+    if(item == "phone"){
+      this.editPhone = false;
+      this.phoneDisable = false;
+      this.isSendSms = false;
+      this.userCode = null;
+      this.User.phone = this.originalUser.phone
+    }
+    if(item == "email"){
+      this.editEmail = false;
+      this.emailDisable = false;
+      this.isSendEmail = false;
+      this.userCode = null;
+      this.User.email = this.originalUser.email
+    }
+    if(item == "profile"){
+      this.editMode = false;
+      this.User.name = this.originalUser.name;
+      this.User.biography = this.originalUser.biography;
+      this.User.birthDate = this.originalUser.birthDate;
+      this.User.tagList = this.originalUser.tagList;
+    }
   }
 
   photoLinkCreate(link) {

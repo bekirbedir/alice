@@ -152,6 +152,11 @@
     border-bottom-right-radius: 0 !important;
 }
 
+:host ::ng-deep .phone-input.ui-inputtext{
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
 .verify-button, :host ::ng-deep .ui-calendar-button{
     border-top-right-radius: 0.5em ;
     border-bottom-right-radius: 0.5em;

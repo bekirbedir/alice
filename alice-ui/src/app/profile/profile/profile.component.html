@@ -45,7 +45,7 @@
 
             <div [hidden]="!editMode" class="flex flex-row" style="gap: 0.5em">
                 <button class="btn success-button" (click)="updateUser()">Kaydet</button>
-                <button class="btn danger-button" (click)="editMode = false">Vazgeç</button>
+                <button class="btn danger-button" (click)="handleCancel('profile')">Vazgeç</button>
             </div>
 
             <div class="mt-10">
@@ -61,27 +61,18 @@
                     <p-calendar [(ngModel)]="User.birthDate" [showTime]="false" hourFormat="24" showButtonBar="false" class="w-100" [yearNavigator]="true" yearRange="1975:2002" dateFormat="dd.mm.yy" [locale]="tr" [showIcon]="true" inputId="icon"></p-calendar>              
                 </div>
 
-                <!-- <div [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
-                    <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email" class="w-100">
-                    <label for="float-input">Email</label>
-                </div>
-                <div [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
-                    <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.phone" class="w-100">
-                    <label for="float-input">Telefon</label>
-                </div> -->
-
                 <div [hidden]="!editPhone" class="w-100 flex mt-15">
                     <span class="ui-float-label">
                       <p-inputMask  mask="(999) 999-9999" [(ngModel)]="User.phone"  class="phone-input" [disabled]="phoneDisable"></p-inputMask>
                       <label for="float-input">Telefon<small> (5xx) 123-4567</small></label>
                     </span>
                     <button pButton label="Doğrula" (click)="sendSms()" [disabled]="phoneDisable" class="verify-button"></button>
-                    <i class="fa fa-times" aria-hidden="true" title="Vazgeç" (click)="handleCancel()"></i>
+                    <i class="fa fa-times" aria-hidden="true" title="Vazgeç" (click)="handleCancel('phone')"></i>
                 </div>
 
                 <div *ngIf="isSendSms && editPhone" class="w-100 flex mt-15">
                     <span class="ui-float-label">
-                      <p-inputMask  mask="9999999" [(ngModel)]="userCode"  class="phone-input"></p-inputMask>
+                      <input pInputText type="number" [(ngModel)]="userCode" class="phone-input">
                       <label for="float-input">Sms onay kodu</label>
                     </span>
                     <button pButton label="Güncelle" (click)="savePhone()" class="verify-button"></button>
@@ -93,19 +84,30 @@
                 </p>
                 <p [hidden]="isEditable" class=""><b><i class="fa fa-phone" aria-hidden="true"></i> Telefon: </b>*******</p>
 
-                <p [hidden]="!isEditable" class="email">
+                <div [hidden]="!editEmail" class="w-100 flex mt-15">
+                    <span class="ui-float-label">
+                        <input id="float-input" type="email" pInputText [(ngModel)]="User.email" class="phone-input" [disabled]="emailDisable">
+                        <label for="float-input">Yeni Email</label>
+                    </span>
+                    <button pButton label="Gönder" (click)="sendEmail()" class="verify-button" [disabled]="emailDisable"></button>
+                    <i class="fa fa-times" aria-hidden="true" title="Vazgeç" (click)="handleCancel('email')"></i>
+                </div>
+
+                <div *ngIf="isSendEmail && editEmail" class="w-100 flex mt-15">
+                    <span class="ui-float-label">
+                      <input pInputText type="number" [(ngModel)]="userCode" class="phone-input">
+                      <label for="float-input">Email onay kodu</label>
+                    </span>
+                    <button pButton label="Güncelle" (click)="saveEmail()" class="verify-button"></button>
+                </div>
+
+                <p [hidden]="!isEditable || editEmail" class="email">
                     <b><i class="fa fa-envelope" aria-hidden="true"></i> Email: </b>{{User.email}}
+                    <i class="fa fa-pencil" aria-hidden="true" title="Emaili düzenle" (click)="editEmail=true"></i>
                 </p>
                 <p [hidden]="isEditable" class="email"><b><i class="fa fa-envelope" aria-hidden="true"></i> Email: </b>*******</p>
                 
                 <div class="email"> <small>Kullanıcı gizliliği ve güvenliği için, telefon ve email bilgilerini diğer kullanıcılar göremez</small></div>
-                <!--
-                <span [hidden]="!editMode" class="ui-float-label" style="margin-top:15px !important">
-                    <input id="float-input" type="text" size="100" pInputText [(ngModel)]="User.email"
-                        class="w-100">
-                    <label for="float-input">Email</label>
-                </span>
-                -->
             </div>
 
             <div class="text-left">
@@ -172,7 +174,7 @@
             </div>
             <div [hidden]="!editMode" class="flex flex-row" style="gap: 0.5em">
                 <button class="btn success-button" (click)="updateUser()">Kaydet</button>
-                <button class="btn danger-button" (click)="editMode = false">Vazgeç</button>
+                <button class="btn danger-button" (click)="handleCancel('profile')">Vazgeç</button>
             </div>
         </div>
     </div>
